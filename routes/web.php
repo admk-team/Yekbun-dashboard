@@ -190,9 +190,9 @@ Route::get('/charts/apex', $controller_path . '\charts\ApexCharts@index')->name(
 Route::get('/charts/chartjs', $controller_path . '\charts\ChartJs@index')->name('charts-chartjs');
 
 // User 
-Route::get('/user/standard' ,$controller_path .'\user\Standard@index')->name('user-standard');
-Route::get('/user/premium' ,$controller_path .'\user\Premium@index')->name('user-premium');
-Route::get('/user/diamond' ,$controller_path .'\user\Diamond@index')->name('user-diamond');
+Route::get('/user/standard' ,$controller_path .'\User\Standard@index')->name('user-standard');
+Route::get('/user/premium' ,$controller_path .'\User\Premium@index')->name('user-premium');
+Route::get('/user/diamond' ,$controller_path .'\User\Diamond@index')->name('user-diamond');
 // Post
 Route::get('/post' , $controller_path .'\post\Post@index')->name('post');
 // maps
