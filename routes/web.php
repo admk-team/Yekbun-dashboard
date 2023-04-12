@@ -193,6 +193,8 @@ Route::get('/charts/chartjs', $controller_path . '\charts\ChartJs@index')->name(
 Route::get('/user/standard' ,$controller_path .'\user\Standard@index')->name('user-standard');
 Route::get('/user/premium' ,$controller_path .'\user\Premium@index')->name('user-premium');
 Route::get('/user/diamond' ,$controller_path .'\user\Diamond@index')->name('user-diamond');
+// Post
+Route::get('/post' , $controller_path .'\post\Post@index')->name('post');
 // maps
 Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');
 

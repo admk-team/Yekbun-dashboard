@@ -31,10 +31,7 @@
       "name": "User",
       "icon": "menu-icon tf-icons bx bx-home-circle",
       "slug": "user",
-      "badge": [
-        "primary",
-        "3"
-      ],
+     
       "submenu": [
         {
           "url": "/user/standard",
@@ -53,7 +50,13 @@
         }
       ]
     },
-    
+ 
+    {
+      "name": "Post",
+      "icon": "menu-icon tf-icons bx bx-layout",
+      "slug": "post",      
+      "url" :"/post/post"     
+    },
     
     {
       "name": "Layouts",
