@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\laravel_example\UserManagement;
-use App\Http\Controllers\User\Diamond;
-use App\Http\Controllers\User\Premium;
-use App\Http\Controllers\User\Standard;
+use App\Http\Controllers\user\diamond;
+use App\Http\Controllers\user\dremium;
+use App\Http\Controllers\user\standard;
 
 /*
 |--------------------------------------------------------------------------
