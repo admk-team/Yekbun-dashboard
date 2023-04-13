@@ -223,6 +223,8 @@ Route::get('/app/history', $controller_path . '\apps\history\History@index')->na
 Route::get('/app/history/add-history', $controller_path . '\apps\history\History@create')->name('app-history-create');
 // Tickets
 Route::get('/app/tickets' , $controller_path . '\apps\tickets\Ticket@index')->name('app-ticket');
+// InCome
+Route::get('/app/income' , $controller_path . '\apps\income\Income@index')->name('app-income');
 // maps
 Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');
 

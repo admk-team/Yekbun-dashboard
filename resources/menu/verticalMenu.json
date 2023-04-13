@@ -181,6 +181,12 @@
       "slug":"app-ticket"
     },
     {
+      "url":"app/income",
+      "name":"Income",
+      "icon":"menu-icon tf-icons bx bx-box",
+      "slug":"app-income"
+    },
+    {
       "url": "app/email",
       "name": "Email",
       "icon": "menu-icon tf-icons bx bx-envelope",
