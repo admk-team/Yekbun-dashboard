@@ -234,6 +234,10 @@ Route::get('/app/voting/add-voting' , $controller_path . '\apps\voting\Voting@cr
 // Media
 Route::get('/app/media' , $controller_path . '\apps\media\Media@index')->name('app-media');
 Route::get('/app/media/add-media' , $controller_path . '\apps\media\Media@create')->name('app-media-create');
+// Bazar
+Route::get('/app/bazar' , $controller_path . '\apps\bazar\Bazar@index')->name('app-bazar');
+Route::get('/app/bazar/category' , $controller_path . '\apps\bazar\Bazar@show_category')->name('app-bazar-category');
+
 // maps
 Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');
 

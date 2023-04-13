@@ -204,6 +204,12 @@
       "slug":"app-media"
     },
     {
+      "url":"app/bazar",
+      "name":"Bazar",
+      "icon":"menu-icon tf-icons bx bx-box",
+      "slug":"app-bazar"
+    },
+    {
       "url": "app/email",
       "name": "Email",
       "icon": "menu-icon tf-icons bx bx-envelope",
