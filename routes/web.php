@@ -194,7 +194,22 @@ Route::get('/user/standard' ,$controller_path .'\user\Standard@index')->name('us
 Route::get('/user/premium' ,$controller_path .'\user\Premium@index')->name('user-premium');
 Route::get('/user/diamond' ,$controller_path .'\user\Diamond@index')->name('user-diamond');
 // Post
-Route::get('/post' , $controller_path .'\post\Post@index')->name('post');
+Route::get('/app/post', $controller_path . '\apps\posts\Post@index')->name('app-post');
+// News
+Route::get('/app/news', $controller_path . '\apps\news\News@index')->name('app-news');
+Route::get('/app/news/add-news', $controller_path . '\apps\news\News@Create')->name('app-news-create');
+
+// Music
+Route::get('/musics/music', $controller_path . '\musics\music\Music@index')->name('music');
+Route::get('/musics/add-music', $controller_path . '\musics\music\Music@create')->name('music-create');
+
+//artist
+Route::get('/musics/artist', $controller_path . '\musics\artist\Artist@index')->name('music-artist');
+Route::get('/musics/add-artist', $controller_path . '\musics\artist\Artist@create')->name('music-artist-create');
+
+// Video 
+Route::get('/app/videos', $controller_path . '\apps\video\Video@index')->name('app-video');
+Route::get('/app/videos/add-video', $controller_path . '\apps\video\Video@create')->name('app-video-create');
 // maps
 Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');
 

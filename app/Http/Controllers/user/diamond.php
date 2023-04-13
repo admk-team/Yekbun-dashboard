@@ -12,3 +12,4 @@ class Diamond extends Controller
     return view('content.user.diamond');
   }
 }
+s

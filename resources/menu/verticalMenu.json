@@ -50,14 +50,23 @@
         }
       ]
     },
- 
     {
-      "name": "Post",
-      "icon": "menu-icon tf-icons bx bx-layout",
-      "slug": "post",      
-      "url" :"/post/post"     
+      "name": "Music",
+      "icon": "menu-icon tf-icons bx bx-home-circle",
+      "slug": "music",
+      "submenu": [
+        {
+          "url": "/musics/music",
+          "name": "Music",
+          "slug": "music"
+        },
+        {
+          "url": "/musics/artist",
+          "name": "Artist",
+          "slug": "artist"
+        }
+      ]
     },
-    
     {
       "name": "Layouts",
       "icon": "menu-icon tf-icons bx bx-layout",
@@ -127,6 +136,26 @@
     {
       "menuHeader": "Apps & Pages"
     },
+    { 
+      "url": "app/post",
+      "name": "Post",
+      "icon": "menu-icon tf-icons bx bx-map-alt",
+      "slug": "app-post" 
+    },
+    {
+      "url": "app/videos",
+      "name": "Video",
+      "icon": "menu-icon tf-icons bx bx-map-alt",
+      "slug": "app-video" 
+    },
+    {
+      
+      "url": "app/news",
+      "name": "News",
+      "icon": "menu-icon tf-icons bx bx-map-alt",
+      "slug": "app-news" 
+    },
+    
     {
       "url": "app/email",
       "name": "Email",
@@ -151,6 +180,7 @@
       "icon": "menu-icon tf-icons bx bx-grid",
       "slug": "app-kanban"
     },
+    
     {
       "name": "Invoice",
       "icon": "menu-icon tf-icons bx bx-food-menu",
