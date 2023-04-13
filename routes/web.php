@@ -5,7 +5,7 @@ use App\Http\Controllers\laravel_example\UserManagement;
 use App\Http\Controllers\user\diamond;
 use App\Http\Controllers\user\premium;
 use App\Http\Controllers\user\standard;
-use App\Http\Controllers\fanpage\FanPage;
+use App\Http\Controllers\fanpage\fanPage;
 
 /*
 |--------------------------------------------------------------------------
