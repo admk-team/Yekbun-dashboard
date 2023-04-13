@@ -237,6 +237,15 @@ Route::get('/app/media/add-media' , $controller_path . '\apps\media\Media@create
 // Bazar
 Route::get('/app/bazar' , $controller_path . '\apps\bazar\Bazar@index')->name('app-bazar');
 Route::get('/app/bazar/category' , $controller_path . '\apps\bazar\Bazar@show_category')->name('app-bazar-category');
+// Fan Page
+Route::get('/new-request' , $controller_path . '\fanpage\FanPage@new_request_index')->name('new-request');
+Route::get('/manage-fanpage' , $controller_path . '\fanpage\FanPage@manage_fan_page_index')->name('manage_fan_page');
+Route::get('/blocked-fanpage' , $controller_path . '\fanpage\FanPage@block_fan_page_index')->name('block_fan_page');
+
+// Report Page
+Route::get('/new-request' , $controller_path . '\fanpage\FanPage@new_request_index')->name('new-request');
+Route::get('/manage-fanpage' , $controller_path . '\fanpage\FanPage@manage_fan_page_index')->name('manage_fan_page');
+Route::get('/blocked-fanpage' , $controller_path . '\fanpage\FanPage@block_fan_page_index')->name('block_fan_page');
 
 // maps
 Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');

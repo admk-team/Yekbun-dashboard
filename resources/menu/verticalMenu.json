@@ -133,6 +133,89 @@
       ]
     },
     {
+      "name": "Online Shop",
+      "icon": "menu-icon tf-icons bx bx-home-circle",
+      "slug": "online-shop",
+      "submenu": [
+        {
+          "url": "/dashboard",
+          "name": "dashboard",
+          "slug": "dashboard"
+        },
+        {
+          "url": "/add/category",
+          "name": "Category",
+          "slug": "category"
+        },
+        {
+          "url": "/add/items",
+          "name": "Items",
+          "slug": "item"
+        },
+        {
+          "url": "/Manage/items",
+          "name": "Items",
+          "slug": "item"
+        },
+        {
+          "url": "/orders",
+          "name": "Order",
+          "slug": "order"
+        },
+        {
+          "url": "/cancels",
+          "name": "cancels",
+          "slug": "cancels"
+        }
+        ,
+        {
+          "url": "/in-shipping",
+          "name": "In-Shipping",
+          "slug": "In-shipings"
+        }
+      ]
+    },
+    {
+      "name": "FanPage",
+      "icon": "menu-icon tf-icons bx bx-home-circle",
+      "slug": "fan-page",
+      "submenu": [
+        {
+          "url": "/new-request",
+          "name": "New Request",
+          "slug": "new-request"
+        },
+        {
+          "url": "/manage-fanpage",
+          "name": "Manage Fan Page",
+          "slug": "manage-fan-page"
+        }
+        ,
+        {
+          "url": "/blocked-fanpage",
+          "name": "Blocked Fan Page",
+          "slug": "block-fan-page"
+        }
+      ]
+    },
+    {
+      "name": "Report",
+      "icon": "menu-icon tf-icons bx bx-home-circle",
+      "slug": "report",
+      "submenu": [
+        {
+          "url": "/user-report",
+          "name": "User Report",
+          "slug": "user-report"
+        },
+        {
+          "url": "/user-warning",
+          "name": "User Warning",
+          "slug": "user-warning"
+        }
+      ]
+    },
+    {
       "menuHeader": "Apps & Pages"
     },
     { 
