@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\laravel_example\UserManagement;
-use App\Http\Controllers\user\diamond;
-use App\Http\Controllers\user\premium;
-use App\Http\Controllers\user\standard;
-use App\Http\Controllers\fanpage\fanPage;
+use App\Http\Controllers\user\Diamond;
+use App\Http\Controllers\user\Premium;
+use App\Http\Controllers\user\Standard;
+use App\Http\Controllers\fanpage\FanPage;
 
 /*
 |--------------------------------------------------------------------------
