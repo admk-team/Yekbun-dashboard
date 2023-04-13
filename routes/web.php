@@ -231,6 +231,9 @@ Route::get('/app/donation/add-donation' , $controller_path . '\apps\donation\Don
 // Voting
 Route::get('/app/voting' , $controller_path . '\apps\voting\Voting@index')->name('app-voting');
 Route::get('/app/voting/add-voting' , $controller_path . '\apps\voting\Voting@create')->name('app-voting-create');
+// Media
+Route::get('/app/media' , $controller_path . '\apps\media\Media@index')->name('app-media');
+Route::get('/app/media/add-media' , $controller_path . '\apps\media\Media@create')->name('app-media-create');
 // maps
 Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');
 

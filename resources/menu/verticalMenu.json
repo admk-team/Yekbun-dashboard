@@ -198,6 +198,12 @@
       "slug":"app-voting"
     },
     {
+      "url":"app/media",
+      "name":"Media",
+      "icon":"menu-icon tf-icons bx bx-box",
+      "slug":"app-media"
+    },
+    {
       "url": "app/email",
       "name": "Email",
       "icon": "menu-icon tf-icons bx bx-envelope",
