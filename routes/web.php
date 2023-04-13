@@ -225,6 +225,12 @@ Route::get('/app/history/add-history', $controller_path . '\apps\history\History
 Route::get('/app/tickets' , $controller_path . '\apps\tickets\Ticket@index')->name('app-ticket');
 // InCome
 Route::get('/app/income' , $controller_path . '\apps\income\Income@index')->name('app-income');
+// Donation
+Route::get('/app/donation' , $controller_path . '\apps\donation\Donation@index')->name('app-donation');
+Route::get('/app/donation/add-donation' , $controller_path . '\apps\donation\Donation@create')->name('app-donation-create');
+// Voting
+Route::get('/app/voting' , $controller_path . '\apps\voting\Voting@index')->name('app-voting');
+Route::get('/app/voting/add-voting' , $controller_path . '\apps\voting\Voting@create')->name('app-voting-create');
 // maps
 Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');
 

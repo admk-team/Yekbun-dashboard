@@ -26,47 +26,6 @@
         }
       ]
     },
-
-    {
-      "name": "User",
-      "icon": "menu-icon tf-icons bx bx-home-circle",
-      "slug": "user",
-     
-      "submenu": [
-        {
-          "url": "/user/standard",
-          "name": "Standard",
-          "slug": "user-standard"
-        },
-        {
-          "url": "/user/premium",
-          "name": "Premium",
-          "slug": "user-premium"
-        },
-        {
-          "url": "/user/diamond",
-          "name": "Diamond",
-          "slug": "user-diamond"
-        }
-      ]
-    },
-    {
-      "name": "Music",
-      "icon": "menu-icon tf-icons bx bx-home-circle",
-      "slug": "music",
-      "submenu": [
-        {
-          "url": "/musics/music",
-          "name": "Music",
-          "slug": "music"
-        },
-        {
-          "url": "/musics/artist",
-          "name": "Artist",
-          "slug": "artist"
-        }
-      ]
-    },
     {
       "name": "Layouts",
       "icon": "menu-icon tf-icons bx bx-layout",
@@ -134,6 +93,46 @@
       ]
     },
     {
+      "name": "User",
+      "icon": "menu-icon tf-icons bx bx-home-circle",
+      "slug": "user",
+     
+      "submenu": [
+        {
+          "url": "/user/standard",
+          "name": "Standard",
+          "slug": "user-standard"
+        },
+        {
+          "url": "/user/premium",
+          "name": "Premium",
+          "slug": "user-premium"
+        },
+        {
+          "url": "/user/diamond",
+          "name": "Diamond",
+          "slug": "user-diamond"
+        }
+      ]
+    },
+    {
+      "name": "Music",
+      "icon": "menu-icon tf-icons bx bx-home-circle",
+      "slug": "music",
+      "submenu": [
+        {
+          "url": "/musics/music",
+          "name": "Music",
+          "slug": "music"
+        },
+        {
+          "url": "/musics/artist",
+          "name": "Artist",
+          "slug": "artist"
+        }
+      ]
+    },
+    {
       "menuHeader": "Apps & Pages"
     },
     { 
@@ -185,6 +184,18 @@
       "name":"Income",
       "icon":"menu-icon tf-icons bx bx-box",
       "slug":"app-income"
+    },
+    {
+      "url":"app/donation",
+      "name":"Donation",
+      "icon":"menu-icon tf-icons bx bx-box",
+      "slug":"app-donation"
+    },
+    {
+      "url":"app/voting",
+      "name":"Voting",
+      "icon":"menu-icon tf-icons bx bx-box",
+      "slug":"app-voting"
     },
     {
       "url": "app/email",
