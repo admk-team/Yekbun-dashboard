@@ -5,6 +5,7 @@ use App\Http\Controllers\laravel_example\UserManagement;
 use App\Http\Controllers\user\diamond;
 use App\Http\Controllers\user\premium;
 use App\Http\Controllers\user\standard;
+use App\Http\Controllers\fanpage\FanPage;
 
 /*
 |--------------------------------------------------------------------------
@@ -238,9 +239,9 @@ Route::get('/app/media/add-media' , $controller_path . '\apps\media\Media@create
 Route::get('/app/bazar' , $controller_path . '\apps\bazar\Bazar@index')->name('app-bazar');
 Route::get('/app/bazar/category' , $controller_path . '\apps\bazar\Bazar@show_category')->name('app-bazar-category');
 // Fan Page
-Route::get('/new-request' , $controller_path . '\fanpage\FanPage@new_request_index')->name('new-request');
-Route::get('/manage-fanpage' , $controller_path . '\fanpage\FanPage@manage_fan_page_index')->name('manage_fan_page');
-Route::get('/blocked-fanpage' , $controller_path . '\fanpage\FanPage@block_fan_page_index')->name('block_fan_page');
+Route::get('/new-request' , [FanPage::class, 'new_request_index'])->name('new-request');
+Route::get('/manage-fanpage' , [FanPage::class, 'manage_fan_page_index'])->name('manage_fan_page');
+Route::get('/blocked-fanpage' , [FanPage::class, 'block_fan_page_index'])->name('block_fan_page');
 
 // Report Page
 Route::get('/user-report' , $controller_path . '\report\Report@user_report')->name('user-report');
