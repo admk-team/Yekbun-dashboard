@@ -175,6 +175,12 @@
       "slug": "app-history" 
     },
     {
+      "url":"app/tickets",
+      "name":"Ticket",
+      "icon":"menu-icon tf-icons bx bx-box",
+      "slug":"app-ticket"
+    },
+    {
       "url": "app/email",
       "name": "Email",
       "icon": "menu-icon tf-icons bx bx-envelope",
