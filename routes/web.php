@@ -210,9 +210,12 @@ Route::get('/musics/add-artist', $controller_path . '\musics\artist\Artist@creat
 // Video 
 Route::get('/app/videos', $controller_path . '\apps\video\Video@index')->name('app-video');
 Route::get('/app/videos/add-video', $controller_path . '\apps\video\Video@create')->name('app-video-create');
-// Video 
+// School 
 Route::get('/app/schools', $controller_path . '\apps\school\School@index')->name('app-school');
 Route::get('/app/schools/add-school', $controller_path . '\apps\school\School@create')->name('app-school-create');
+// Events 
+Route::get('/app/events', $controller_path . '\apps\event\Event@index')->name('app-event');
+Route::get('/app/events/add-event', $controller_path . '\apps\event\Event@create')->name('app-event-create');
 // maps
 Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');
 

@@ -162,6 +162,12 @@
       "slug": "app-school" 
     },
     {
+      "url": "app/events",
+      "name": "Event",
+      "icon": "menu-icon tf-icons bx bx-map-alt",
+      "slug": "app-event" 
+    },
+    {
       "url": "app/email",
       "name": "Email",
       "icon": "menu-icon tf-icons bx bx-envelope",
