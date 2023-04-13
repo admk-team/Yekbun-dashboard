@@ -216,6 +216,9 @@ Route::get('/app/schools/add-school', $controller_path . '\apps\school\School@cr
 // Events 
 Route::get('/app/events', $controller_path . '\apps\event\Event@index')->name('app-event');
 Route::get('/app/events/add-event', $controller_path . '\apps\event\Event@create')->name('app-event-create');
+// Events 
+Route::get('/app/history', $controller_path . '\apps\history\History@index')->name('app-history');
+Route::get('/app/history/add-history', $controller_path . '\apps\history\History@create')->name('app-history-create');
 // maps
 Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');
 

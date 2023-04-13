@@ -7,13 +7,17 @@
 @endsection
 
 @section('content')
+<div class="d-flex justify-content-between">
+  <div>
 <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light">Music /</span>All Music
-  </h4>
+</h4>
+</div>
   <div class="">
     <a href="{{ route('music-create') }}">
 <button class="btn btn-primary">Add Music</button>
 </a>
+</div>
 </div>
   <!-- Basic Bootstrap Table -->
   <div class="card">

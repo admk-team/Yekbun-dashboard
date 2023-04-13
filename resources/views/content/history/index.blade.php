@@ -8,14 +8,14 @@
 
 @section('content')
 <div class="d-flex justify-content-between">
-  <div>
-<h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">News /</span> All News
+<div>
+  <h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light">History /</span> All history
 </h4>
 </div>
-<div class="">
-    <a href="{{ route('app-news-create') }}">
-<button class="btn btn-primary">Add News</button>
+<div>
+    <a href="{{ route('app-history-create') }}">
+<button class="btn btn-primary">Add History</button>
 </a>
 </div>
 </div>

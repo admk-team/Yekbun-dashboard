@@ -7,14 +7,17 @@
 @endsection
 
 @section('content')
+<div class="d-flex justify-content-between">
+  <div>
 <h4 class="fw-bold py-3 mb-4">
     <span class="text-muted fw-light">Events /</span> All Events
 </h4>
-
+</div>
 <div class="">
     <a href="{{ route('app-event-create') }}">
 <button class="btn btn-primary">Add Event</button>
 </a>
+</div>
 </div>
   <!-- Basic Bootstrap Table -->
   <div class="card">

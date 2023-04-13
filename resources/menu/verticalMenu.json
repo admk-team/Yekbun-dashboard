@@ -161,11 +161,18 @@
       "icon": "menu-icon tf-icons bx bx-map-alt",
       "slug": "app-school" 
     },
+   
     {
       "url": "app/events",
       "name": "Event",
       "icon": "menu-icon tf-icons bx bx-map-alt",
       "slug": "app-event" 
+    },
+    {
+      "url": "app/history",
+      "name": "History",
+      "icon": "menu-icon tf-icons bx bx-map-alt",
+      "slug": "app-history" 
     },
     {
       "url": "app/email",
