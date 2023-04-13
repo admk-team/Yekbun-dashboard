@@ -243,9 +243,9 @@ Route::get('/manage-fanpage' , $controller_path . '\fanpage\FanPage@manage_fan_p
 Route::get('/blocked-fanpage' , $controller_path . '\fanpage\FanPage@block_fan_page_index')->name('block_fan_page');
 
 // Report Page
-Route::get('/new-request' , $controller_path . '\fanpage\FanPage@new_request_index')->name('new-request');
-Route::get('/manage-fanpage' , $controller_path . '\fanpage\FanPage@manage_fan_page_index')->name('manage_fan_page');
-Route::get('/blocked-fanpage' , $controller_path . '\fanpage\FanPage@block_fan_page_index')->name('block_fan_page');
+Route::get('/user-report' , $controller_path . '\report\Report@user_report')->name('user-report');
+Route::get('/user-warning' , $controller_path . '\report\Report@user_warning')->name('user-warning');
+
 
 // maps
 Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');

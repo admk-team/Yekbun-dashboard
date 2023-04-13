@@ -1098,6 +1098,95 @@
       "name": "Documentation",
       "slug": "documentation",
       "target": "_blank"
+    },
+    {
+      "name": "Settings",
+      "icon": "menu-icon tf-icons bx bx-home-circle",
+      "slug": "setting",
+      "submenu": [
+        {
+          "url": "/language",
+          "name": "Language",
+          "slug": "language"
+        },
+        {
+          "url": "/main-page-setting",
+          "name": "Main Page Setting",
+          "slug": "main-page-setting"
+        }
+        ,
+        {
+          "url": "/ftp-setting",
+          "name": "Ftp Settings",
+          "slug": "ftp-setting"
+        }
+        ,
+        {
+          "url": "/how-it-work",
+          "name": "How it works",
+          "slug": "how-it-work"
+        }
+        ,
+        {
+          "url": "/payment-method",
+          "name": "Payment Method",
+          "slug": "payment-method"
+        }
+        ,
+        {
+          "url": "/payment-offices",
+          "name": "Payment offices",
+          "slug": "payment-offices"
+        }
+        ,
+        {
+          "url": "/page-setting",
+          "name": "Page Setting",
+          "slug": "page-setting"
+        }
+        ,
+        {
+          "url": "/add-admin",
+          "name": "Add Admin",
+          "slug": "add-admin"
+        }
+        ,
+        {
+          "url": "/policy",
+          "name": "Policy and Terms",
+          "slug": "policy"
+        }
+        ,
+        {
+          "url": "/banner-setting",
+          "name": "Banner Setting",
+          "slug": "banner-setting"
+        }
+        ,
+        {
+          "url": "/standard-user-setting",
+          "name": "Standard User Setting",
+          "slug": "standard-user-setting"
+        }
+        ,
+        {
+          "url": "/premium-user-setting",
+          "name": "Premium User Setting",
+          "slug": "premium-user-setting"
+        }
+        ,
+        {
+          "url": "/vip-user-setting",
+          "name": "Vip User Setting",
+          "slug": "vip-user-setting"
+        }
+        ,
+        {
+          "url": "/chat-setting",
+          "name": "Chat Setting",
+          "slug": "chat-setting"
+        }
+      ]
     }
   ]
 }
