@@ -143,19 +143,24 @@
       "slug": "app-post" 
     },
     {
-      "url": "app/videos",
-      "name": "Video",
-      "icon": "menu-icon tf-icons bx bx-map-alt",
-      "slug": "app-video" 
-    },
-    {
       
       "url": "app/news",
       "name": "News",
       "icon": "menu-icon tf-icons bx bx-map-alt",
       "slug": "app-news" 
     },
-    
+    {
+      "url": "app/videos",
+      "name": "Video",
+      "icon": "menu-icon tf-icons bx bx-map-alt",
+      "slug": "app-video" 
+    },
+    {
+      "url": "app/schools",
+      "name": "School",
+      "icon": "menu-icon tf-icons bx bx-map-alt",
+      "slug": "app-school" 
+    },
     {
       "url": "app/email",
       "name": "Email",
