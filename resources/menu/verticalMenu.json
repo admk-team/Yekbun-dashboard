@@ -146,10 +146,10 @@
       "slug": "app-post"
     },
     {
-      "url": "app/news",
+      "url": "/news",
       "name": "News",
       "icon": "menu-icon tf-icons bx bx-news",
-      "slug": "app-news"
+      "slug": "news"
     },
     {
       "url": "app/videos",

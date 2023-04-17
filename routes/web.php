@@ -6,6 +6,8 @@ use App\Http\Controllers\user\Diamond;
 use App\Http\Controllers\user\Premium;
 use App\Http\Controllers\user\Standard;
 use App\Http\Controllers\fanpage\FanPage;
+use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\Admin\NewsCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,9 +73,11 @@ Route::get('/user/diamond' , [Diamond::class, 'index'])->name('user-diamond');
 // Post
 Route::get('/app/post', $controller_path . '\apps\posts\Post@index')->name('app-post');
 // News
-Route::get('/app/news', $controller_path . '\apps\news\News@index')->name('app-news');
-Route::get('/app/news/add-news', $controller_path . '\apps\news\News@Create')->name('app-news-create');
+Route::resource('/news' , NewsController::class);
+Route::get('/news/{id}/{status}' , [NewsController::class , 'status'])->name('news-status');
 
+Route::resource('/news-category' , NewsCategoryController::class);
+Route::get('/news_category/{id}/{status}' , [NewsCategoryController::class, 'status'])->name('newscat-status');
 // Music
 Route::get('/musics/music', $controller_path . '\musics\music\Music@index')->name('music');
 Route::get('/musics/add-music', $controller_path . '\musics\music\Music@create')->name('music-create');
