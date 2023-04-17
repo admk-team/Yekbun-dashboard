@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\NewsController;
+use App\Http\Controllers\Api\NewsCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // News 
 Route::resource('news' , NewsController::class)->only(['index', 'store', 'show', 'destroy']);
+Route::resource('news-category' , NewsCategoryController::class)->only(['index', 'store', 'show', 'destroy']);
