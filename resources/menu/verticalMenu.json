@@ -9,7 +9,6 @@
         "3"
       ],
       "submenu": [
-        
         {
           "url": "/dashboard/ecommerce",
           "name": "eCommerce",
@@ -18,64 +17,9 @@
       ]
     },
     {
-      "name": "Layouts",
-      "icon": "menu-icon tf-icons bx bxs-layout",
-      "slug": "layouts",
-      "submenu": [
-        {
-          "url": "/layouts/collapsed-menu",
-          "name": "Collapsed menu",
-          "slug": "layouts-collapsed-menu"
-        },
-        {
-          "url": "/layouts/content-navbar",
-          "name": "Content navbar",
-          "slug": "layouts-content-navbar"
-        },
-        {
-          "url": "/layouts/content-nav-sidebar",
-          "name": "Content nav + Sidebar",
-          "slug": "layouts-content-nav-sidebar"
-        },
-        {
-          "url": "/layouts/horizontal",
-          "name": "Horizontal",
-          "slug": "layouts-horizontal",
-          "target": "_blank"
-        },
-        {
-          "url": "/layouts/without-menu",
-          "name": "Without menu",
-          "slug": "layouts-without-menu"
-        },
-        {
-          "url": "/layouts/without-navbar",
-          "name": "Without navbar",
-          "slug": "layouts-without-navbar"
-        },
-        {
-          "url": "/layouts/fluid",
-          "name": "Fluid",
-          "slug": "layouts-fluid"
-        },
-        {
-          "url": "/layouts/container",
-          "name": "Container",
-          "slug": "layouts-container"
-        },
-        {
-          "url": "/layouts/blank",
-          "name": "Blank",
-          "slug": "layouts-blank",
-          "target": "_blank"
-        }
-      ]
-    },
-    {
       "name": "User",
       "icon": "menu-icon tf-icons bx bxs-user",
       "slug": "user",
-     
       "submenu": [
         {
           "url": "/user/standard",
@@ -145,8 +89,7 @@
           "url": "/cancels",
           "name": "cancels",
           "slug": "cancels"
-        }
-        ,
+        },
         {
           "url": "/in-shipping",
           "name": "In-Shipping",
@@ -168,8 +111,7 @@
           "url": "/manage-fanpage",
           "name": "Manage Fan Page",
           "slug": "manage-fan-page"
-        }
-        ,
+        },
         {
           "url": "/blocked-fanpage",
           "name": "Blocked Fan Page",
@@ -197,91 +139,35 @@
     {
       "menuHeader": "Apps & Pages"
     },
-    { 
+    {
       "url": "app/post",
       "name": "Post",
       "icon": "menu-icon tf-icons fa fa-bullhorn",
-      "slug": "app-post" 
+      "slug": "app-post"
     },
     {
-      
       "url": "app/news",
       "name": "News",
       "icon": "menu-icon tf-icons bx bx-news",
-      "slug": "app-news" 
+      "slug": "app-news"
     },
     {
       "url": "app/videos",
       "name": "Video",
       "icon": "menu-icon tf-icons fa fa-video-camera",
-      "slug": "app-video" 
+      "slug": "app-video"
     },
     {
       "url": "app/schools",
-      "name": "School",
+      "name": "Zarok App",
       "icon": "menu-icon tf-icons fa fa-graduation-cap",
-      "slug": "app-school" 
+      "slug": "app-school"
     },
-   
     {
       "url": "app/events",
       "name": "Event",
       "icon": "menu-icon tf-icons fa fa-calendar",
-      "slug": "app-event" 
-    },
-    {
-      "url": "app/history",
-      "name": "History",
-      "icon": "menu-icon tf-icons bx bxs-watch",
-      "slug": "app-history" 
-    },
-    {
-      "url":"app/tickets",
-      "name":"Ticket",
-      "icon":"menu-icon tf-icons fa fa-ticket",
-      "slug":"app-ticket"
-    },
-    {
-      "url":"app/income",
-      "name":"Income",
-      "icon":"menu-icon tf-icons bx bxs-wallet",
-      "slug":"app-income"
-    },
-    {
-      "url":"app/donation",
-      "name":"Donation",
-      "icon":"menu-icon tf-icons fa fa-heartbeat",
-      "slug":"app-donation"
-    },
-    {
-      "url":"app/voting",
-      "name":"Voting",
-      "icon":"menu-icon tf-icons fa fa-pie-chart",
-      "slug":"app-voting"
-    },
-    {
-      "url":"app/media",
-      "name":"Media",
-      "icon":"menu-icon tf-icons fa fa-television",
-      "slug":"app-media"
-    },
-    {
-      "url":"app/bazar",
-      "name":"Bazar",
-      "icon":"menu-icon tf-icons fa fa-cart-plus",
-      "slug":"app-bazar"
-    },
-    {
-      "url": "app/email",
-      "name": "Email",
-      "icon": "menu-icon tf-icons bx bxs-envelope",
-      "slug": "app-email"
-    },
-    {
-      "url": "app/chat",
-      "name": "Chat",
-      "icon": "menu-icon tf-icons bx bxs-chat",
-      "slug": "app-chat"
+      "slug": "app-event"
     },
     {
       "url": "app/calendar",
@@ -289,7 +175,49 @@
       "icon": "menu-icon tf-icons bx bxs-calendar",
       "slug": "app-calendar"
     },
-   
+    {
+      "url": "app/history",
+      "name": "History",
+      "icon": "menu-icon tf-icons bx bxs-watch",
+      "slug": "app-history"
+    },
+    {
+      "url": "app/tickets",
+      "name": "Ticket",
+      "icon": "menu-icon tf-icons fa fa-ticket",
+      "slug": "app-ticket"
+    },
+    {
+      "url": "app/income",
+      "name": "Income",
+      "icon": "menu-icon tf-icons bx bxs-wallet",
+      "slug": "app-income"
+    },
+    {
+      "url": "app/donation",
+      "name": "Donation",
+      "icon": "menu-icon tf-icons fa fa-heartbeat",
+      "slug": "app-donation"
+    },
+    {
+      "url": "app/voting",
+      "name": "Voting",
+      "icon": "menu-icon tf-icons fa fa-pie-chart",
+      "slug": "app-voting"
+    },
+    {
+      "url": "app/media",
+      "name": "Media",
+      "icon": "menu-icon tf-icons fa fa-television",
+      "slug": "app-media"
+    },
+    {
+      "url": "app/bazar",
+      "name": "Bazar",
+      "icon": "menu-icon tf-icons fa fa-cart-plus",
+      "slug": "app-bazar"
+    },
+
     {
       "name": "Invoice",
       "icon": "menu-icon tf-icons bx bxs-food-menu",
@@ -364,11 +292,9 @@
         }
       ]
     },
-
     {
       "menuHeader": "Components"
     },
-
     {
       "name": "Icons",
       "icon": "menu-icon tf-icons bx bxs-crown",
@@ -400,78 +326,156 @@
           "url": "/main-page-setting",
           "name": "Main Page Setting",
           "slug": "main-page-setting"
-        }
-        ,
+        },
         {
           "url": "/ftp-setting",
           "name": "Ftp Settings",
           "slug": "ftp-setting"
-        }
-        ,
+        },
         {
           "url": "/how-it-work",
           "name": "How it works",
           "slug": "how-it-work"
-        }
-        ,
+        },
         {
           "url": "/payment-method",
           "name": "Payment Method",
           "slug": "payment-method"
-        }
-        ,
+        },
         {
           "url": "/payment-offices",
           "name": "Payment offices",
           "slug": "payment-offices"
-        }
-        ,
+        },
         {
           "url": "/page-setting",
           "name": "Page Setting",
           "slug": "page-setting"
-        }
-        ,
+        },
         {
           "url": "/add-admin",
           "name": "Add Admin",
           "slug": "add-admin"
-        }
-        ,
+        },
         {
           "url": "/policy",
           "name": "Policy and Terms",
           "slug": "policy"
-        }
-        ,
-        {
-          "url": "/banner-setting",
-          "name": "Banner Setting",
-          "slug": "banner-setting"
-        }
-        ,
+        },
         {
           "url": "/standard-user-setting",
           "name": "Standard User Setting",
           "slug": "standard-user-setting"
-        }
-        ,
+        },
         {
           "url": "/premium-user-setting",
           "name": "Premium User Setting",
           "slug": "premium-user-setting"
-        }
-        ,
+        },
         {
           "url": "/vip-user-setting",
           "name": "Vip User Setting",
           "slug": "vip-user-setting"
-        }
-        ,
+        },
         {
           "url": "/chat-setting",
           "name": "Chat Setting",
           "slug": "chat-setting"
+        },
+        {
+          "name": "Mobile App",
+          "slug": "mobile-app",
+          "submenu": [
+            {
+              "url": "/sign-up",
+              "name": "Sign Up",
+              "slug": "sign-up"
+            },
+            {
+              "url": "/sign-in",
+              "name": "Sign In",
+              "slug": "sign-in"
+            },
+            {
+              "url": "/images",
+              "name": "Images",
+              "slug": "images"
+            }
+          ]
+        },
+        {
+          "url": "/banner-setting",
+          "name": "Banner Setting",
+          "slug": "banner-setting"
+        },
+        {
+          "url": "/popup-setting",
+          "name": "Popup Ads Setting",
+          "slug": "popup-setting"
+        },
+        {
+          "url": "/system-logs",
+          "name": "System Logs",
+          "slug": "system-logs"
+        },
+        {
+          "url": "/location",
+          "name": "Location",
+          "slug": "location"
+        }
+      ]
+    },
+    {
+      "name": "Layouts",
+      "icon": "menu-icon tf-icons bx bxs-layout",
+      "slug": "layouts",
+      "submenu": [
+        {
+          "url": "/layouts/collapsed-menu",
+          "name": "Collapsed menu",
+          "slug": "layouts-collapsed-menu"
+        },
+        {
+          "url": "/layouts/content-navbar",
+          "name": "Content navbar",
+          "slug": "layouts-content-navbar"
+        },
+        {
+          "url": "/layouts/content-nav-sidebar",
+          "name": "Content nav + Sidebar",
+          "slug": "layouts-content-nav-sidebar"
+        },
+        {
+          "url": "/layouts/horizontal",
+          "name": "Horizontal",
+          "slug": "layouts-horizontal",
+          "target": "_blank"
+        },
+        {
+          "url": "/layouts/without-menu",
+          "name": "Without menu",
+          "slug": "layouts-without-menu"
+        },
+        {
+          "url": "/layouts/without-navbar",
+          "name": "Without navbar",
+          "slug": "layouts-without-navbar"
+        },
+        {
+          "url": "/layouts/fluid",
+          "name": "Fluid",
+          "slug": "layouts-fluid"
+        },
+        {
+          "url": "/layouts/container",
+          "name": "Container",
+          "slug": "layouts-container"
+        },
+        {
+          "url": "/layouts/blank",
+          "name": "Blank",
+          "slug": "layouts-blank",
+          "target": "_blank"
         }
       ]
     }

@@ -47,8 +47,6 @@ Route::get('/layouts/container', $controller_path . '\layouts\Container@index')-
 Route::get('/layouts/blank', $controller_path . '\layouts\Blank@index')->name('layouts-blank');
 
 // apps
-Route::get('/app/email', $controller_path . '\apps\Email@index')->name('app-email');
-Route::get('/app/chat', $controller_path . '\apps\Chat@index')->name('app-chat');
 Route::get('/app/calendar', $controller_path . '\apps\Calendar@index')->name('app-calendar');
 Route::get('/app/invoice/list', $controller_path . '\apps\InvoiceList@index')->name('app-invoice-list');
 Route::get('/app/invoice/preview', $controller_path . '\apps\InvoicePreview@index')->name('app-invoice-preview');
