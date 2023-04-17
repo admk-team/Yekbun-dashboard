@@ -140,10 +140,10 @@
       "menuHeader": "Apps & Pages"
     },
     {
-      "url": "app/post",
+      "url": "posts",
       "name": "Post",
       "icon": "menu-icon tf-icons fa fa-bullhorn",
-      "slug": "app-post"
+      "slug": "posts.index"
     },
     {
       "url": "app/news",

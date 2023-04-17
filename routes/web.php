@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\laravel_example\UserManagement;
 use App\Http\Controllers\user\Diamond;
@@ -68,8 +69,10 @@ Route::get('/icons/font-awesome', $controller_path . '\icons\FontAwesome@index')
 Route::get('/user/standard' , [Standard::class, 'index'])->name('user-standard');
 Route::get('/user/premium' , [Premium::class, 'index'])->name('user-premium');
 Route::get('/user/diamond' , [Diamond::class, 'index'])->name('user-diamond');
+
 // Post
-Route::get('/app/post', $controller_path . '\apps\posts\Post@index')->name('app-post');
+Route::resource('/posts', PostController::class);
+
 // News
 Route::get('/app/news', $controller_path . '\apps\news\News@index')->name('app-news');
 Route::get('/app/news/add-news', $controller_path . '\apps\news\News@Create')->name('app-news-create');
