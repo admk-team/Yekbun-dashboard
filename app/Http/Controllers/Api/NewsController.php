@@ -105,12 +105,12 @@ class NewsController extends Controller
                 if(file_exists($image_path)){
                     unlink($image_path);
                 }
-                $path = $request->file('image')->store('/images/news' , $news->image);
+                $path = $request->file('image')->store('/images/news', 'public');
                 $news->image = $path;
             }
          }
 
-         if($request->update()){
+         if($news->update()){
             return response()->json('News Updated Successfully' , 200);
          }else{
             return response()->json('Failed to updated news' , 400);

@@ -10,19 +10,17 @@
 <div class="d-flex justify-content-between">
   <div>
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">News /</span> All News
+    <span class="text-muted fw-light">Artist /</span> All Artist
 </h4>
 </div>
 <div class="">
-    <a href="{{ route('news.create') }}">
-<button class="btn btn-primary">Add News</button>
+    <a href="{{ route('artist.create') }}">
+<button class="btn btn-primary">Add Artist</button>
 </a>
-<a href="{{ route('news-category.index') }}">
-<button class="btn btn-primary">Category</button></a>
+<a href="{{ route('upload_video.index') }}">
+<button class="btn btn-primary">Upload Video Clip</button></a>
 </div>
 </div>
-
-
 
    <!-- Basic Bootstrap Table -->
   <div class="card">
@@ -32,26 +30,24 @@
         <thead>
           <tr>
             <th>Id</th>
-            <th>Title</th>
-            <th>Category </th>
+            <th>First Name</th>
+            <th>Last Name</th>
             <th>Image </th>
             <th>Status </th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
-            @foreach($news as $new)
+            @foreach($artist as $artists)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $new->title ?? '' }}</td>
-            <td>
-                {{ $new->news_category->name  ??  '' }} </option>
-            </td>
-            <td><img src="{{ asset('storage/'.$new->image) }}" style="height:50px; width:auto"></td>
+            <td>{{ $artists->first_name ?? '' }}</td>
+            <td>{{ $artists->last_name ?? '' }}</td>
+            <td><img src="{{ asset('storage/'.$artists->image) }}" style="height:50px; width:auto"></td>
             <td>
                 <div class="dropdown d-inline-block show">
                   @php
-                  if($new->status==1){
+                  if($artists->status==1){
                   $btn='success';
                   }else{
                   $btn='danger';
@@ -59,7 +55,7 @@
                   @endphp
                   <button type="button" aria-haspopup="true" aria-expanded="true" data-bs-toggle="dropdown"
                     class="mb-2 mr-2 dropdown-toggle btn btn-{{ $btn }}">
-                    @if ($new->status==1)
+                    @if ($artists->status==1)
                     Active
                     @else
                     Dective
@@ -70,12 +66,12 @@
                     style="position: absolute; transform: translate3d(0px, -362px, 0px); top: 0px; left: 0px; will-change: transform;min-width: 9rem;">
                     <ul class="nav flex-column">
                       <li class="nav-item">
-                        <a href="{{ route('news-status',['id'=>$new->id,'status'=>1]) }}"
+                        <a href="{{ route('artists-status',['id'=>$artists->id,'status'=>1]) }}"
                           class="nav-link">Active
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{ route('news-status',['id'=>$new->id,'status'=>0]) }}"
+                        <a href="{{ route('artists-status',['id'=>$artists->id,'status'=>0]) }}"
                           class="nav-link">Deactive</a>
                       </li>
                     </ul>
@@ -91,13 +87,13 @@
                   <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
                     <ul class="nav flex-column">
                       <li class="nav-item">
-                        <a href="{{ route('news.edit',$new->id) }}" class="nav-link">
+                        <a href="{{ route('artist.edit',$artists->id) }}" class="nav-link">
                           <i class="nav-link-icon pe-7s-chat"> </i><span>Edit</span>
                         </a>
                       </li>
                       <li class="nav-item">
                         <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);"
-                          data-id="{{ route('news.destroy',$new->id) }}">
+                          data-id="{{ route('artist.destroy',$artists->id) }}">
                           <i class="nav-link-icon pe-7s-wallet"> </i><span>Delete</span>
                         </a>
                       </li>

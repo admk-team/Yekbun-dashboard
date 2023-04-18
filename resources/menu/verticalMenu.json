@@ -44,14 +44,19 @@
       "slug": "music",
       "submenu": [
         {
-          "url": "/musics/music",
+          "url": "/music",
           "name": "Music",
           "slug": "music"
         },
         {
-          "url": "/musics/artist",
+          "url": "/artist",
           "name": "Artist",
           "slug": "artist"
+        },
+        {
+          "url": "/album",
+          "name": "Album",
+          "slug": "album"
         }
       ]
     },

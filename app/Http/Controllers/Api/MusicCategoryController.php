@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\NewsCategory;
 use Illuminate\Http\Request;
+use App\Models\MusicCategory;
 
-class NewsCategoryController extends Controller
+class MusicCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class NewsCategoryController extends Controller
      */
     public function index()
     {
-        return response()->json(['news Category' =>NewsCategory::get()] , 200);
+        return response()->json(['Music Category' =>MusicCategory::get()] , 200);
     }
 
     /**
@@ -41,15 +41,14 @@ class NewsCategoryController extends Controller
            
           ]);
 
-        $newscat = NewsCategory::create([
+        $musiccat = MusicCategory::create([
                'name' => $request->name,
            ]);
           return response()->json([
            "success" => true,
-           "message" => "News Category successfully created.",
-           "data" => $newscat
+           "message" => "Music Category successfully created.",
+           "data" => $musiccat
        ], 200);
-   
     }
 
     /**
@@ -83,13 +82,12 @@ class NewsCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        $news = NewsCategory::findorFail($id);
-        $news->name = $request->name;
-        if($news->update()){
-           return response()->json('News Category Updated Successfully' , 200);
+        $music = MusicCategory::findorFail($id);
+        $music->name = $request->name;
+        if($music->update()){
+           return response()->json('Music Category Updated Successfully' , 200);
         }else{
-           return response()->json('Failed to updated news category' , 400);
+           return response()->json('Failed to updated music category' , 400);
         }
     }
 
@@ -101,11 +99,11 @@ class NewsCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $newscat = NewsCategory::findorFail($id);
-         if($newscat->delete($newscat->id)){
-           return response()->json('News Category Deleted Successfully' ,200);
+        $musiccat = MusicCategory::findorFail($id);
+         if($musiccat->delete($musiccat->id)){
+           return response()->json('Music Category Deleted Successfully' ,200);
          }else{
-            return response()->json('Failed to delete news category' , 400);
+            return response()->json('Failed to delete music category' , 400);
          }
     }
 }

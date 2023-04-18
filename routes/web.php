@@ -8,6 +8,11 @@ use App\Http\Controllers\user\Standard;
 use App\Http\Controllers\fanpage\FanPage;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\NewsCategoryController;
+use App\Http\Controllers\Admin\MusicController;
+use App\Http\Controllers\Admin\MusicCategoryController;
+use App\Http\Controllers\Admin\ArtistController;
+use App\Http\Controllers\Admin\UplaodVideoClipController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -79,12 +84,19 @@ Route::get('/news/{id}/{status}' , [NewsController::class , 'status'])->name('ne
 Route::resource('/news-category' , NewsCategoryController::class);
 Route::get('/news_category/{id}/{status}' , [NewsCategoryController::class, 'status'])->name('newscat-status');
 // Music
-Route::get('/musics/music', $controller_path . '\musics\music\Music@index')->name('music');
-Route::get('/musics/add-music', $controller_path . '\musics\music\Music@create')->name('music-create');
+Route::resource('/music', MusicController::class);
+Route::get('/musics/{id}/{status}' , [MusicController::class , 'status'])->name('musics-status');
+
+Route::resource('/music-category' , MusicCategoryController::class);
+Route::get('/music_category/{id}/{status}' , [MusicCategoryController::class, 'status'])->name('musiccat-status');
 
 //artist
-Route::get('/musics/artist', $controller_path . '\musics\artist\Artist@index')->name('music-artist');
-Route::get('/musics/add-artist', $controller_path . '\musics\artist\Artist@create')->name('music-artist-create');
+Route::resource('/artist', ArtistController::class);
+Route::get('/artists/{id}/{status}' , [ArtistController::class, 'status'])->name('artists-status');
+
+// upload video clip 
+Route::resource('/upload_video', UplaodVideoClipController::class);
+Route::get('/upload_video/{id}/{status}' , [UplaodVideoClipController::class, 'status'])->name('upload-status');
 
 // Video 
 Route::get('/app/videos', $controller_path . '\apps\video\Video@index')->name('app-video');
