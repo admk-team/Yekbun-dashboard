@@ -44,14 +44,19 @@
       "slug": "music",
       "submenu": [
         {
-          "url": "/musics/music",
+          "url": "/music",
           "name": "Music",
           "slug": "music"
         },
         {
-          "url": "/musics/artist",
+          "url": "/artist",
           "name": "Artist",
           "slug": "artist"
+        },
+        {
+          "url": "/album",
+          "name": "Album",
+          "slug": "album"
         }
       ]
     },
@@ -146,10 +151,10 @@
       "slug": "app-post"
     },
     {
-      "url": "app/news",
+      "url": "/news",
       "name": "News",
       "icon": "menu-icon tf-icons bx bx-news",
-      "slug": "app-news"
+      "slug": "news"
     },
     {
       "url": "app/videos",

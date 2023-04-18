@@ -10,14 +10,14 @@
 <div class="d-flex justify-content-between">
   <div>
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">News /</span> All News
+    <span class="text-muted fw-light">Music /</span> All Music
 </h4>
 </div>
 <div class="">
-    <a href="{{ route('news.create') }}">
-<button class="btn btn-primary">Add News</button>
+    <a href="{{ route('music.create') }}">
+<button class="btn btn-primary">Add Music</button>
 </a>
-<a href="{{ route('news-category.index') }}">
+<a href="{{ route('music-category.index') }}">
 <button class="btn btn-primary">Category</button></a>
 </div>
 </div>
@@ -34,24 +34,28 @@
             <th>Id</th>
             <th>Title</th>
             <th>Category </th>
-            <th>Image </th>
+            <th>Audio </th>
             <th>Status </th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
-            @foreach($news as $new)
+            @foreach($music as $musics)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $new->title ?? '' }}</td>
+            <td>{{ $musics->name ?? '' }}</td>
             <td>
-                {{ $new->news_category->name  ??  '' }} </option>
+                {{ $musics->music_category->name ?? '' }} 
             </td>
-            <td><img src="{{ asset('storage/'.$new->image) }}" style="height:50px; width:auto"></td>
+            <td>
+              <audio controls>
+              <source src="{{ asset('storage/'.$musics->audio) }}">
+              </audio>
+            </td>
             <td>
                 <div class="dropdown d-inline-block show">
                   @php
-                  if($new->status==1){
+                  if($musics->status==1){
                   $btn='success';
                   }else{
                   $btn='danger';
@@ -59,10 +63,10 @@
                   @endphp
                   <button type="button" aria-haspopup="true" aria-expanded="true" data-bs-toggle="dropdown"
                     class="mb-2 mr-2 dropdown-toggle btn btn-{{ $btn }}">
-                    @if ($new->status==1)
-                    Active
+                    @if ($musics->status==1)
+                    Publish
                     @else
-                    Dective
+                    UnPublish
                     @endif
                   </button>
                   <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu"
@@ -70,13 +74,13 @@
                     style="position: absolute; transform: translate3d(0px, -362px, 0px); top: 0px; left: 0px; will-change: transform;min-width: 9rem;">
                     <ul class="nav flex-column">
                       <li class="nav-item">
-                        <a href="{{ route('news-status',['id'=>$new->id,'status'=>1]) }}"
-                          class="nav-link">Active
+                        <a href="{{ route('musics-status',['id'=>$musics->id,'status'=>1]) }}"
+                          class="nav-link">Publish
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{ route('news-status',['id'=>$new->id,'status'=>0]) }}"
-                          class="nav-link">Deactive</a>
+                        <a href="{{ route('musics-status',['id'=>$musics->id,'status'=>0]) }}"
+                          class="nav-link">UnPublish</a>
                       </li>
                     </ul>
                   </div>
@@ -91,13 +95,13 @@
                   <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
                     <ul class="nav flex-column">
                       <li class="nav-item">
-                        <a href="{{ route('news.edit',$new->id) }}" class="nav-link">
+                        <a href="{{ route('music.edit',$musics->id) }}" class="nav-link">
                           <i class="nav-link-icon pe-7s-chat"> </i><span>Edit</span>
                         </a>
                       </li>
                       <li class="nav-item">
                         <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);"
-                          data-id="{{ route('news.destroy',$new->id) }}">
+                          data-id="{{ route('music.destroy',$musics->id) }}">
                           <i class="nav-link-icon pe-7s-wallet"> </i><span>Delete</span>
                         </a>
                       </li>
