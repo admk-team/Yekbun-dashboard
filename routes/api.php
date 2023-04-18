@@ -6,12 +6,17 @@ use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\DiamondUserController;
 use App\Http\Controllers\Api\PremiumUserController;
 use App\Http\Controllers\Api\StandardUserController;
+use App\Http\Controllers\Api\NewsController;
+use App\Http\Controllers\Api\NewsCategoryController;
+use App\Http\Controllers\Api\MusicCategoryController;
+use App\Http\Controllers\Api\MusicController;
+use App\Http\Controllers\Api\ArtistController;
 
 /*
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
-|
+| 
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
@@ -31,3 +36,10 @@ Route::prefix("/users")->name("users.")->group(function () {
     Route::resource("premium", PremiumUserController::class);
     Route::resource("diamond", DiamondUserController::class);
 });
+
+// News 
+Route::resource('news' , NewsController::class)->only(['index', 'store', 'show', 'update' ,'destroy']);
+Route::resource('news-category' , NewsCategoryController::class)->only(['index', 'store', 'update' , 'show', 'destroy']);
+Route::resource('music-category' , MusicCategoryController::class)->only(['index', 'store', 'show', 'update' , 'destroy']);
+Route::resource('music' , MusicController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+Route::resource('artist' , ArtistController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);

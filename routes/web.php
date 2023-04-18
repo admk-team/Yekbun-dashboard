@@ -10,6 +10,13 @@ use App\Http\Controllers\Admin\DiamondUserController;
 use App\Http\Controllers\Admin\PremiumUserController;
 use App\Http\Controllers\Admin\StandardUserController;
 use App\Http\Controllers\laravel_example\UserManagement;
+use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\Admin\NewsCategoryController;
+use App\Http\Controllers\Admin\MusicController;
+use App\Http\Controllers\Admin\MusicCategoryController;
+use App\Http\Controllers\Admin\ArtistController;
+use App\Http\Controllers\Admin\UplaodVideoClipController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -80,16 +87,25 @@ Route::prefix("/users")->name("users.")->group(function () {
 
 
 // News
-Route::get('/app/news', $controller_path . '\apps\news\News@index')->name('app-news');
-Route::get('/app/news/add-news', $controller_path . '\apps\news\News@Create')->name('app-news-create');
+Route::resource('/news' , NewsController::class);
+Route::get('/news/{id}/{status}' , [NewsController::class , 'status'])->name('news-status');
 
+Route::resource('/news-category' , NewsCategoryController::class);
+Route::get('/news_category/{id}/{status}' , [NewsCategoryController::class, 'status'])->name('newscat-status');
 // Music
-Route::get('/musics/music', $controller_path . '\musics\music\Music@index')->name('music');
-Route::get('/musics/add-music', $controller_path . '\musics\music\Music@create')->name('music-create');
+Route::resource('/music', MusicController::class);
+Route::get('/musics/{id}/{status}' , [MusicController::class , 'status'])->name('musics-status');
+
+Route::resource('/music-category' , MusicCategoryController::class);
+Route::get('/music_category/{id}/{status}' , [MusicCategoryController::class, 'status'])->name('musiccat-status');
 
 //artist
-Route::get('/musics/artist', $controller_path . '\musics\artist\Artist@index')->name('music-artist');
-Route::get('/musics/add-artist', $controller_path . '\musics\artist\Artist@create')->name('music-artist-create');
+Route::resource('/artist', ArtistController::class);
+Route::get('/artists/{id}/{status}' , [ArtistController::class, 'status'])->name('artists-status');
+
+// upload video clip 
+Route::resource('/upload_video', UplaodVideoClipController::class);
+Route::get('/upload_video/{id}/{status}' , [UplaodVideoClipController::class, 'status'])->name('upload-status');
 
 // Video 
 Route::get('/app/videos', $controller_path . '\apps\video\Video@index')->name('app-video');
