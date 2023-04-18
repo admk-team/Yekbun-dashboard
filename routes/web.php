@@ -1,11 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\laravel_example\UserManagement;
 use App\Http\Controllers\user\Diamond;
 use App\Http\Controllers\user\Premium;
 use App\Http\Controllers\user\Standard;
 use App\Http\Controllers\fanpage\FanPage;
+use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\DiamondUserController;
+use App\Http\Controllers\Admin\PremiumUserController;
+use App\Http\Controllers\Admin\StandardUserController;
+use App\Http\Controllers\laravel_example\UserManagement;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\NewsCategoryController;
 use App\Http\Controllers\Admin\MusicController;
@@ -71,12 +75,17 @@ Route::get('/app/user/view/connections', $controller_path . '\apps\UserViewConne
 Route::get('/icons/boxicons', $controller_path . '\icons\Boxicons@index')->name('icons-boxicons');
 Route::get('/icons/font-awesome', $controller_path . '\icons\FontAwesome@index')->name('icons-font-awesome');
 
-// User 
-Route::get('/user/standard' , [Standard::class, 'index'])->name('user-standard');
-Route::get('/user/premium' , [Premium::class, 'index'])->name('user-premium');
-Route::get('/user/diamond' , [Diamond::class, 'index'])->name('user-diamond');
-// Post
-Route::get('/app/post', $controller_path . '\apps\posts\Post@index')->name('app-post');
+// Posts
+Route::resource('/posts', PostController::class);
+
+// Users
+Route::prefix("/users")->name("users.")->group(function () {
+    Route::resource("standard", StandardUserController::class);
+    Route::resource("premium", PremiumUserController::class);
+    Route::resource("diamond", DiamondUserController::class);
+});
+
+
 // News
 Route::resource('/news' , NewsController::class);
 Route::get('/news/{id}/{status}' , [NewsController::class , 'status'])->name('news-status');

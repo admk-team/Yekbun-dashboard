@@ -8,6 +8,7 @@
 <script src="{{ asset(mix('assets/vendor/libs/typeahead-js/typeahead.js')) }}"></script>
 <script src="{{ asset(mix('assets/vendor/js/menu.js')) }}"></script>
 @yield('vendor-script')
+<script src="{{ asset(mix('assets/vendor/libs/toastr/toastr.js')) }}"></script>
 <!-- END: Page Vendor JS-->
 <!-- BEGIN: Theme JS-->
 <script src="{{ asset(mix('assets/js/main.js')) }}"></script>
