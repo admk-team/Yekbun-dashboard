@@ -19,13 +19,13 @@ class PremiumUserController extends Controller
     public function index()
     {
         if (request()->limit) {
-            return User::where("level", 0)
+            return User::where("level", 1)
                         ->orderBy("updated_at", "DESC")
                         ->paginate(request()->limit)
                         ->appends(["limit" => request()->limit]);
         }
 
-        $users = User::where("level", 0)->orderBy("updated_at", "DESC")->get();
+        $users = User::where("level", 1)->orderBy("updated_at", "DESC")->get();
 
         return [
             "data" => $users

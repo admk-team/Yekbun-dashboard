@@ -52,7 +52,7 @@
                             <option value="0" {{ !$post->status? 'selected': '' }}>Disabled</option>
                         </select>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-4">Create</button>
+                        <button type="submit" class="btn btn-primary mt-4">Update</button>
                     </div>
                 </div>
             </form>

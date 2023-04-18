@@ -19,22 +19,22 @@
     {
       "name": "User",
       "icon": "menu-icon tf-icons bx bxs-user",
-      "slug": "user",
+      "slug": "users",
       "submenu": [
         {
-          "url": "/user/standard",
+          "url": "/users/standard",
           "name": "Standard",
-          "slug": "user-standard"
+          "slug": "users.standard.index"
         },
         {
-          "url": "/user/premium",
+          "url": "/users/premium",
           "name": "Premium",
-          "slug": "user-premium"
+          "slug": "users.premium.index"
         },
         {
-          "url": "/user/diamond",
+          "url": "/users/diamond",
           "name": "Diamond",
-          "slug": "user-diamond"
+          "slug": "users.diamond.index"
         }
       ]
     },
@@ -170,28 +170,10 @@
       "slug": "app-event"
     },
     {
-      "url": "app/calendar",
-      "name": "Calendar",
-      "icon": "menu-icon tf-icons bx bxs-calendar",
-      "slug": "app-calendar"
-    },
-    {
       "url": "app/history",
       "name": "History",
       "icon": "menu-icon tf-icons bx bxs-watch",
       "slug": "app-history"
-    },
-    {
-      "url": "app/tickets",
-      "name": "Ticket",
-      "icon": "menu-icon tf-icons fa fa-ticket",
-      "slug": "app-ticket"
-    },
-    {
-      "url": "app/income",
-      "name": "Income",
-      "icon": "menu-icon tf-icons bx bxs-wallet",
-      "slug": "app-income"
     },
     {
       "url": "app/donation",
@@ -217,100 +199,8 @@
       "icon": "menu-icon tf-icons fa fa-cart-plus",
       "slug": "app-bazar"
     },
-
-    {
-      "name": "Invoice",
-      "icon": "menu-icon tf-icons bx bxs-food-menu",
-      "slug": "app-invoice",
-      "badge": [
-        "danger",
-        "4"
-      ],
-      "submenu": [
-        {
-          "url": "/app/invoice/list",
-          "name": "List",
-          "slug": "app-invoice-list"
-        },
-        {
-          "url": "/app/invoice/preview",
-          "name": "Preview",
-          "slug": "app-invoice-preview"
-        },
-        {
-          "url": "/app/invoice/edit",
-          "name": "Edit",
-          "slug": "app-invoice-edit"
-        },
-        {
-          "url": "/app/invoice/add",
-          "name": "Add",
-          "slug": "app-invoice-add"
-        }
-      ]
-    },
-    {
-      "name": "Users",
-      "icon": "menu-icon tf-icons bx bxs-user",
-      "slug": "app-user",
-      "submenu": [
-        {
-          "url": "/app/user/list",
-          "name": "List",
-          "slug": "app-user-list"
-        },
-        {
-          "name": "View",
-          "slug": "app-user-view",
-          "submenu": [
-            {
-              "url": "/app/user/view/account",
-              "name": "Account",
-              "slug": "app-user-view-account"
-            },
-            {
-              "url": "/app/user/view/security",
-              "name": "Security",
-              "slug": "app-user-view-security"
-            },
-            {
-              "url": "/app/user/view/billing",
-              "name": "Billing & Plans",
-              "slug": "app-user-view-billing"
-            },
-            {
-              "url": "/app/user/view/notifications",
-              "name": "Notifications",
-              "slug": "app-user-view-notifications"
-            },
-            {
-              "url": "/app/user/view/connections",
-              "name": "Connections",
-              "slug": "app-user-view-connections"
-            }
-          ]
-        }
-      ]
-    },
     {
       "menuHeader": "Components"
-    },
-    {
-      "name": "Icons",
-      "icon": "menu-icon tf-icons bx bxs-crown",
-      "slug": "icons",
-      "submenu": [
-        {
-          "url": "icons/boxicons",
-          "name": "Boxicons",
-          "slug": "icons-boxicons"
-        },
-        {
-          "url": "icons/font-awesome",
-          "name": "Fontawesome",
-          "slug": "icons-font-awesome"
-        }
-      ]
     },
     {
       "name": "Settings",
@@ -426,56 +316,39 @@
       ]
     },
     {
-      "name": "Layouts",
-      "icon": "menu-icon tf-icons bx bxs-layout",
-      "slug": "layouts",
+      "url": "app/income",
+      "name": "Income",
+      "icon": "menu-icon tf-icons bx bxs-wallet",
+      "slug": "app-income"
+    },
+    {
+      "name": "Invoice",
+      "icon": "menu-icon tf-icons bx bxs-food-menu",
+      "slug": "app-invoice",
+      "badge": [
+        "danger",
+        "4"
+      ],
       "submenu": [
         {
-          "url": "/layouts/collapsed-menu",
-          "name": "Collapsed menu",
-          "slug": "layouts-collapsed-menu"
+          "url": "/app/invoice/list",
+          "name": "List",
+          "slug": "app-invoice-list"
         },
         {
-          "url": "/layouts/content-navbar",
-          "name": "Content navbar",
-          "slug": "layouts-content-navbar"
+          "url": "/app/invoice/preview",
+          "name": "Preview",
+          "slug": "app-invoice-preview"
         },
         {
-          "url": "/layouts/content-nav-sidebar",
-          "name": "Content nav + Sidebar",
-          "slug": "layouts-content-nav-sidebar"
+          "url": "/app/invoice/edit",
+          "name": "Edit",
+          "slug": "app-invoice-edit"
         },
         {
-          "url": "/layouts/horizontal",
-          "name": "Horizontal",
-          "slug": "layouts-horizontal",
-          "target": "_blank"
-        },
-        {
-          "url": "/layouts/without-menu",
-          "name": "Without menu",
-          "slug": "layouts-without-menu"
-        },
-        {
-          "url": "/layouts/without-navbar",
-          "name": "Without navbar",
-          "slug": "layouts-without-navbar"
-        },
-        {
-          "url": "/layouts/fluid",
-          "name": "Fluid",
-          "slug": "layouts-fluid"
-        },
-        {
-          "url": "/layouts/container",
-          "name": "Container",
-          "slug": "layouts-container"
-        },
-        {
-          "url": "/layouts/blank",
-          "name": "Blank",
-          "slug": "layouts-blank",
-          "target": "_blank"
+          "url": "/app/invoice/add",
+          "name": "Add",
+          "slug": "app-invoice-add"
         }
       ]
     }

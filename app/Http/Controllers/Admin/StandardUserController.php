@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreDiamondUserRequest;
-use App\Http\Requests\UpdateDiamondUserRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreStandardUserRequest;
+use App\Http\Requests\UpdateStandardUserRequest;
 
-class DiamondUserController extends Controller
+class StandardUserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,18 +18,18 @@ class DiamondUserController extends Controller
      */
     public function index()
     {
-        if (request()->limit) {
-            return User::where("level", 2)
-                        ->orderBy("updated_at", "DESC")
-                        ->paginate(request()->limit)
-                        ->appends(["limit" => request()->limit]);
-        }
+        $users = User::where("level", 0)->orderBy("updated_at", "DESC")->get();
+        return view("content.users.standard.index", compact("users"));
+    }
 
-        $users = User::where("level", 2)->orderBy("updated_at", "DESC")->get();
-
-        return [
-            "data" => $users
-        ];
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view("content.users.standard.create");
     }
 
     /**
@@ -38,7 +38,7 @@ class DiamondUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreDiamondUserRequest $request)
+    public function store(StoreStandardUserRequest $request)
     {
         $validated = $request->validated();
 
@@ -48,14 +48,11 @@ class DiamondUserController extends Controller
             $validated["image"] = $imagePath;
         }
 
-        $validated['level'] = 2; // Add level of diamond user
+        $validated['level'] = 0; // Add level of standard user
 
         $user = User::create($validated);
 
-        return [
-            "message" => "User successfully created.",
-            "data" => $user
-        ];
+        return back()->with("success", "User successfully created.");
     }
 
     /**
@@ -66,9 +63,20 @@ class DiamondUserController extends Controller
      */
     public function show($id)
     {
-        return [
-            "data" => User::find($id)
-        ];
+        $user = User::find($id);
+        return view("content.users.standard.show", compact("user"));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $user = User::find($id);
+        return view("content.users.standard.edit", compact("user"));
     }
 
     /**
@@ -78,7 +86,7 @@ class DiamondUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDiamondUserRequest $request, $id)
+    public function update(UpdateStandardUserRequest $request, $id)
     {
         $validated = $request->validated();
 
@@ -92,10 +100,7 @@ class DiamondUserController extends Controller
         $user->fill($validated);
         $user->save();
 
-        return [
-            "message" => "User successfully updated.",
-            "data" => $user
-        ];
+        return back()->with("success", "User successfully updated");
     }
 
     /**
@@ -114,8 +119,6 @@ class DiamondUserController extends Controller
 
         $user->delete();
 
-        return [
-            "message" => "User successfully deleted."
-        ];
+        return back()->with("success", "User successfully deleted.");
     }
 }

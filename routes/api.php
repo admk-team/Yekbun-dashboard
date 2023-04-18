@@ -22,10 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Posts routes
+// Posts
 Route::resource("posts", PostController::class)->except(["create", "edit"]);
 
-// User routes
+// Users
 Route::prefix("/users")->name("users.")->group(function () {
     Route::resource("standard", StandardUserController::class);
     Route::resource("premium", PremiumUserController::class);

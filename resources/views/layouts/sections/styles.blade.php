@@ -19,7 +19,8 @@
 
 <!-- Vendor Styles -->
 @yield('vendor-style')
-
+<link rel="stylesheet" href="{{ asset(mix('assets/vendor/libs/toastr/toastr.css')) }}" />
+<link rel="stylesheet" href="{{ asset(mix('assets/vendor/libs/animate-css/animate.css')) }}" />
 
 <!-- Page Styles -->
 @yield('page-style')
