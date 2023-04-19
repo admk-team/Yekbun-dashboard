@@ -2,15 +2,16 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\PostController;
-use App\Http\Controllers\Api\DiamondUserController;
-use App\Http\Controllers\Api\PremiumUserController;
-use App\Http\Controllers\Api\StandardUserController;
 use App\Http\Controllers\Api\NewsController;
-use App\Http\Controllers\Api\NewsCategoryController;
-use App\Http\Controllers\Api\MusicCategoryController;
+use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\MusicController;
 use App\Http\Controllers\Api\ArtistController;
+use App\Http\Controllers\Api\ReportController;
+use App\Http\Controllers\Api\DiamondUserController;
+use App\Http\Controllers\Api\PremiumUserController;
+use App\Http\Controllers\Api\NewsCategoryController;
+use App\Http\Controllers\Api\StandardUserController;
+use App\Http\Controllers\Api\MusicCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Posts
 Route::resource("posts", PostController::class)->except(["create", "edit"]);
+// Reports
+Route::resource("reports", ReportController::class)->except(["create", "edit"]);
 
 // Users
 Route::prefix("/users")->name("users.")->group(function () {

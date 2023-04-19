@@ -127,12 +127,12 @@
     {
       "name": "Report",
       "icon": "menu-icon tf-icons bx bxs-report",
-      "slug": "report",
+      "slug": "reports",
       "submenu": [
         {
-          "url": "/user-report",
+          "url": "/reports",
           "name": "User Report",
-          "slug": "user-report"
+          "slug": "reports.index"
         },
         {
           "url": "/user-warning",
