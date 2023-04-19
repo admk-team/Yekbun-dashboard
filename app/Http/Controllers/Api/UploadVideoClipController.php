@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\UplaodVideoClip;
 use Illuminate\Http\Request;
-use App\Models\Artist;
+use App\Models\UplaodVideoClip;
 
-class UplaodVideoClipController extends Controller
+class UploadVideoClipController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,7 @@ class UplaodVideoClipController extends Controller
      */
     public function index()
     {
-         $upload_video = UplaodVideoClip::with('artist')->get();
-        return view('content.upload_video.index' , compact('upload_video'));
+        return response()->json(['Upload Clip' =>UplaodVideoClip::get()] , 200);
     }
 
     /**
@@ -27,8 +25,7 @@ class UplaodVideoClipController extends Controller
      */
     public function create()
     {
-        $artist = Artist::get();
-        return view('content.upload_video.create' , compact('artist'));
+        //
     }
 
     /**
@@ -43,30 +40,31 @@ class UplaodVideoClipController extends Controller
             'title' => 'required',
             'video' => 'required'
           ]); 
-   
-      $video = new UplaodVideoClip();
-      $video->title = $request->title;
-      $video->category_id = $request->artist_id;
 
-      if($request->hasFile('video')){
-            $path  = $request->file('video')->store('/images/video/' , 'public');
-            $video->video = $path;
-    }
-    if($video->save()){
-        return redirect()->route('upload_video.index')->with('success', 'Video Has been inserted');
-    }else{
-        return redirect()->route('upload_video.index')->with('error', 'Failed to add video');
-    }
-   
+          $imagePath  = $request->video;
+          if($request->hasFile('video')){
+                    $path = $request->file('video')->store('/images/video/' , 'public');
+                    $imagePath = $path;
+             }
+             $video = UplaodVideoClip::create([
+              'title' => $request->title,
+              'category_id' => $request->artist_id,
+              'video' => $imagePath
+              ]);
+              return response()->json([
+                "success" => true,
+                "message" => "Uplaod Video Clip successfully created.",
+                "data" => $video
+            ], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\UplaodVideoClip  $uplaodVideoClip
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(UplaodVideoClip $uplaodVideoClip)
+    public function show($id)
     {
         //
     }
@@ -74,20 +72,19 @@ class UplaodVideoClipController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\UplaodVideoClip  $uplaodVideoClip
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $upload_video = UplaodVideoClip::find($id);
-        $artist =  Artist::get();
-        return view('content.upload_video.edit' , compact('upload_video' , 'artist'));
+        //
     }
+
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\UplaodVideoClip  $uplaodVideoClip
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -106,20 +103,18 @@ class UplaodVideoClipController extends Controller
                $video->video = $path;
            }
         }
-
         if($video->update()){
-            return redirect()->route('upload_video.index')->with('success', 'Video  Has been Updated');
+            return response()->json('Video Updated Successfully' , 200);
+         }else{
+            return response()->json('Failed to updated artist' , 400);
+         }
 
-        }else{
-            return redirect()->route('upload_video.index')->with('success', 'Video not updated');
-
-        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\UplaodVideoClip  $uplaodVideoClip
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -131,23 +126,11 @@ class UplaodVideoClipController extends Controller
                 unlink($image_path);
             }
          }
-
          if($video->delete($video->id)){
-            return redirect()->route('upload_video.index')->with('success', 'Video Has been Deleted');
+            return response()->json('Video Deleted Successfully' ,200);
+          }else{
+             return response()->json('Failed to delete video' , 400);
+          }
 
-         }else{
-            return redirect()->route('upload_video.index')->with('success', 'Video not Deleted');
-
-         }
-    }
-    public function status($id , $status){
-        $video = UplaodVideoClip::find($id);
-        $video->status = $status;
-        if($video->update()){
-            return redirect()->route('upload_video.index')->with('success', 'Status Has been Updated');
-        }else{
-            return redirect()->route('upload_video.index')->with('error', 'Status is not changed');
-
-        }
     }
 }

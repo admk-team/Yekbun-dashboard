@@ -68,8 +68,8 @@ class NewsCategoryController extends Controller
      */
     public function edit($id)
     {
-        $news_category = NewsCategory::find($id);
-        return view('content.new-category.edit', compact('news_category'));
+        $vote_category = NewsCategory::find($id);
+        return view('content.voting_category.edit', compact('vote_category'));
     }
 
     /**

@@ -104,4 +104,36 @@
     </div>
   </div>
   <!--/ Basic Bootstrap Table -->
+  <div class="modal fade deleted-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  style="padding-right: 17px;" aria-modal="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Banner</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="mb-0">Are you Sure to delete this!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <form action="" method="post" id="delete_form">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="btn btn-danger">Yes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function delete_service(el){
+    let link=$(el).data('id');
+    $('.deleted-modal').modal('show');
+    $('#delete_form').attr('action', link);
+  }
+</script>
+
 @endsection

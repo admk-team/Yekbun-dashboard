@@ -5,16 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Artist extends Model
+class VotingCategory extends Model
 {
     use HasFactory;
-
     protected $fillable=[
-        'first_name',
-        'last_name',
-        'city',
-        'dob',
-        'gender',
-        'image'
+        'name'
     ];
 }
