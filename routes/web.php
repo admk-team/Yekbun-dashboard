@@ -18,6 +18,11 @@ use App\Http\Controllers\Admin\StandardUserController;
 use App\Http\Controllers\Admin\MusicCategoryController;
 use App\Http\Controllers\laravel_example\UserManagement;
 use App\Http\Controllers\Admin\UplaodVideoClipController;
+use App\Http\Controllers\Admin\FanPageController;
+use App\Http\Controllers\Admin\ManageFanPageController;
+use App\Http\Controllers\Admin\BlockFanPageController;
+use App\Http\Controllers\Admin\VotingCategoryController;
+use App\Http\Controllers\Admin\VotingController;
 
 
 /*
@@ -60,7 +65,6 @@ Route::get('/layouts/container', $controller_path . '\layouts\Container@index')-
 Route::get('/layouts/blank', $controller_path . '\layouts\Blank@index')->name('layouts-blank');
 
 // apps
-Route::get('/app/calendar', $controller_path . '\apps\Calendar@index')->name('app-calendar');
 Route::get('/app/invoice/list', $controller_path . '\apps\InvoiceList@index')->name('app-invoice-list');
 Route::get('/app/invoice/preview', $controller_path . '\apps\InvoicePreview@index')->name('app-invoice-preview');
 Route::get('/app/invoice/print', $controller_path . '\apps\InvoicePrint@index')->name('app-invoice-print');
@@ -136,8 +140,11 @@ Route::get('/app/income' , $controller_path . '\apps\income\Income@index')->name
 Route::get('/app/donation' , $controller_path . '\apps\donation\Donation@index')->name('app-donation');
 Route::get('/app/donation/add-donation' , $controller_path . '\apps\donation\Donation@create')->name('app-donation-create');
 // Voting
-Route::get('/app/voting' , $controller_path . '\apps\voting\Voting@index')->name('app-voting');
-Route::get('/app/voting/add-voting' , $controller_path . '\apps\voting\Voting@create')->name('app-voting-create');
+Route::resource('/vote' , VotingController::class);
+Route::get('/vote/{id}/{status}' , [VotingController::class, 'status'])->name('votes-status');
+
+Route::resource('/vote-category' , VotingCategoryController::class);
+Route::get('/vote_category/{id}/{status}' , [VotingCategoryController::class, 'status'])->name('votecat-status');
 // Media
 Route::get('/app/media' , $controller_path . '\apps\media\Media@index')->name('app-media');
 Route::get('/app/media/add-media' , $controller_path . '\apps\media\Media@create')->name('app-media-create');
@@ -145,10 +152,12 @@ Route::get('/app/media/add-media' , $controller_path . '\apps\media\Media@create
 Route::get('/app/bazar' , $controller_path . '\apps\bazar\Bazar@index')->name('app-bazar');
 Route::get('/app/bazar/category' , $controller_path . '\apps\bazar\Bazar@show_category')->name('app-bazar-category');
 // Fan Page
-Route::get('/new-request' , [FanPage::class, 'new_request_index'])->name('new-request');
-Route::get('/manage-fanpage' , [FanPage::class, 'manage_fan_page_index'])->name('manage_fan_page');
-Route::get('/blocked-fanpage' , [FanPage::class, 'block_fan_page_index'])->name('block_fan_page');
-
+Route::resource('/fanpage' , FanPageController::class);
+Route::get('/fanpage-status/{id}/{status}' , [FanPageController::class, 'status'])->name('fanpage-status');
+Route::resource('/manage-fanpage' , ManageFanPageController::class);
+Route::get('/managefanpage-status/{id}/{status}' , [ManageFanPageController::class, 'status'])->name('managefanpage-status');
+Route::resource('/block-fanpage' , BlockFanPageController::class);
+Route::get('/blockfanpage-status/{id}/{status}' , [BlockFanPageController::class, 'status'])->name('blockfanpage-status');
 // Report Page
 Route::get('/user-report' , $controller_path . '\report\Report@user_report')->name('user-report');
 Route::get('/user-warning' , $controller_path . '\report\Report@user_warning')->name('user-warning');

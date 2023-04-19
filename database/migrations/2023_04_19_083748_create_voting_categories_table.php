@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('uplaod_video_clips', function (Blueprint $table) {
+        Schema::create('voting_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
-            $table->integer('category_id')->nullable();
-            $table->string('video')->nullable();
+            $table->string('name')->nullable();
             $table->integer('status')->default(1);
             $table->timestamps();
         });
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('uplaod_video_clips');
+        Schema::dropIfExists('voting_categories');
     }
 };

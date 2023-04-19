@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\NewsController;
@@ -13,6 +14,12 @@ use App\Http\Controllers\Api\PremiumUserController;
 use App\Http\Controllers\Api\NewsCategoryController;
 use App\Http\Controllers\Api\StandardUserController;
 use App\Http\Controllers\Api\MusicCategoryController;
+use App\Http\Controllers\Api\UploadVideoClipController;
+use App\Http\Controllers\Api\FanPageController;
+use App\Http\Controllers\Api\ManageFanPageController;
+use App\Http\Controllers\Api\BlockFanPageController;
+use App\Http\Controllers\Api\VotingController;
+use App\Http\Controllers\Api\VotingCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,3 +58,8 @@ Route::resource('news-category' , NewsCategoryController::class)->only(['index',
 Route::resource('music-category' , MusicCategoryController::class)->only(['index', 'store', 'show', 'update' , 'destroy']);
 Route::resource('music' , MusicController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
 Route::resource('artist' , ArtistController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+Route::resource('video-clip' , UploadVideoClipController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+Route::resource('fan-page' , FanPageController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+Route::resource('manage-fanpage' , ManageFanPageController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+Route::resource('voting' , VotingController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+Route::resource('voting-category' , VotingCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
