@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\MusicController;
 use App\Http\Controllers\Api\ArtistController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\DiamondUserController;
+use App\Http\Controllers\Api\FlaggedUserController;
 use App\Http\Controllers\Api\PremiumUserController;
 use App\Http\Controllers\Api\NewsCategoryController;
 use App\Http\Controllers\Api\StandardUserController;
@@ -30,6 +31,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Posts
 Route::resource("posts", PostController::class)->except(["create", "edit"]);
+// Flagged users
+Route::prefix("reports")->name("reports.")->group(function () {
+    Route::resource("flagged-users", FlaggedUserController::class)->except(["create", "edit"]);
+});
 // Reports
 Route::resource("reports", ReportController::class)->except(["create", "edit"]);
 

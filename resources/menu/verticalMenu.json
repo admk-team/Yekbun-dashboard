@@ -135,9 +135,9 @@
           "slug": "reports.index"
         },
         {
-          "url": "/user-warning",
-          "name": "User Warning",
-          "slug": "user-warning"
+          "url": "/reports/flagged-users?status=pending",
+          "name": "Flagged User",
+          "slug": "reports.flagged-users.index"
         }
       ]
     },

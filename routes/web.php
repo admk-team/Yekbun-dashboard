@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\MusicController;
 use App\Http\Controllers\Admin\ArtistController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\DiamondUserController;
+use App\Http\Controllers\Admin\FlaggedUserController;
 use App\Http\Controllers\Admin\PremiumUserController;
 use App\Http\Controllers\Admin\NewsCategoryController;
 use App\Http\Controllers\Admin\StandardUserController;
@@ -86,6 +87,10 @@ Route::prefix("/users")->name("users.")->group(function () {
     Route::resource("diamond", DiamondUserController::class);
 });
 
+// Flagged users
+Route::prefix("reports")->name("reports.")->group(function () {
+    Route::resource('/flagged-users', FlaggedUserController::class);
+});
 // Reports
 Route::resource('/reports', ReportController::class);
 
