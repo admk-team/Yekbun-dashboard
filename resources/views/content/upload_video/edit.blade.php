@@ -28,10 +28,11 @@
             <div class="col-lg-8 mx-auto">
               <div class="row g-3">
                 <div class="col-md-6">
-                  <form method="POST" action="{{ route('upload_video.store') }}" enctype="multipart/form-data">
+                  <form method="POST" action="{{ route('upload_video.update',$upload_video->id) }}" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                   <label class="form-label" for="fullname">Video Title</label>
-                  <input type="text" id="fullname" class="form-control" placeholder="Lorem" name="title">
+                  <input type="text" id="fullname" class="form-control" placeholder="Lorem" name="title" value="{{ $upload_video->title ?? '' }}">
                   @error('title')
                   <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -39,6 +40,8 @@
                 <div class="col-md-6">
                   <label class="form-label" for="fullname">Video</label>
                   <input type="file" name="video" class="form-control" id="video" accept="video/*" multiple/>
+                  <video src="{{ asset('storage/'.$upload_video->video) }}" style="width:200px; height:200px" controls>
+                  </video>
                   @error('video')
                   <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -47,7 +50,7 @@
                   <select class="form-select" aria-label="Default select example" name="artist_id">
                     <option selected>Select</option>
                     @foreach($artist as $artists)
-                     <option value="{{ $artists->id }}">{{ $artists->first_name ?? '' }}</option>
+                     <option value="{{ $artists->id }}" {{ $artists->id == $upload_video->category_id ? 'selected' : '' }}>{{ $artists->first_name ?? '' }}</option>
                     @endforeach
                   </select>
                   @error('category_id')

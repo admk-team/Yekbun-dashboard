@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('uplaod_video_clips', function (Blueprint $table) {
+        Schema::create('fan_pages', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
-            $table->integer('category_id')->nullable();
-            $table->string('video')->nullable();
+            $table->string('user_name')->nullable();
+            $table->string('fanpage_name')->nullable();
             $table->integer('status')->default(1);
             $table->timestamps();
         });
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('uplaod_video_clips');
+        Schema::dropIfExists('fan_pages');
     }
 };

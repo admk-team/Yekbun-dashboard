@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UplaodVideoClip extends Model
+class Voting extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'title',
+        'name',
         'category_id',
-        'video'
+        'description',
+        'image'
     ];
-    public function artist(){
-        return $this->belongsTo(Artist::class, 'category_id');
+    public function voting_category(){
+        return $this->belongsTo(VotingCategory::class , 'category_id');
     }
 }

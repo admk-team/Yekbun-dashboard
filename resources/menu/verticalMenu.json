@@ -61,6 +61,23 @@
       ]
     },
     {
+      "name": "Voting",
+      "icon": "menu-icon tf-icons fa fa-pie-chart",
+      "slug": "app-voting",
+      "submenu":[
+        {
+          "url": "/vote-category",
+          "name" :"Category",
+          "slug": "vote-category"
+        },
+        {
+          "url": "/vote",
+          "name" :"Vote",
+          "slug": "vote"
+        }
+      ]
+    },
+    {
       "name": "Online Shop",
       "icon": "menu-icon tf-icons bx bxs-store",
       "slug": "online-shop",
@@ -108,7 +125,7 @@
       "slug": "fan-page",
       "submenu": [
         {
-          "url": "/new-request",
+          "url": "/fanpage",
           "name": "New Request",
           "slug": "new-request"
         },
@@ -118,7 +135,7 @@
           "slug": "manage-fan-page"
         },
         {
-          "url": "/blocked-fanpage",
+          "url": "/block-fanpage",
           "name": "Blocked Fan Page",
           "slug": "block-fan-page"
         }
@@ -127,17 +144,17 @@
     {
       "name": "Report",
       "icon": "menu-icon tf-icons bx bxs-report",
-      "slug": "report",
+      "slug": "reports",
       "submenu": [
         {
-          "url": "/user-report",
+          "url": "/reports",
           "name": "User Report",
-          "slug": "user-report"
+          "slug": "reports.index"
         },
         {
-          "url": "/user-warning",
-          "name": "User Warning",
-          "slug": "user-warning"
+          "url": "/reports/flagged-users?status=pending",
+          "name": "Flagged User",
+          "slug": "reports.flagged-users.index"
         }
       ]
     },
@@ -168,12 +185,7 @@
       "icon": "menu-icon tf-icons fa fa-graduation-cap",
       "slug": "app-school"
     },
-    {
-      "url": "app/events",
-      "name": "Event",
-      "icon": "menu-icon tf-icons fa fa-calendar",
-      "slug": "app-event"
-    },
+  
     {
       "url": "app/history",
       "name": "History",
@@ -186,12 +198,7 @@
       "icon": "menu-icon tf-icons fa fa-heartbeat",
       "slug": "app-donation"
     },
-    {
-      "url": "app/voting",
-      "name": "Voting",
-      "icon": "menu-icon tf-icons fa fa-pie-chart",
-      "slug": "app-voting"
-    },
+  
     {
       "url": "app/media",
       "name": "Media",
