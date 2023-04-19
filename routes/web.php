@@ -5,16 +5,18 @@ use App\Http\Controllers\user\Diamond;
 use App\Http\Controllers\user\Premium;
 use App\Http\Controllers\user\Standard;
 use App\Http\Controllers\fanpage\FanPage;
-use App\Http\Controllers\Admin\PostController;
-use App\Http\Controllers\Admin\DiamondUserController;
-use App\Http\Controllers\Admin\PremiumUserController;
-use App\Http\Controllers\Admin\StandardUserController;
-use App\Http\Controllers\laravel_example\UserManagement;
 use App\Http\Controllers\Admin\NewsController;
-use App\Http\Controllers\Admin\NewsCategoryController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\MusicController;
-use App\Http\Controllers\Admin\MusicCategoryController;
 use App\Http\Controllers\Admin\ArtistController;
+use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\DiamondUserController;
+use App\Http\Controllers\Admin\FlaggedUserController;
+use App\Http\Controllers\Admin\PremiumUserController;
+use App\Http\Controllers\Admin\NewsCategoryController;
+use App\Http\Controllers\Admin\StandardUserController;
+use App\Http\Controllers\Admin\MusicCategoryController;
+use App\Http\Controllers\laravel_example\UserManagement;
 use App\Http\Controllers\Admin\UplaodVideoClipController;
 use App\Http\Controllers\Admin\FanPageController;
 use App\Http\Controllers\Admin\ManageFanPageController;
@@ -88,6 +90,13 @@ Route::prefix("/users")->name("users.")->group(function () {
     Route::resource("premium", PremiumUserController::class);
     Route::resource("diamond", DiamondUserController::class);
 });
+
+// Flagged users
+Route::prefix("reports")->name("reports.")->group(function () {
+    Route::resource('/flagged-users', FlaggedUserController::class);
+});
+// Reports
+Route::resource('/reports', ReportController::class);
 
 
 // News
