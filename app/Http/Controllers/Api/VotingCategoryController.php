@@ -85,7 +85,7 @@ class VotingCategoryController extends Controller
     {
         
         $vote = VotingCategory::findorFail($id);
-        $vote->name = $request->name;
+        $vote->name = $request->name ?? $vote->name;
         if($vote->update()){
            return response()->json('Voting Category Updated Successfully' , 200);
         }else{

@@ -187,10 +187,10 @@
     },
   
     {
-      "url": "app/history",
+      "url": "/history",
       "name": "History",
       "icon": "menu-icon tf-icons bx bxs-watch",
-      "slug": "app-history"
+      "slug": "history"
     },
     {
       "name": "Donation",
@@ -210,16 +210,16 @@
       ]
     },
     {
-      "url": "app/media",
+      "url": "media",
       "name": "Media",
       "icon": "menu-icon tf-icons fa fa-television",
-      "slug": "app-media"
+      "slug": "media"
     },
     {
-      "url": "app/bazar",
+      "url": "/bazar",
       "name": "Bazar",
       "icon": "menu-icon tf-icons fa fa-cart-plus",
-      "slug": "app-bazar"
+      "slug": "bazar"
     },
     {
       "menuHeader": "Components"

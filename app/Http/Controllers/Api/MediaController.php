@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Music;
-
-class MusicController extends Controller
+use App\Models\Media;
+class MediaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,8 @@ class MusicController extends Controller
      */
     public function index()
     {
-        return response()->json(['Music' =>Music::get()] , 200);
+        return response()->json(['Media ' =>Media::get()] , 200);
+        
     }
 
     /**
@@ -36,29 +36,27 @@ class MusicController extends Controller
      */
     public function store(Request $request)
     {
+  
         $request->validate([
             'title' => 'required',
-            'category_id' => 'required',
-            'audio' => 'required'
-          ]);
-   
-          $imagePath  = $request->audio;
-          if($request->hasFile('audio')){
-                    $path = $request->file('audio')->store('/images/music/' , 'public');
+            'category_id' => 'required'
+        ]);
+          $imagePath  = $request->image;
+          if($request->hasFile('image')){
+                    $path = $request->file('image')->store('/images/media/' , 'public');
                     $imagePath = $path;
              }
 
-               $music = Music::create([
-               'name' => $request->title,
+        $media = Media::create([
+               'title' => $request->title,
+               'images' => $imagePath,
                'category_id' => $request->category_id,
-               'audio' => $imagePath
            ]);
           return response()->json([
            "success" => true,
-           "message" => "Music successfully created.",
-           "data" => $music
+           "message" => "Meida Category successfully created.",
+           "data" => $media
        ], 200);
-   
     }
 
     /**
@@ -92,25 +90,25 @@ class MusicController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $music = Music::findorFail($id);
-         $music->name = $request->title ?? $music->name;
-         $music->category_id = $request->category_id ?? $music->category_id;
-         
-         if($request->hasFile('audio')){
-            if(isset($music->audio)){
-                $image_path  = public_path('storage/'.$music->audio);
-                if(file_exists($image_path)){
+        $media = Media::find($id);
+        $media->title=$request->title ?? $media->title;
+        $media->category_id = $request->category_id ?? $media->category_id;
+        
+        if($request->hasFile('image')){
+            if(isset($media->images)){
+                $image_path = public_path('storage/'.$media->images);
+                if(isset($image_path)){
                     unlink($image_path);
                 }
-                $path = $request->file('audio')->store('/images/music' , 'public');
-                $music->audio = $path;
+                $path  = $request->file('image')->store('/images/media/'  , 'public');
+                $media->images = $path;
             }
-         }
+        }
 
-         if($music->update()){
-            return response()->json('Music Updated Successfully' , 200);
+        if($media->update()){
+            return response()->json('Media  Updated Successfully' , 200);
          }else{
-            return response()->json('Failed to updated music' , 400);
+            return response()->json('Failed to updated media' , 400);
          }
     }
 
@@ -122,19 +120,17 @@ class MusicController extends Controller
      */
     public function destroy($id)
     {
-        
-        $music = Music::findorFail($id);
-        if($music->audio){
-           $image_path = public_path('storage/'.$music->audio);
-           if(file_exists($image_path)){
-               unlink($image_path);
-           }
+        $media = Media::findorFail($id);
+        if($media->images){
+            $image_path = public_path('storage/'.$media->images);
+            if(isset($image_path)){
+                unlink($image_path);
+            }
         }
-
-        if($music->delete($music->id)){
-          return response()->json('Music Deleted Successfully' ,200);
-        }else{
-           return response()->json('Failed to delete music' , 400);
-        }
+        if($media->delete($media->id)){
+            return response()->json('Meida  Deleted Successfully' , 200);
+         }else{
+            return response()->json('Failed to delete media' , 400);
+         }
     }
 }

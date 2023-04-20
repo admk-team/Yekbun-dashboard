@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\FanPage;
 use Illuminate\Http\Request;
+use App\Models\MediaCategory;
 
-class FanPageController extends Controller
+class MediaCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class FanPageController extends Controller
      */
     public function index()
     {
-        return response()->json(['Fan Page' =>FanPage::where('status' , 0)->get()] , 200);
+        return response()->json(['Media Category' =>MediaCategory::get()] , 200);
     }
 
     /**
@@ -37,20 +37,18 @@ class FanPageController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_name' =>'required',
-            'fanpage_name' =>'required',
-        ]);
-        
-        $page = FanPage::create([
-            'user_name' => $request->user_name,
-            'fanpage_name' => $request->fanpage_name
-        ]);
-        return response()->json([
-            "success" => true,
-            "message" => "Fan Page  successfully created.",
-            "data" => $page
-        ], 200);
+            'name' => 'required',
+           
+          ]);
 
+        $media = MediaCategory::create([
+               'name' => $request->name,
+           ]);
+          return response()->json([
+           "success" => true,
+           "message" => "Meida Category successfully created.",
+           "data" => $media
+       ], 200);
     }
 
     /**
@@ -85,14 +83,13 @@ class FanPageController extends Controller
     public function update(Request $request, $id)
     {
         
-        $page = FanPage::findorFail($id);
-         $page->user_name = $request->user_name ?? $page->user_name;
-         $page->fanpage_name = $request->fanpage_name ?? $page->fanpage_name;
-         if($page->update()){
-            return response()->json('Fan Pgae Updated Successfully' , 200);
-         }else{
-            return response()->json('Failed to updated fan page' , 400);
-         }
+        $media = MediaCategory::findorFail($id);
+        $media->name = $request->name ?? $media->name;
+        if($media->update()){
+           return response()->json('Media Category Updated Successfully' , 200);
+        }else{
+           return response()->json('Failed to updated media category' , 400);
+        }
     }
 
     /**
@@ -103,11 +100,11 @@ class FanPageController extends Controller
      */
     public function destroy($id)
     {
-        $page = FanPage::findorFail($id);
-        if($page->delete($page->id)){
-            return response()->json('Fan page Deleted Successfully' ,200);
-          }else{
-             return response()->json('Failed to delete fan page' , 400);
-          }
+        $media = MediaCategory::findorFail($id);
+        if($media->delete($media->id)){
+          return response()->json('Media Category Deleted Successfully' ,200);
+        }else{
+           return response()->json('Failed to delete media category' , 400);
+        }
     }
 }

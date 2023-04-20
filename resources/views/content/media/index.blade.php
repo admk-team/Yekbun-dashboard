@@ -10,46 +10,46 @@
 <div class="d-flex justify-content-between">
   <div>
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Bazar /</span> All Bazar
+    <span class="text-muted fw-light">Media /</span> All Media
 </h4>
 </div>
 <div class="">
-    <a href="{{ route('bazar.create') }}">
-<button class="btn btn-primary">Add Bazar</button>
+    <a href="{{ route('media.create') }}">
+<button class="btn btn-primary">Add Media</button>
 </a>
-<a href="{{ route('bazar-category.index') }}">
-  <button class="btn btn-primary">Category</button>
-  </a>
+<a href="{{ route('media-category.index') }}">
+<button class="btn btn-primary">Category</button></a>
 </div>
 </div>
 
+
+
    <!-- Basic Bootstrap Table -->
   <div class="card">
+    <h5 class="card-header">Table Basic</h5>
     <div class="table-responsive text-nowrap">
       <table class="table">
         <thead>
           <tr>
             <th>Id</th>
             <th>Title</th>
-            <th>User Name</th>
-            <th>Category</th>
-            <th>Image</th>
+            <th>Category </th>
             <th>Status </th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
-            @foreach($bazars as $bazar)
+            @foreach($media as $medias)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $bazar->title ?? '' }}</td>
-            <td>{{ $bazar->user_name ?? '' }}</td>
-            <td>{{ $bazar->bazar_category->name ?? '' }}</td>
-            <td><img src="{{ asset('storage/'.$bazar->image) }}" height="150"></td>
+            <td>{{ $medias->title ?? '' }}</td>
+            <td>
+                {{ $medias->media_category->name ?? '' }} 
+            </td>
             <td>
                 <div class="dropdown d-inline-block show">
                   @php
-                  if($bazar->status==1){
+                  if($medias->sttus==1){
                   $btn='success';
                   }else{
                   $btn='danger';
@@ -57,10 +57,10 @@
                   @endphp
                   <button type="button" aria-haspopup="true" aria-expanded="true" data-bs-toggle="dropdown"
                     class="mb-2 mr-2 dropdown-toggle btn btn-{{ $btn }}">
-                    @if ($bazar->status==1)
-                    Active
+                    @if ($medias->sttus==1)
+                    Active 
                     @else
-                    Dective
+                    Deactive
                     @endif
                   </button>
                   <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu"
@@ -68,12 +68,12 @@
                     style="position: absolute; transform: translate3d(0px, -362px, 0px); top: 0px; left: 0px; will-change: transform;min-width: 9rem;">
                     <ul class="nav flex-column">
                       <li class="nav-item">
-                        <a href="{{ route('bazar-status',['id'=>$bazar->id,'status'=>1]) }}"
+                        <a href="{{ route('medias-status',['id'=>$medias->id,'status'=>1]) }}"
                           class="nav-link">Active
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="{{ route('bazar-status',['id'=>$bazar->id,'status'=>0]) }}"
+                        <a href="{{ route('medias-status',['id'=>$medias->id,'status'=>0]) }}"
                           class="nav-link">Deactive</a>
                       </li>
                     </ul>
@@ -89,13 +89,13 @@
                   <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
                     <ul class="nav flex-column">
                       <li class="nav-item">
-                        <a href="{{ route('bazar.edit',$bazar->id) }}" class="nav-link">
+                        <a href="{{ route('media.edit',$medias->id) }}" class="nav-link">
                           <i class="nav-link-icon pe-7s-chat"> </i><span>Edit</span>
                         </a>
                       </li>
                       <li class="nav-item">
                         <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);"
-                          data-id="{{ route('bazar.destroy',$bazar->id) }}">
+                          data-id="{{ route('media.destroy',$medias->id) }}">
                           <i class="nav-link-icon pe-7s-wallet"> </i><span>Delete</span>
                         </a>
                       </li>
