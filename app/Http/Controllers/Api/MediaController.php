@@ -91,8 +91,8 @@ class MediaController extends Controller
     public function update(Request $request, $id)
     {
         $media = Media::find($id);
-        $media->title=$request->title;
-        $media->category_id = $request->category_id;
+        $media->title=$request->title ?? $media->title;
+        $media->category_id = $request->category_id ?? $media->category_id;
         
         if($request->hasFile('image')){
             if(isset($media->images)){

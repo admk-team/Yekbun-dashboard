@@ -93,8 +93,8 @@ class MusicController extends Controller
     public function update(Request $request, $id)
     {
         $music = Music::findorFail($id);
-         $music->name = $request->title;
-         $music->category_id = $request->category_id;
+         $music->name = $request->title ?? $music->name;
+         $music->category_id = $request->category_id ?? $music->category_id;
          
          if($request->hasFile('audio')){
             if(isset($music->audio)){

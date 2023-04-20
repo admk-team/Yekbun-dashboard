@@ -187,10 +187,10 @@
     },
   
     {
-      "url": "app/history",
+      "url": "/history",
       "name": "History",
       "icon": "menu-icon tf-icons bx bxs-watch",
-      "slug": "app-history"
+      "slug": "history"
     },
     {
       "url": "app/donation",

@@ -95,9 +95,9 @@ class NewsController extends Controller
     {
       
          $news = News::findorFail($id);
-         $news->title = $request->title;
-         $news->description = $request->description;
-         $news->category_id = $request->category_id;
+         $news->title = $request->title ?? $news->title;
+         $news->description = $request->description ?? $news->description;
+         $news->category_id = $request->category_id ?? $news->category_id;
          
          if($request->hasFile('image')){
             if(isset($news->image)){

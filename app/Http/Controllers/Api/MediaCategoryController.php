@@ -84,7 +84,7 @@ class MediaCategoryController extends Controller
     {
         
         $media = MediaCategory::findorFail($id);
-        $media->name = $request->name;
+        $media->name = $request->name ?? $media->name;
         if($media->update()){
            return response()->json('Media Category Updated Successfully' , 200);
         }else{

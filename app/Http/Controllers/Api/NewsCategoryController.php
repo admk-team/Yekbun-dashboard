@@ -85,7 +85,7 @@ class NewsCategoryController extends Controller
     {
         
         $news = NewsCategory::findorFail($id);
-        $news->name = $request->name;
+        $news->name = $request->name ?? $news->name;
         if($news->update()){
            return response()->json('News Category Updated Successfully' , 200);
         }else{

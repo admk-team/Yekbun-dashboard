@@ -25,6 +25,8 @@ use App\Http\Controllers\Admin\VotingCategoryController;
 use App\Http\Controllers\Admin\VotingController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\MediaCategoryController;
+use App\Http\Controllers\Admin\HistoryController;
+use App\Http\Controllers\Admin\HistoryCategoryController;
 
 
 /*
@@ -132,8 +134,12 @@ Route::get('/app/schools/add-school', $controller_path . '\apps\school\School@cr
 Route::get('/app/events', $controller_path . '\apps\event\Event@index')->name('app-event');
 Route::get('/app/events/add-event', $controller_path . '\apps\event\Event@create')->name('app-event-create');
 // History 
-Route::get('/app/history', $controller_path . '\apps\history\History@index')->name('app-history');
-Route::get('/app/history/add-history', $controller_path . '\apps\history\History@create')->name('app-history-create');
+Route::resource('/history', HistoryController::class);
+Route::get('/history/{id}/{status}' , [HistoryController::class, 'status'])->name('history-status');
+
+Route::resource('/history-category', HistoryCategoryController::class);
+Route::get('/history_category/{id}/{status}' , [HistoryCategoryController::class, 'status'])->name('historycat-status');
+
 // Tickets
 Route::get('/app/tickets' , $controller_path . '\apps\tickets\Ticket@index')->name('app-ticket');
 // InCome

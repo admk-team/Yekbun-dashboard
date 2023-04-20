@@ -22,6 +22,9 @@ use App\Http\Controllers\Api\VotingController;
 use App\Http\Controllers\Api\VotingCategoryController;
 use App\Http\Controllers\Api\MediaCategoryController;
 use App\Http\Controllers\Api\MediaController;
+use App\Http\Controllers\Api\HistoryCategoryController;
+use App\Http\Controllers\Api\HistoryController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -67,3 +70,5 @@ Route::resource('voting' , VotingController::class)->only(['index', 'store', 'sh
 Route::resource('voting-category' , VotingCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
 Route::resource('media-category' , MediaCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
 Route::resource('media' , MediaController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+Route::resource('history-category' , HistoryCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+Route::resource('history' , HistoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
