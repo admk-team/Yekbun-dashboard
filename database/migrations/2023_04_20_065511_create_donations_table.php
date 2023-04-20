@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('organizations', function (Blueprint $table) {
+        Schema::create('donations', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->string("bank_account")->nullable()->default(null);
-            $table->string("paypal_account")->nullable()->default(null);
-            $table->string("address")->nullable()->default(null);
-            $table->string("logo")->nullable()->default(null);
+            $table->string("title");
+            $table->text("description")->nullable()->default(null);
+            $table->integer("organization_id")->nullable()->default(null);
+            $table->json("tags")->nullable()->default(null);
+            $table->timestamp("start_date")->nullable()->default(null);
+            $table->timestamp("end_date")->nullable()->default(null);
             $table->tinyInteger("status")->default(1);
             $table->timestamps();
         });
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('organizations');
+        Schema::dropIfExists('donations');
     }
 };
