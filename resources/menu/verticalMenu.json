@@ -206,10 +206,10 @@
       "slug": "media"
     },
     {
-      "url": "app/bazar",
+      "url": "/bazar",
       "name": "Bazar",
       "icon": "menu-icon tf-icons fa fa-cart-plus",
-      "slug": "app-bazar"
+      "slug": "bazar"
     },
     {
       "menuHeader": "Components"

@@ -27,6 +27,8 @@ use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\MediaCategoryController;
 use App\Http\Controllers\Admin\HistoryController;
 use App\Http\Controllers\Admin\HistoryCategoryController;
+use App\Http\Controllers\Admin\BazarController;
+use App\Http\Controllers\Admin\BazarCategoryController;
 
 
 /*
@@ -160,8 +162,11 @@ Route::resource('/media-category' , MediaCategoryController::class);
 Route::get('/media_category/{id}/{status}' , [MediaCategoryController::class, 'status'])->name('mediacat-status');
 
 // Bazar
-Route::get('/app/bazar' , $controller_path . '\apps\bazar\Bazar@index')->name('app-bazar');
-Route::get('/app/bazar/category' , $controller_path . '\apps\bazar\Bazar@show_category')->name('app-bazar-category');
+Route::resource('/bazar' , BazarController::class);
+Route::get('/bazar/{id}/{status}' , [BazarController::class, 'status'])->name('bazar-status');
+Route::resource('/bazar-category' , BazarCategoryController::class);
+Route::get('/bazar-category/{id}/{status}' , [BazarCategoryController::class, 'status'])->name('bazarcat-status');
+
 // Fan Page
 Route::resource('/fanpage' , FanPageController::class);
 Route::get('/fanpage-status/{id}/{status}' , [FanPageController::class, 'status'])->name('fanpage-status');

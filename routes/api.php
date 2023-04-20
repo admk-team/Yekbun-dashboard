@@ -24,6 +24,8 @@ use App\Http\Controllers\Api\MediaCategoryController;
 use App\Http\Controllers\Api\MediaController;
 use App\Http\Controllers\Api\HistoryCategoryController;
 use App\Http\Controllers\Api\HistoryController;
+use App\Http\Controllers\Api\BazarCategoryController;
+use App\Http\Controllers\Api\BazarController;
 
 
 /*
@@ -72,3 +74,5 @@ Route::resource('media-category' , MediaCategoryController::class)->only(['index
 Route::resource('media' , MediaController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
 Route::resource('history-category' , HistoryCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
 Route::resource('history' , HistoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+Route::resource('bazar-category' , BazarCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+Route::resource('bazar' , BazarController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
