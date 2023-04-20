@@ -18,6 +18,8 @@ use App\Http\Controllers\Api\ManageFanPageController;
 use App\Http\Controllers\Api\BlockFanPageController;
 use App\Http\Controllers\Api\VotingController;
 use App\Http\Controllers\Api\VotingCategoryController;
+use App\Http\Controllers\Api\MediaCategoryController;
+use App\Http\Controllers\Api\MediaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,3 +57,5 @@ Route::resource('fan-page' , FanPageController::class)->only(['index', 'store', 
 Route::resource('manage-fanpage' , ManageFanPageController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
 Route::resource('voting' , VotingController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
 Route::resource('voting-category' , VotingCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+Route::resource('media-category' , MediaCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+Route::resource('media' , MediaController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);

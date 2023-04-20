@@ -200,10 +200,10 @@
     },
   
     {
-      "url": "app/media",
+      "url": "media",
       "name": "Media",
       "icon": "menu-icon tf-icons fa fa-television",
-      "slug": "app-media"
+      "slug": "media"
     },
     {
       "url": "app/bazar",

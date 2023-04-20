@@ -21,6 +21,8 @@ use App\Http\Controllers\Admin\ManageFanPageController;
 use App\Http\Controllers\Admin\BlockFanPageController;
 use App\Http\Controllers\Admin\VotingCategoryController;
 use App\Http\Controllers\Admin\VotingController;
+use App\Http\Controllers\Admin\MediaController;
+use App\Http\Controllers\Admin\MediaCategoryController;
 
 
 /*
@@ -137,8 +139,11 @@ Route::get('/vote/{id}/{status}' , [VotingController::class, 'status'])->name('v
 Route::resource('/vote-category' , VotingCategoryController::class);
 Route::get('/vote_category/{id}/{status}' , [VotingCategoryController::class, 'status'])->name('votecat-status');
 // Media
-Route::get('/app/media' , $controller_path . '\apps\media\Media@index')->name('app-media');
-Route::get('/app/media/add-media' , $controller_path . '\apps\media\Media@create')->name('app-media-create');
+Route::resource('/media' , MediaController::class);
+Route::get('/media/{id}/{status}' , [MediaController::class, 'status'])->name('medias-status');
+Route::resource('/media-category' , MediaCategoryController::class);
+Route::get('/media_category/{id}/{status}' , [MediaCategoryController::class, 'status'])->name('mediacat-status');
+
 // Bazar
 Route::get('/app/bazar' , $controller_path . '\apps\bazar\Bazar@index')->name('app-bazar');
 Route::get('/app/bazar/category' , $controller_path . '\apps\bazar\Bazar@show_category')->name('app-bazar-category');
