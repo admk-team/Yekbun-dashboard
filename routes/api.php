@@ -18,6 +18,8 @@ use App\Http\Controllers\Api\UploadVideoClipController;
 use App\Http\Controllers\Api\FanPageController;
 use App\Http\Controllers\Api\ManageFanPageController;
 use App\Http\Controllers\Api\BlockFanPageController;
+use App\Http\Controllers\Api\DonationController;
+use App\Http\Controllers\Api\OrganizationController;
 use App\Http\Controllers\Api\VotingController;
 use App\Http\Controllers\Api\VotingCategoryController;
 
@@ -38,12 +40,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Posts
 Route::resource("posts", PostController::class)->except(["create", "edit"]);
+
 // Flagged users
 Route::prefix("reports")->name("reports.")->group(function () {
     Route::resource("flagged-users", FlaggedUserController::class)->except(["create", "edit"]);
 });
 // Reports
 Route::resource("reports", ReportController::class)->except(["create", "edit"]);
+
+// Organizations
+Route::prefix("donations")->name("donations.")->group(function () {
+    Route::resource("organizations", OrganizationController::class)->except(["create", "edit"]);
+});
+// Donations
+Route::resource("donations", DonationController::class)->except(["create", "edit"]);
 
 // Users
 Route::prefix("/users")->name("users.")->group(function () {

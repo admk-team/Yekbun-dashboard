@@ -193,12 +193,22 @@
       "slug": "app-history"
     },
     {
-      "url": "app/donation",
       "name": "Donation",
       "icon": "menu-icon tf-icons fa fa-heartbeat",
-      "slug": "app-donation"
+      "slug": "donations",
+      "submenu": [
+        {
+          "url": "/donations",
+          "name": "Donation",
+          "slug": "donations.index"
+        },
+        {
+          "url": "/donations/organizations",
+          "name": "Organization",
+          "slug": "donations.organizations.index"
+        }
+      ]
     },
-  
     {
       "url": "app/media",
       "name": "Media",

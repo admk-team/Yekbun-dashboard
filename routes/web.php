@@ -21,6 +21,8 @@ use App\Http\Controllers\Admin\UplaodVideoClipController;
 use App\Http\Controllers\Admin\FanPageController;
 use App\Http\Controllers\Admin\ManageFanPageController;
 use App\Http\Controllers\Admin\BlockFanPageController;
+use App\Http\Controllers\Admin\DonationController;
+use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\VotingCategoryController;
 use App\Http\Controllers\Admin\VotingController;
 
@@ -97,6 +99,13 @@ Route::prefix("reports")->name("reports.")->group(function () {
 });
 // Reports
 Route::resource('/reports', ReportController::class);
+
+// Organizations
+Route::prefix("donations")->name("donations.")->group(function () {
+    Route::resource('/organizations', OrganizationController::class);
+});
+// Donations
+Route::resource('/donations', DonationController::class);
 
 
 // News

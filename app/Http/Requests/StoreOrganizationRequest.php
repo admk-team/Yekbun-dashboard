@@ -13,7 +13,7 @@ class StoreOrganizationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class StoreOrganizationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'bank_account' => 'nullable',
+            'paypal_account' => 'nullable',
+            'address' => 'nullable',
+            'logo' => 'nullable|image',
+            'status' => 'nullable|integer'
         ];
     }
 }
