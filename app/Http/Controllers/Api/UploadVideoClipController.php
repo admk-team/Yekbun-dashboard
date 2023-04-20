@@ -90,8 +90,8 @@ class UploadVideoClipController extends Controller
     public function update(Request $request, $id)
     {
         $video = UplaodVideoClip::findorFail($id);
-        $video->title = $request->title;
-        $video->category_id = $request->artist_id;
+        $video->title = $request->title ?? $video->title;
+        $video->category_id = $request->artist_id ?? $video->category_id;
         
         if($request->hasFile('video')){
            if(isset($news->video)){

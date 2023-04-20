@@ -86,8 +86,8 @@ class FanPageController extends Controller
     {
         
         $page = FanPage::findorFail($id);
-         $page->user_name = $request->user_name;
-         $page->fanpage_name = $request->fanpage_name;
+         $page->user_name = $request->user_name ?? $page->user_name;
+         $page->fanpage_name = $request->fanpage_name ?? $page->fanpage_name;
          if($page->update()){
             return response()->json('Fan Pgae Updated Successfully' , 200);
          }else{

@@ -94,9 +94,9 @@ class VotingController extends Controller
     public function update(Request $request, $id)
     {
         $vote = Voting::find($id);
-        $vote->name = $request->name;
-        $vote->category_id = $request->category_id;
-        $vote->description = $request->description;
+        $vote->name = $request->name ?? $vote->name;
+        $vote->category_id = $request->category_id ?? $vote->category_id;
+        $vote->description = $request->description ?? $vote->description;
 
         if($request->hasFile('image'))
         {

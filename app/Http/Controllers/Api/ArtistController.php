@@ -99,11 +99,11 @@ class ArtistController extends Controller
     public function update(Request $request, $id)
     {
         $artist = Artist::findorFail($id);
-        $artist->first_name = $request->first_name;
-        $artist->last_name = $request->last_name;
-        $artist->city = $request->city;
-        $artist->dob= $request->dob;
-        $artist->gender = $request->gender;
+        $artist->first_name = $request->first_name ?? $artist->first_name;
+        $artist->last_name = $request->last_name ?? $artist->last_name;
+        $artist->city = $request->city ?? $artist->city;
+        $artist->dob= $request->dob ?? $artist->dob;
+        $artist->gender = $request->gender ?? $artist->gender;
 
         if($request->hasFile('image')){
             if(isset($artist->image)){

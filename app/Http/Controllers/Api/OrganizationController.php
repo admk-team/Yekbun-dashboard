@@ -47,11 +47,11 @@ class OrganizationController extends Controller
             $validated["logo"] = $imagePath;
         }
 
-        $organizations = Organization::create($validated);
+        $organization = Organization::create($validated);
 
         return [
             "message" => "Organization successfully created.",
-            "data" => $organizations
+            "data" => $organization
         ];
     }
 
@@ -85,13 +85,13 @@ class OrganizationController extends Controller
             $validated["logo"] = $imagePath;
         }
 
-        $organizations = Organization::find($id);
-        $organizations->fill($validated);
-        $organizations->save();
+        $organization = Organization::find($id);
+        $organization->fill($validated);
+        $organization->save();
 
         return [
             "message" => "Organization successfully updated.",
-            "data" => $organizations
+            "data" => $organization
         ];
     }
 
@@ -103,13 +103,13 @@ class OrganizationController extends Controller
      */
     public function destroy($id)
     {
-        $organizations = Organization::find($id);
+        $organization = Organization::find($id);
 
         // Delete Image
-        if ($organizations->logo)
-            Storage::delete($organizations->logo);
+        if ($organization->logo)
+            Storage::delete($organization->logo);
 
-        $organizations->delete();
+        $organization->delete();
 
         return [
             "message" => "Organization successfully deleted."

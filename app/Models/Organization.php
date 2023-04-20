@@ -20,5 +20,11 @@ class Organization extends Model
         'paypal_account',
         'address',
         'logo',
+        "status",
     ];
+
+    public function donations()
+    {
+        return $this->hasMany(Donation::class);
+    }
 }

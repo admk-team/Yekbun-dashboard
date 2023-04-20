@@ -83,7 +83,7 @@ class MusicCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $music = MusicCategory::findorFail($id);
-        $music->name = $request->name;
+        $music->name = $request->name ?? $music->name;
         if($music->update()){
            return response()->json('Music Category Updated Successfully' , 200);
         }else{
