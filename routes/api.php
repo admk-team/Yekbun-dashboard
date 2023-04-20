@@ -19,9 +19,12 @@ use App\Http\Controllers\Api\FanPageController;
 use App\Http\Controllers\Api\ManageFanPageController;
 use App\Http\Controllers\Api\BlockFanPageController;
 use App\Http\Controllers\Api\DonationController;
+use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\OrganizationController;
+use App\Http\Controllers\Api\TicketController;
 use App\Http\Controllers\Api\VotingController;
 use App\Http\Controllers\Api\VotingCategoryController;
+use App\Models\EventCategory;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,18 +45,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::resource("posts", PostController::class)->except(["create", "edit"]);
 
 // Flagged users
-Route::prefix("reports")->name("reports.")->group(function () {
-    Route::resource("flagged-users", FlaggedUserController::class)->except(["create", "edit"]);
-});
+Route::resource("flagged-users", FlaggedUserController::class)->except(["create", "edit"]);
 // Reports
 Route::resource("reports", ReportController::class)->except(["create", "edit"]);
 
 // Organizations
-Route::prefix("donations")->name("donations.")->group(function () {
-    Route::resource("organizations", OrganizationController::class)->except(["create", "edit"]);
-});
+Route::resource("organizations", OrganizationController::class)->except(["create", "edit"]);
 // Donations
 Route::resource("donations", DonationController::class)->except(["create", "edit"]);
+
+// Events
+Route::resource("events", EventController::class)->except(["create", "edit"]);
+// Event Categories
+Route::resource("event-categories", EventCategory::class)->except(["create", "edit"]);
+// Tickets
+Route::resource("tickets", TicketController::class)->except(["create", "edit"]);
 
 // Users
 Route::prefix("/users")->name("users.")->group(function () {
