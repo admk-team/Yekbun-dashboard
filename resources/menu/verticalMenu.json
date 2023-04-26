@@ -185,7 +185,38 @@
       "icon": "menu-icon tf-icons fa fa-graduation-cap",
       "slug": "app-school"
     },
-  
+    {
+      "name": "Events",
+      "icon": "menu-icon tf-icons fa fa-calendar",
+      "slug": "events",
+      "submenu": [
+        {
+          "url": "/events/requests",
+          "name": "Event Requests",
+          "slug": "events.requests"
+        },
+        {
+          "url": "/events",
+          "name": "All Events",
+          "slug": "events.index"
+        },
+        {
+          "url": "/events/create",
+          "name": "Add Event",
+          "slug": "events.create"
+        },
+        {
+          "url": "/events/categories",
+          "name": "Categories",
+          "slug": "events.categories.index"
+        },
+        {
+          "url": "/events/tickets",
+          "name": "Tickets",
+          "slug": "events.tickets"
+        }
+      ]
+    },
     {
       "url": "/history",
       "name": "History",
