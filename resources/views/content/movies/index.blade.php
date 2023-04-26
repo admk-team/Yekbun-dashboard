@@ -10,100 +10,18 @@
 <div class="d-flex justify-content-between">
   <div>
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Video  /</span> All Video 
+    <span class="text-muted fw-light">Movies  /</span> All Movies 
 </h4>
 </div>
 <div class="">
-    <a href="{{ route('upload-video.create') }}">
-<button class="btn btn-primary">Add Video </button>
+    <a href="{{ route('upload-movies.create') }}">
+<button class="btn btn-primary">Add Movies </button>
 </a>
-<a href="{{ route('upload-video-category.index') }}">
+<a href="{{ route('upload-movies-category.index') }}">
   <button class="btn btn-primary">Category</button>
   </a>
 </div>
 </div>
-
-
-<div class="row g-4 mb-4">
-  <div class="col-sm-6 col-xl-3">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex align-items-start justify-content-between">
-          <div class="content-left">
-            <span>New Reports</span>
-            <div class="d-flex align-items-end mt-2">
-              <h4 class="mb-0 me-2">21,459</h4>
-              <small class="text-success">(+29%)</small>
-            </div>
-            <small>Last week analytics</small>
-          </div>
-          <span class="badge bg-label-primary rounded p-2">
-            <i class="bx bx-user bx-sm"></i>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-xl-3">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex align-items-start justify-content-between">
-          <div class="content-left">
-            <span>Solved Reports</span>
-            <div class="d-flex align-items-end mt-2">
-              <h4 class="mb-0 me-2">4,567</h4>
-              <small class="text-success">(+18%)</small>
-            </div>
-            <small>Last week analytics </small>
-          </div>
-          <span class="badge bg-label-danger rounded p-2">
-            <i class="bx bx-user-plus bx-sm"></i>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-xl-3">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex align-items-start justify-content-between">
-          <div class="content-left">
-            <span>Awaiting Reports</span>
-            <div class="d-flex align-items-end mt-2">
-              <h4 class="mb-0 me-2">19,860</h4>
-              <small class="text-danger">(-14%)</small>
-            </div>
-            <small>Last week analytics</small>
-          </div>
-          <span class="badge bg-label-success rounded p-2">
-            <i class="bx bx-group bx-sm"></i>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-xl-3">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex align-items-start justify-content-between">
-          <div class="content-left">
-            <span>Total Reports</span>
-            <div class="d-flex align-items-end mt-2">
-              <h4 class="mb-0 me-2">237</h4>
-              <small class="text-success">(+42%)</small>
-            </div>
-            <small>Last week analytics</small>
-          </div>
-          <span class="badge bg-label-warning rounded p-2">
-            <i class="bx bx-user-voice bx-sm"></i>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
   <!-- Basic Bootstrap Table -->
   <div class="card">
     <h5 class="card-header">Table Basic</h5>
@@ -115,25 +33,25 @@
             <th>Thumbnail</th>
             <th>Title</th>
             <th>Category</th>
-            <th>video</th>
+            <th>Movie</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
-          @foreach($upload_video as $video)
+          @foreach($upload_movie as $movie)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $video->thumbnail ?? '' }}</td>
-            <td>{{ $video->title ?? '' }}</td>
-            <td>{{ $video->videocategory->category ?? '' }}</td>
+            <td>{{ $movie->thumbnail ?? '' }}</td>
+            <td>{{ $movie->title ?? '' }}</td>
+            <td>{{ $movie->moviecategory->category ?? '' }}</td>
             <td><video controls width="150">
-              <source src="{{ asset('storage/'.$video->video) }}" type="video/mp4">
+              <source src="{{ asset('storage/'.$movie->video) }}" type="video/mp4">
             </video></td>
             <td>
               <div class="dropdown d-inline-block show">
                 @php
-                if($video->status==1){
+                if($movie->status==1){
                 $btn='success';
                 }else{
                 $btn='danger';
@@ -141,7 +59,7 @@
                 @endphp
                 <button type="button" aria-haspopup="true" aria-expanded="true" data-bs-toggle="dropdown"
                   class="mb-2 mr-2 dropdown-toggle btn btn-{{ $btn }}">
-                  @if ($video->status==1)
+                  @if ($movie->status==1)
                   Active
                   @else
                   Dective
@@ -152,12 +70,12 @@
                   style="position: absolute; transform: translate3d(0px, -362px, 0px); top: 0px; left: 0px; will-change: transform;min-width: 9rem;">
                   <ul class="nav flex-column">
                     <li class="nav-item">
-                      <a href="{{ route('video_status',['id'=>$video->id,'status'=>1]) }}"
+                      <a href="{{ route('movies_status',['id'=>$movie->id,'status'=>1]) }}"
                         class="nav-link">Active
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="{{ route('video_status',['id'=>$video->id,'status'=>0]) }}"
+                      <a href="{{ route('movies_status',['id'=>$movie->id,'status'=>0]) }}"
                         class="nav-link">Deactive</a>
                     </li>
                   </ul>
@@ -172,13 +90,13 @@
                 <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
                   <ul class="nav flex-column">
                     <li class="nav-item">
-                      <a href="{{ route('upload-video.edit',$video->id) }}" class="nav-link">
+                      <a href="{{ route('upload-movies.edit',$movie->id) }}" class="nav-link">
                         <i class="nav-link-icon pe-7s-chat"> </i><span>Edit</span>
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);"
-                        data-id="{{ route('upload-video.destroy',$video->id) }}">
+                        data-id="{{ route('upload-movies.destroy',$movie->id) }}">
                         <i class="nav-link-icon pe-7s-wallet"> </i><span>Delete</span>
                       </a>
                     </li>
