@@ -180,11 +180,6 @@
       "slug": "video",
       "submenu": [
         {
-          "url": "/video",
-          "name": "Upload Video",
-          "slug": "reports.index"
-        },
-        {
           "url": "/upload-video",
           "name": "Upload Video",
           "slug": "upload-video"
@@ -193,6 +188,11 @@
           "url": "/upload-movies",
           "name": "Upload Movies",
           "slug": "upload-movies"
+        },
+        {
+          "url": "/report-video",
+          "name": "Report Video",
+          "slug": "report-video"
         }
       ]
     },

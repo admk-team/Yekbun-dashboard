@@ -31,6 +31,11 @@ use App\Http\Controllers\Admin\HistoryController;
 use App\Http\Controllers\Admin\HistoryCategoryController;
 use App\Http\Controllers\Admin\BazarController;
 use App\Http\Controllers\Admin\BazarCategoryController;
+use App\Http\Controllers\Admin\UplaodVideoController;
+use App\Http\Controllers\Admin\UploadMovieController;
+use App\Http\Controllers\Admin\UploadVideoCategoryController;
+use App\Http\Controllers\Admin\UploadMovieCategoryController;
+use App\Http\Controllers\Admin\ReportVideoController;
 
 
 /*
@@ -136,8 +141,20 @@ Route::resource('/upload_video', UplaodVideoClipController::class);
 Route::get('/upload_video/{id}/{status}' , [UplaodVideoClipController::class, 'status'])->name('upload-status');
 
 // Video 
-Route::get('/app/videos', $controller_path . '\apps\video\Video@index')->name('app-video');
-Route::get('/app/videos/add-video', $controller_path . '\apps\video\Video@create')->name('app-video-create');
+Route::resource('/upload-video', UplaodVideoController::class);
+Route::resource('/upload-video-category', UploadVideoCategoryController::class);
+Route::get('/video/{id}/{status}' , [UplaodVideoController::class, 'status'])->name('video_status');
+Route::get('/video_category/{id}/{status}' , [UploadVideoCategoryController::class, 'status'])->name('videocat_status');
+
+Route::resource('/upload-movies', UploadMovieController::class);
+Route::resource('/upload-movies-category', UploadMovieCategoryController::class);
+Route::get('/upload_movies/{id}/{status}' , [UploadMovieController::class, 'status'])->name('movies_status');
+Route::get('/movie_category/{id}/{status}' , [UploadMovieCategoryController::class, 'status'])->name('moviecat_status');
+
+
+Route::resource('/report-video' , ReportVideoController::class);
+Route::get('/report_vidoe/{id}/{status}' , [ReportVideoController::class, 'status'])->name('report-status');
+
 // School 
 Route::get('/app/schools', $controller_path . '\apps\school\School@index')->name('app-school');
 Route::get('/app/schools/add-school', $controller_path . '\apps\school\School@create')->name('app-school-create');
