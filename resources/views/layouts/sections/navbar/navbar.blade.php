@@ -52,37 +52,10 @@ $navbarDetached = ($navbarDetached ?? '');
         <ul class="navbar-nav flex-row align-items-center ms-auto">
           @if(!isset($menuHorizontal))
           <!-- Language -->
-          <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-              <i class='fi fi-us fis rounded-circle fs-3 me-1'></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li>
-                <a class="dropdown-item" href="{{url('lang/en')}}" data-language="en">
-                  <i class="fi fi-us fis rounded-circle fs-4 me-1"></i>
-                  <span class="align-middle">English</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="{{url('lang/fr')}}" data-language="fr">
-                  <i class="fi fi-fr fis rounded-circle fs-4 me-1"></i>
-                  <span class="align-middle">French</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="{{url('lang/de')}}" data-language="de">
-                  <i class="fi fi-de fis rounded-circle fs-4 me-1"></i>
-                  <span class="align-middle">German</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="{{url('lang/pt')}}" data-language="pt">
-                  <i class="fi fi-pt fis rounded-circle fs-4 me-1"></i>
-                  <span class="align-middle">Portuguese</span>
-                </a>
-              </li>
-            </ul>
-          </li>
+
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newscategorymodel">
+            <img src="{{ asset('assets/img/8103873.png') }}" width="20"/>
+          </button>
           <!--/ Language -->
           @endif
 
@@ -420,12 +393,7 @@ $navbarDetached = ($navbarDetached ?? '');
                 </a>
               </li>
               @endif
-              <li>
-                <a class="dropdown-item" href="{{url('app/invoice/list')}}">
-                  <i class="bx bx-credit-card me-2"></i>
-                  <span class="align-middle">Billing</span>
-                </a>
-              </li>
+            
               @if (Auth::User() && Laravel\Jetstream\Jetstream::hasTeamFeatures())
               <li>
                 <div class="dropdown-divider"></div>
@@ -505,3 +473,41 @@ $navbarDetached = ($navbarDetached ?? '');
     @endif
   </nav>
   <!-- / Navbar -->
+
+       <!-- Category Model -->
+       <div class="modal fade" id="newscategorymodel" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+              <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Publish</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Album</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Video</a>
+                </li>
+              </ul>
+            <div class="modal-body">
+              <div class="row">
+                <form method="POST" action="{{ route('news-category.store') }}">
+                    @csrf
+                <div class="col-12 d-flex">
+                  <div>
+                  <img src="{{ asset('assets/img/avatars/1.png') }}" width="80" class="rounded-circle">
+                  </div>
+                  <textarea type="text" id="nameLarge" class="form-control border-0" placeholder="Write Something here" name="news_category"></textarea>
+                </div>
+               </form>
+               <div class="col-12 d-flex" style="margin-top:100px; border-top:1px solid #f7f7f7 ">
+                <button class="btn " style="background-color:#f7f7f7; border-radius:500px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>Media</button>
+                <button class="btn " style="background-color:#f7f7f7; border-radius:500px;"><img src={{ asset('assets/img/emoji-1.svg') }} width="25">Activity</button>
+                <button class="btn " style="background-color:#f7f7f7; border-radius:500px;"><i class='bx bx-dots-horizontal-rounded '></i></button>
+               </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
