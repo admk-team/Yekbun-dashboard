@@ -173,11 +173,28 @@
       "icon": "menu-icon tf-icons bx bx-news",
       "slug": "news"
     },
+
     {
-      "url": "app/videos",
-      "name": "Video",
+      "name": "Videos",
       "icon": "menu-icon tf-icons fa fa-video-camera",
-      "slug": "app-video"
+      "slug": "video",
+      "submenu": [
+        {
+          "url": "/video",
+          "name": "Upload Video",
+          "slug": "reports.index"
+        },
+        {
+          "url": "/upload-video",
+          "name": "Upload Video",
+          "slug": "upload-video"
+        },
+        {
+          "url": "/upload-movies",
+          "name": "Upload Movies",
+          "slug": "upload-movies"
+        }
+      ]
     },
     {
       "url": "app/schools",
