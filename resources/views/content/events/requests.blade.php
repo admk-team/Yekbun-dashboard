@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Events - List')
+@section('title', 'Events - Requests')
 
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
@@ -10,20 +10,15 @@
 <div class="d-flex justify-content-between">
   <div>
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Events /</span> All Events
+    <span class="text-muted fw-light">Events /</span> All Requests
 </h4>
-</div>
-<div class="">
-    <a href="{{ route('events.create') }}">
-      <button class="btn btn-primary">Add Event</button>
-    </a>
 </div>
 </div>
   <!-- Basic Bootstrap Table -->
   <div class="card">
-    <h5 class="card-header">Events List</h5>
+    <h5 class="card-header">Event Requests</h5>
     <div class="table-responsive text-nowrap">
-    <table class="table">
+      <table class="table">
         <thead>
           <tr>
             <th>Title</th>
@@ -69,6 +64,7 @@
                   </form>
                 </div>
               </div>
+
               <!-- Modal -->
               <div class="modal fade" id="changeStatusModal" tabindex="-1" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">

@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use App\Models\EventCategory;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
-use App\Models\EventCategory;
 
 class EventController extends Controller
 {
@@ -43,6 +44,21 @@ class EventController extends Controller
     {
         $validated = $request->validated();
 
+        $validated['ticket_sale'] = filter_var($validated['ticket_sale'], FILTER_VALIDATE_BOOLEAN);
+        $validated['online_sale'] = filter_var($validated['online_sale'], FILTER_VALIDATE_BOOLEAN);
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->image->store("/events", "public");
+            $validated["image"] = $imagePath;
+        }
+
+        $soundPath = null;
+        if ($request->hasFile('sound')) {
+            $soundPath = $request->sound->store("/events", "public");
+            $validated["sound"] = $soundPath;
+        }
+
         $event = Event::create($validated);
 
         return back()->with("success", "Event successfully created.");
@@ -69,7 +85,7 @@ class EventController extends Controller
     {
         $event = Event::find($id);
         $categories = EventCategory::where('status', 1)->get();
-        return view("content.event.categories.edit", compact("event", "categories"));
+        return view("content.events.edit", compact("event", "categories"));
     }
 
     /**
@@ -82,6 +98,21 @@ class EventController extends Controller
     public function update(UpdateEventRequest $request, $id)
     {
         $validated = $request->validated();
+
+        $validated['ticket_sale'] = filter_var($validated['ticket_sale'], FILTER_VALIDATE_BOOLEAN);
+        $validated['online_sale'] = filter_var($validated['online_sale'], FILTER_VALIDATE_BOOLEAN);
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->image->store("/events", "public");
+            $validated["image"] = $imagePath;
+        }
+
+        $soundPath = null;
+        if ($request->hasFile('sound')) {
+            $soundPath = $request->sound->store("/events", "public");
+            $validated["sound"] = $soundPath;
+        }
 
         $event = Event::find($id);
         $event->fill($validated);
@@ -99,8 +130,26 @@ class EventController extends Controller
     public function destroy($id)
     {
         $event = Event::find($id);
+        // Delete Image
+        if ($event->image)
+            Storage::delete($event->image);
+        // Delete Image
+        if ($event->sound)
+            Storage::delete($event->sound);
         $event->delete();
 
         return back()->with("success", "Event successfully deleted.");
+    }
+
+    public function requests()
+    {
+        $events = Event::where("status", 0)->orderBy("updated_at", "desc")->get();
+        return view('content.events.requests', compact("events"));
+    }
+
+    public function tickets()
+    {
+        $events = Event::where('ticket_sale', true)->get();
+        return view("content.events.tickets", compact("events"));
     }
 }

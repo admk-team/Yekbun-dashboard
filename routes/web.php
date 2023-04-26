@@ -7,30 +7,33 @@ use App\Http\Controllers\user\Standard;
 use App\Http\Controllers\fanpage\FanPage;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\BazarController;
+use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\MusicController;
 use App\Http\Controllers\Admin\ArtistController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\TicketController;
+use App\Http\Controllers\Admin\VotingController;
+use App\Http\Controllers\Admin\FanPageController;
+use App\Http\Controllers\Admin\HistoryController;
+use App\Http\Controllers\Admin\DonationController;
 use App\Http\Controllers\Admin\DiamondUserController;
 use App\Http\Controllers\Admin\FlaggedUserController;
 use App\Http\Controllers\Admin\PremiumUserController;
-use App\Http\Controllers\Admin\NewsCategoryController;
-use App\Http\Controllers\Admin\StandardUserController;
-use App\Http\Controllers\Admin\MusicCategoryController;
-use App\Http\Controllers\laravel_example\UserManagement;
-use App\Http\Controllers\Admin\UplaodVideoClipController;
-use App\Http\Controllers\Admin\FanPageController;
-use App\Http\Controllers\Admin\ManageFanPageController;
 use App\Http\Controllers\Admin\BlockFanPageController;
-use App\Http\Controllers\Admin\DonationController;
+use App\Http\Controllers\Admin\NewsCategoryController;
 use App\Http\Controllers\Admin\OrganizationController;
-use App\Http\Controllers\Admin\VotingCategoryController;
-use App\Http\Controllers\Admin\VotingController;
-use App\Http\Controllers\Admin\MediaController;
-use App\Http\Controllers\Admin\MediaCategoryController;
-use App\Http\Controllers\Admin\HistoryController;
-use App\Http\Controllers\Admin\HistoryCategoryController;
-use App\Http\Controllers\Admin\BazarController;
+use App\Http\Controllers\Admin\StandardUserController;
 use App\Http\Controllers\Admin\BazarCategoryController;
+use App\Http\Controllers\Admin\EventCategoryController;
+use App\Http\Controllers\Admin\ManageFanPageController;
+use App\Http\Controllers\Admin\MediaCategoryController;
+use App\Http\Controllers\Admin\MusicCategoryController;
+use App\Http\Controllers\Admin\VotingCategoryController;
+use App\Http\Controllers\laravel_example\UserManagement;
+use App\Http\Controllers\Admin\HistoryCategoryController;
+use App\Http\Controllers\Admin\UplaodVideoClipController;
 use App\Http\Controllers\Admin\UplaodVideoController;
 use App\Http\Controllers\Admin\UploadMovieController;
 use App\Http\Controllers\Admin\UploadVideoCategoryController;
@@ -117,6 +120,18 @@ Route::prefix("donations")->name("donations.")->group(function () {
 });
 // Donations
 Route::resource('/donations', DonationController::class);
+
+
+// Events
+Route::prefix("events")->name("events.")->group(function () {
+    // Event Categories
+    Route::resource("categories", EventCategoryController::class);
+    // Tickets
+    //Route::resource("tickets", TicketController::class);
+    Route::get("/tickets", [EventController::class, 'tickets'])->name('tickets');
+    Route::get('/requests', [EventController::class, 'requests'])->name('requests');
+});
+Route::resource("events", EventController::class);
 
 
 // News
