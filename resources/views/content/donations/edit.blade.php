@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Donations - Create')
+@section('title', 'Donations - Edit')
 
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
@@ -20,7 +20,7 @@
 
 @section('content')
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Donations /</span> Add Donation
+    <span class="text-muted fw-light">Donations /</span> Edit Donation
 </h4>
 <div class="row">
     <div class="col-12">
@@ -36,21 +36,22 @@
           </div>
         </div></div>
         <div class="card-body">
-            <form action="{{ route('donations.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('donations.update', $donation->id) }}" method="post" enctype="multipart/form-data">
+                @method('PUT')
                 @csrf
                 <div class="row">
                     <div class="col-lg-8 mx-auto">
                     <div class="row g-3">
                         <div class="col-md-12">
                           <label class="form-label" for="inputTitle">Title</label>
-                          <input type="text" id="inputTitle" name="title" class="form-control" value="{{ old('title') }}" placeholder="Title">
+                          <input type="text" id="inputTitle" name="title" class="form-control" value="{{ old('title')?? $donation->title }}" placeholder="Title">
                           @error('title')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                           @enderror
                         </div>
                         <div class="col-md-12">
                           <label class="form-label" for="inputDescription">Description</label>
-                          <textarea id="inputDescription" name="description" class="form-control">{{ old('description') }}</textarea>
+                          <textarea id="inputDescription" name="description" class="form-control">{{ old('description')?? $donation->description }}</textarea>
                           @error('description')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                           @enderror
@@ -60,7 +61,7 @@
                           <select id="inputOrganizationId" name="organization_id" class="form-control">
                             <option value="" selected>Select</option>
                             @foreach ($organizations as $org)
-                              <option value="{{ $org->id }}" {{ (int) old('organization_id') === $org->id? 'selected': '' }}>{{ $org->name }}</option>
+                              <option value="{{ $org->id }}" {{ $donation->id === $org->id? 'selected': '' }}>{{ $org->name }}</option>
                             @endforeach
                           </select>
                           @error('organization_id')
@@ -69,21 +70,21 @@
                         </div>
                         <div class="col-md-6">
                           <label class="form-label" for="inputStartDate">Start Date</label>
-                          <input type="text" id="inputStartDate" name="start_date" class="form-control" value="{{ old('start_date') }}">
+                          <input type="text" id="inputStartDate" name="start_date" class="form-control" value="{{ old('start_date')?? $donation->start_date }}">
                           @error('start_date')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                           @enderror
                         </div>
                         <div class="col-md-6">
                           <label class="form-label" for="inputEndDate">End Date</label>
-                          <input type="text" id="inputEndDate" name="end_date" class="form-control" value="{{ old('end_date') }}">
+                          <input type="text" id="inputEndDate" name="end_date" class="form-control" value="{{ old('end_date')?? $donation->end_date }}">
                           @error('end_date')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                           @enderror
                         </div>
                         <div class="col-md-6 mb-4">
                           <label for="inputTags" class="form-label">Tags</label>
-                          <input id="inputTags" class="form-control" name="tags" value="{{ old('tags') }}" />
+                          <input id="inputTags" class="form-control" name="tags" value="{{ old('tags')?? formatTagsForTagify($donation->tags) }}" />
                           @error('tags')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                           @enderror
@@ -91,14 +92,14 @@
                         <div class="col-md-6">
                           <label class="form-label" for="statusInput">Status</label>
                           <select class="form-control" name="status" id="statusInput">
-                              <option value="1" selected>Active</option>
-                              <option value="0" {{ old('status') === '0'? 'selected': '' }}>Disabled</option>
+                            <option value="1" {{ $donation->status? 'selected': '' }}>Active</option>
+                            <option value="0" {{ !$donation->status? 'selected': '' }}>Disabled</option>
                           </select>
                           @error('status')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                           @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary mt-4">Create</button>
+                        <button type="submit" class="btn btn-primary mt-4">Update</button>
                     </div>
                 </div>
             </form>
@@ -125,3 +126,12 @@
   });
 </script>
 @endsection
+
+@php
+function formatTagsForTagify($tags)
+{
+  return json_encode(array_map(function ($item) {
+    return ['value' => $item];
+  }, $tags));
+}
+@endphp

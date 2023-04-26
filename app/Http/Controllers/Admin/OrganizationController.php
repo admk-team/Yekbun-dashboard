@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Organization;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreOrganizationRequest;
+use App\Http\Requests\UpdateOrganizationRequest;
 
 class OrganizationController extends Controller
 {
@@ -14,7 +18,8 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-        //
+        $organizations = Organization::orderBy("updated_at", "DESC")->get();
+        return view("content.organizations.index", compact("organizations"));
     }
 
     /**
@@ -24,7 +29,7 @@ class OrganizationController extends Controller
      */
     public function create()
     {
-        //
+        return view("content.organizations.create");
     }
 
     /**
@@ -33,9 +38,19 @@ class OrganizationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreOrganizationRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $imagePath = null;
+        if ($request->hasFile('logo')) {
+            $imagePath = $request->logo->store("/organizations", "public");
+            $validated["logo"] = $imagePath;
+        }
+
+        $organization = Organization::create($validated);
+
+        return back()->with("success", "Organization successfully created.");
     }
 
     /**
@@ -46,7 +61,8 @@ class OrganizationController extends Controller
      */
     public function show($id)
     {
-        //
+        $organization = Organization::find($id);
+        return view("content.organizations.show", compact("organization"));
     }
 
     /**
@@ -57,7 +73,8 @@ class OrganizationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $organization = Organization::find($id);
+        return view("content.organizations.edit", compact("organization"));
     }
 
     /**
@@ -67,9 +84,21 @@ class OrganizationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateOrganizationRequest $request, $id)
     {
-        //
+        $validated = $request->validated();
+
+        $imagePath = null;
+        if ($request->hasFile('logo')) {
+            $imagePath = $request->logo->store("/organizations", "public");
+            $validated["logo"] = $imagePath;
+        }
+
+        $organization = Organization::find($id);
+        $organization->fill($validated);
+        $organization->save();
+
+        return back()->with("success", "Organization successfully updated.");
     }
 
     /**
@@ -80,6 +109,14 @@ class OrganizationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $organization = Organization::find($id);
+
+        // Delete Image
+        if ($organization->logo)
+            Storage::delete($organization->logo);
+
+        $organization->delete();
+
+        return back()->with("success", "Organization successfully deleted.");
     }
 }

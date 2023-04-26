@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Organization extends Model
+class EventCategory extends Model
 {
     use HasFactory;
 
@@ -16,15 +16,11 @@ class Organization extends Model
      */
     protected $fillable = [
         'name',
-        'bank_account',
-        'paypal_account',
-        'address',
-        'logo',
-        "status",
+        'status',
     ];
 
-    public function donations()
+    public function events()
     {
-        return $this->hasMany(Donation::class);
+        return $this->hasMany(Event::class);
     }
 }

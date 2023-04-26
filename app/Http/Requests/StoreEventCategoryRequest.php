@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateOrganizationRequest extends FormRequest
+class StoreEventCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,8 @@ class UpdateOrganizationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'nullable',
-            'bank_account' => 'nullable',
-            'paypal_account' => 'nullable',
-            'address' => 'nullable',
-            'logo' => 'nullable|image',
-            'status' => 'nullable|integer'
+            'name' => 'required',
+            'status' => 'nullable',
         ];
     }
 }
