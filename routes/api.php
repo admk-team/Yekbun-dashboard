@@ -31,6 +31,10 @@ use App\Http\Controllers\Api\MusicCategoryController;
 use App\Http\Controllers\Api\VotingCategoryController;
 use App\Http\Controllers\Api\HistoryCategoryController;
 use App\Http\Controllers\Api\UploadVideoClipController;
+use App\Http\Controllers\Api\UploadVideoCategoryController;
+use App\Http\Controllers\Api\UploadVideoController;
+use App\Http\Controllers\Api\UploadMovieCategoryController;
+use App\Http\Controllers\Api\UploadMovieController;
 
 
 /*
@@ -92,3 +96,7 @@ Route::resource('history-category' , HistoryCategoryController::class)->only(['i
 Route::resource('history' , HistoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
 Route::resource('bazar-category' , BazarCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
 Route::resource('bazar' , BazarController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+Route::resource('video-category' , UploadVideoCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+Route::resource('video' , UploadVideoController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+Route::resource('movie-category' , UploadMovieCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+Route::resource('movie' , UploadMovieController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
