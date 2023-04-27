@@ -6,6 +6,18 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
 @endsection
 
+@section('vendor-style')
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/flatpickr/flatpickr.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/tagify/tagify.css')}}" />
+@endsection
+
+@section('vendor-script')
+<script src="{{asset('assets/vendor/libs/flatpickr/flatpickr.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/select2/select2.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/tagify/tagify.js')}}"></script>
+@endsection
+
 @section('content')
 <div class="d-flex justify-content-between">
   <div>
@@ -101,7 +113,8 @@
               <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{{ route('donations.edit', $donation->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                  <!-- <a class="dropdown-item" href="{{ route('donations.edit', $donation->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a> -->
+                  <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal{{ $donation->id }}"><i class="bx bx-edit-alt me-1"></i> Edit</button>
                   <form action="{{ route('donations.destroy', $donation->id) }}" method="post">
                     @method('DELETE')
                     @csrf
@@ -109,6 +122,17 @@
                   </form>
                 </div>
               </div>
+              <x-modal
+                id="editModal{{ $donation->id }}"
+                title="Edit Donation" 
+                saveBtnText="Update"
+                saveBtnType="submit"
+                saveBtnForm="editForm{{ $donation->id }}"
+                size="xl"
+                :show="old('showEditFormModal'.$donation->id)? true: false"
+              >
+                @include('content.donations.includes.edit_form')
+              </x-modal>
             </td>
           </tr>
           @empty
@@ -124,12 +148,22 @@
 
   <x-modal
     id="createModal"
-    title="Create Donation" 
+    title="Add Donation" 
     saveBtnText="Create"
     saveBtnType="submit"
     saveBtnForm="createForm"
     size="xl"
+    :show="old('showCreateFormModal')? true: false"
   >
     @include('content.donations.includes.create_form')
   </x-modal>
 @endsection
+
+@php
+  function formatTagsForTagify($tags)
+  {
+    return json_encode(array_map(function ($item) {
+      return ['value' => $item];
+    }, $tags));
+  }
+@endphp

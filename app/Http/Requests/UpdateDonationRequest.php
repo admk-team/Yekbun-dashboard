@@ -24,7 +24,7 @@ class UpdateDonationRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'nullable',
+            'title' => 'required',
             'description' => 'nullable',
             'organization_id' => 'nullable|exists:organizations,id',
             'tags' => 'nullable',
