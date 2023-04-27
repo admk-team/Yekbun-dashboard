@@ -7,21 +7,22 @@
 @endsection
 
 @section('content')
-<div class="d-flex justify-content-between">
+<div class="container">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="{{ route('upload-video.index') }}"><i class='bx bx-plus-circle bx-lg'></i>Manage Video</a></li>
+    <li><a href="{{ route('upload-video-category.index') }}"><i class='bx bx-plus-circle bx-lg' ></i>Add Categroy</a></li>
+  </ul>
   <div>
-<h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Video Category /</span> All Video Category
-</h4>
 </div>
-<div class="">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newscategorymodel">
+<div class="d-flex justify-content-center mt-2 mb-2">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videocategorymodel">
         Add  Vidoe Category
       </button>
 </div>
 </div>
 
   <!-- Category Model -->
-  <div class="modal fade" id="newscategorymodel" tabindex="-1" aria-hidden="true">
+  <div class="modal fade" id="videocategorymodel" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">

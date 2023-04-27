@@ -7,22 +7,28 @@
 @endsection
 
 @section('content')
-<div class="d-flex justify-content-between">
-  <div>
-<h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Video  /</span> All Video 
-</h4>
-</div>
-<div class="">
-    <a href="{{ route('upload-video.create') }}">
-<button class="btn btn-primary">Add Video </button>
-</a>
-<a href="{{ route('upload-video-category.index') }}">
-  <button class="btn btn-primary">Category</button>
-  </a>
-</div>
-</div>
+<div class="contianer">
 
+  {{-- <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class='bx bx-plus-circle bx-lg'></i>Add Video</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('upload-video-category.index') }}"><i class='bx bx-plus-circle bx-lg' ></i>Add Category</a>
+    </li>
+  </ul> --}}
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="{{ route('upload-video.index') }}"><i class='bx bx-plus-circle bx-lg'></i>Manage Video</a></li>
+    <li><a href="{{ route('upload-video-category.index') }}"><i class='bx bx-plus-circle bx-lg' ></i>Add Categroy</a></li>
+  </ul>
+  <div>
+</div>
+<div class="d-flex justify-content-center mt-2 mb-2">
+    <a href="{{ route('upload-video.create') }}">
+<button class="btn btn-primary">Add Video </button> 
+    </a>
+</div>
+</div>
 
 <div class="row g-4 mb-4">
   <div class="col-sm-6 col-xl-3">
@@ -30,7 +36,7 @@
       <div class="card-body">
         <div class="d-flex align-items-start justify-content-between">
           <div class="content-left">
-            <span>New Reports</span>
+            <span>Total Videos</span>
             <div class="d-flex align-items-end mt-2">
               <h4 class="mb-0 me-2">21,459</h4>
               <small class="text-success">(+29%)</small>
@@ -49,7 +55,7 @@
       <div class="card-body">
         <div class="d-flex align-items-start justify-content-between">
           <div class="content-left">
-            <span>Solved Reports</span>
+            <span>Uploaded Videos</span>
             <div class="d-flex align-items-end mt-2">
               <h4 class="mb-0 me-2">4,567</h4>
               <small class="text-success">(+18%)</small>
@@ -68,7 +74,7 @@
       <div class="card-body">
         <div class="d-flex align-items-start justify-content-between">
           <div class="content-left">
-            <span>Awaiting Reports</span>
+            <span>Total Movies</span>
             <div class="d-flex align-items-end mt-2">
               <h4 class="mb-0 me-2">19,860</h4>
               <small class="text-danger">(-14%)</small>
@@ -87,7 +93,7 @@
       <div class="card-body">
         <div class="d-flex align-items-start justify-content-between">
           <div class="content-left">
-            <span>Total Reports</span>
+            <span>Video Size Total</span>
             <div class="d-flex align-items-end mt-2">
               <h4 class="mb-0 me-2">237</h4>
               <small class="text-success">(+42%)</small>
