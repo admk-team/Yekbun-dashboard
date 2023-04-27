@@ -18,15 +18,6 @@
       <button class="btn btn-primary" >Add Donation</button>
     </a> -->
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Add Donation</button>
-    <x-modal
-      id="createModal"
-      title="Create Donation" 
-      saveBtnText="Create"
-      saveBtnType="submit"
-      saveBtnForm="createForm"
-    >
-      @include('content.donations.includes.create_form')
-    </x-modal>
 </div>
 </div>
 
@@ -130,4 +121,15 @@
     </div>
   </div>
   <!--/ Basic Bootstrap Table -->
+
+  <x-modal
+    id="createModal"
+    title="Create Donation" 
+    saveBtnText="Create"
+    saveBtnType="submit"
+    saveBtnForm="createForm"
+    size="xl"
+  >
+    @include('content.donations.includes.create_form')
+  </x-modal>
 @endsection
