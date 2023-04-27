@@ -7,21 +7,31 @@
 @endsection
 
 @section('content')
-<div class="d-flex justify-content-between">
-  <div>
-<h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Music Category /</span> All Music Category
-</h4>
+{{-- Nav TAb --}}
+<div class="row">
+  <div class="col-xl-12">
+      <div class="nav-align-top mb-4">
+          <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                  <a href="{{ route('vote.index') }}">
+                      <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='menu-icon tf-icons bx bxs-user bx-md'></i>Manage Items</button>
+                  </a>
+              </li>
+              <li class="nav-item" role="presentation">
+                  <a href="{{ route('vote-category.index') }}">
+                      <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='bx bx-plus-circle bx-md'></i>Add Categroy</button>
+                  </a>
+              </li>
+          </ul>
+      </div>
+  </div>
 </div>
-<div class="">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#musiccategorymodel">
-        Add  Music Category
-      </button>
-</div>
+<div class="d-flex justify-content-center mt-2 mb-2">
+  <button class="btn btn-primary col-md-3" data-bs-toggle="modal" data-bs-target="#createmusiccategoryModal">Add Vote</button>
 </div>
 
   <!-- Category Model -->
-  <div class="modal fade" id="musiccategorymodel" tabindex="-1" aria-hidden="true">
+  <div class="modal fade" id="createmusiccategoryModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -111,9 +121,7 @@
                   <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
                     <ul class="nav flex-column">
                       <li class="nav-item">
-                        <a href="{{ route('music-category.edit',$music->id) }}" class="nav-link">
-                          <i class="nav-link-icon pe-7s-chat"> </i><span>Edit</span>
-                        </a>
+                          <button class="btn" data-bs-toggle="modal" data-bs-target="#editmusiccategoryModal{{ $music->id }}">Edit</button>
                       </li>
                       <li class="nav-item">
                         <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);"
@@ -124,6 +132,35 @@
                     </ul>
                   </div>
                 </div>
+                 {{-- Edit Category Music Model --}}
+                 <div class="modal fade" id="editmusiccategoryModal{{ $music->id }}" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel3"> Edit Category</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                              <div class="row">
+                                  <form method="POST" action="{{ route('music-category.update',$music->id) }}">
+                                      @csrf
+                                      @method('put')
+                                      <div class="col mb-3">
+                                          <label for="nameLarge" class="form-label">Name</label>
+                                          <input type="text" id="nameLarge" class="form-control" placeholder="Enter Name" name="music_category" value={{ $music->name ?? '' }}>
+                                      </div>
+                                      <div class="modal-footer">
+                                          <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                                          <button type="submit" class="btn btn-primary">Save changes</button>
+                                      </div>
+                                  </form>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+
               </td>
           </tr>
           @endforeach

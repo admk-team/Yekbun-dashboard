@@ -17,7 +17,8 @@ class UplaodVideoController extends Controller
     public function index()
     {
         $upload_video = UplaodVideo::with('videocategory')->orderBy('id', 'desc')->get();
-        return view('content.videos.index' ,compact('upload_video'));
+        $video_category = UploadVideoCategory::get();
+        return view('content.videos.index' ,compact('upload_video' , 'video_category'));
     }
 
     /**
@@ -27,7 +28,6 @@ class UplaodVideoController extends Controller
      */
     public function create()
     {
-        $video_category = UploadVideoCategory::get();
         return view('content.videos.create', compact('video_category'));
     }
 

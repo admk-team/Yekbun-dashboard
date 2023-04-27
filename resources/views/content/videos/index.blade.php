@@ -8,25 +8,26 @@
 
 @section('content')
 <div class="contianer">
-
-  {{-- <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link" href="#"><i class='bx bx-plus-circle bx-lg'></i>Add Video</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{{ route('upload-video-category.index') }}"><i class='bx bx-plus-circle bx-lg' ></i>Add Category</a>
-    </li>
-  </ul> --}}
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="{{ route('upload-video.index') }}"><i class='bx bx-plus-circle bx-lg'></i>Manage Video</a></li>
-    <li><a href="{{ route('upload-video-category.index') }}"><i class='bx bx-plus-circle bx-lg' ></i>Add Categroy</a></li>
-  </ul>
-  <div>
+<div class="row">
+  <div class="col-xl-12">
+    <div class="nav-align-top mb-4">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a href="{{ route('upload-video.index') }}">
+          <button type="button" class="nav-link active" role="tab"  aria-selected="true"><i class='bx bx-plus-circle bx-lg'></i>Manage Video</button>
+          </a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a href="{{ route('upload-video-category.index') }}">
+          <button type="button" class="nav-link active" role="tab"  aria-selected="true"><i class='bx bx-plus-circle bx-lg'></i>Add Categroy</button>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
 <div class="d-flex justify-content-center mt-2 mb-2">
-    <a href="{{ route('upload-video.create') }}">
-<button class="btn btn-primary">Add Video </button> 
-    </a>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createvideoModal">Add Video</button>
 </div>
 </div>
 
@@ -230,5 +231,66 @@
     $('#delete_form').attr('action', link);
   }
 </script>
+<x-modal
+    id="createvideoModal"
+    title="Create Video" 
+    saveBtnText="Create"
+    saveBtnType="submit"
+    saveBtnForm="createForm"
+    size="xl"
+  >
+  
+  <form id="createForm" method="POST" action="{{ route('upload-video.store') }}" enctype="multipart/form-data">
+    @csrf
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label" for="fullname">Thumbnail</label>
+            <input type="text" id="fullname" class="form-control" placeholder="" name="thumbnail">
+            @error('thumbnail')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="fullname">Uplaod Video</label>
+            <input type="file" name="video" class="form-control" id="image" accept="video/*" />
+            @error('video')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="fullname">Title</label>
+            <input type="text" id="fullname" class="form-control" placeholder="" name="title">
+            @error('title')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="fullname">Category</label>
+            <select class="form-select" aria-label="Default select example" name="category_id">
+              <option>Select Category</option>
+              @foreach($video_category as $video)
+              <option value="{{ $video->id }}">{{ $video->category ?? '' }}</option>
+              @endforeach
+            </select>
+            @error('category_id')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+          <div class="col-12">
+            <label class="form-label" for="address">Description</label>
+            <textarea class="form-control" id="address" name="description" rows="2" placeholder="Lorem"
+              style="height:200px"></textarea>
+            @error('description')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+          <button class="mt-1 btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  </x-modal>
 
 @endsection
