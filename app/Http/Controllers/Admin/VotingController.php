@@ -16,8 +16,9 @@ class VotingController extends Controller
      */
     public function index()
     {
-         $votes = Voting::with('voting_category')->get();
-        return view('content.voting.index' , compact('votes'));
+          $votes = Voting::with('voting_category')->get();
+        $vote_category = VotingCategory::get();
+        return view('content.voting.index' , compact('votes' , 'vote_category'));
     }
 
     /**
@@ -28,7 +29,6 @@ class VotingController extends Controller
     public function create()
     {
         
-        $vote_category = VotingCategory::get();
         return view('content.voting.create' , compact('vote_category'));
     }
 
@@ -40,6 +40,7 @@ class VotingController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => 'required',
             'image' => 'required',
@@ -83,9 +84,9 @@ class VotingController extends Controller
      */
     public function edit($id)
     {
-        $vote_category = VotingCategory::get();
-        $vote = Voting::find($id);
-        return view('content.voting.edit', compact('vote_category', 'vote'));
+
+        // $vote = Voting::find($id);
+        // return view('content.voting.index', compact('vote'));
 
     }
 

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    protected $casts=['movie' => 'array'];
     /**
      * Run the migrations.
      *
@@ -18,7 +19,7 @@ return new class extends Migration
             $table->string('thumbnail')->nullable();
             $table->string('title')->nullable();
             $table->string('description')->nullable();
-            $table->string('movie')->nullable();
+            $table->json('movie')->nullable();
             $table->integer('status')->default(1);
             $table->timestamps();
         });

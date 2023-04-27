@@ -32,9 +32,9 @@
           "slug": "users.premium.index"
         },
         {
-          "url": "/users/diamond",
-          "name": "Diamond",
-          "slug": "users.diamond.index"
+          "url": "/users/vip",
+          "name": "VIP",
+          "slug": "users.vip.index"
         }
       ]
     },
@@ -45,12 +45,12 @@
       "submenu": [
         {
           "url": "/music",
-          "name": "Music",
+          "name": "Add Music",
           "slug": "music"
         },
         {
           "url": "/artist",
-          "name": "Artist",
+          "name": "Add Artist",
           "slug": "artist"
         },
         {
@@ -66,14 +66,14 @@
       "slug": "app-voting",
       "submenu":[
         {
-          "url": "/vote-category",
-          "name" :"Category",
-          "slug": "vote-category"
-        },
-        {
           "url": "/vote",
           "name" :"Vote",
           "slug": "vote"
+        },
+        {
+          "url": "/vote-category",
+          "name" :"Category",
+          "slug": "vote-category"
         }
       ]
     },

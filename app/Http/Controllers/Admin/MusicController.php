@@ -16,7 +16,8 @@ class MusicController extends Controller
     public function index()
    {
            $music  = Music::with('music_category')->get();
-        return view('content.music.index' , compact('music'));
+        $music_category  = MusicCategory::get();
+        return view('content.music.index' , compact('music' , 'music_category'));
     }
 
     /**
@@ -25,9 +26,8 @@ class MusicController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        $music_category  = MusicCategory::get();
-        return view('content.music.create' , compact('music_category'));
+     {
+         //     return view('content.music.create' , compact('music_category'));
     }
 
     /**
@@ -38,20 +38,24 @@ class MusicController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'title' => 'required',
-            'audio' => 'required'
+            'status' => 'required'
           ]); 
    
       
       $music = new Music();
       $music->name = $request->title;
       $music->category_id = $request->category_id;
-      
-      if($request->hasFile('audio')){
-        $path  = $request->file('audio')->store('/images/music/' , 'public');
-        $music->audio = $path;
+      $audios = collect([]);
+      foreach($request->file('audio') as $value){
+        $path = $value->store('/images/music/','public');
+        $audios->push($path);
       }
+
+      $music->audio = $audios;
+      $music->status = $request->status;
 
     if($music->save()){
         return redirect()->route('music.index')->with('success', 'Music Has been inserted');

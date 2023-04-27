@@ -7,22 +7,29 @@
 @endsection
 
 @section('content')
-<div class="d-flex justify-content-between">
-  <div>
-<h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Video  /</span> All Video 
-</h4>
+<div class="contianer">
+<div class="row">
+  <div class="col-xl-12">
+    <div class="nav-align-top mb-4">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a href="{{ route('upload-video.index') }}">
+          <button type="button" class="nav-link active" role="tab"  aria-selected="true"><i class='bx bx-plus-circle bx-lg'></i>Manage Video</button>
+          </a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a href="{{ route('upload-video-category.index') }}">
+          <button type="button" class="nav-link active" role="tab"  aria-selected="true"><i class='bx bx-plus-circle bx-lg'></i>Add Categroy</button>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
-<div class="">
-    <a href="{{ route('upload-video.create') }}">
-<button class="btn btn-primary">Add Video </button>
-</a>
-<a href="{{ route('upload-video-category.index') }}">
-  <button class="btn btn-primary">Category</button>
-  </a>
+<div class="d-flex justify-content-center mt-2 mb-2">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createvideoModal">Add Video</button>
 </div>
 </div>
-
 
 <div class="row g-4 mb-4">
   <div class="col-sm-6 col-xl-3">
@@ -30,7 +37,7 @@
       <div class="card-body">
         <div class="d-flex align-items-start justify-content-between">
           <div class="content-left">
-            <span>New Reports</span>
+            <span>Total Videos</span>
             <div class="d-flex align-items-end mt-2">
               <h4 class="mb-0 me-2">21,459</h4>
               <small class="text-success">(+29%)</small>
@@ -49,7 +56,7 @@
       <div class="card-body">
         <div class="d-flex align-items-start justify-content-between">
           <div class="content-left">
-            <span>Solved Reports</span>
+            <span>Uploaded Videos</span>
             <div class="d-flex align-items-end mt-2">
               <h4 class="mb-0 me-2">4,567</h4>
               <small class="text-success">(+18%)</small>
@@ -68,7 +75,7 @@
       <div class="card-body">
         <div class="d-flex align-items-start justify-content-between">
           <div class="content-left">
-            <span>Awaiting Reports</span>
+            <span>Total Movies</span>
             <div class="d-flex align-items-end mt-2">
               <h4 class="mb-0 me-2">19,860</h4>
               <small class="text-danger">(-14%)</small>
@@ -87,7 +94,7 @@
       <div class="card-body">
         <div class="d-flex align-items-start justify-content-between">
           <div class="content-left">
-            <span>Total Reports</span>
+            <span>Video Size Total</span>
             <div class="d-flex align-items-end mt-2">
               <h4 class="mb-0 me-2">237</h4>
               <small class="text-success">(+42%)</small>
@@ -224,5 +231,66 @@
     $('#delete_form').attr('action', link);
   }
 </script>
+<x-modal
+    id="createvideoModal"
+    title="Create Video" 
+    saveBtnText="Create"
+    saveBtnType="submit"
+    saveBtnForm="createForm"
+    size="xl"
+  >
+  
+  <form id="createForm" method="POST" action="{{ route('upload-video.store') }}" enctype="multipart/form-data">
+    @csrf
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label" for="fullname">Thumbnail</label>
+            <input type="text" id="fullname" class="form-control" placeholder="" name="thumbnail">
+            @error('thumbnail')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="fullname">Uplaod Video</label>
+            <input type="file" name="video" class="form-control" id="image" accept="video/*" />
+            @error('video')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="fullname">Title</label>
+            <input type="text" id="fullname" class="form-control" placeholder="" name="title">
+            @error('title')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="fullname">Category</label>
+            <select class="form-select" aria-label="Default select example" name="category_id">
+              <option>Select Category</option>
+              @foreach($video_category as $video)
+              <option value="{{ $video->id }}">{{ $video->category ?? '' }}</option>
+              @endforeach
+            </select>
+            @error('category_id')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+          <div class="col-12">
+            <label class="form-label" for="address">Description</label>
+            <textarea class="form-control" id="address" name="description" rows="2" placeholder="Lorem"
+              style="height:200px"></textarea>
+            @error('description')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+          <button class="mt-1 btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  </x-modal>
 
 @endsection

@@ -14,9 +14,10 @@
     </h4>
   </div>
   <div class="">
-      <a href="{{ route('users.standard.create') }}">
+      <!-- <a href="{{ route('users.standard.create') }}">
         <button class="btn btn-primary">Add User</button>
-      </a>
+      </a> -->
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Add User</button>
   </div>
 </div>
 
@@ -134,7 +135,8 @@
               <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{{ route('users.standard.edit', $user->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                  <!-- <a class="dropdown-item" href="{{ route('users.standard.edit', $user->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a> -->
+                  <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal{{ $user->id }}"><i class="bx bx-edit-alt me-1"></i> Edit</button>
                   <form action="{{ route('users.standard.destroy', $user->id) }}" method="post">
                     @method('DELETE')
                     @csrf
@@ -142,6 +144,17 @@
                   </form>
                 </div>
               </div>
+              <x-modal
+                id="editModal{{ $user->id }}"
+                title="Edit Standard User" 
+                saveBtnText="Update"
+                saveBtnType="submit"
+                saveBtnForm="editForm{{ $user->id }}"
+                size="xl"
+                :show="old('showEditFormModal'.$user->id)? true: false"
+              >
+                @include('content.users.standard.includes.edit_form')
+              </x-modal>
             </td>
           </tr>
           @empty
@@ -154,4 +167,16 @@
     </div>
   </div>
   <!--/ Basic Bootstrap Table -->
+
+  <x-modal
+    id="createModal"
+    title="Add Standard User" 
+    saveBtnText="Create"
+    saveBtnType="submit"
+    saveBtnForm="createForm"
+    size="xl"
+    :show="old('showCreateFormModal')? true: false"
+  >
+    @include('content.users.standard.includes.create_form')
+  </x-modal>
 @endsection
