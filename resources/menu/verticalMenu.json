@@ -32,9 +32,9 @@
           "slug": "users.premium.index"
         },
         {
-          "url": "/users/diamond",
-          "name": "Diamond",
-          "slug": "users.diamond.index"
+          "url": "/users/vip",
+          "name": "VIP",
+          "slug": "users.vip.index"
         }
       ]
     },
