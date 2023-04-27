@@ -147,7 +147,6 @@
                <button class="btn btn-success">Publish</button>
                @endif
               </td>
-
             <td>
                 <div class="dropdown d-inline-block">
                   <button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown"

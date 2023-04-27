@@ -16,7 +16,7 @@ class VotingController extends Controller
      */
     public function index()
     {
-         $votes = Voting::with('voting_category')->get();
+          $votes = Voting::with('voting_category')->get();
         $vote_category = VotingCategory::get();
         return view('content.voting.index' , compact('votes' , 'vote_category'));
     }
@@ -40,6 +40,7 @@ class VotingController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => 'required',
             'image' => 'required',

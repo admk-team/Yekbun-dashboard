@@ -36,7 +36,7 @@
                                 <select name="category_id" class="form-select">
                                     <option selected>Select Category</option>
                                     @foreach($vote_category as $vote)
-                                    <option value="">{{ $vote->name ?? '' }}</option>
+                                    <option value="{{ $vote->id }}">{{ $vote->name ?? '' }}</option>
                                     @endforeach
                                 </select>
                             </div>
