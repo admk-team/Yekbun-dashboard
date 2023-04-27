@@ -53,7 +53,7 @@ $navbarDetached = ($navbarDetached ?? '');
           @if(!isset($menuHorizontal))
           <!-- Language -->
 
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newscategorymodel">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#livestreammodel">
             <img src="{{ asset('assets/img/8103873.png') }}" width="20"/>
           </button>
           <!--/ Language -->
@@ -475,7 +475,7 @@ $navbarDetached = ($navbarDetached ?? '');
   <!-- / Navbar -->
 
        <!-- Category Model -->
-       <div class="modal fade" id="newscategorymodel" tabindex="-1" aria-hidden="true">
+       <div class="modal fade" id="livestreammodel" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
               <ul class="nav nav-tabs">
