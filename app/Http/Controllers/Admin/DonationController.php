@@ -19,7 +19,8 @@ class DonationController extends Controller
     public function index()
     {
         $donations = Donation::orderBy("updated_at", "DESC")->get();
-        return view("content.donations.index", compact("donations"));
+        $organizations = Organization::where("status", 1)->get();
+        return view("content.donations.index", compact("donations", "organizations"));
     }
 
     /**

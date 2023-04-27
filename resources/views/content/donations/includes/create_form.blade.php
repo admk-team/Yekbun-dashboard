@@ -60,7 +60,6 @@
                 <div class="invalid-feedback d-block">{{ $message }}</div>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-primary mt-4">Create</button>
         </div>
     </div>
 </form>

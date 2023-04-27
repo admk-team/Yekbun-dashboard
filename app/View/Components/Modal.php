@@ -12,6 +12,8 @@ class Modal extends Component
     public $saveBtnType;
     public $saveBtnForm;
 
+    public $size;
+
     /**
      * Create a new component instance.
      *
@@ -21,13 +23,15 @@ class Modal extends Component
         $title = null, 
         $saveBtnText = null,
         $saveBtnType = null,
-        $saveBtnForm = null
+        $saveBtnForm = null,
+        $size = 'md'
     )
     {
         $this->title = $title;
         $this->saveBtnText = $saveBtnText;
         $this->saveBtnType = $saveBtnType;
         $this->saveBtnForm = $saveBtnForm;
+        $this->size = $size;
     }
 
     /**
