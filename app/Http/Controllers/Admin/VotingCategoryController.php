@@ -69,8 +69,8 @@ class VotingCategoryController extends Controller
      */
     public function edit($id)
     {
-        $vote_category = VotingCategory::find($id);
-        return view('content.voting_category.edit', compact('vote_category'));
+        // $vote_category = VotingCategory::find($id);
+        // return view('content.voting_category.edit', compact('vote_category'));
     }
 
     /**
@@ -82,6 +82,7 @@ class VotingCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+  
         $vote = VotingCategory::findorFail($id);
         $vote->name = $request->vote_category;
         if($vote->update()){

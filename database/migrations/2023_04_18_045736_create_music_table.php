@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    protected $casts = ['audio'=>'array'];
     /**
      * Run the migrations.
      *
@@ -17,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->integer('category_id')->nullable();
-            $table->string('audio')->nullable();
+            $table->json('audio')->nullable();
             $table->integer('status')->default(1);
             $table->timestamps();
         });
