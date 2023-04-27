@@ -10,7 +10,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">{{ $saveBtnText?? 'Save changes' }}</button>
+            <button type="{{ $saveBtnType?? 'button' }}" form="{{ $saveBtnForm }}" class="btn btn-primary">{{ $saveBtnText?? 'Save changes' }}</button>
         </div>
         </div>
     </div>
