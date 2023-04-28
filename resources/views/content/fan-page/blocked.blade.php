@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Fanpage - Manage')
+@section('title', 'Fanpage - Blocked')
 
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
@@ -10,7 +10,7 @@
 <div class="d-flex justify-content-between">
   <div>
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Fan Page /</span> Manage
+    <span class="text-muted fw-light">Fan Page /</span> Blocked
 </h4>
 </div>
 <!-- <div class="">
@@ -22,7 +22,7 @@
 
 <!-- Basic Bootstrap Table -->
 <div class="card">
-    <h5 class="card-header">Fan Pages</h5>
+    <h5 class="card-header">Blocked Fan Pages</h5>
     <div class="table-responsive text-nowrap">
       <table class="table">
         <thead>
@@ -54,18 +54,18 @@
               @endif
             </td>
             <td>
-              <a href="{{ route('fanpage-status', ['id' => $page->id, 'status' => 1]) }}" class="btn badge badge-center bg-label-secondary ms-1" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Accept"><i class="bx bx-check"></i></a>
-              <button class="btn badge badge-center bg-label-danger ms-1" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Block" onclick="$('#warningModal{{ $page->id }}').modal('show')"><i class="bx bx-block"></i></button>
-              <x-modal
-                title="Block Page"
-                id="warningModal{{ $page->id }}"
-                onSaveBtnClick="window.location.href = '{{ route('fanpage-status', ['id' => $page->id, 'status' => 3]) }}'"
-                saveBtnText="Block"
-                saveBtnClass="btn btn-danger"
-                closeBtnText="Cancel"
-              >
-                Are you sure want to block this page?
-              </x-modal>
+                <a href="{{ route('fanpage-status', ['id' => $page->id, 'status' => 1]) }}" class="btn badge badge-center bg-label-secondary ms-1" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Accept"><i class="bx bx-check"></i></a>
+                <button class="btn badge badge-center bg-label-danger ms-1" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Block" onclick="$('#warningModal{{ $page->id }}').modal('show')"><i class="bx bx-block"></i></button>
+                <x-modal
+                    title="Block Page"
+                    id="warningModal{{ $page->id }}"
+                    onSaveBtnClick="window.location.href = '{{ route('fanpage-status', ['id' => $page->id, 'status' => 3]) }}'"
+                    saveBtnText="Block"
+                    saveBtnClass="btn btn-danger"
+                    closeBtnText="Cancel"
+                >
+                    Are you sure want to block this page?
+                </x-modal>
               <!-- <div class="dropdown d-inline-block">
                 <button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown"
                   class="mb-2 mr-2 dropdown-toggle btn btn-light">Action
