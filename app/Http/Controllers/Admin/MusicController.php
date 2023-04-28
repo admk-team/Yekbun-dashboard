@@ -15,7 +15,7 @@ class MusicController extends Controller
      */
     public function index()
    {
-           $music  = Music::with('music_category')->get();
+         $music  = Music::with('music_category')->get();
         $music_category  = MusicCategory::get();
         return view('content.music.index' , compact('music' , 'music_category'));
     }
@@ -38,7 +38,8 @@ class MusicController extends Controller
      */
     public function store(Request $request)
     {
-
+        
+        
         $request->validate([
             'title' => 'required',
             'status' => 'required'
@@ -97,23 +98,38 @@ class MusicController extends Controller
      */
     public function update(Request $request, $id)
     {
+      
         $music = Music::findorFail($id);
         $music->name = $request->title;
         $music->category_id = $request->category_id;
+        $audios = collect([]);
         
-        if($request->hasFile('audio')){
-           if(isset($music->audio)){
-               $image_path  = public_path('storage/'.$music->audio);
-               if(file_exists($image_path)){
-                   unlink($image_path);
-               }
-               $path = $request->file('audio')->store('/images/music' , 'public');
-               $music->audio = $path;
-           }
+        if($request->has('audio')){
+            // $oldaudio[] = $music->audio;
+        foreach($request->file('audio') as $value){
+            if(isset($music->audio)){
+                $image_path  = public_path('storage/'.$music->audio);
+                if(file_exists($image_path)){
+                    unlink($image_path);
+                }
+                $path = $value->store('/images/music' , 'public');
+            //    $newaudio[] =  $audios->push($path);
+                $audios->push($path);
+                   // Combine old and new audio
+                //  $updatedImages[] = array_merge($oldaudio, $newaudio);
+                //  $music->audio = $updatedImages;
+                $music->audio = $audios;
+            }
+         
         }
+    }else{ 
+        $arr = $music->audio;
+        $music->audio = $arr;
 
+    }
+        
         if($music->update()){
-            return redirect()->route('music.index')->with('success', 'Mujsic Has been Updated');
+            return redirect()->route('music.index')->with('success', 'Music Has been Updated');
 
         }else{
             return redirect()->route('music.index')->with('success', 'Music not updated');

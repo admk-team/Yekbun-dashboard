@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    protected $casts=['video' => 'array'];
+    protected $casts = ['album' => 'array'];
     /**
      * Run the migrations.
      *
@@ -14,13 +14,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('uplaod_video_clips', function (Blueprint $table) {
+        Schema::create('albums', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
-            $table->integer('category_id')->nullable();
-            $table->json('video')->nullable();
+            $table->integer('artist_id')->nullable();
+            $table->string('image')->nullable();
+            $table->json('album')->nullable();
             $table->integer('status')->default(1);
-            $table->string('thumbnail')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('uplaod_video_clips');
+        Schema::dropIfExists('albums');
     }
 };

@@ -4,23 +4,10 @@
 
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/bs-stepper/bs-stepper.css')}}" />
 @endsection
 
 @section('content')
-<div class="d-flex justify-content-between">
-  <div>
-<h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">News /</span> All News
-</h4>
-</div>
-<div class="">
-    <a href="{{ route('news.create') }}">
-<button class="btn btn-primary">Add News</button>
-</a>
-<a href="{{ route('news-category.index') }}">
-<button class="btn btn-primary">Category</button></a>
-</div>
-</div>
 
 <div class="row g-4 mb-4">
   <div class="col-sm-6 col-xl-3">
@@ -81,6 +68,31 @@
     </div>
   </div>
 </div>
+
+
+{{-- Nav TAb --}}
+<div class="row">
+  <div class="col-xl-12">
+      <div class="nav-align-top mb-4">
+          <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                  <a href="{{ route('news.index') }}">
+                      <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='menu-icon tf-icons bx bxs-user bx-md'></i>Add News</button>
+                  </a>
+              </li>
+              <li class="nav-item" role="presentation">
+                  <a href="{{ route('news-category.index') }}">
+                      <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='bx bx-plus-circle bx-md'></i>Add Categroy</button>
+                  </a>
+              </li>
+          </ul>
+      </div>
+  </div>
+</div>
+<div class="d-flex justify-content-center mt-2 mb-2">
+  <button class="btn btn-primary col-md-3" data-bs-toggle="modal" data-bs-target="#createnewsModal">Add News</button>
+</div>
+
 
 
    <!-- Basic Bootstrap Table -->
@@ -205,4 +217,19 @@
     $('#delete_form').attr('action', link);
   }
 </script>
+<x-modal id="createnewsModal" 
+title="Create News"
+ saveBtnText="Create" 
+ saveBtnType="submit"
+  saveBtnForm="createForm" 
+  size="xl">
+ @include('content.include.news.createForm')
+</x-modal>
+<script src="{{asset('assets/vendor/libs/cleavejs/cleave.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/cleavejs/cleave-phone.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/select2/select2.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/bs-stepper/bs-stepper.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js')}}"></script>
 @endsection
