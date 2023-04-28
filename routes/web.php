@@ -209,12 +209,15 @@ Route::resource('/bazar-category' , BazarCategoryController::class);
 Route::get('/bazar-category/{id}/{status}' , [BazarCategoryController::class, 'status'])->name('bazarcat-status');
 
 // Fan Page
+Route::get('/fanpage/requests', [FanPageController::class, 'requests'])->name('fanpage.requests');
+Route::get('/fanpage/blocked', [FanPageController::class, 'blocked'])->name('fanpage.blocked');
 Route::resource('/fanpage' , FanPageController::class);
 Route::get('/fanpage-status/{id}/{status}' , [FanPageController::class, 'status'])->name('fanpage-status');
-Route::resource('/manage-fanpage' , ManageFanPageController::class);
-Route::get('/managefanpage-status/{id}/{status}' , [ManageFanPageController::class, 'status'])->name('managefanpage-status');
-Route::resource('/block-fanpage' , BlockFanPageController::class);
-Route::get('/blockfanpage-status/{id}/{status}' , [BlockFanPageController::class, 'status'])->name('blockfanpage-status');
+// Route::resource('/manage-fanpage' , ManageFanPageController::class);
+// Route::get('/managefanpage-status/{id}/{status}' , [ManageFanPageController::class, 'status'])->name('fanpage.managefanpage-status');
+// Route::resource('/block-fanpage' , BlockFanPageController::class);
+// Route::get('/blockfanpage-status/{id}/{status}' , [BlockFanPageController::class, 'status'])->name('fanpage.blockfanpage-status');
+
 // Report Page
 Route::get('/user-report' , $controller_path . '\report\Report@user_report')->name('user-report');
 Route::get('/user-warning' , $controller_path . '\report\Report@user_warning')->name('user-warning');

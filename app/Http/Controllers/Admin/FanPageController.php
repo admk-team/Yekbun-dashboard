@@ -15,7 +15,7 @@ class FanPageController extends Controller
      */
     public function index()
     {
-        $fanpage = FanPage::where('status' , 0)->get();
+        $fanpage = FanPage::whereIn('status', [1, 2])->get();
         return view('content.fan-page.index' , compact('fanpage'));
     }
 
@@ -117,12 +117,22 @@ class FanPageController extends Controller
         $page = FanPage::find($id);
         $page->status = $status;
         if($page->update()){
-            return redirect()->route('fanpage.index')->with('success', 'Status Has been Updated');
+            return redirect()->back()->with('success', 'Status Has been Updated');
         }else{
-            return redirect()->route('fanpage.index')->with('error', 'Status is not changed');
+            return redirect()->back()->with('error', 'Status is not changed');
 
         }
     }
 
-   
+    public function requests()
+    {
+        $fanpage = FanPage::where('status' , 0)->get();
+        return view('content.fan-page.requests' , compact('fanpage'));
+    }
+
+    public function blocked()
+    {
+        $fanpage = FanPage::where('status' , 3)->get();
+        return view('content.fan-page.blocked' , compact('fanpage'));
+    }
 }

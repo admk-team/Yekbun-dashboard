@@ -11,6 +11,10 @@ class Modal extends Component
     public $saveBtnText;
     public $saveBtnType;
     public $saveBtnForm;
+    public $onSaveBtnClick;
+    public $saveBtnClass;
+
+    public $closeBtnText;
 
     public $size;
     public $show;
@@ -22,19 +26,31 @@ class Modal extends Component
      */
     public function __construct(
         $title = null, 
+
         $saveBtnText = null,
         $saveBtnType = null,
         $saveBtnForm = null,
+        $onSaveBtnClick = '',
+        $saveBtnClass = '',
+
+        $closeBtnText = null,
+
         $size = 'md',
         $show = false
     )
     {
         $this->title = $title;
+
         $this->saveBtnText = $saveBtnText;
         $this->saveBtnType = $saveBtnType;
         $this->saveBtnForm = $saveBtnForm;
+        $this->onSaveBtnClick = $onSaveBtnClick;
+        $this->saveBtnClass = $saveBtnClass;
+
         $this->size = $size;
         $this->show = $show;
+
+        $this->closeBtnText = $closeBtnText;
     }
 
     /**

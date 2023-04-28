@@ -122,22 +122,22 @@
     {
       "name": "FanPage",
       "icon": "menu-icon tf-icons bx bxs-user",
-      "slug": "fan-page",
+      "slug": "fanpage",
       "submenu": [
         {
+          "url": "/fanpage/requests",
+          "name": "New Requests",
+          "slug": "fanpage.requests"
+        },
+        {
           "url": "/fanpage",
-          "name": "New Request",
-          "slug": "new-request"
-        },
-        {
-          "url": "/manage-fanpage",
           "name": "Manage Fan Page",
-          "slug": "manage-fan-page"
+          "slug": "fanpage.index"
         },
         {
-          "url": "/block-fanpage",
+          "url": "/fanpage/blocked",
           "name": "Blocked Fan Page",
-          "slug": "block-fan-page"
+          "slug": "fanpage.blocked"
         }
       ]
     },
