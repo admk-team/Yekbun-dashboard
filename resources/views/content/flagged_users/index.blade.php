@@ -53,11 +53,11 @@
               <td>{{ $flagged->reason }}</td>
               <td>{{ $flagged->created_at->format('F jS, Y') }}</td>
               <td>
-                @if($flagged->status === 0)
+                @if($flagged->status == 0)
                   <span class="badge bg-label-warning me-1">Pending</span>
-                @elseif($flagged->status === 1)
+                @elseif($flagged->status == 1)
                   <span class="badge bg-label-success me-1">Resolved</span>
-                @elseif($flagged->status === 2)
+                @elseif($flagged->status == 2)
                   <span class="badge bg-label-danger me-1">Dismissed</span>
                 @endif
               </td>

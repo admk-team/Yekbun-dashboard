@@ -134,11 +134,11 @@
               <td>{{ $report->reason }}</td>
               <td>{{ $report->created_at->format('F jS, Y') }}</td>
               <td>
-                @if($report->status === 1)
+                @if($report->status == 1)
                   <span class="badge bg-label-success me-1">Solved</span>
-                @elseif($report->status === 0)
+                @elseif($report->status == 0)
                   <span class="badge bg-label-warning me-1">Awaiting</span>
-                @elseif($report->status === 2)
+                @elseif($report->status == 2)
                   <span class="badge bg-label-danger me-1">Dismissed</span>
                 @endif
               </td>
