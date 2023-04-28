@@ -39,6 +39,7 @@ use App\Http\Controllers\Admin\UploadMovieController;
 use App\Http\Controllers\Admin\UploadVideoCategoryController;
 use App\Http\Controllers\Admin\UploadMovieCategoryController;
 use App\Http\Controllers\Admin\ReportVideoController;
+use App\Http\Controllers\Admin\AlbumController;
 
 
 /*
@@ -155,6 +156,9 @@ Route::get('/artists/{id}/{status}' , [ArtistController::class, 'status'])->name
 Route::resource('/upload_video', UplaodVideoClipController::class);
 Route::get('/upload_video/{id}/{status}' , [UplaodVideoClipController::class, 'status'])->name('upload-status');
 
+
+// Album
+Route::resource('/album', AlbumController::class);
 // Video 
 Route::resource('/upload-video', UplaodVideoController::class);
 Route::resource('/upload-video-category', UploadVideoCategoryController::class);

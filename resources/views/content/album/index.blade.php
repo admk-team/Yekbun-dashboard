@@ -1,3 +1,4 @@
+
 @extends('layouts/layoutMaster')
 
 @section('title', 'Boxicons - Icons')
@@ -8,100 +9,19 @@
 
 @section('content')
 
-
-<div class="row g-4 mb-4">
-  <div class="col-sm-6 col-xl-3">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex align-items-start justify-content-between">
-          <div class="content-left">
-            <span>Total Music</span>
-            <div class="d-flex align-items-end mt-2">
-              <h4 class="mb-0 me-2">21,459</h4>
-              <small class="text-success">(+29%)</small>
-            </div>
-            <small>Last week analytics</small>
-          </div>
-          <span class="badge bg-label-primary rounded p-2">
-            <i class="bx bx-user bx-sm"></i>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-xl-3">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex align-items-start justify-content-between">
-          <div class="content-left">
-            <span>Total Artist</span>
-            <div class="d-flex align-items-end mt-2">
-              <h4 class="mb-0 me-2">4,567</h4>
-              <small class="text-success">(+18%)</small>
-            </div>
-            <small>Last week analytics </small>
-          </div>
-          <span class="badge bg-label-danger rounded p-2">
-            <i class="bx bx-user-plus bx-sm"></i>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-xl-3">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex align-items-start justify-content-between">
-          <div class="content-left">
-            <span>Total Album</span>
-            <div class="d-flex align-items-end mt-2">
-              <h4 class="mb-0 me-2">19,860</h4>
-              <small class="text-danger">(-14%)</small>
-            </div>
-            <small>Last week analytics</small>
-          </div>
-          <span class="badge bg-label-success rounded p-2">
-            <i class="bx bx-group bx-sm"></i>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-xl-3">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex align-items-start justify-content-between">
-          <div class="content-left">
-            <span>Total Size</span>
-            <div class="d-flex align-items-end mt-2">
-              <h4 class="mb-0 me-2">237</h4>
-              <small class="text-success">(+42%)</small>
-            </div>
-            <small>Last week analytics</small>
-          </div>
-          <span class="badge bg-label-warning rounded p-2">
-            <i class="bx bx-user-voice bx-sm"></i>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 {{-- Nav TAb --}}
 <div class="row">
   <div class="col-xl-12">
       <div class="nav-align-top mb-4">
           <ul class="nav nav-tabs" role="tablist">
               <li class="nav-item" role="presentation">
-                  <a href="{{ route('music.index') }}">
-                      <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='menu-icon tf-icons bx bxs-user bx-md'></i>Add Music</button>
+                  <a href="{{ route('album.index') }}">
+                      <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='menu-icon tf-icons bx bxs-user bx-md'></i>Add Album</button>
                   </a>
               </li>
               <li class="nav-item" role="presentation">
-                  <a href="{{ route('music-category.index') }}">
-                      <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='bx bx-plus-circle bx-md'></i>Add Categroy</button>
+                  <a href="{{ route('artist.index') }}">
+                      <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='bx bx-plus-circle bx-md'></i>Add Artist</button>
                   </a>
               </li>
           </ul>
@@ -109,7 +29,7 @@
   </div>
 </div>
 <div class="d-flex justify-content-center mt-2 mb-2">
-  <button class="btn btn-primary col-md-3" data-bs-toggle="modal" data-bs-target="#createmusicModal">Add Music</button>
+  <button class="btn btn-primary col-md-3" data-bs-toggle="modal" data-bs-target="#createalbumModal">Add Album</button>
 </div>
 
    <!-- Basic Bootstrap Table -->
@@ -120,24 +40,24 @@
         <thead>
           <tr>
             <th>Id</th>
-            <th>Title</th>
-            <th>Category </th>
-            <th>Audio </th>
+            <th>Artist</th>
+            <th>Image </th>
             <th>Status </th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
-            @foreach($music as $musics)
+            @foreach($album as $albums)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $musics->name ?? '' }}</td>
             <td>
-                {{ $musics->music_category->name ?? '' }} 
+                {{ $albums->artist->name ?? '' }} 
             </td>
+            <td><img src="{{ asset('storage/'.$albums->image) }}"  width="70" height="70"></td>
+
             <td>
               <?php
-                 $json = $musics->audio;
+                 $json = $albums->album;
                  $arr = json_decode($json, true); 
               ?>
               <audio controls>
@@ -145,7 +65,7 @@
               </audio>
             </td>
             <td>
-               @if($musics->status == '0')
+               @if($albums->status == '0')
                <button class="btn btn-danger">UnPublish</button>
                @else
                <button class="btn btn-success">Publish</button>
@@ -159,25 +79,25 @@
                   <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
                     <ul class="nav flex-column">
                       <li class="nav-item">
-                        <button class="btn" data-bs-toggle="modal" data-bs-target="#editmusicModal{{ $musics->id }}">Edit</button>
+                        <button class="btn" data-bs-toggle="modal" data-bs-target="#editalbumModal{{ $albums->id }}">Edit</button>
                       </li>
                       <li class="nav-item">
                         <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);"
-                          data-id="{{ route('music.destroy',$musics->id) }}">
+                          data-id="{{ route('album.destroy',$albums->id) }}">
                           <i class="nav-link-icon pe-7s-wallet"> </i><span>Delete</span>
                         </a>
                       </li>
                     </ul>
                   </div>
                 </div>
-                <x-modal id="editmusicModal{{ $musics->id }}" 
-                title="Edit Music"
+                <x-modal id="editalbumModal{{ $albums->id }}" 
+                title="Edit Album"
                  saveBtnText="Update" 
                  saveBtnType="submit"
-                  saveBtnForm="editForm{{ $musics->id }}" 
+                  saveBtnForm="editForm{{ $albums->id }}" 
                   size="xl">
 
-                  @include('content.include.music.editForm')
+                  @include('content.include.album.editForm')
                 </x-modal>
               </td>
           </tr>
@@ -224,13 +144,13 @@
 
 {{-- Create Music model --}}
 <x-modal 
-id="createmusicModal" 
-title="Create Music"
+id="createalbumModal" 
+title="Create Album"
  saveBtnText="Create" 
  saveBtnType="submit"
   saveBtnForm="createForm" 
   size="xl">
     
- @include('content.include.music.createForm')
+ @include('content.include.album.createForm')
 </x-modal>
 @endsection

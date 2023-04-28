@@ -55,7 +55,7 @@
         },
         {
           "url": "/album",
-          "name": "Album",
+          "name": "Add Album",
           "slug": "album"
         }
       ]

@@ -16,8 +16,9 @@ class NewsController extends Controller
      */
     public function index()
     {
+        $news_category  = NewsCategory::get();
           $news  = News::with('news_category')->get();
-        return view('content.news.index' , compact('news'));
+        return view('content.news.index' , compact('news' , 'news_category'));
     }
 
     /**
@@ -27,7 +28,6 @@ class NewsController extends Controller
      */
     public function create()
     {
-        $news_category  = NewsCategory::get();
         return view('content.news.create'  , compact('news_category'));
     }
 

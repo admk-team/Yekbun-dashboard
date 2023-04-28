@@ -7,19 +7,35 @@
 @endsection
 
 @section('content')
-<div class="d-flex justify-content-between">
-  <div>
-<h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Artist /</span> All Artist
-</h4>
+
+
+{{-- Nav TAb --}}
+<div class="row">
+  <div class="col-xl-12">
+      <div class="nav-align-top mb-4">
+          <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                  <a href="{{ route('artist.index') }}">
+                      <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='menu-icon tf-icons bx bxs-user bx-md'></i>Add Artist</button>
+                  </a>
+              </li>
+               <li class="nav-item" role="presentation">
+                <a href="{{ route('album.index') }}">
+                    <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='bx bx-plus-circle bx-md'></i>Add Album</button>
+                </a>
+            </li>
+              <li class="nav-item" role="presentation">
+                  <a href="{{ route('upload_video.index') }}">
+                      <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='bx bx-plus-circle bx-md'></i>Upload Video Clip</button>
+                  </a>
+              </li>
+             
+          </ul>
+      </div>
+  </div>
 </div>
-<div class="">
-    <a href="{{ route('artist.create') }}">
-<button class="btn btn-primary">Add Artist</button>
-</a>
-<a href="{{ route('upload_video.index') }}">
-<button class="btn btn-primary">Upload Video Clip</button></a>
-</div>
+<div class="d-flex justify-content-center mt-2 mb-2">
+  <button class="btn btn-primary col-md-3" data-bs-toggle="modal" data-bs-target="#createartistModal">Add Artist</button>
 </div>
 
    <!-- Basic Bootstrap Table -->
@@ -87,9 +103,7 @@
                   <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
                     <ul class="nav flex-column">
                       <li class="nav-item">
-                        <a href="{{ route('artist.edit',$artists->id) }}" class="nav-link">
-                          <i class="nav-link-icon pe-7s-chat"> </i><span>Edit</span>
-                        </a>
+                        <button class="btn" data-bs-toggle="modal" data-bs-target="#editartistModal{{ $artists->id }}">edit</button>
                       </li>
                       <li class="nav-item">
                         <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);"
@@ -100,6 +114,14 @@
                     </ul>
                   </div>
                 </div>
+                <x-modal id="editartistModal{{ $artists->id }}" 
+                  title="Edit Artist"
+                   saveBtnText="Update" 
+                   saveBtnType="submit"
+                    saveBtnForm="editForm{{ $artists->id }}" 
+                    size="xl">
+                    @include('content.include.artist.editForm')
+                </x-modal>
               </td>
           </tr>
           @endforeach
@@ -142,4 +164,12 @@
     $('#delete_form').attr('action', link);
   }
 </script>
+<x-modal id="createartistModal" 
+title="Create Artist"
+ saveBtnText="Create" 
+ saveBtnType="submit"
+  saveBtnForm="createForm" 
+  size="xl">
+  @include('content.include.artist.createForm')
+</x-modal>
 @endsection
