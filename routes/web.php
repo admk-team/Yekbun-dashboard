@@ -105,7 +105,7 @@ Route::resource('/posts', PostController::class);
 Route::prefix("/users")->name("users.")->group(function () {
     Route::resource("standard", StandardUserController::class);
     Route::resource("premium", PremiumUserController::class);
-    Route::resource("diamond", DiamondUserController::class);
+    Route::resource("vip", DiamondUserController::class);
 });
 
 // Flagged users

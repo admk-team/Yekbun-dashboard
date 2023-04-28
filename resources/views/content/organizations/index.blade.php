@@ -14,9 +14,10 @@
 </h4>
 </div>
 <div class="">
-    <a href="{{ route('donations.organizations.create') }}">
+    <!-- <a href="{{ route('donations.organizations.create') }}">
       <button class="btn btn-primary">Add Organization</button>
-    </a>
+    </a> -->
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Add Organization</button>
 </div>
 </div>
   <!-- Basic Bootstrap Table -->
@@ -58,7 +59,8 @@
               <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{{ route('donations.organizations.edit', $organization->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                  <!-- <a class="dropdown-item" href="{{ route('donations.organizations.edit', $organization->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a> -->
+                  <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal{{ $organization->id }}"><i class="bx bx-edit-alt me-1"></i> Edit</button>
                   <form action="{{ route('donations.organizations.destroy', $organization->id) }}" method="post">
                     @method('DELETE')
                     @csrf
@@ -66,6 +68,17 @@
                   </form>
                 </div>
               </div>
+              <x-modal
+                id="editModal{{ $organization->id }}"
+                title="Edit Organization" 
+                saveBtnText="Update"
+                saveBtnType="submit"
+                saveBtnForm="editForm{{ $organization->id }}"
+                size="xl"
+                :show="old('showEditFormModal'.$organization->id)? true: false"
+              >
+                @include('content.organizations.includes.edit_form')
+              </x-modal>
             </td>
           </tr>
           @empty
@@ -78,4 +91,16 @@
     </div>
   </div>
   <!--/ Basic Bootstrap Table -->
+
+  <x-modal
+    id="createModal"
+    title="Add Organization" 
+    saveBtnText="Create"
+    saveBtnType="submit"
+    saveBtnForm="createForm"
+    size="xl"
+    :show="old('showCreateFormModal')? true: false"
+  >
+    @include('content.organizations.includes.create_form')
+  </x-modal>
 @endsection

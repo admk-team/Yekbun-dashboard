@@ -24,8 +24,8 @@ class UpdateStandardUserRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "nullable|string",
-            "email" => "nullable|email",
+            "name" => "required|string",
+            "email" => "required|email",
             "image" => "nullable|image",
             "status" => "nullable|integer",
         ];

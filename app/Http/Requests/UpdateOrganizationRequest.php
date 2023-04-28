@@ -24,7 +24,7 @@ class UpdateOrganizationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'nullable',
+            'name' => 'required',
             'bank_account' => 'nullable',
             'paypal_account' => 'nullable',
             'address' => 'nullable',

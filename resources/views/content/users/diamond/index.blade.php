@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Boxicons - Icons')
+@section('title', 'Users - VIP')
 
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
@@ -10,13 +10,14 @@
 <div class="d-flex justify-content-between">
   <div>
     <h4 class="fw-bold py-3 mb-4">
-      <span class="text-muted fw-light">Users /</span> List of Diamond Users
+      <span class="text-muted fw-light">Users /</span> List of VIP Users
     </h4>
   </div>
   <div class="">
-      <a href="{{ route('users.diamond.create') }}">
+      <!-- <a href="{{ route('users.vip.create') }}">
         <button class="btn btn-primary">Add User</button>
-      </a>
+      </a> -->
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Add User</button>
   </div>
 </div>
 
@@ -101,7 +102,7 @@
   
   <!-- Basic Bootstrap Table -->
   <div class="card">
-    <h5 class="card-header">Diamond Users List</h5>
+    <h5 class="card-header">VIP Users List</h5>
     <div class="table-responsive text-nowrap">
       <table class="table">
         <thead>
@@ -134,7 +135,8 @@
               <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{{ route('users.diamond.edit', $user->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                  <!-- <a class="dropdown-item" href="{{ route('users.diamond.edit', $user->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a> -->
+                  <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal{{ $user->id }}"><i class="bx bx-edit-alt me-1"></i> Edit</button>
                   <form action="{{ route('users.diamond.destroy', $user->id) }}" method="post">
                     @method('DELETE')
                     @csrf
@@ -142,11 +144,22 @@
                   </form>
                 </div>
               </div>
+              <x-modal
+                id="editModal{{ $user->id }}"
+                title="Edit VIP User" 
+                saveBtnText="Update"
+                saveBtnType="submit"
+                saveBtnForm="editForm{{ $user->id }}"
+                size="xl"
+                :show="old('showEditFormModal'.$user->id)? true: false"
+              >
+                @include('content.users.diamond.includes.edit_form')
+              </x-modal>
             </td>
           </tr>
           @empty
           <tr>
-            <td class="text-center" colspan="5"><b>No users found.<b></td>
+            <td class="text-center" colspan="6"><b>No users found.<b></td>
           </tr>
           @endforelse
         </tbody>
@@ -154,4 +167,16 @@
     </div>
   </div>
   <!--/ Basic Bootstrap Table -->
+
+  <x-modal
+    id="createModal"
+    title="Add VIP User" 
+    saveBtnText="Create"
+    saveBtnType="submit"
+    saveBtnForm="createForm"
+    size="xl"
+    :show="old('showCreateFormModal')? true: false"
+  >
+    @include('content.users.diamond.includes.create_form')
+  </x-modal>
 @endsection
