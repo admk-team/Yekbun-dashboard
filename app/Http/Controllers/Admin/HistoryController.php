@@ -17,7 +17,8 @@ class HistoryController extends Controller
     public function index()
     {
         $history = History::with('history_category')->get();
-        return view('content.history.index' , compact('history'));
+        $history_category = HistoryCategory::get();
+        return view('content.history.index' , compact('history' , 'history_category'));
     }
 
     /**
@@ -27,7 +28,6 @@ class HistoryController extends Controller
      */
     public function create()
     {
-         $history_category = HistoryCategory::get();
          return view('content.history.create', compact('history_category'));
     }
 
@@ -39,16 +39,20 @@ class HistoryController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->image);
         $request->validate([
             'title' => 'required',
-            'language'=>'required',
-            'category_id'=>'required'
+            'category_id'=>'required',
+            'description' => 'required',
+            'image'=> 'required',
+            'video'=> 'required'
           ]);
 
           $history = new History();
           $history->title  = $request->title;
-          $history->language  = $request->language;
           $history->category_id = $request->category_id;
+          $history->description = $request->description;
+          $images = collect([]);
           if($history->save()){
             return redirect()->route('history.index')->with('success', 'History Has been inserted');
         }else{

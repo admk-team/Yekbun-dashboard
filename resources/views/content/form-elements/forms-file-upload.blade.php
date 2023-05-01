@@ -37,7 +37,6 @@
       </div>
     </div>
   </div>
-  <!-- /Basic  -->
   <!-- Multi  -->
   <div class="col-12">
     <div class="card">

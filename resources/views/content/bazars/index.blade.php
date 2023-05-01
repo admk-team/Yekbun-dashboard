@@ -7,22 +7,6 @@
 @endsection
 
 @section('content')
-<div class="d-flex justify-content-between">
-  <div>
-<h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Bazar /</span> All Bazar
-</h4>
-</div>
-<div class="">
-    <a href="{{ route('bazar.create') }}">
-<button class="btn btn-primary">Add Bazar</button>
-</a>
-<a href="{{ route('bazar-category.index') }}">
-  <button class="btn btn-primary">Category</button>
-  </a>
-</div>
-</div>
-
 
 <div class="row g-4 mb-4">
   <div class="col-sm-6 col-xl-3">
@@ -103,6 +87,33 @@
   </div>
 </div>
 
+
+
+{{-- Nav TAb --}}
+<div class="row">
+  <div class="col-xl-12">
+      <div class="nav-align-top mb-4">
+          <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                  <a href="{{ route('bazar.index') }}">
+                      <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='menu-icon tf-icons bx bxs-user bx-md'></i>Manage Bazar</button>
+                  </a>
+              </li>
+              <li class="nav-item" role="presentation">
+                  <a href="{{ route('bazar-category.index') }}">
+                      <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='bx bx-plus-circle bx-md'></i>Add Categroy</button>
+                  </a>
+              </li>
+          </ul>
+      </div>
+  </div>
+</div>
+<div class="d-flex justify-content-center mt-2 mb-2">
+  <button class="btn btn-primary col-md-3" data-bs-toggle="modal" data-bs-target="#createbazarModal">Add Bazar</button>
+</div>
+
+
+
    <!-- Basic Bootstrap Table -->
   <div class="card">
     <div class="table-responsive text-nowrap">
@@ -169,9 +180,7 @@
                   <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
                     <ul class="nav flex-column">
                       <li class="nav-item">
-                        <a href="{{ route('bazar.edit',$bazar->id) }}" class="nav-link">
-                          <i class="nav-link-icon pe-7s-chat"> </i><span>Edit</span>
-                        </a>
+                      <button class="btn" data-bs-target="#editbazarModal{{ $bazar->id }}" data-bs-toggle="modal">Edit</button>
                       </li>
                       <li class="nav-item">
                         <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);"
@@ -182,6 +191,10 @@
                     </ul>
                   </div>
                 </div>
+                <x-modal id="editbazarModal{{ $bazar->id }}" title="Edit Bazar" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $bazar->id }}" size="xl">
+                  @include('content.include.bazar.editForm')
+                </x-modal>
+                
               </td>
           </tr>
           @endforeach
@@ -224,4 +237,8 @@
     $('#delete_form').attr('action', link);
   }
 </script>
+<x-modal id="createbazarModal" title="Create Bazar" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm" size="xl">
+  @include('content.include.bazar.createForm')
+</x-modal>
+
 @endsection

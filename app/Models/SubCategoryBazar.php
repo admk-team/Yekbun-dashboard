@@ -5,13 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BazarCategory extends Model
+class SubCategoryBazar extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'name'
+        'category_id',
+        'name',
     ];
-    public function bazarsubcategory(){
-        return $this->hasMany(SubCategoryBazar::class , 'category_id');
+
+    public function bazar_category(){
+        return $this->belongsTo(BazarCategory::class , 'category_id');
     }
 }

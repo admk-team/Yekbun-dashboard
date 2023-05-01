@@ -40,6 +40,7 @@ use App\Http\Controllers\Admin\UploadVideoCategoryController;
 use App\Http\Controllers\Admin\UploadMovieCategoryController;
 use App\Http\Controllers\Admin\ReportVideoController;
 use App\Http\Controllers\Admin\AlbumController;
+use App\Http\Controllers\Admin\SubCategoryBazarController;
 
 
 /*
@@ -212,6 +213,7 @@ Route::get('/bazar/{id}/{status}' , [BazarController::class, 'status'])->name('b
 Route::resource('/bazar-category' , BazarCategoryController::class);
 Route::get('/bazar-category/{id}/{status}' , [BazarCategoryController::class, 'status'])->name('bazarcat-status');
 
+Route::resource('bazar-subcategory' , SubCategoryBazarController::class);
 // Fan Page
 Route::resource('/fanpage' , FanPageController::class);
 Route::get('/fanpage-status/{id}/{status}' , [FanPageController::class, 'status'])->name('fanpage-status');
