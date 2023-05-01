@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    protected $casts = array('image'=> 'array' , 'video'=> 'array');
     /**
      * Run the migrations.
      *
@@ -14,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('histories', function (Blueprint $table) {
+        Schema::create('sub_category_bazars', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
             $table->integer('category_id')->nullable();
-            $table->longText('description')->nullable();
-            $table->json('image')->nullable();
-            $table->json('video')->nullable();
-            $table->integer('status')->default(1);
+            $table->string('name')->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('histories');
+        Schema::dropIfExists('sub_category_bazars');
     }
 };

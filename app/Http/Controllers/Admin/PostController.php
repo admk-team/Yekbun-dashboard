@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
+use App\Models\User;
+use App\Models\FlaggedUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
@@ -117,5 +119,61 @@ class PostController extends Controller
         $post->delete();
 
         return back()->with("success", "Post successfully deleted.");
+    }
+
+    public function destroyAndFlagUser($id, $user_id)
+    {
+        $post = Post::find($id);
+
+        // Delete Image
+        if ($post->image)
+            Storage::delete($post->image);
+
+        $post->delete();
+
+        $flaggedUser = FlaggedUser::where('user_id', $user_id)->first();
+        if ($flaggedUser) {
+            return back()->with("success", "Post deleted. User already flagged.");
+        }
+
+        $flaggedUser = FlaggedUser::create([
+            "user_id" => $user_id,
+            "reason" => "Flagged by admin for inappropriate post."
+        ]);
+
+        return back()->with("success", "Post deleted and user flagged.");
+    }
+
+    public function destroyAndBlockUser($id, $user_id)
+    {
+        $post = Post::find($id);
+
+        // Delete Image
+        if ($post->image)
+            Storage::delete($post->image);
+
+        $post->delete();
+
+        $user = User::find($user_id);
+        $user->status = 0;
+        $user->save();
+
+        return back()->with("success", "Post deleted and user blocked.");
+    }
+
+    public function destroyAndRemoveUser($user_id)
+    {
+        $posts = Post::where("user_id", $user_id)->get();
+        $posts->map(function ($post) {
+            // Delete Image
+            if ($post->image)
+                Storage::delete($post->image);
+            $post->delete();
+        });
+
+        $user = User::find($user_id);
+        $user->delete();
+
+        return back()->with("success", "User account successfully removed.");
     }
 }
