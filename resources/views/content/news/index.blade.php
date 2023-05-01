@@ -118,7 +118,7 @@
             <td>
                 {{ $new->news_category->name  ??  '' }} </option>
             </td>
-            <td><img src="{{ asset('storage/'.$new->image) }}" style="height:50px; width:auto"></td>
+            <td><img src="{{ asset('storage/'.$new->image) }}" style="height:100px; width:100px"></td>
             <td>
                 <div class="dropdown d-inline-block show">
                   @php
@@ -162,9 +162,7 @@
                   <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
                     <ul class="nav flex-column">
                       <li class="nav-item">
-                        <a href="{{ route('news.edit',$new->id) }}" class="nav-link">
-                          <i class="nav-link-icon pe-7s-chat"> </i><span>Edit</span>
-                        </a>
+                       <button class="btn" data-bs-toggle="modal" data-bs-target="#editnewsModal{{ $new->id }}">edit</button>
                       </li>
                       <li class="nav-item">
                         <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);"
@@ -175,6 +173,14 @@
                     </ul>
                   </div>
                 </div>
+                <x-modal id="editnewsModal{{ $new->id }}" 
+                    title="Edit News"
+                    saveBtnText="Update" 
+                    saveBtnType="submit"
+                      saveBtnForm="editForm{{ $new->id }}" 
+                      size="xl">
+ @include('content.include.news.editForm')
+</x-modal>
               </td>
           </tr>
           @endforeach

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('user_name')->nullable();
             $table->integer('category_id')->nullable();
             $table->string('image')->nullable();
+            $table->string('description')->nullable();
             $table->integer('status')->default(1);
             $table->timestamps();
         });

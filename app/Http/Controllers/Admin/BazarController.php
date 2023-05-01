@@ -7,7 +7,7 @@ use App\Models\Bazar;
 use App\Models\BazarCategory;
 use Illuminate\Http\Request;
 
-class BazarController extends Controller
+class BazarController extends Controller 
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,8 @@ class BazarController extends Controller
     public function index()
     {
         $bazars = Bazar::with('bazar_category')->get();
-        return view('content.bazars.index' , compact('bazars'));
+        $bazar_category = BazarCategory::get();
+        return view('content.bazars.index' , compact('bazars' , 'bazar_category'));
     }
 
     /**
@@ -27,7 +28,6 @@ class BazarController extends Controller
      */
     public function create()
     {
-        $bazar_category = BazarCategory::get();
         return view('content.bazars.create' , compact('bazar_category'));
     }
 
@@ -51,6 +51,7 @@ class BazarController extends Controller
           $bazar->title  = $request->title;
           $bazar->user_name  = $request->user_name;
           $bazar->category_id = $request->category_id;
+          $bazar->description = $request->description;
 
           if($request->hasFile('image')){
             $path = $request->file('image')->store('/images/bazar/' , 'public');
@@ -100,6 +101,8 @@ class BazarController extends Controller
         $bazar->title = $request->title;
         $bazar->user_name = $request->user_name;
         $bazar->category_id = $request->category_id;
+        $bazar->description = $request->description;
+
   
         if($request->hasFile('image')){
            if(isset($bazar->image)){

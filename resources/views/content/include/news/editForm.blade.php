@@ -1,9 +1,7 @@
 <!-- Property Listing Wizard -->
-<div id="wizard-create-app" class="bs-stepper vertical mt-2 shadow-none border-0">
+<div id="wizard-create-app{{ $new->id }}" class="bs-stepper vertical mt-2 shadow-none border-0">
     <div class="bs-stepper-header border-0 p-1">
-        <div class="row">
-            <div class="col-md-2">
-        <div class="step active" data-target="#en">
+        <div class="step active" data-target="#en{{ $new->id }}">
             <button type="button" class="step-trigger" aria-selected="true">
                 <span class="bs-stepper-circle"><i class="bx bx-file fs-5"></i></span>
                 <span class="bs-stepper-label">
@@ -12,7 +10,7 @@
             </button>
         </div>
         <div class="line"></div>
-        <div class="step" data-target="#ir">
+        <div class="step" data-target="#ir{{ $new->id }}">
             <button type="button" class="step-trigger" aria-selected="false">
                 <span class="bs-stepper-circle"><i class="bx bx-box fs-5"></i></span>
                 <span class="bs-stepper-label">
@@ -21,7 +19,7 @@
             </button>
         </div>
         <div class="line"></div>
-        <div class="step" data-target="#kr">
+        <div class="step" data-target="#kr{{ $new->id }}">
             <button type="button" class="step-trigger" aria-selected="false">
                 <span class="bs-stepper-circle"><i class="bx bx-box fs-5"></i></span>
                 <span class="bs-stepper-label">
@@ -30,7 +28,7 @@
             </button>
         </div>
         <div class="line"></div>
-        <div class="step" data-target="#tr">
+        <div class="step" data-target="#tr{{ $new->id }}">
             <button type="button" class="step-trigger" aria-selected="false">
                 <span class="bs-stepper-circle"><i class="bx bx-box fs-5"></i></span>
                 <span class="bs-stepper-label">
@@ -39,7 +37,7 @@
             </button>
         </div>
         <div class="line"></div>
-        <div class="step" data-target="#de">
+        <div class="step" data-target="#de{{ $new->id }}">
             <button type="button" class="step-trigger" aria-selected="false">
                 <span class="bs-stepper-circle"><i class="bx bx-box fs-5"></i></span>
                 <span class="bs-stepper-label">
@@ -47,20 +45,20 @@
                 </span>
             </button>
         </div>
-    </div>
-    <div class="col-md-10">
+
         <div class="bs-stepper-content p-1">
             <!-- KR -->
-            <div id="en" class="content pt-3 pt-lg-0 active dstepper-block">
+            <div id="en{{ $new->id }}" class="content pt-3 pt-lg-0 active dstepper-block">
 
-                <form id="createForm" method="POST" action="{{ route('news.store') }}" enctype="multipart/form-data">
+                <form id="editForm{{ $new->id }}" method="POST" action="{{ route('news.update',$new->id) }}" enctype="multipart/form-data">
                     @csrf
+                    @method('put')
                     <div class="row">
                         <div class="col-lg-8 mx-auto">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label" for="fullname">News Title</label>
-                                    <input type="text" id="fullname" class="form-control" placeholder="Jang" name="title">
+                                    <input type="text" id="fullname" class="form-control" placeholder="Jang" name="title" value="{{ $new->title ?? '' }}">
                                     @error('title')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -68,6 +66,7 @@
                                 <div class="col-md-6">
                                     <label class="form-label" for="fullname">Image</label>
                                     <input type="file" name="image" class="form-control" id="image" />
+                                    <img src="{{ asset('storage/'.$new->image) }}" width="100" height="100" >
                                     @error('image')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -76,7 +75,7 @@
                                     <select class="form-select" aria-label="Default select example" name="category_id">
                                         <option selected>Select</option>
                                         @foreach($news_category as $news)
-                                        <option value="{{ $news->id }}">{{ $news->name ?? '' }}</option>
+                                        <option value="{{ $news->id }}"{{ $news->id == $new->category_id ? 'selected' : '' }}>{{ $news->name ?? '' }}</option>
                                         @endforeach
                                     </select>
                                     @error('image')
@@ -85,7 +84,7 @@
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label" for="address">Description</label>
-                                    <textarea class="form-control" id="address" name="description" rows="2" placeholder="Lorem" style="height:200px"></textarea>
+                                    <textarea class="form-control" id="address" name="description" rows="2" placeholder="Lorem" style="height:200px">{{ $new->description ?? '' }}</textarea>
                                     @error('description')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -103,8 +102,8 @@
                 </div>
             </div>
             <!-- IR -->
-            <div id="ir" class="content ">
-                <form id="createForm" method="POST" action="" enctype="multipart/form-data">
+            <div id="ir{{ $new->id }}" class="content ">
+                <form id="editForm{{ $new->id }}" method="POST" action="" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-lg-8 mx-auto">
@@ -152,8 +151,8 @@
                 </div>
             </div>
             <!-- KR -->
-            <div id="kr" class="content ">
-                <form id="createForm" method="POST" action="" enctype="multipart/form-data">
+            <div id="kr{{ $new->id }}" class="content ">
+                <form id="editForm{{ $new->id }}" method="POST" action="" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-lg-8 mx-auto">
@@ -201,8 +200,8 @@
                 </div>
             </div>
             <!-- TR -->
-            <div id="tr" class="content ">
-                <form id="createForm" method="POST" action="" enctype="multipart/form-data">
+            <div id="tr{{ $new->id }}" class="content ">
+                <form id="editForm{{ $new->id }}" method="POST" action="" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-lg-8 mx-auto">
@@ -250,8 +249,8 @@
                 </div>
             </div>
             <!-- DE -->
-            <div id="de" class="content ">
-                <form id="createForm" method="POST" action="" enctype="multipart/form-data">
+            <div id="de{{ $new->id }}" class="content ">
+                <form id="editForm{{ $new->id }}" method="POST" action="" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-lg-8 mx-auto">
@@ -300,9 +299,6 @@
             </div>
 
         </div>
-    </div>
-    </div>
-      
     </div>
 </div>
 <!--/ Property Listing Wizard -->
@@ -359,7 +355,7 @@
                 });
             }
             appModal.addEventListener('show.bs.modal', function(event) {
-                const wizardCreateApp = document.querySelector('#wizard-create-app');
+                const wizardCreateApp = document.querySelector('#wizard-create-app{{ $new->id }}');
                 if (typeof wizardCreateApp !== undefined && wizardCreateApp !== null) {
                     // Wizard next prev button
                     const wizardCreateAppNextList = [].slice.call(wizardCreateApp.querySelectorAll('.btn-next'));

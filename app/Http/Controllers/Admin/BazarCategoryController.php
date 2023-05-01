@@ -15,7 +15,8 @@ class BazarCategoryController extends Controller
      */
     public function index()
     {
-        $bazar_category = BazarCategory::get();
+       
+           $bazar_category = BazarCategory::with('bazarsubcategory')->get();
         return view('content.bazar_category.index' , compact('bazar_category'));
     }
 
