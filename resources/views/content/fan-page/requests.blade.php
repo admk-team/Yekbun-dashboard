@@ -1,16 +1,26 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Fanpage - Manage')
+@section('title', 'Fanpage - Requests')
 
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
+<style>
+    .select2-container {
+        z-index: 5000;
+    }
+</style>
+@endsection
+
+@section('vendor-script')
+<script src="{{asset('assets/vendor/libs/select2/select2.js')}}"></script>
 @endsection
 
 @section('content')
 <div class="d-flex justify-content-between">
   <div>
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Fan Page /</span> Manage
+    <span class="text-muted fw-light">Fan Page /</span> Requests
 </h4>
 </div>
 <!-- <div class="">
@@ -82,7 +92,7 @@
 
 <!-- Basic Bootstrap Table -->
 <div class="card">
-    <h5 class="card-header">Fan Pages</h5>
+    <h5 class="card-header">Fan Page Requests</h5>
     <div class="table-responsive text-nowrap">
       <table class="table">
         <thead>
@@ -115,16 +125,23 @@
             </td>
             <td>
               <a href="{{ route('fanpage-status', ['id' => $page->id, 'status' => 1]) }}" class="btn badge badge-center bg-label-secondary ms-1" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Accept"><i class="bx bx-check"></i></a>
-              <button class="btn badge badge-center bg-label-danger ms-1" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Block" onclick="$('#warningModal{{ $page->id }}').modal('show')"><i class="bx bx-block"></i></button>
+              <button class="btn badge badge-center bg-label-danger ms-1" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Reject" onclick="$('#warningModal{{ $page->id }}').modal('show')"><i class="bx bx-x-circle"></i></button>
               <x-modal
-                title="Block Page"
                 id="warningModal{{ $page->id }}"
-                onSaveBtnClick="window.location.href = '{{ route('fanpage-status', ['id' => $page->id, 'status' => 3]) }}'"
-                saveBtnText="Block"
+                onSaveBtnClick="window.location.href = '{{ route('fanpage-status', ['id' => $page->id, 'status' => 2]) }}'"
+                saveBtnText="Reject"
                 saveBtnClass="btn btn-danger"
                 closeBtnText="Cancel"
               >
-                Are you sure want to block this page?
+                <label class="form-label d-block" for="deniedReason{{ $page->id }}">Select Denied Reason</label>
+                <select id="deniedReason{{ $page->id }}" class="form-control select2">
+                    <option selected="">Choose Denied Reason</option>
+                    <option>reason1</option>
+                    <option>reason2</option>
+                    <option>reason3</option>
+                    <option>reason4</option>
+                    <option>reason5</option>
+                </select>
               </x-modal>
               <!-- <div class="dropdown d-inline-block">
                 <button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown"
@@ -189,5 +206,11 @@
     $('.deleted-modal').modal('show');
     $('#delete_form').attr('action', link);
   }
+</script>
+@endsection
+
+@section('page-script')
+<script>
+  $(".select2").select2();
 </script>
 @endsection
