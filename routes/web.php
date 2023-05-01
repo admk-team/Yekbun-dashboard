@@ -100,6 +100,9 @@ Route::get('/icons/font-awesome', $controller_path . '\icons\FontAwesome@index')
 
 // Posts
 Route::resource('/posts', PostController::class);
+Route::delete('posts/destroy-flag-user/{id}/{user_id}', [PostController::class, 'destroyAndFlagUser'])->name('posts.destroyAndFlagUser');
+Route::delete('posts/destroy-block-user/{id}/{user_id}', [PostController::class, 'destroyAndBlockUser'])->name('posts.destroyAndBlockUser');
+Route::delete('posts/destroy-remove-user/{user_id}', [PostController::class, 'destroyAndRemoveUser'])->name('posts.destroyAndRemoveUser');
 
 // Users
 Route::prefix("/users")->name("users.")->group(function () {
