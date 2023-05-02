@@ -47,17 +47,21 @@ class UplaodVideoController extends Controller
           ]); 
 
         $video = new UplaodVideo();
-        $video->thumbnail = $request->thumbnail;
         $video->title = $request->title;
         $video->description = $request->description;
         $video->category_id = $request->category_id;
         $videos = collect([]);
 
+        if($request->file('thumbnail')){
+            $path  = $request->file('thumbnail')->store('/images/thumbnail/','public');
+            $video->thumbnail = $path;
+        }
+
         foreach($request->file('video') as $value){
-            $path = $value->storeAs('/images/video/' , 'public');
+            $path = $value->store('/images/video/' , 'public');
             $videos->push($path);
         }
-        $video->video = $videos;
+        $video->video = $videos->toJson();
 
        if($video->save()){
         return redirect()->route('upload-video.index')->with('success', 'Video Has been inserted');
@@ -107,6 +111,16 @@ class UplaodVideoController extends Controller
         $video->category_id = $request->category_id;
         $videos = collect([]);
 
+        if($request->file('thumbnail')){
+            if(isset($video->thumbnail)){
+                $image_path = public_path('/storage/'.$video->thumbnail);
+                if(file_exists($image_path)){
+                    unlink($image_path);
+                }
+            }
+            $path  = $request->file('thumbnail')->store('/images/thumbnail/','public');
+            $video->thumbnail = $path;
+        }
 
         if($request->hasFile('video')){
             foreach($request->file('video') as $value){

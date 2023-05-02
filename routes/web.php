@@ -43,8 +43,9 @@ use App\Http\Controllers\Admin\AlbumController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryBazarController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Models\Category;
-use App\Models\EventCategory;
+use App\Http\Controllers\Admin\OnlineCategoryController;
+use App\Http\Controllers\Admin\SeriesController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -106,11 +107,11 @@ Route::get('/icons/font-awesome', $controller_path . '\icons\FontAwesome@index')
 // Dashboard online shop
 Route::get('/dashboard' , [DashboardController::class , 'dashboard'])->name('dashboard');
 // Category online shop
-Route::resource('/online-category' , CategoryController::class);
-Route::get('/online-status/{id}/{status}' , [CategoryController::class, 'status'])->name('online-status');
+Route::resource('/online-category' , OnlineCategoryController::class);
+Route::get('/online-status/{id}/{status}' , [OnlineCategoryController::class, 'status'])->name('online-status');
 
 // subcategory onlien shop
-Route::any('/online-subcategory' , [CategoryController::class , 'save'])->name('online-subcategory');
+Route::any('/online-subcategory' , [OnlineCategoryController::class , 'save'])->name('online-subcategory');
 // Posts
 Route::resource('/posts', PostController::class);
 Route::delete('posts/destroy-flag-user/{id}/{user_id}', [PostController::class, 'destroyAndFlagUser'])->name('posts.destroyAndFlagUser');
@@ -136,6 +137,14 @@ Route::prefix("donations")->name("donations.")->group(function () {
     Route::resource('/organizations', OrganizationController::class);
     Route::get('/categories', [CategoryController::class, 'index'])->name('organizations.categories.index');
 });
+
+// Series
+Route::prefix("series")->name("series.")->group(function () {
+    Route::resource('/series', SeriesController::class);
+    Route::get('/categories', [CategoryController::class, 'index'])->name('series.categories.index');
+});
+
+
 // Donations
 Route::resource('/donations', DonationController::class);
 
