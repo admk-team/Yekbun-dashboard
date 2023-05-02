@@ -129,8 +129,8 @@
           <tbody class="table-border-bottom-0">
             @forelse($reports as $report)
             <tr>
-              <td>{{ $report->user->name }}</td>
-              <td>{{ $report->reportedUser->name }}</td>
+              <td>{{ $report->user? $report->user->name: '' }}</td>
+              <td>{{ $report->reportedUser? $report->reportedUser->name: '' }}</td>
               <td>{{ $report->reason }}</td>
               <td>{{ $report->created_at->format('F jS, Y') }}</td>
               <td>

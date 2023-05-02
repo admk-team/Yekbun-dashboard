@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\FlaggedUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use Illuminate\Support\Facades\Storage;
@@ -20,8 +21,43 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy("updated_at", "desc")->get();
-        return view('content.posts.index', compact("posts"));
+        $show = "all";
+        if (request()->show)
+            $show = request()->show;
+        
+        switch ($show) {
+            case "all":
+                $posts = Post::orderBy("updated_at", "desc")->get();
+                break;
+            case "fanpage":
+                $posts = Post::orderBy("updated_at", "desc")->get();
+                break;
+            case "reported":
+                $posts = Post::whereExists(function ($query) {
+                    $query->select(DB::raw(1))
+                        ->from('reports')
+                        ->whereColumn('reports.reported_post_id', 'posts.id')
+                        ->where('status', 0);
+                })->orderBy("posts.updated_at", "desc")->get();
+                break;
+            case "admin":
+                $posts = Post::where("user_id", null)->orderBy("updated_at", "desc")->get();
+                break;
+        }
+
+        $allPosts = $posts;
+        if ($show !== "all")
+            $allPosts = Post::orderBy("updated_at", "desc")->get();
+        
+        $totalPosts = $allPosts->count();
+        $totalUserPosts = $allPosts->filter(function ($post) {
+            return $post->user_id !== null;
+        })->count();
+        $totalAdminPosts = $allPosts->filter(function ($post) {
+            return $post->user_id === null;
+        })->count();
+
+        return view('content.posts.index', compact("posts", "totalPosts", "totalUserPosts", "totalAdminPosts"));
     }
 
     /**
