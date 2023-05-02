@@ -16,8 +16,8 @@ class UplaodVideoController extends Controller
      */
     public function index()
     {
-        $upload_video = UplaodVideo::with('videocategory')->orderBy('id', 'desc')->get();
-        $video_category = UploadVideoCategory::get();
+         $upload_video = UplaodVideo::with('videocategory')->orderBy('id', 'desc')->get();
+         $video_category = UploadVideoCategory::get();
         return view('content.videos.index' ,compact('upload_video' , 'video_category'));
     }
 
@@ -39,6 +39,7 @@ class UplaodVideoController extends Controller
      */
     public function store(Request $request)
     {
+       
         $request->validate([
             'thumbnail' => 'required',
             'title' => 'required',
@@ -50,11 +51,13 @@ class UplaodVideoController extends Controller
         $video->title = $request->title;
         $video->description = $request->description;
         $video->category_id = $request->category_id;
+        $videos = collect([]);
 
-       if($request->hasFile('video')){
-        $video_path = $request->file('video')->store('/images/video/' , 'public');
-        $video->video = $video_path;
-       }
+        foreach($request->file('video') as $value){
+            $path = $value->storeAs('/images/video/' , 'public');
+            $videos->push($path);
+        }
+        $video->video = $videos;
 
        if($video->save()){
         return redirect()->route('upload-video.index')->with('success', 'Video Has been inserted');
@@ -102,16 +105,24 @@ class UplaodVideoController extends Controller
         $video->title = $request->title;
         $video->description = $request->description;
         $video->category_id = $request->category_id;
+        $videos = collect([]);
+
 
         if($request->hasFile('video')){
-            if(isset($video->video)){
-                $video_path  = public_path('/storage/'.$video->video);
-                if(file_exists($video_path)){
-                    unlink($video_path);
-                }
-                $path  = $request->file('video')->storeAs('/images/video/' , 'public');
-                $video->video = $path;
-             }
+            foreach($request->file('video') as $value){
+                    if(isset($video->video)){
+                        $video_path  = public_path('/storage/'.$video->video);
+                        if(file_exists($video_path)){
+                            unlink($video_path);
+                        }
+                        $path  = $value->storeAs('/images/video/' , 'public');
+                        $videos->push($path);
+                        $video->video  = $videos;
+                    }
+            }
+        }else{
+            $arr = $video->video;
+            $video->video = $arr;
         }
 
         if($video->update()){
