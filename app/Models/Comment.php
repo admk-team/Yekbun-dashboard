@@ -31,4 +31,9 @@ class Comment extends Model
     {
         return $this->hasMany(Comment::class, 'parent_id', 'id');
     }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class, 'reported_comment_id', 'id');
+    }
 }
