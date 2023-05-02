@@ -5,9 +5,9 @@
       <div class="col-lg-8 mx-auto">
         <div class="row g-3">
           <div class="col-md-6">
-            <label class="form-label" for="fullname">Thumbnail</label>
-            <input type="text" id="fullname" class="form-control" placeholder="" name="thumbnail">
-            @error('thumbnail')
+            <label class="form-label" for="fullname">Title</label>
+            <input type="text" id="fullname" class="form-control" placeholder="" name="title">
+            @error('title')
             <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
@@ -18,13 +18,16 @@
             <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
+
           <div class="col-md-6">
-            <label class="form-label" for="fullname">Title</label>
-            <input type="text" id="fullname" class="form-control" placeholder="" name="title">
-            @error('title')
+            <label class="form-label" for="fullname">Thumbnail</label>
+            <input type="file" id="fullname" class="form-control" name="thumbnail">
+            @error('thumbnail')
             <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
+         
+       
           <div class="col-md-6">
             <label class="form-label" for="fullname">Category</label>
             <select class="form-select" aria-label="Default select example" name="category_id">

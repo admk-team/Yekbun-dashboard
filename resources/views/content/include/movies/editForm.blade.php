@@ -1,12 +1,12 @@
-<form id="editForm{{ $video->id }}" method="POST" action="{{ route('upload-video.update',$video->id) }}" enctype="multipart/form-data">
+<form id="editForm{{ $movie->id }}" method="POST" action="{{ route('upload-movies.update',$movie->id) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="row">
         <div class="col-lg-8 mx-auto">
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label class="form-label" for="fullname">Video Title</label>
-                    <input type="text" id="fullname" class="form-control" placeholder="Lorem" name="title" value="{{ $video->title ?? '' }}">
+                    <label class="form-label" for="fullname">Title</label>
+                    <input type="text" id="fullname" class="form-control" placeholder="Lorem" name="title" value="{{ $movie->title ?? '' }}">
                     @error('title')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -15,43 +15,41 @@
                 <div class="col-md-6">
                     <label class="form-label" for="fullname">Thumbnail</label>
                     <input type="file" id="fullname" class="form-control" placeholder="" name="thumbnail">
-                    <img src="{{ asset('storage/'.$video->thumbnail) }}" width="100" height="100">
+                    <img src="{{asset('storage/'.$movie->thumbnail)}}">
                     @error('thumbnail')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label" for="fullname">Video</label>
-                    <input type="file" name="video[]" class="form-control" id="video" accept="video/*" multiple />
+                    <label class="form-label" for="fullname">movie</label>
+                    <input type="file" name="movie[]" class="form-control" id="video" accept="video/*" multiple />
                     @foreach($arr as $key => $value)
                     <?php
-                      $getvideo = $value[$key] ?? null; 
-                    ?>
-                    <video controls width="100" height="100">
-                        <source src="{{ asset('storage/'.$getvideo)}}" />
+                       $getmovie = $value[$key] ?? null;
+                     ?>
+                    <video width="100" height="100" controls>
+                        <source src="{{ asset('storage/'.$getmovie) }}">
                     </video>
                     @endforeach
+
                     @error('video')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-
-             
-                
                 <div class="col-md-6">
                     <label class="form-label" for="fullname">Category</label>
-                     <select class="form-select" aria-label="Default select example" name="category_id">
-                        @foreach($video_category as $videos)
-                        <option value="{{ $videos->id }}" {{  isset($video->category_id)&& $video->category_id == $videos->id  ? 'selected' : '' }}>{{ $videos->category ?? '' }}</option>
+                    <select class="form-select" aria-label="Default select example" name="category_id">
+                        @foreach($movie_category as $movies)
+                        <option value="{{ $movies->id }}" {{ $movies->id == $movie->category_id ? 'selected' : '' }}>{{ $movies->category ?? '' }}</option>
                         @endforeach
-                    </select> 
+                    </select>
                     @error('category_id')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="col-md-12">
                     <label class="form-label" for="fullname">Description</label>
-                    <textarea class="form-control" placeholder="" name="description">{{ $video->description ?? '' }}</textarea>
+                    <textarea class="form-control" placeholder="" name="description">{{ $movie->description ?? '' }}</textarea>
                     @error('description')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -59,4 +57,5 @@
             </div>
         </div>
     </div>
+
 </form>

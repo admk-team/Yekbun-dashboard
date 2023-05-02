@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\BazarCategory;
 use App\Models\SubCategoryBazar;
 
-class CategoryController extends Controller
+class OnlineCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
