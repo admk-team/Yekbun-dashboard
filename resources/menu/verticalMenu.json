@@ -88,18 +88,18 @@
           "slug": "dashboard"
         },
         {
-          "url": "/add/category",
+          "url": "/online-category",
           "name": "Category",
           "slug": "category"
         },
         {
           "url": "/add/items",
-          "name": "Items",
+          "name": "Add item",
           "slug": "item"
         },
         {
           "url": "/Manage/items",
-          "name": "Items",
+          "name": "Manage item",
           "slug": "item"
         },
         {
@@ -180,15 +180,45 @@
       "slug": "video",
       "submenu": [
         {
-          "url": "/upload-video",
-          "name": "Upload Video",
-          "slug": "upload-video"
+          "name": "Manage Videos",
+          "slug": "manage-videos",
+          "submenu": [
+            {
+              "url": "/video",
+              "name": "Add videos",
+              "slug": "upload-video",
+              "submenu": [
+                {
+                  "url": "/upload-video-category",
+                  "name": "Add category",
+                  "slug": "add-category"
+                },
+                {
+                  "url": "/upload-video",
+                  "name": "Add video",
+                  "slug": "upload-video"
+                }
+              ]
+            }
+          ]
         },
-        {
-          "url": "/upload-movies",
-          "name": "Upload Movies",
-          "slug": "upload-movies"
-        },
+            {
+              "name": "Add Movies",
+              "slug": "add-movies",
+              "url": "/video",
+              "submenu": [
+                {
+                  "url": "/upload-movies-category",
+                  "name": "Add category",
+                  "slug": "add-category"
+                },
+                {
+                  "url": "/upload-movies",
+                  "name": "Add movies",
+                  "slug": "upload-movie"
+                }
+              ]
+            },
         {
           "url": "/report-video",
           "name": "Report Video",
