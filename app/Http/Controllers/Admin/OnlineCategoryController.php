@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Models\BazarCategory;
-use App\Models\SubCategoryBazar;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 
 class OnlineCategoryController extends Controller
 {
@@ -16,8 +18,9 @@ class OnlineCategoryController extends Controller
      */
     public function index()
     {
-        $bazar_category = BazarCategory::with('bazarsubcategory')->get();
-        return view('content.category_online.index' , compact('bazar_category'));
+        $target = request()->target;
+        $categories = Category::where('target', $target)->get();
+        return view("content.categories.index", compact("categories", "target"));
     }
 
     /**
@@ -27,7 +30,7 @@ class OnlineCategoryController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -36,19 +39,19 @@ class OnlineCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $request->validate([
-            'bazar_category' => 'required'
-        ]);
+        $validated = $request->validated();
 
-        $model = new BazarCategory();
-        $model->name = $request->bazar_category;
-        if($model->save()){
-            return redirect()->route('online-category.index')->with('success', 'Bazar  Category Has been inserted');
-        }else{
-            return redirect()->route('online-category.index')->with('error', 'Failed to add bazar category');
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->image->store("/categories", "public");
+            $validated["image"] = $imagePath;
         }
+
+        $category = Category::create($validated);
+
+        return back()->with("success", "Category successfully created.");
     }
 
     /**
@@ -80,15 +83,21 @@ class OnlineCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCategoryRequest $request, $id)
     {
-        $bazar = BazarCategory::findorFail($id);
-        $bazar->name = $request->bazar_category;
-        if($bazar->update()){
-           return redirect()->route('online-category.index')->with('success', 'Bazar Category Has been Updated');
-       }else{
-           return redirect()->route('online-category.index')->with('error', 'Failed to update bazar category');
-       }
+        $validated = $request->validated();
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->image->store("/categories", "public");
+            $validated["image"] = $imagePath;
+        }
+
+        $category = Category::find($id);
+        $category->fill($validated);
+        $category->save();
+
+        return back()->with("success", "Category successfully updated.");
     }
 
     /**
@@ -99,35 +108,14 @@ class OnlineCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $bazar = BazarCategory::findorFail($id);
-        if($bazar->delete($bazar->id)){
-            return redirect()->route('online-category.index')->with('success', 'bazar Category Has been Deleted');
-        }else{
-            return redirect()->route('online-category.index')->with('error', 'Failed to delete bazar category');
-        }
-    }
-    public function status($id , $status){
-        $bazar = BazarCategory::find($id);
-        $bazar->status = $status;
-        if($bazar->update()){
-            return redirect()->route('online-category.index')->with('success', 'Status Has been Updated');
-        }else{
-            return redirect()->route('online-category.index')->with('error', 'Status is not changed');
+        $category = Category::find($id);
 
-        }
-    }
+        // Delete Image
+        if ($category->image)
+            Storage::delete($category->image);
 
-    public function save(Request $request){
-        $request->validate([
-            'category_id' => 'required',
-            'name'=> 'required'
-        ]);
+        $category->delete();
 
-        $model = new SubCategoryBazar();
-        $model->category_id = $request->category_id;
-        $model->name = $request->name;
-        if($model->save()){
-            return redirect()->route('online-category.index');
-        }
+        return back()->with("success", "Category successfully deleted.");
     }
 }

@@ -277,13 +277,18 @@
       "submenu": [
         {
           "url": "/donations",
-          "name": "Donation",
+          "name": "Add / Manage Donation",
           "slug": "donations.index"
         },
         {
           "url": "/donations/organizations",
-          "name": "Organization",
+          "name": "Add / Manage Organization",
           "slug": "donations.organizations.index"
+        },
+        {
+          "url": "/donations/categories?target=donation",
+          "name": "Add / Manage Category",
+          "slug": "donations.organizations.categories.index"
         }
       ]
     },
