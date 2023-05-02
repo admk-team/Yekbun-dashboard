@@ -49,7 +49,36 @@
                 </div>
               </div>
               <!-- Modal -->
-              <div class="modal fade" id="ticketSalesModal" tabindex="-1" style="display: none;" aria-hidden="true">
+              <x-modal 
+                id="ticketSalesModal" 
+                title="Ticket Sales"
+                size="xl"
+                :showSaveBtn="false"
+              >
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>User Name</th>
+                      <th>Purchase Date</th>
+                      <th>Total</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-border-bottom-0">
+                    @forelse($event->ticketSales as $sale)
+                    <tr>
+                      <td>{{ $sale->user? $sale->user->name: '' }}</td>
+                      <td>{{ $sale->created_at->format('F jS, Y h:i a') }}</td>
+                      <td>{{ $sale->total }}</td>
+                    </tr>
+                    @empty
+                    <tr>
+                      <td class="text-center" colspan="3"><b>No sales found.<b></td>
+                    </tr>
+                    @endforelse
+                  </tbody>
+                </table>
+              </x-modal>
+              <!-- <div class="modal fade" id="ticketSalesModal" tabindex="-1" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
                   <div class="modal-content">
                     <div class="modal-body">
@@ -77,7 +106,7 @@
                       </table>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </td>
           </tr>
           @empty
