@@ -1,4 +1,4 @@
-<form id="editForm{{ $movie->id }}" method="POST" action="{{ route('upload-movies.update',$movie->id) }}" enctype="multipart/form-data">
+<form id="editForm{{ $serie->id }}" method="POST" action="{{ route('series.series.update',$serie->id) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="row">
@@ -6,7 +6,7 @@
             <div class="row g-3">
                 <div class="col-md-6">
                     <label class="form-label" for="fullname">Title</label>
-                    <input type="text" id="fullname" class="form-control" placeholder="Lorem" name="title" value="{{ $movie->title ?? '' }}">
+                    <input type="text" id="fullname" class="form-control" placeholder="Lorem" name="title" value="{{ $serie->title ?? '' }}">
                     @error('title')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -15,17 +15,17 @@
                 <div class="col-md-6">
                     <label class="form-label" for="fullname">Thumbnail</label>
                     <input type="file" id="fullname" class="form-control" placeholder="" name="thumbnail">
-                    <img src="{{asset('storage/'.$movie->thumbnail)}}" width="100" height="100">
+                    <img src="{{asset('storage/'.$serie->thumbnail)}}" width="100" height="100">
                     @error('thumbnail')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label" for="fullname">movie</label>
-                    <input type="file" name="movie[]" class="form-control" id="video" accept="video/*" multiple />
+                    <label class="form-label" for="fullname">Series</label>
+                    <input type="file" name="series[]" class="form-control" id="video" accept="video/*" multiple />
                     @foreach($arr as $key => $value)
-                   @if(file_exists(public_path('storage/'.$value)))
-                    <video width="100" height="100" controls>
+                    @if(file_exists(public_path('storage/'.$value)))
+                    <video width="100" height="100" controls preload="none">
                         <source src="{{ asset('storage/'.$value) }}">
                     </video>
                     @endif
@@ -38,8 +38,8 @@
                 <div class="col-md-6">
                     <label class="form-label" for="fullname">Category</label>
                     <select class="form-select" aria-label="Default select example" name="category_id">
-                        @foreach($movie_category as $movies)
-                        <option value="{{ $movies->id }}" {{ $movies->id == $movie->category_id ? 'selected' : '' }}>{{ $movies->category ?? '' }}</option>
+                        @foreach($series_category as $series)
+                        <option value="{{ $series->id }}" {{ $series->id == $serie->category_id ? 'selected' : '' }}>{{ $series->name ?? '' }}</option>
                         @endforeach
                     </select>
                     @error('category_id')
@@ -48,7 +48,7 @@
                 </div>
                 <div class="col-md-12">
                     <label class="form-label" for="fullname">Description</label>
-                    <textarea class="form-control" placeholder="" name="description">{{ $movie->description ?? '' }}</textarea>
+                    <textarea class="form-control" placeholder="" name="description">{{ $serie->description ?? '' }}</textarea>
                     @error('description')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror

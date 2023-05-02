@@ -44,6 +44,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryBazarController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OnlineCategoryController;
+use App\Http\Controllers\Admin\SeriesController;
 
 
 /*
@@ -136,6 +137,14 @@ Route::prefix("donations")->name("donations.")->group(function () {
     Route::resource('/organizations', OrganizationController::class);
     Route::get('/categories', [CategoryController::class, 'index'])->name('organizations.categories.index');
 });
+
+// Series
+Route::prefix("series")->name("series.")->group(function () {
+    Route::resource('/series', SeriesController::class);
+    Route::get('/categories', [CategoryController::class, 'index'])->name('series.categories.index');
+});
+
+
 // Donations
 Route::resource('/donations', DonationController::class);
 

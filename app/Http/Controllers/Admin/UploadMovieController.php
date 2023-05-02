@@ -50,19 +50,20 @@ class UploadMovieController extends Controller
          $movie->title = $request->title;
         $movie->description = $request->description;
         $movie->category_id = $request->category_id;
-
         $movies = collect([]);
+        
+        foreach($request->file('movie') as $value){
+            $path = $value->store('/images/movie/','public');
+            $movies->push($path);
+        }
+        $movie->movie = $movies->toJson();
+
+
         if($request->hasFile('thumbnail')){
             $movies_path = $request->file('thumbnail')->store('/images/movies/thumbnail/','public');
             $movie->thumbnail = $movies_path;
            }
        
-
-        foreach($request->file('movie') as $value){
-            $path = $value->storeAs('/images/movie/','public');
-            $movies->push($path);
-        }
-        $movie->movie = $movies;
 
        if($movie->save()){
         return redirect()->route('upload-movies.index')->with('success', 'Movies Has been inserted');
@@ -106,13 +107,12 @@ class UploadMovieController extends Controller
     public function update(Request $request, $id)
     {
         $movie = UploadMovie::find($id);
-        $movie->thumbnail = $request->thumbnail;
         $movie->title = $request->title;
         $movie->description = $request->description;
         $movie->category_id = $request->category_id;
         $videos = collect([]);
 
-        if($request->file('thumbnail')){
+        if($request->hasFile('thumbnail')){
             if(isset($movie->thumbnail)){
                 $image_path = public_path('/storage/'.$movie->thumbnail);
                 if(file_exists($image_path)){

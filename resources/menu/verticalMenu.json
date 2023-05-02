@@ -219,6 +219,23 @@
                 }
               ]
             },
+            {
+              "name": "Add Series",
+              "slug": "add-series",
+              "url": "/series",
+              "submenu": [
+                {
+                  "url": "/series/categories?target=series",
+                  "name": "Add category",
+                  "slug": "add-category"
+                },
+                {
+                  "url": "/series/series",
+                  "name": "Add series",
+                  "slug": "add-series"
+                }
+              ]
+            },
         {
           "url": "/report-video",
           "name": "Report Video",

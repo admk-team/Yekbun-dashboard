@@ -58,10 +58,10 @@ class UplaodVideoController extends Controller
         }
 
         foreach($request->file('video') as $value){
-            $path = $value->storeAs('/images/video/' , 'public');
+            $path = $value->store('/images/video/' , 'public');
             $videos->push($path);
         }
-        $video->video = $videos;
+        $video->video = $videos->toJson();
 
        if($video->save()){
         return redirect()->route('upload-video.index')->with('success', 'Video Has been inserted');
