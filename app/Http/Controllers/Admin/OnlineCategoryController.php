@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 
-class CategoryController extends Controller
+class OnlineCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.

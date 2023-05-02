@@ -7,21 +7,32 @@
 @endsection
 
 @section('content')
-<div class="d-flex justify-content-between">
-  <div>
-<h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Movies Category /</span> All Movie Category
-</h4>
-</div>
-<div class="">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newscategorymodel">
-        Add  Movie Category
-      </button>
-</div>
+<div class="contianer">
+  <div class="row">
+      <div class="col-xl-12">
+          <div class="nav-align-top mb-4">
+              <ul class="nav nav-tabs" role="tablist">
+                  <li class="nav-item" role="presentation">
+                      <a href="{{ route('upload-movies.index') }}">
+                          <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='bx bx-plus-circle bx-lg'></i>Manage Movies</button>
+                      </a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <a href="{{ route('upload-movies-category.index') }}">
+                          <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='bx bx-plus-circle bx-lg'></i>Add Categroy</button>
+                      </a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </div>
+  <div class="d-flex justify-content-center mt-2 mb-2">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createmoviecategoryModal">Add Category</button>
+  </div>
 </div>
 
   <!-- Category Model -->
-  <div class="modal fade" id="newscategorymodel" tabindex="-1" aria-hidden="true">
+  <div class="modal fade" id="createmoviecategoryModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -111,9 +122,7 @@
                   <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
                     <ul class="nav flex-column">
                       <li class="nav-item">
-                        <a href="{{ route('upload-movies-category.edit',$movie->id) }}" class="nav-link">
-                          <i class="nav-link-icon pe-7s-chat"> </i><span>Edit</span>
-                        </a>
+                      <button class="btn" data-bs-toggle="modal" data-bs-target="#editmoviecategoryModal{{ $movie->id }}">Edit</button>
                       </li>
                       <li class="nav-item">
                         <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);"
@@ -124,6 +133,44 @@
                     </ul>
                   </div>
                 </div>
+
+                  <!-- Category Model -->
+  <div class="modal fade" id="editmoviecategoryModal{{ $movie->id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel3">Category</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <form method="POST" action="{{ route('upload-movies-category.update',$movie->id) }}" enctype="multipart/form-data">
+              @csrf
+              @method('put')
+              <div class="row">
+                  <div class="col-lg-8 mx-auto">
+                      <!-- 1. Delivery Address -->
+                      <h5 class="mb-4">Category Name</h5>
+                      <div class="row g-3">
+                          <div class="col-md-12">
+
+                              <label class="form-label" for="fullname">Movie Category</label>
+                              <input type="text" id="fullname" class="form-control" placeholder="" name="movie_category" value="{{ $movie->category ?? '' }}">
+                              @error('movie_category')
+                              <span class="text-danger">{{ $message }}</span>
+                              @enderror
+                          </div>
+                      </div>
+                      <button class="btn btn-primary" type="submit">Update</button>
+                  </div>
+              </div>
+          </form>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
               </td>
           </tr>
           @endforeach

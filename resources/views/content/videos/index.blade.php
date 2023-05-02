@@ -7,29 +7,6 @@
 @endsection
 
 @section('content')
-<div class="contianer">
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="nav-align-top mb-4">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a href="{{ route('upload-video.index') }}">
-                            <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='bx bx-plus-circle bx-lg'></i>Manage Video</button>
-                        </a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a href="{{ route('upload-video-category.index') }}">
-                            <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='bx bx-plus-circle bx-lg'></i>Add Categroy</button>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="d-flex justify-content-center mt-2 mb-2">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createvideoModal">Add Video</button>
-    </div>
-</div>
 
 <div class="row g-4 mb-4">
     <div class="col-sm-6 col-xl-3">
@@ -110,6 +87,32 @@
     </div>
 </div>
 
+<div class="contianer">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="nav-align-top mb-4">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a href="{{ route('upload-video.index') }}">
+                            <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='bx bx-plus-circle bx-lg'></i>Manage Video</button>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a href="{{ route('upload-video-category.index') }}">
+                            <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='bx bx-plus-circle bx-lg'></i>Add Categroy</button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center mt-2 mb-2">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createvideoModal">Add Video</button>
+    </div>
+</div>
+
+
+
 
 <!-- Basic Bootstrap Table -->
 <div class="card">
@@ -131,7 +134,7 @@
                 @foreach($upload_video as $video)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $video->thumbnail ?? '' }}</td>
+                    <td><img src="{{ asset('storage/'.$video->thumbnail) }}" width="100" height="100"></td>
                     <td>{{ $video->title ?? '' }}</td>
                     <td>{{ $video->videocategory->category ?? '' }}</td>
                     <td> @php

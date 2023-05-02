@@ -16,8 +16,9 @@ class UploadMovieController extends Controller
      */
     public function index()
     {
+        $movie_category = UploadMovieCategory::get();
         $upload_movie = UploadMovie::with('moviecategory')->orderBy('id' , 'desc')->get();
-        return view('content.movies.index' , compact('upload_movie'));
+        return view('content.movies.index' , compact('upload_movie' , 'movie_category'));
     }
 
     /**
@@ -27,7 +28,6 @@ class UploadMovieController extends Controller
      */
     public function create()
     {
-        $movie_category = UploadMovieCategory::get();
         return view('content.movies.create' , compact('movie_category'));
     }
 
@@ -39,24 +39,33 @@ class UploadMovieController extends Controller
      */
     public function store(Request $request)
     {
+      
         $request->validate([
             'thumbnail' => 'required',
             'title' => 'required',
             'movie' => 'required',
           ]); 
 
-        $movies = new UploadMovie();
-        $movies->thumbnail = $request->thumbnail;
-        $movies->title = $request->title;
-        $movies->description = $request->description;
-        $movies->category_id = $request->category_id;
+        $movie = new UploadMovie();
+         $movie->title = $request->title;
+        $movie->description = $request->description;
+        $movie->category_id = $request->category_id;
+        $movies = collect([]);
+        
+        foreach($request->file('movie') as $value){
+            $path = $value->store('/images/movie/','public');
+            $movies->push($path);
+        }
+        $movie->movie = $movies->toJson();
 
-       if($request->hasFile('movie')){
-        $movies_path = $request->file('movie')->store('/images/movies/' , 'public');
-        $movies->movie = $movies_path;
-       }
 
-       if($movies->save()){
+        if($request->hasFile('thumbnail')){
+            $movies_path = $request->file('thumbnail')->store('/images/movies/thumbnail/','public');
+            $movie->thumbnail = $movies_path;
+           }
+       
+
+       if($movie->save()){
         return redirect()->route('upload-movies.index')->with('success', 'Movies Has been inserted');
        }else{
         return redirect()->route('upload-movies.index')->with('error', 'Movies Has not inserted');
@@ -98,21 +107,38 @@ class UploadMovieController extends Controller
     public function update(Request $request, $id)
     {
         $movie = UploadMovie::find($id);
-        $movie->thumbnail = $request->thumbnail;
         $movie->title = $request->title;
         $movie->description = $request->description;
         $movie->category_id = $request->category_id;
+        $videos = collect([]);
 
-
-        if($request->hasFile('movie')){
-            if(isset($movie->movie)){
-                $movie_path  = public_path('/storage/'.$movie->movie);
-                if(file_exists($movie_path)){
-                    unlink($movie_path);
+        if($request->hasFile('thumbnail')){
+            if(isset($movie->thumbnail)){
+                $image_path = public_path('/storage/'.$movie->thumbnail);
+                if(file_exists($image_path)){
+                    unlink($image_path);
                 }
-                $path  = $request->file('movie')->storeAs('/images/movies/' , 'public');
-                $movie->movie = $path;
-             }
+            }
+            $path  = $request->file('thumbnail')->store('/images/movies/thumbnail/','public');
+            $movie->thumbnail = $path;
+        }
+
+      
+        if($request->hasFile('movie')){
+            foreach($request->file('movie') as $value){
+                    if(isset($movie->movie)){
+                        $video_path  = public_path('/storage/'.$movie->movie);
+                        if(file_exists($video_path)){
+                            unlink($video_path);
+                        }
+                        $path  = $value->storeAs('/images/movies/video/' , 'public');
+                        $videos->push($path);
+                        $movie->movie  = $videos;
+                    }
+            }
+        }else{
+            $arr = $movie->movie;
+            $movie->movie = $arr;
         }
 
         if($movie->update()){
