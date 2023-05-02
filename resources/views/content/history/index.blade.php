@@ -45,7 +45,7 @@
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between">
                     <div class="content-left">
-                        <span>Reoirted History</span>
+                        <span>Reported History</span>
                         <div class="d-flex align-items-end mt-2">
                             <h4 class="mb-0 me-2">4,567</h4>
                             <small class="text-success">(+18%)</small>
