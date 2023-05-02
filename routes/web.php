@@ -43,7 +43,8 @@ use App\Http\Controllers\Admin\AlbumController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryBazarController;
 use App\Http\Controllers\Admin\DashboardController;
-
+use App\Models\Category;
+use App\Models\EventCategory;
 
 /*
 |--------------------------------------------------------------------------
@@ -145,7 +146,7 @@ Route::resource('/categories', CategoryController::class)->only('index', 'store'
 // Events
 Route::prefix("events")->name("events.")->group(function () {
     // Event Categories
-    Route::resource("categories", EventCategoryController::class);
+    Route::get("categories", [CategoryController::class, 'index'])->name('categories.index');
     // Tickets
     //Route::resource("tickets", TicketController::class);
     Route::get("/tickets", [EventController::class, 'tickets'])->name('tickets');

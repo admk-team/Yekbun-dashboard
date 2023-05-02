@@ -244,16 +244,11 @@
         },
         {
           "url": "/events",
-          "name": "All Events",
+          "name": "Add / Manage Event",
           "slug": "events.index"
         },
         {
-          "url": "/events/create",
-          "name": "Add Event",
-          "slug": "events.create"
-        },
-        {
-          "url": "/events/categories",
+          "url": "/events/categories?target=event",
           "name": "Categories",
           "slug": "events.categories.index"
         },

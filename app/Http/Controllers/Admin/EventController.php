@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Event;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\EventCategory;
 use App\Http\Controllers\Controller;
@@ -20,7 +21,8 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::orderBy("updated_at", "desc")->get();
-        return view('content.events.index', compact("events"));
+        $categories = Category::where('target', 'event')->where('status', 1)->get();
+        return view('content.events.index', compact("events", "categories"));
     }
 
     /**
@@ -30,7 +32,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        $categories = EventCategory::where('status', 1)->get();
+        $categories = Category::where('target', 'event')->where('status', 1)->get();
         return view("content.events.create", compact("categories"));
     }
 
@@ -44,8 +46,8 @@ class EventController extends Controller
     {
         $validated = $request->validated();
 
-        $validated['ticket_sale'] = filter_var($validated['ticket_sale'], FILTER_VALIDATE_BOOLEAN);
-        $validated['online_sale'] = filter_var($validated['online_sale'], FILTER_VALIDATE_BOOLEAN);
+        $validated['ticket_sale'] = filter_var($validated['ticket_sale']?? true, FILTER_VALIDATE_BOOLEAN);
+        $validated['online_sale'] = filter_var($validated['online_sale']?? true, FILTER_VALIDATE_BOOLEAN);
 
         $imagePath = null;
         if ($request->hasFile('image')) {
@@ -99,8 +101,8 @@ class EventController extends Controller
     {
         $validated = $request->validated();
 
-        $validated['ticket_sale'] = filter_var($validated['ticket_sale'], FILTER_VALIDATE_BOOLEAN);
-        $validated['online_sale'] = filter_var($validated['online_sale'], FILTER_VALIDATE_BOOLEAN);
+        $validated['ticket_sale'] = filter_var($validated['ticket_sale']?? true, FILTER_VALIDATE_BOOLEAN);
+        $validated['online_sale'] = filter_var($validated['online_sale']?? true, FILTER_VALIDATE_BOOLEAN);
 
         $imagePath = null;
         if ($request->hasFile('image')) {

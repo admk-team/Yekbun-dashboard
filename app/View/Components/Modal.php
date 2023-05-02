@@ -13,6 +13,7 @@ class Modal extends Component
     public $saveBtnForm;
     public $onSaveBtnClick;
     public $saveBtnClass;
+    public $showSaveBtn;
 
     public $closeBtnText;
 
@@ -32,6 +33,7 @@ class Modal extends Component
         $saveBtnForm = null,
         $onSaveBtnClick = '',
         $saveBtnClass = '',
+        $showSaveBtn = true,
 
         $closeBtnText = null,
 
@@ -46,6 +48,7 @@ class Modal extends Component
         $this->saveBtnForm = $saveBtnForm;
         $this->onSaveBtnClick = $onSaveBtnClick;
         $this->saveBtnClass = $saveBtnClass;
+        $this->showSaveBtn = $showSaveBtn;
 
         $this->size = $size;
         $this->show = $show;
