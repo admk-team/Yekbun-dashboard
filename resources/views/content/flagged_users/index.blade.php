@@ -49,7 +49,7 @@
           <tbody class="table-border-bottom-0">
             @forelse($flaggedUsers as $flagged)
             <tr>
-              <td>{{ $flagged->user->name }}</td>
+              <td>{{ $flagged->user? $flagged->user->name: '' }}</td>
               <td>{{ $flagged->reason }}</td>
               <td>{{ $flagged->created_at->format('F jS, Y') }}</td>
               <td>
