@@ -40,9 +40,9 @@ use App\Http\Controllers\Admin\UploadVideoCategoryController;
 use App\Http\Controllers\Admin\UploadMovieCategoryController;
 use App\Http\Controllers\Admin\ReportVideoController;
 use App\Http\Controllers\Admin\AlbumController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryBazarController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\CategoryController;
 
 
 /*
@@ -133,9 +133,13 @@ Route::resource('/reports', ReportController::class);
 // Organizations
 Route::prefix("donations")->name("donations.")->group(function () {
     Route::resource('/organizations', OrganizationController::class);
+    Route::get('/categories', [CategoryController::class, 'index'])->name('organizations.categories.index');
 });
 // Donations
 Route::resource('/donations', DonationController::class);
+
+// Categories
+Route::resource('/categories', CategoryController::class)->only('index', 'store', 'update', 'destroy');
 
 
 // Events
