@@ -125,7 +125,8 @@ Route::resource('/upload-video-category', UploadVideoCategoryController::class);
 Route::get('/video/{id}/{status}' , [UplaodVideoController::class, 'status'])->name('video_status');
 Route::get('/video_category/{id}/{status}' , [UploadVideoCategoryController::class, 'status'])->name('videocat_status');
 Route::delete('upload-video/destroy-flag-user/{id}/{user_id}', [UplaodVideoController::class, 'destroyAndFlagUser'])->name('upload-video.destroyAndFlagUser');
-
+Route::delete('upload-video/destroy-block-user/{id}/{user_id}' , [UplaodVideoController::class , 'destroyAndBlockUser'])->name('upload-video.destroyAndBlockUser');
+Route::delete('upload-video/destroy-remove-user/{user_id}', [UplaodVideoController::class, 'destroyAndRemoveUser'])->name('upload-video.destroyAndRemoveUser');
 
 // Users
 Route::prefix("/users")->name("users.")->group(function () {

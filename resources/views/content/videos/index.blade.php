@@ -163,31 +163,32 @@
                         </button>
                     </form>
                    
-                  <form action="{{ $video->user ? route('upload-video.destroyAndFlagUser', ['id' => $video->id, 'user_id' => $video->user->id]): '' }}" method="post">
+                  <form action="{{ $video->user_id ? route('upload-video.destroyAndFlagUser', ['id' => $video->id, 'user_id' => $video->user_id]): '' }}" method="post">
                         @method('DELETE')
                         @csrf
-                        <button type="{{ $video->user? 'submit': 'button' }}" class="dropdown-item">
+                        <button type="{{ $video->user_id? 'submit': 'button' }}" class="dropdown-item">
                             Remove - Flag User<br>
                             <small class="text-muted">Remove Feed - Flag User</small>
                         </button>
                     </form>
-                       {{--
-                    <form action="{{ $post->user? route('posts.destroyAndBlockUser', ['id' => $post->id, 'user_id' => $post->user->id]): '' }}" method="post">
+                       
+                    <form action="{{ $video->user_id ? route('upload-video.destroyAndBlockUser', ['id' => $video->id, 'user_id' => $video->user_id]): '' }}" method="post">
                         @method('DELETE')
                         @csrf
-                        <button type="{{ $post->user? 'submit': 'button' }}" class="dropdown-item">
+                        <button type="{{ $video->user_id? 'submit': 'button' }}" class="dropdown-item">
                             Remove Block<br>
                             <small class="text-muted">Remove Feed - Block User</small>
                         </button>
                     </form>
-                    <form action="{{ $post->user? route('posts.destroyAndRemoveUser', $post->user->id): '' }}" method="post">
+                    
+                    <form action="{{ $video->user_id? route('upload-video.destroyAndRemoveUser', $video->user_id): '' }}" method="post">
                         @method('DELETE')
                         @csrf
-                        <button type="{{ $post->user? 'submit': 'button' }}" class="dropdown-item">
+                        <button type="{{ $video->user_id? 'submit': 'button' }}" class="dropdown-item">
                             Remove User<br>
                             <small class="text-muted">Remove Account - IMEI</small>
                         </button>
-                    </form> --}}
+                    </form>
                 </div>
             </div>
         </div>

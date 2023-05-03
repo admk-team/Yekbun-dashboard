@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Facades\DB;
 use App\Models\FlaggedUser;
+use App\Models\User;
 
 
 
@@ -213,11 +214,16 @@ class UplaodVideoController extends Controller
     }
 
     public function destroyAndFlagUser($id , $user_id){
+       
         $video = UplaodVideo::find($id);
-
+  
         // Delete Image
-        if ($video->image)
-            Storage::delete($video->image);
+        if($video->video){
+            $image_path = public_path('storage/'.$video->video);
+            if(file_exists($image_path)){
+                unlink($image_path);
+            }
+         }
 
         $video->delete();
 
@@ -232,5 +238,40 @@ class UplaodVideoController extends Controller
         ]);
 
         return back()->with("success", "Post deleted and user flagged.");
+    }
+
+    public function destroyAndBlockUser($id , $user_id){
+     
+        $video = UplaodVideo::find($id);
+        // Delete Image
+        if($video->video){
+            $image_path = public_path('storage/'.$video->video);
+            if(file_exists($image_path)){
+                unlink($image_path);
+            }
+         }
+
+        $video->delete();
+
+        $user = User::find($user_id);
+        $user->status = 0;
+        $user->save();
+
+        return back()->with("success", "Post deleted and user blocked.");
+    }
+
+    public function destroyAndRemoveUser($id , $user_id){
+        $video = UplaodVideo::where("user_id", $user_id)->get();
+        $video->map(function ($post) {
+            // Delete Image
+            if ($post->image)
+                Storage::delete($post->image);
+            $post->delete();
+        });
+
+        $user = User::find($user_id);
+        $user->delete();
+
+        return back()->with("success", "User account successfully removed.");
     }
 }

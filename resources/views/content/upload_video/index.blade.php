@@ -9,26 +9,15 @@
 @section('content')
 
 {{-- Nav TAb --}}
-<div class="row">
-  <div class="col-xl-12">
-      <div class="nav-align-top mb-4">
-          <ul class="nav nav-tabs" role="tablist">
-              <li class="nav-item" role="presentation">
-                  <a href="{{ route('artist.index') }}">
-                      <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='menu-icon tf-icons bx bxs-user bx-md'></i>Add Artist</button>
-                  </a>
-              </li>
-              <li class="nav-item" role="presentation">
-                  <a href="{{ route('upload_video.index') }}">
-                      <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='bx bx-plus-circle bx-md'></i>Upload Video Clip</button>
-                  </a>
-              </li>
-          </ul>
-      </div>
-  </div>
+<div class="d-flex justify-content-between">
+  <div>
+<h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light">Video Clip /</span> All Video Clip
+</h4>
 </div>
-<div class="d-flex justify-content-center mt-2 mb-2">
-  <button class="btn btn-primary col-md-3" data-bs-toggle="modal" data-bs-target="#createvideoclipModal">Add Video Clip</button>
+<div class="">
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createvideoclipModal">Add Video Clip</button>
+</div>
 </div>
   <!-- Basic Bootstrap Table -->
   <div class="card">
@@ -93,7 +82,7 @@
                saveBtnText="Update" 
                saveBtnType="submit"
                 saveBtnForm="editForm{{ $video->id }}" 
-                size="xl">
+                size="md">
                 @include('content.include.video_clip.editForm')
               </x-modal>
             </td>
@@ -141,7 +130,7 @@ title="Create Vidoe Clip"
  saveBtnText="Create" 
  saveBtnType="submit"
   saveBtnForm="createForm" 
-  size="xl">
+  size="md">
 @include('content.include.video_clip.createForm')
 </x-modal>
 @endsection
