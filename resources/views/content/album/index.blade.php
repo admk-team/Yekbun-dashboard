@@ -10,26 +10,15 @@
 @section('content')
 
 {{-- Nav TAb --}}
-<div class="row">
-  <div class="col-xl-12">
-      <div class="nav-align-top mb-4">
-          <ul class="nav nav-tabs" role="tablist">
-              <li class="nav-item" role="presentation">
-                  <a href="{{ route('album.index') }}">
-                      <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='menu-icon tf-icons bx bxs-user bx-md'></i>Add Album</button>
-                  </a>
-              </li>
-              <li class="nav-item" role="presentation">
-                  <a href="{{ route('artist.index') }}">
-                      <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='bx bx-plus-circle bx-md'></i>Add Artist</button>
-                  </a>
-              </li>
-          </ul>
-      </div>
-  </div>
+<div class="d-flex justify-content-between">
+  <div>
+<h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light">Album /</span> All Album
+</h4>
 </div>
-<div class="d-flex justify-content-center mt-2 mb-2">
-  <button class="btn btn-primary col-md-3" data-bs-toggle="modal" data-bs-target="#createalbumModal">Add Album</button>
+<div class="">
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createalbumModal">Add Album</button>
+</div>
 </div>
 
    <!-- Basic Bootstrap Table -->

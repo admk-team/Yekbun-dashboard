@@ -182,6 +182,7 @@ class PostController extends Controller
 
     public function destroyAndBlockUser($id, $user_id)
     {
+        
         $post = Post::find($id);
 
         // Delete Image

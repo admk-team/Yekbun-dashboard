@@ -45,7 +45,7 @@
                     <div class="card">
                         <h5 class="card-header">Video</h5>
                         <div class="card-body">
-                            <div class="dropzone needsclick" action="/" id="dropzone-video">
+                             <div class="dropzone needsclick" action="/" id="dropzone-video">
                                 <div class="dz-message needsclick">
                                     Drop files here or click to upload
                                 </div>
@@ -61,7 +61,14 @@
     </div>
 
 </form>
-
+<script>
+    $(document).on('ready', function () {
+      $('.dz-dropzone').each(function () {
+        // initialization of dropzone file attach module
+        var dropzone = $.HSCore.components.HSDropzone.init('#' + $(this).attr('id'));
+      });
+    });
+  </script>
 
 <script>
     'use strict';
@@ -104,6 +111,7 @@
 
            
         }
-  </script>
+  </script> 
 
-<script src="{{asset('assets/vendor/libs/dropzone/dropzone.js')}}" onload="drpzone_init()"></script>
+<script src="{{asset('assets/vendor/libs/dropzone/dropzone.js')}}" onload="drpzone_init()"></script> 
+

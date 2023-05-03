@@ -189,6 +189,7 @@
                         <form action="{{ $post->user? route('posts.destroyAndFlagUser', ['id' => $post->id, 'user_id' => $post->user->id]): '' }}" method="post">
                           @method('DELETE')
                           @csrf
+                    
                           <button type="{{ $post->user? 'submit': 'button' }}" class="dropdown-item">
                             Remove - Flag User<br>
                             <small class="text-muted">Remove Feed - Flag User</small>

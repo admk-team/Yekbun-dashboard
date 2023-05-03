@@ -102,6 +102,22 @@ Route::middleware(['admin.auth'])->group(function () use ($controller_path) {
 
     // locale
     Route::get('lang/{locale}', $controller_path . '\language\LanguageController@swap');
+ 
+// Video 
+Route::resource('/upload-video', UplaodVideoController::class);
+Route::resource('/upload-video-category', UploadVideoCategoryController::class);
+Route::get('/video/{id}/{status}' , [UplaodVideoController::class, 'status'])->name('video_status');
+Route::get('/video_category/{id}/{status}' , [UploadVideoCategoryController::class, 'status'])->name('videocat_status');
+Route::delete('upload-video/destroy-flag-user/{id}/{user_id}', [UplaodVideoController::class, 'destroyAndFlagUser'])->name('upload-video.destroyAndFlagUser');
+Route::delete('upload-video/destroy-block-user/{id}/{user_id}' , [UplaodVideoController::class , 'destroyAndBlockUser'])->name('upload-video.destroyAndBlockUser');
+Route::delete('upload-video/destroy-remove-user/{user_id}', [UplaodVideoController::class, 'destroyAndRemoveUser'])->name('upload-video.destroyAndRemoveUser');
+
+// Users
+Route::prefix("/users")->name("users.")->group(function () {
+    Route::resource("standard", StandardUserController::class);
+    Route::resource("premium", PremiumUserController::class);
+    Route::resource("vip", DiamondUserController::class);
+});
 
     // layout
     Route::get('/layouts/collapsed-menu', $controller_path . '\layouts\CollapsedMenu@index')->name('layouts-collapsed-menu');
@@ -293,6 +309,99 @@ Route::middleware(['admin.auth'])->group(function () use ($controller_path) {
     // maps
     Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');
 });
+Route::resource("events", EventController::class);
+
+
+// News
+Route::resource('/news' , NewsController::class);
+Route::get('/news/{id}/{status}' , [NewsController::class , 'status'])->name('news-status');
+
+Route::resource('/news-category' , NewsCategoryController::class);
+Route::get('/news_category/{id}/{status}' , [NewsCategoryController::class, 'status'])->name('newscat-status');
+// Music
+Route::resource('/music', MusicController::class);
+Route::get('/musics/{id}/{status}' , [MusicController::class , 'status'])->name('musics-status');
+
+Route::resource('/music-category' , MusicCategoryController::class);
+Route::get('/music_category/{id}/{status}' , [MusicCategoryController::class, 'status'])->name('musiccat-status');
+
+//artist
+Route::resource('/artist', ArtistController::class);
+Route::get('/artists/{id}/{status}' , [ArtistController::class, 'status'])->name('artists-status');
+
+// upload video clip 
+Route::resource('/upload_video', UplaodVideoClipController::class);
+Route::get('/upload_video/{id}/{status}' , [UplaodVideoClipController::class, 'status'])->name('upload-status');
+
+
+// Album
+Route::resource('/album', AlbumController::class);
+
+Route::resource('/upload-movies', UploadMovieController::class);
+Route::resource('/upload-movies-category', UploadMovieCategoryController::class);
+Route::get('/upload_movies/{id}/{status}' , [UploadMovieController::class, 'status'])->name('movies_status');
+Route::get('/movie_category/{id}/{status}' , [UploadMovieCategoryController::class, 'status'])->name('moviecat_status');
+
+
+Route::resource('/report-video' , ReportVideoController::class);
+Route::get('/report_vidoe/{id}/{status}' , [ReportVideoController::class, 'status'])->name('report-status');
+
+// School 
+Route::get('/app/schools', $controller_path . '\apps\school\School@index')->name('app-school');
+Route::get('/app/schools/add-school', $controller_path . '\apps\school\School@create')->name('app-school-create');
+// Events 
+Route::get('/app/events', $controller_path . '\apps\event\Event@index')->name('app-event');
+Route::get('/app/events/add-event', $controller_path . '\apps\event\Event@create')->name('app-event-create');
+// History 
+Route::resource('/history', HistoryController::class);
+Route::get('/history/{id}/{status}' , [HistoryController::class, 'status'])->name('history-status');
+
+Route::resource('/history-category', HistoryCategoryController::class);
+Route::get('/history_category/{id}/{status}' , [HistoryCategoryController::class, 'status'])->name('historycat-status');
+
+// Tickets
+Route::get('/app/tickets' , $controller_path . '\apps\tickets\Ticket@index')->name('app-ticket');
+// InCome
+Route::get('/app/income' , $controller_path . '\apps\income\Income@index')->name('app-income');
+// Donation
+Route::get('/app/donation' , $controller_path . '\apps\donation\Donation@index')->name('app-donation');
+Route::get('/app/donation/add-donation' , $controller_path . '\apps\donation\Donation@create')->name('app-donation-create');
+// Voting
+Route::resource('/vote' , VotingController::class);
+Route::get('/vote/{id}/{status}' , [VotingController::class, 'status'])->name('votes-status');
+
+Route::resource('/vote-category' , VotingCategoryController::class);
+Route::get('/vote_category/{id}/{status}' , [VotingCategoryController::class, 'status'])->name('votecat-status');
+// Media
+Route::resource('/media' , MediaController::class);
+Route::get('/media/{id}/{status}' , [MediaController::class, 'status'])->name('medias-status');
+Route::resource('/media-category' , MediaCategoryController::class);
+Route::get('/media_category/{id}/{status}' , [MediaCategoryController::class, 'status'])->name('mediacat-status');
+
+// Bazar
+Route::resource('/bazar' , BazarController::class);
+Route::get('/bazar/{id}/{status}' , [BazarController::class, 'status'])->name('bazar-status');
+Route::resource('/bazar-category' , BazarCategoryController::class);
+Route::get('/bazar-category/{id}/{status}' , [BazarCategoryController::class, 'status'])->name('bazarcat-status');
+
+Route::resource('bazar-subcategory' , SubCategoryBazarController::class);
+// Fan Page
+Route::get('/fanpage/requests', [FanPageController::class, 'requests'])->name('fanpage.requests');
+Route::get('/fanpage/blocked', [FanPageController::class, 'blocked'])->name('fanpage.blocked');
+Route::resource('/fanpage' , FanPageController::class);
+Route::get('/fanpage-status/{id}/{status}' , [FanPageController::class, 'status'])->name('fanpage-status');
+// Route::resource('/manage-fanpage' , ManageFanPageController::class);
+// Route::get('/managefanpage-status/{id}/{status}' , [ManageFanPageController::class, 'status'])->name('fanpage.managefanpage-status');
+// Route::resource('/block-fanpage' , BlockFanPageController::class);
+// Route::get('/blockfanpage-status/{id}/{status}' , [BlockFanPageController::class, 'status'])->name('fanpage.blockfanpage-status');
+
+// Report Page
+Route::get('/user-report' , $controller_path . '\report\Report@user_report')->name('user-report');
+Route::get('/user-warning' , $controller_path . '\report\Report@user_warning')->name('user-warning');
+
+
+// maps
+Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');
 
 
 

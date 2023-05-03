@@ -2,16 +2,16 @@
     @csrf
     @method('put')
     <div class="row">
-        <div class="col-lg-8 mx-auto">
+        <div class="col-lg-12 mx-auto">
             <h5 class="mb-4">Music</h5>
             <div class="row g-3">
-                <div class="col-md-12">
+                {{-- <div class="col-md-12">
                     <label class="form-label" for="fullname">Title</label>
                     <input type="text" id="fullname" class="form-control" name="title" value="{{ $musics->name ?? '' }}">
                     @error('title')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
-                </div>
+                </div> --}}
                 <div class="col-md-12">
                     <label class="form-label" for="fullname">Category Name</label>
                     <select class="form-select" aria-label="Default select example" name="category_id">
@@ -27,9 +27,9 @@
                 <div class="col-md-12">
                     <label class="form-label" for="fullname">Audio</label>
                     <input type="file" name="audio[]" class="form-control" id="audio" accept="audio/*" multiple />
-                    @foreach($arr as $key => $audio)
+                    @foreach($arr as $key => $value)
                     <?php
-                      $getaudio = $audio[$key] ?? null; 
+                      $getaudio = $value ?? null; 
                     ?>
                     <audio controls>
                         <source src="{{ asset('storage/'.$getaudio)}}" /></audio>
