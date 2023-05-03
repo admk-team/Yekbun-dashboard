@@ -6,6 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\UplaodVideo;
 use App\Models\UploadVideoCategory;
 use Illuminate\Http\Request;
+use App\Http\Requests\StorePostRequest;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Support\Facades\DB;
+use App\Models\FlaggedUser;
+
+
 
 class UplaodVideoController extends Controller
 {
@@ -16,8 +23,29 @@ class UplaodVideoController extends Controller
      */
     public function index()
     {
-         $upload_video = UplaodVideo::with('videocategory')->orderBy('id', 'desc')->get();
-         $video_category = UploadVideoCategory::get();
+        $show = "all";
+        if(request()->show)
+           $show = request()->show;
+
+           switch($show){
+            case "all":
+                  $upload_video = UplaodVideo::with('videocategory')->orderBy("updated_at" , "desc")->get();
+                  break;
+            case "fanpage":
+                 $upload_video =UplaodVideo::with('videocategory')->orderBy("updated_at" , "desc")->get();
+                 break;
+            case "reported":
+               $upload_video=UplaodVideo::whereExists(function($query){
+                    $query->select(DB::raw(1))
+                    ->from('reports')
+                    ->whereColumn('reports.report_video_id' , 'uplaod_videos.id')
+                    ->where('status' , 0);
+                })->orderBy('uplaod_videos.updated_at' , 'desc')->get();
+                break;
+
+           }
+
+         $video_category = UploadVideoCategory::get();    
         return view('content.videos.index' ,compact('upload_video' , 'video_category'));
     }
 
@@ -182,5 +210,27 @@ class UplaodVideoController extends Controller
             return redirect()->route('upload-video.index')->with('error', 'Status is not changed');
 
         }
+    }
+
+    public function destroyAndFlagUser($id , $user_id){
+        $video = UplaodVideo::find($id);
+
+        // Delete Image
+        if ($video->image)
+            Storage::delete($video->image);
+
+        $video->delete();
+
+        $flaggedUser = FlaggedUser::where('user_id', $user_id)->first();
+        if ($flaggedUser) {
+            return back()->with("success", "Post deleted. User already flagged.");
+        }
+
+        $flaggedUser = FlaggedUser::create([
+            "user_id" => $user_id,
+            "reason" => "Flagged by admin for inappropriate post."
+        ]);
+
+        return back()->with("success", "Post deleted and user flagged.");
     }
 }

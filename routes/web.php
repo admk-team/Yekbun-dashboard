@@ -118,6 +118,15 @@ Route::delete('posts/destroy-flag-user/{id}/{user_id}', [PostController::class, 
 Route::delete('posts/destroy-block-user/{id}/{user_id}', [PostController::class, 'destroyAndBlockUser'])->name('posts.destroyAndBlockUser');
 Route::delete('posts/destroy-remove-user/{user_id}', [PostController::class, 'destroyAndRemoveUser'])->name('posts.destroyAndRemoveUser');
 
+ 
+// Video 
+Route::resource('/upload-video', UplaodVideoController::class);
+Route::resource('/upload-video-category', UploadVideoCategoryController::class);
+Route::get('/video/{id}/{status}' , [UplaodVideoController::class, 'status'])->name('video_status');
+Route::get('/video_category/{id}/{status}' , [UploadVideoCategoryController::class, 'status'])->name('videocat_status');
+Route::delete('upload-video/destroy-flag-user/{id}/{user_id}', [UplaodVideoController::class, 'destroyAndFlagUser'])->name('upload-video.destroyAndFlagUser');
+
+
 // Users
 Route::prefix("/users")->name("users.")->group(function () {
     Route::resource("standard", StandardUserController::class);
@@ -188,11 +197,6 @@ Route::get('/upload_video/{id}/{status}' , [UplaodVideoClipController::class, 's
 
 // Album
 Route::resource('/album', AlbumController::class);
-// Video 
-Route::resource('/upload-video', UplaodVideoController::class);
-Route::resource('/upload-video-category', UploadVideoCategoryController::class);
-Route::get('/video/{id}/{status}' , [UplaodVideoController::class, 'status'])->name('video_status');
-Route::get('/video_category/{id}/{status}' , [UploadVideoCategoryController::class, 'status'])->name('videocat_status');
 
 Route::resource('/upload-movies', UploadMovieController::class);
 Route::resource('/upload-movies-category', UploadMovieCategoryController::class);
