@@ -4,6 +4,13 @@
 
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/bs-stepper/bs-stepper.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/bootstrap-select/bootstrap-select.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/formvalidation/dist/css/formValidation.min.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/quill/typography.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/quill/katex.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/quill/editor.css')}}" />
 @endsection
 
 @section('content')
@@ -14,9 +21,10 @@
 </h4>
 </div>
 <div class="">
-    <a href="{{ route('events.create') }}">
+    {{-- <a href="{{ route('events.create') }}">
       <button class="btn btn-primary">Add Event</button>
-    </a>
+    </a> --}}
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Add Event</button>
 </div>
 </div>
 
@@ -119,7 +127,8 @@
               <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{{ route('events.edit', $event->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                  {{-- <a class="dropdown-item" href="{{ route('events.edit', $event->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a> --}}
+                  <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal{{ $event->id }}"><i class="bx bx-edit-alt me-1"></i> Edit</button>
                   <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#changeStatusModal">
                     <i class="bx bx-transfer-alt me-1"></i> Change Status
                   </button>
@@ -130,6 +139,17 @@
                   </form>
                 </div>
               </div>
+
+              <x-modal
+                id="editModal{{ $event->id }}"
+                title="Edit Event" 
+                size="xl"
+                :show="old('showEditFormModal'.$event->id)? true: false"
+                :showSaveBtn="false"
+              >
+                @include('content.events.includes.edit_form')
+              </x-modal>
+
               <!-- Modal -->
               <div class="modal fade" id="changeStatusModal" tabindex="-1" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
@@ -181,4 +201,128 @@
     </div>
   </div>
   <!--/ Basic Bootstrap Table -->
+
+  <x-modal
+    id="createModal"
+    title="Add Event" 
+    size="xl"
+    :show="old('showCreateFormModal')? true: false"
+    :showSaveBtn="false"
+  >
+    @include('content.events.includes.create_form')
+  </x-modal>
+@endsection
+
+@section('vendor-script')
+<script src="{{asset('assets/vendor/libs/bs-stepper/bs-stepper.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/bootstrap-select/bootstrap-select.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/select2/select2.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/quill/katex.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/quill/quill.js')}}"></script>
+
+<script>
+  const wizardNumbered = document.querySelector('.wizard-numbered'),
+    wizardNumberedBtnNextList = [].slice.call(wizardNumbered.querySelectorAll('.btn-next')),
+    wizardNumberedBtnPrevList = [].slice.call(wizardNumbered.querySelectorAll('.btn-prev')),
+    wizardNumberedBtnSubmit = wizardNumbered.querySelector('.btn-submit');
+
+  if (typeof wizardNumbered !== undefined && wizardNumbered !== null) {
+    const numberedStepper = new Stepper(wizardNumbered, {
+      linear: false
+    });
+    if (wizardNumberedBtnNextList) {
+      wizardNumberedBtnNextList.forEach(wizardNumberedBtnNext => {
+        wizardNumberedBtnNext.addEventListener('click', event => {
+          numberedStepper.next();
+        });
+      });
+    }
+    if (wizardNumberedBtnPrevList) {
+      wizardNumberedBtnPrevList.forEach(wizardNumberedBtnPrev => {
+        wizardNumberedBtnPrev.addEventListener('click', event => {
+          numberedStepper.previous();
+        });
+      });
+    }
+    if (wizardNumberedBtnSubmit) {
+      wizardNumberedBtnSubmit.addEventListener('click', event => {
+        //alert('Submitted..!!');
+      });
+    }
+  }
+</script>
+
+<script>
+  (function () {
+    // Full Toolbar
+  // --------------------------------------------------------------------
+  const fullToolbar = [
+    [
+      {
+        font: []
+      },
+      {
+        size: []
+      }
+    ],
+    ['bold', 'italic', 'underline', 'strike'],
+    [
+      {
+        color: []
+      },
+      {
+        background: []
+      }
+    ],
+    [
+      {
+        script: 'super'
+      },
+      {
+        script: 'sub'
+      }
+    ],
+    [
+      {
+        header: '1'
+      },
+      {
+        header: '2'
+      },
+      'blockquote',
+      'code-block'
+    ],
+    [
+      {
+        list: 'ordered'
+      },
+      {
+        list: 'bullet'
+      },
+      {
+        indent: '-1'
+      },
+      {
+        indent: '+1'
+      }
+    ],
+    [{ direction: 'rtl' }],
+    ['link', 'image', 'video', 'formula'],
+    ['clean']
+  ];
+  const fullEditor = new Quill('#inputDescription', {
+    bounds: '#full-editor',
+    placeholder: 'Type Something...',
+    modules: {
+      formula: true,
+      toolbar: fullToolbar
+    },
+    theme: 'snow'
+  });
+
+  }());
+</script>
 @endsection
