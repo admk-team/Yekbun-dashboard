@@ -90,48 +90,36 @@
 
 
 {{-- Nav TAb --}}
-<div class="row">
-  <div class="col-xl-12">
-      <div class="nav-align-top mb-4">
-          <ul class="nav nav-tabs" role="tablist">
-              <li class="nav-item" role="presentation">
-                  <a href="{{ route('music.index') }}">
-                      <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='menu-icon tf-icons bx bxs-user bx-md'></i>Add Music</button>
-                  </a>
-              </li>
-              <li class="nav-item" role="presentation">
-                  <a href="{{ route('music-category.index') }}">
-                      <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='bx bx-plus-circle bx-md'></i>Add Categroy</button>
-                  </a>
-              </li>
-          </ul>
-      </div>
-  </div>
+<div class="d-flex justify-content-between">
+  <div>
+<h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light">Music /</span> All Music
+</h4>
 </div>
-<div class="d-flex justify-content-center mt-2 mb-2">
-  <button class="btn btn-primary col-md-3" data-bs-toggle="modal" data-bs-target="#createmusicModal">Add Music</button>
+<div class="">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createmusicModal">Add Music</button>
+</div>
 </div>
 
    <!-- Basic Bootstrap Table -->
   <div class="card">
-    <h5 class="card-header">Table Basic</h5>
+    <h5 class="card-header">Music List</h5>
     <div class="table-responsive text-nowrap">
       <table class="table">
         <thead>
           <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Category </th>
-            <th>Audio </th>
+            <th>Music Name</th>
+            <th>Category</th>
+            <th>Track</th>
             <th>Status </th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
+          @if(count($music))
             @foreach($music as $musics)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $musics->name ?? '' }}</td>
             <td>
                 {{ $musics->music_category->name ?? '' }} 
             </td>
@@ -146,44 +134,36 @@
             </td>
             <td>
                @if($musics->status == '0')
-               <button class="btn btn-danger">UnPublish</button>
+               <span class="badge bg-label-secondary">UnPublish</span>
                @else
-               <button class="btn btn-success">Publish</button>
+             <span class="badge bg-label-success">Publish</span>
                @endif
               </td>
             <td>
-                <div class="dropdown d-inline-block">
-                  <button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown"
-                    class="mb-2 mr-2 dropdown-toggle btn btn-light">Action
-                  </button>
-                  <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
-                    <ul class="nav flex-column">
-                      <li class="nav-item">
-                        <button class="btn" data-bs-toggle="modal" data-bs-target="#editmusicModal{{ $musics->id }}">Edit</button>
-                      </li>
-                      <li class="nav-item">
-                        <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);"
-                          data-id="{{ route('music.destroy',$musics->id) }}">
-                          <i class="nav-link-icon pe-7s-wallet"> </i><span>Delete</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+              <div class="d-flex justify-content-start align-items-center">
+                  <button class="btn" data-bs-toggle="modal" data-bs-target="#editmusicModal{{ $musics->id }}"><i class="bx bx-edit"></i></button>
+                <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);"data-id="{{ route('music.destroy',$musics->id) }}">
+                          <i class="bx bx-trash"></i></a>
                 <x-modal id="editmusicModal{{ $musics->id }}" 
                 title="Edit Music"
                  saveBtnText="Update" 
                  saveBtnType="submit"
                   saveBtnForm="editForm{{ $musics->id }}" 
-                  size="xl">
+                  size="md">
 
                   @include('content.include.music.editForm')
                 </x-modal>
+              </div>
               </td>
           </tr>
+          {{-- @empty --}}
+         
           @endforeach
-       
-      
+          @else
+          <tr>
+            <td class="text-center" colspan="8"><b>No Music found.<b></td>
+          </tr>
+          @endif
         </tbody>
       </table>
     </div>
@@ -229,7 +209,7 @@ title="Create Music"
  saveBtnText="Create" 
  saveBtnType="submit"
   saveBtnForm="createForm" 
-  size="xl">
+  size="md">
     
  @include('content.include.music.createForm')
 </x-modal>

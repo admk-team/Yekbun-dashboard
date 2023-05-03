@@ -38,41 +38,63 @@
         }
       ]
     },
+
+
+
+
+
+
     {
-      "name": "Music",
+       "name": "Music",
       "icon": "menu-icon tf-icons bx bxs-music",
       "slug": "music",
       "submenu": [
         {
           "url": "/music",
           "name": "Add Music",
-          "slug": "music"
+          "slug": "music.index"
         },
         {
-          "url": "/artist",
+          "url": "/music-category",
+          "name": "Add Category",
+          "slug": "music.category"
+        },
+        {
+          "name": "Artists",
+          "slug": "artist",
+          "submenu": [
+            {
+              "url": "/artist",
           "name": "Add Artist",
-          "slug": "artist"
-        },
-        {
-          "url": "/album",
-          "name": "Add Album",
-          "slug": "album"
+          "slug": "artist.index"
+            },
+            {
+              "url": "/album",
+              "name": "Add Album",
+              "slug": "artist.album.index"
+            },{
+              "url":"/upload_video",
+              "name":"Add Video",
+              "slug":"artist.video.index"
+            }           
+          ]
         }
       ]
     },
+  
     {
       "name": "Voting",
       "icon": "menu-icon tf-icons fa fa-pie-chart",
       "slug": "app-voting",
-      "submenu":[
+      "submenu": [
         {
           "url": "/vote",
-          "name" :"Vote",
+          "name": "Vote",
           "slug": "vote"
         },
         {
           "url": "/vote-category",
-          "name" :"Category",
+          "name": "Category",
           "slug": "vote-category"
         }
       ]
@@ -173,73 +195,57 @@
       "icon": "menu-icon tf-icons bx bx-news",
       "slug": "news"
     },
-
     {
-      "name": "Videos",
-      "icon": "menu-icon tf-icons fa fa-video-camera",
-      "slug": "video",
+      "url": "/video",
+      "name": "Add videos",
+      "icon": "menu-icon tf-icons bx bxs-videos",
+      "slug": "upload-video",
       "submenu": [
         {
-          "name": "Manage Videos",
-          "slug": "manage-videos",
-          "submenu": [
-            {
-              "url": "/video",
-              "name": "Add videos",
-              "slug": "upload-video",
-              "submenu": [
-                {
-                  "url": "/upload-video-category",
-                  "name": "Add category",
-                  "slug": "add-category"
-                },
-                {
-                  "url": "/upload-video",
-                  "name": "Add video",
-                  "slug": "upload-video"
-                }
-              ]
-            }
-          ]
+          "url": "/upload-video-category",
+          "name": "Add category",
+          "slug": "add-category"
         },
-            {
-              "name": "Add Movies",
-              "slug": "add-movies",
-              "url": "/video",
-              "submenu": [
-                {
-                  "url": "/upload-movies-category",
-                  "name": "Add category",
-                  "slug": "add-category"
-                },
-                {
-                  "url": "/upload-movies",
-                  "name": "Add movies",
-                  "slug": "upload-movie"
-                }
-              ]
-            },
-            {
-              "name": "Add Series",
-              "slug": "add-series",
-              "url": "/series",
-              "submenu": [
-                {
-                  "url": "/series/categories?target=series",
-                  "name": "Add category",
-                  "slug": "add-category"
-                },
-                {
-                  "url": "/series/series",
-                  "name": "Add series",
-                  "slug": "add-series"
-                }
-              ]
-            },
         {
-          "url": "/report-video",
-          "name": "Report Video",
-          "slug": "report-video"
+          "url": "/upload-video",
+          "name": "Add video",
+          "slug": "upload-video"
+        }
+      ]
+    },
+    {
+      "name": "Add Movies",
+      "slug": "add-movies",
+      "icon": "menu-icon tf-icons bx bxs-movie",
+      "url": "/video",
+      "submenu": [
+        {
+          "url": "/upload-movies-category",
+          "name": "Add category",
+          "slug": "add-category"
+        },
+        {
+          "url": "/upload-movies",
+          "name": "Add movies",
+          "slug": "upload-movie"
+        }
+      ]
+    },
+    {
+      "name": "Add Series",
+      "slug": "add-series",
+      "icon": "menu-icon tf-icons bx bxs-playlist",
+      "url": "/series",
+      "submenu": [
+        {
+          "url": "/series/categories?target=series",
+          "name": "Add category",
+          "slug": "add-category"
+        },
+        {
+          "url": "/series/series",
+          "name": "Add series",
+          "slug": "add-series"
         }
       ]
     },

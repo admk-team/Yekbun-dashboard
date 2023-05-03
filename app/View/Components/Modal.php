@@ -19,6 +19,7 @@ class Modal extends Component
 
     public $size;
     public $show;
+    public $centered;
 
     /**
      * Create a new component instance.
@@ -38,7 +39,8 @@ class Modal extends Component
         $closeBtnText = null,
 
         $size = 'md',
-        $show = false
+        $show = false,
+        $centered = true
     )
     {
         $this->title = $title;
@@ -52,6 +54,7 @@ class Modal extends Component
 
         $this->size = $size;
         $this->show = $show;
+        $this->centered = $centered;
 
         $this->closeBtnText = $closeBtnText;
     }

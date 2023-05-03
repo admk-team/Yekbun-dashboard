@@ -112,10 +112,92 @@
 </div>
 
 
+<div class="row">
+    <div class="d-none d-md-block col-md-3">
+        <div class="card">
+            <div class="card-body p-0 border-none">
+                <div class="list-group" role="tablist">
+                    <a class="list-group-item list-group-item-action" href="?show=all">
+                        <i class='bx bxs-shopping-bags'></i> All Uploaded Video<br>
+                        <small class="text-muted">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All user video here</small>
+                    </a>
+                    <a class="list-group-item list-group-item-action" href="?show=fanpage">
+                        <i class='bx bxs-shopping-bags'></i> All Live Stream<br>
+                        <small class="text-muted">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All Fan Feed here</small>
+                    </a>
+                    <a class="list-group-item list-group-item-action" href="?show=reported">
+                        <i class='bx bxs-shopping-bags'></i> Reported Videos<br>
+                        <small class="text-muted">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User Report</small>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    @foreach($upload_video as $video)
+    <div class="col-md-4">
+        @php
+        $json = $video->video;
+        $arr = json_decode($json, true);
+        @endphp
+        <video controls width="460px">
+            <source src="{{ asset('storage/'.$arr[0]) }}" />
+        </video>
+        <div class="image d-flex gap-2">
+            <img src="{{ asset('assets/img/avatars/20.png') }}" width="50" height="50" style="border-radius: 50%">
+            <div>
+                <p class="m-0">{{ $video->title ?? '' }}</p>
+                <p>{{ $video->videocategory->category ?? '' }}</p>
+            </div>
+            <div class="dropup d-none d-sm-block">
+                <button class="btn p-0" type="button" id="sharedList" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="bx bx-dots-vertical"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sharedList" style="">
+                    <form action="{{ route('upload-video.destroy', $video->id) }}" method="post">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="dropdown-item">
+                            Remove Feed<br>
+                            <small class="text-muted">Feed removed only</small>
+                        </button>
+                    </form>
+                   
+                  <form action="{{ $video->user_id ? route('upload-video.destroyAndFlagUser', ['id' => $video->id, 'user_id' => $video->user_id]): '' }}" method="post">
+                        @method('DELETE')
+                        @csrf
+                        <button type="{{ $video->user_id? 'submit': 'button' }}" class="dropdown-item">
+                            Remove - Flag User<br>
+                            <small class="text-muted">Remove Feed - Flag User</small>
+                        </button>
+                    </form>
+                       
+                    <form action="{{ $video->user_id ? route('upload-video.destroyAndBlockUser', ['id' => $video->id, 'user_id' => $video->user_id]): '' }}" method="post">
+                        @method('DELETE')
+                        @csrf
+                        <button type="{{ $video->user_id? 'submit': 'button' }}" class="dropdown-item">
+                            Remove Block<br>
+                            <small class="text-muted">Remove Feed - Block User</small>
+                        </button>
+                    </form>
+                    
+                    <form action="{{ $video->user_id? route('upload-video.destroyAndRemoveUser', $video->user_id): '' }}" method="post">
+                        @method('DELETE')
+                        @csrf
+                        <button type="{{ $video->user_id? 'submit': 'button' }}" class="dropdown-item">
+                            Remove User<br>
+                            <small class="text-muted">Remove Account - IMEI</small>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
 
+    </div>
+    @endforeach
+</div>
 <!-- Basic Bootstrap Table -->
-<div class="card">
+{{-- <div class="card">
     <h5 class="card-header">Table Basic</h5>
     <div class="table-responsive text-nowrap">
         <table class="table">
@@ -134,73 +216,73 @@
                 @foreach($upload_video as $video)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td><img src="{{ asset('storage/'.$video->thumbnail) }}" width="100" height="100"></td>
-                    <td>{{ $video->title ?? '' }}</td>
-                    <td>{{ $video->videocategory->category ?? '' }}</td>
-                    <td> @php
-                        $json = $video->video;
-                        $arr = json_decode($json, true);
-                        @endphp<video controls width="150">
-                            <source src="{{ asset('storage/'.$arr[0]) }}" type="video/mp4">
-                        </video> </td>
-                    <td>
-                        <div class="dropdown d-inline-block show">
-                            @php
-                            if($video->status==1){
-                            $btn='success';
-                            }else{
-                            $btn='danger';
-                            }
-                            @endphp
-                            <button type="button" aria-haspopup="true" aria-expanded="true" data-bs-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-{{ $btn }}">
-                                @if ($video->status==1)
-                                Active
-                                @else
-                                Dective
-                                @endif
-                            </button>
-                            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" x-placement="top-start" style="position: absolute; transform: translate3d(0px, -362px, 0px); top: 0px; left: 0px; will-change: transform;min-width: 9rem;">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a href="{{ route('video_status',['id'=>$video->id,'status'=>1]) }}" class="nav-link">Active
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('video_status',['id'=>$video->id,'status'=>0]) }}" class="nav-link">Deactive</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="dropdown d-inline-block">
-                            <button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-light">Action
-                            </button>
-                            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <button class="btn" data-bs-toggle="modal" data-bs-target="#editvideoModal{{ $video->id }}">Edit</button>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);" data-id="{{ route('upload-video.destroy',$video->id) }}">
-                                            <i class="nav-link-icon pe-7s-wallet"> </i><span>Delete</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <x-modal id="editvideoModal{{ $video->id }}" title="Edit Video" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $video->id }}" size="xl">
-                            @include('content.include.videos.editForm')
-                        </x-modal>
-
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+<td><img src="{{ asset('storage/'.$video->thumbnail) }}" width="100" height="100"></td>
+<td>{{ $video->title ?? '' }}</td>
+<td>{{ $video->videocategory->category ?? '' }}</td>
+<td> @php
+    $json = $video->video;
+    $arr = json_decode($json, true);
+    @endphp<video controls width="150">
+        <source src="{{ asset('storage/'.$arr[0]) }}" type="video/mp4">
+    </video> </td>
+<td>
+    <div class="dropdown d-inline-block show">
+        @php
+        if($video->status==1){
+        $btn='success';
+        }else{
+        $btn='danger';
+        }
+        @endphp
+        <button type="button" aria-haspopup="true" aria-expanded="true" data-bs-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-{{ $btn }}">
+            @if ($video->status==1)
+            Active
+            @else
+            Dective
+            @endif
+        </button>
+        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" x-placement="top-start" style="position: absolute; transform: translate3d(0px, -362px, 0px); top: 0px; left: 0px; will-change: transform;min-width: 9rem;">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a href="{{ route('video_status',['id'=>$video->id,'status'=>1]) }}" class="nav-link">Active
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('video_status',['id'=>$video->id,'status'=>0]) }}" class="nav-link">Deactive</a>
+                </li>
+            </ul>
+        </div>
     </div>
+</td>
+<td>
+    <div class="dropdown d-inline-block">
+        <button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-light">Action
+        </button>
+        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <button class="btn" data-bs-toggle="modal" data-bs-target="#editvideoModal{{ $video->id }}">Edit</button>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);" data-id="{{ route('upload-video.destroy',$video->id) }}">
+                        <i class="nav-link-icon pe-7s-wallet"> </i><span>Delete</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <x-modal id="editvideoModal{{ $video->id }}" title="Edit Video" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $video->id }}" size="xl">
+        @include('content.include.videos.editForm')
+    </x-modal>
+
+</td>
+</tr>
+@endforeach
+</tbody>
+</table>
 </div>
+</div> --}}
 <!--/ Basic Bootstrap Table -->
 <div class="modal fade deleted-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="padding-right: 17px;" aria-modal="true">
     <div class="modal-dialog" role="document">

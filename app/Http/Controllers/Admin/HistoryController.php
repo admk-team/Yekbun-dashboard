@@ -39,6 +39,7 @@ class HistoryController extends Controller
      */
     public function store(Request $request)
     {
+        return $request;
         dd($request->image);
         $request->validate([
             'title' => 'required',

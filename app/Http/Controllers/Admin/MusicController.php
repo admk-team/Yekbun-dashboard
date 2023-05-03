@@ -38,16 +38,15 @@ class MusicController extends Controller
      */
     public function store(Request $request)
     {
-        
+     
         
         $request->validate([
-            'title' => 'required',
+            'category_id'=>'required',
             'status' => 'required'
           ]); 
    
       
       $music = new Music();
-      $music->name = $request->title;
       $music->category_id = $request->category_id;
       $audios = collect([]);
       foreach($request->file('audio') as $value){
@@ -104,9 +103,9 @@ class MusicController extends Controller
         $music->category_id = $request->category_id;
         $audios = collect([]);
         
-        if($request->has('audio')){
+        if($request->hasFile('audio')){
             // $oldaudio[] = $music->audio;
-        foreach($request->file('audio') as $value){
+        foreach($request->hasFile('audio') as $value){
             if(isset($music->audio)){
                 $image_path  = public_path('storage/'.$music->audio);
                 if(file_exists($image_path)){
