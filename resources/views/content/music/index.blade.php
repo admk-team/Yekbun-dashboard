@@ -159,11 +159,11 @@
                 <span data-bs-toggle="modal" data-bs-target="#editmusicModal{{ $musics->id }}">
                   <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button>
                 </span>
-                <form action="{{ route('music.destroy', $musics->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
+                {{-- <form action="{{ route('music.destroy', $musics->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
                   @method('DELETE')
                   @csrf
                   <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
-                </form>
+                </form> --}}
                 <x-modal id="editmusicModal{{ $musics->id }}" 
                 title="Edit Music"
                  saveBtnText="Update" 
