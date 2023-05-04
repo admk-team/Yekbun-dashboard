@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-md-12">
                     <label class="form-label" for="fullname">Album</label>
-                    <input type="file" name="album[]" class="form-control" id="audioFile" multiple accept=".mp3" />
+                    <input type="file" name="album[]" class="form-control" id="audioFile" multiple />
                     @error('album')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -59,7 +59,8 @@ document.getElementById("audioFile").addEventListener("change", function() {
     if(this.files.length == 1){
         let file = this.files[0];
         let title = file.name;
-        document.querySelector('input[name="title"]').value = title;
+        this.closest('form').querySelector('input[name="title"]').value = title;
+        //document.querySelector('input[name="title"]').value = title;
     }else{
         
         // document.querySelector('input[name="title"]').value = '';
@@ -83,7 +84,6 @@ document.getElementById("audioFile").addEventListener("change", function() {
         let title = file.name;
         document.querySelector('input[name="title"]').value = title;
     }
-
 
 });
 </script>
