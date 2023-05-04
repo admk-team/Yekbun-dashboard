@@ -5,7 +5,20 @@
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
 @endsection
+@section('vendor-style')
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/flatpickr/flatpickr.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/tagify/tagify.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+@endsection
 
+@section('vendor-script')
+<script src="{{asset('assets/vendor/libs/flatpickr/flatpickr.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/select2/select2.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/tagify/tagify.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
+@endsection
 @section('content')
 
 {{-- Nav TAb --}}
@@ -43,16 +56,20 @@
                         {{ $albums->artist->first_name  ?? '' }}
                     </td>
                     <td>{{ $albums->title ?? '' }}</td>
-                    <td><?php  $count = DB::table('albums')->where('artist_id' , $albums->artist->id)->count(); ?> {{ $count ?? '' }}</td>
+                    <td><?php $ID = $albums->artist->id ?? '';  $count = DB::table('albums')->where('artist_id' , $ID)->count(); ?> {{ $count ?? '' }}</td>
                     <?php
                  $json = $albums->album;
                  $arr = json_decode($json, true); 
               ?>
                     <td>
                         <div class="d-flex justify-content-start align-items-center">
-                            <button class="btn" data-bs-toggle="modal" data-bs-target="#editalbumModal{{ $albums->id }}"><i class="bx bx-edit"></i></button>
-                            <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);" data-id="{{ route('album.destroy',$albums->id) }}">
-                                <i class="bx bx-trash"></i></a>
+                            <span data-bs-toggle="modal" data-bs-target="#editalbumModal{{ $albums->id }}">
+                            <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit" ><i class="bx bx-edit"></i></button></span>
+                            <form action="{{ route('album.destroy', $albums->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                            </form>
                             <x-modal id="editalbumModal{{ $albums->id }}" title="Edit Album" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $albums->id }}" size="md">
 
                                 @include('content.include.album.editForm')
@@ -109,4 +126,28 @@
 
     @include('content.include.album.createForm')
 </x-modal>
+@section('page-script')
+<script>
+    function confirmAction(event, callback) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?'
+            , text: "Are you sure you want to delete this?"
+            , icon: 'warning'
+            , showCancelButton: true
+            , confirmButtonText: 'Yes, delete it!'
+            , customClass: {
+                confirmButton: 'btn btn-danger me-3'
+                , cancelButton: 'btn btn-label-secondary'
+            }
+            , buttonsStyling: false
+        }).then(function(result) {
+            if (result.value) {
+                callback();
+            }
+        });
+    }
+
+</script>
+@endsection
 @endsection

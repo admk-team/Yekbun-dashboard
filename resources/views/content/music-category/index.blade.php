@@ -5,6 +5,20 @@
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
 @endsection
+@section('vendor-style')
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/flatpickr/flatpickr.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/tagify/tagify.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+@endsection
+
+@section('vendor-script')
+<script src="{{asset('assets/vendor/libs/flatpickr/flatpickr.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/select2/select2.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/tagify/tagify.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
+@endsection
 
 @section('content')
 {{-- Nav TAb --}}
@@ -22,7 +36,7 @@
 
 {{-- Add Categroy modal --}}
 <div class="modal fade" id="createmusiccategoryModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalCenterTitle">Add Category</h5>
@@ -99,14 +113,18 @@
                     <td>
 
                       <div class="d-flex justify-content-start align-items-center">
-                        <button class="btn" data-bs-toggle="modal" data-bs-target="#editmusiccategoryModal{{ $music->id }}"><i class="bx bx-edit"></i></button>
-                      <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);"data-id="{{ route('music-category.destroy',$music->id) }}">
-                      <i class="bx bx-trash"></i></a>
+                        <span data-bs-toggle="modal" data-bs-target="#editmusiccategoryModal{{ $music->id }}">
+                        <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button></span>
+                          <form action="{{ route('music-category.destroy', $music->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
+                                @method('DELETE')
+                                @csrf
+                  <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                          </form>
                     </div>
                         {{-- Edit Category Music Model --}}
 
                         <div class="modal fade" id="editmusiccategoryModal{{ $music->id }}" tabindex="-1" aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-dialog  modal-sm modal-dialog-centered" role="document">
                               <div class="modal-content">
                                   <div class="modal-header">
                                       <h5 class="modal-title" id="modalCenterTitle">Edit Category</h5>
@@ -143,31 +161,7 @@
         </table>
     </div>
 </div>
-<!--/ Basic Bootstrap Table -->
 
-<div class="modal fade deleted-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="padding-right: 17px;" aria-modal="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Delete Banner</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p class="mb-0">Are you Sure to delete this!</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <form action="" method="post" id="delete_form">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Yes</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 <script>
     function delete_service(el) {
         let link = $(el).data('id');
@@ -176,4 +170,27 @@
     }
 
 </script>
+@section('page-script')
+<script>
+  function confirmAction(event, callback) {
+    event.preventDefault();
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Are you sure you want to delete this?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      customClass: {
+        confirmButton: 'btn btn-danger me-3',
+        cancelButton: 'btn btn-label-secondary'
+      },
+      buttonsStyling: false
+    }).then(function (result) {
+      if (result.value) {
+        callback();
+      }
+    });
+  }
+</script>
+@endsection
 @endsection
