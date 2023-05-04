@@ -56,13 +56,15 @@
             let file = this.files[0];
             let title = file.name;
             document.getElementById('audio{{ $albums->id }}').value = 'audio';
-            document.getElementById('audio{{ $albums->id }}').value = title;
+            //document.getElementById('audio{{ $albums->id }}').value = title;
+            this.closest('form').querySelector('input[name="title"]').value = title;
         }else{
             
             let file = this.files[0];
             let title = file.name;
             document.getElementById('audio{{ $albums->id }}').value = 'audio';
-            document.getElementById('audio{{ $albums->id }}').value = title;
+            //document.getElementById('audio{{ $albums->id }}').value = title;
+            this.closest('form').querySelector('input[name="title"]').value = title;
 
             
             // document.querySelector('input[name="title"]').value = '';

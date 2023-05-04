@@ -5,7 +5,20 @@
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
 @endsection
+@section('vendor-style')
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/flatpickr/flatpickr.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/tagify/tagify.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+@endsection
 
+@section('vendor-script')
+<script src="{{asset('assets/vendor/libs/flatpickr/flatpickr.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/select2/select2.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/tagify/tagify.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
+@endsection
 @section('content')
 
 {{-- Nav TAb --}}
@@ -47,13 +60,17 @@
                                 $arr = json_decode($json, true); 
                               ?>
 
-                    <td><?php $count = DB::table('uplaod_video_clips')->where('category_id' , $video->artist->id)->count(); ?>{{ $count ?? '' }}</td>
+                    <td><?php $ID=$video->artist->id ?? ''; $count = DB::table('uplaod_video_clips')->where('category_id' , $ID)->count(); ?>{{ $count ?? '' }}</td>
                     <td>
                         <div class="d-flex justify-content-start align-items-center">
-                            <button class="btn" data-bs-toggle="modal" data-bs-target="#editvideoclipModal{{ $video->id }}"><i class="bx bx-edit"></i></button>
-                            <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);" data-id="{{ route('upload_video.destroy',$video->id) }}">
-                                <i class="bx bx-trash"></i></a>
-                            <x-modal id="editvideoclipModal{{ $video->id }}" title="Edit Vidoe Clip" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $video->id }}" size="md">
+                            <span data-bs-toggle="modal" data-bs-target="#editvideoclipModal{{ $video->id }}">
+                            <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button></span>
+                            <form action="{{ route('upload_video.destroy', $video->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                            </form>
+                            <x-modal id="editvideoclipModal{{ $video->id }}" title="Edit Video Clip" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $video->id }}" size="md">
                                 @include('content.include.video_clip.editForm')
                             </x-modal>
                         </div>
@@ -105,4 +122,28 @@
 <x-modal id="createvideoclipModal" title="Create Vidoe Clip" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm" size="md">
     @include('content.include.video_clip.createForm')
 </x-modal>
+@section('page-script')
+<script>
+    function confirmAction(event, callback) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?'
+            , text: "Are you sure you want to delete this?"
+            , icon: 'warning'
+            , showCancelButton: true
+            , confirmButtonText: 'Yes, delete it!'
+            , customClass: {
+                confirmButton: 'btn btn-danger me-3'
+                , cancelButton: 'btn btn-label-secondary'
+            }
+            , buttonsStyling: false
+        }).then(function(result) {
+            if (result.value) {
+                callback();
+            }
+        });
+    }
+
+</script>
+@endsection
 @endsection

@@ -17,7 +17,7 @@ class AlbumController extends Controller
     public function index()
     {
          $artist = Artist::get();
-        $album = Album::with('artist')->get();
+         $album = Album::with('artist')->get();
        return view('content.album.index' , compact('album' , 'artist'));
     }
 

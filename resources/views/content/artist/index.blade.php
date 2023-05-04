@@ -5,9 +5,22 @@
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
 @endsection
+@section('vendor-style')
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/flatpickr/flatpickr.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/tagify/tagify.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+@endsection
+
+@section('vendor-script')
+<script src="{{asset('assets/vendor/libs/flatpickr/flatpickr.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/select2/select2.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/tagify/tagify.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
+@endsection
 
 @section('content')
-
 
 {{-- Nav TAb --}}
 <div class="d-flex justify-content-between">
@@ -36,50 +49,25 @@
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-              @if(count($artist))
+                @if(count($artist))
                 @foreach($artist as $artists)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td><img src="{{ asset('storage/'.$artists->image) }}" style="height:100px; width:auto"></td>
                     <td>{{ $artists->first_name ?? '' }}</td>
                     <td>{{ $artists->last_name ?? '' }}</td>
-                    {{-- <td>
-                        <div class="dropdown d-inline-block show">
-                            @php
-                            if($artists->status==1){
-                            $btn='success';
-                            }else{
-                            $btn='danger';
-                            }
-                            @endphp
-                            <button type="button" aria-haspopup="true" aria-expanded="true" data-bs-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-{{ $btn }}">
-                    @if ($artists->status==1)
-                    Active
-                    @else
-                    Dective
-                    @endif
-                    </button>
-                    <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" x-placement="top-start" style="position: absolute; transform: translate3d(0px, -362px, 0px); top: 0px; left: 0px; will-change: transform;min-width: 9rem;">
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a href="{{ route('artists-status',['id'=>$artists->id,'status'=>1]) }}" class="nav-link">Active
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('artists-status',['id'=>$artists->id,'status'=>0]) }}" class="nav-link">Deactive</a>
-                            </li>
-                        </ul>
-                    </div>
-    </div>
-    </td> --}}
+           
 
     <td>
-
-
         <div class="d-flex justify-content-start align-items-center">
-            <button class="btn" data-bs-toggle="modal" data-bs-target="#editartistModal{{ $artists->id }}"><i class="bx bx-edit"></i></button>
-            <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);" data-id="{{ route('artist.destroy',$artists->id) }}">
-                <i class="bx bx-trash"></i></a>
+            <span data-bs-toggle="modal" data-bs-target="#editartistModal{{ $artists->id }}">
+                <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button></span>
+            <form action="{{ route('artist.destroy', $artists->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
+                @method('DELETE')
+                @csrf
+                <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+            </form>
+
             <x-modal id="editartistModal{{ $artists->id }}" title="Edit Artist" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $artists->id }}" size="md">
                 @include('content.include.artist.editForm')
             </x-modal>
@@ -89,7 +77,7 @@
     @endforeach
     @else
     <tr>
-      <td class="text-center" colspan="8">No Artist found.</td>
+        <td class="text-center" colspan="8">No Artist found.</td>
     </tr>
     @endif
 
@@ -98,31 +86,7 @@
     </table>
 </div>
 </div>
-<!--/ Basic Bootstrap Table -->
 
-<div class="modal fade deleted-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="padding-right: 17px;" aria-modal="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Delete Banner</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p class="mb-0">Are you Sure to delete this!</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <form action="" method="post" id="delete_form">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Yes</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 <script>
     function delete_service(el) {
         let link = $(el).data('id');
@@ -134,4 +98,28 @@
 <x-modal id="createartistModal" title="Create Artist" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm" size="md">
     @include('content.include.artist.createForm')
 </x-modal>
+@section('page-script')
+<script>
+    function confirmAction(event, callback) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?'
+            , text: "Are you sure you want to delete this?"
+            , icon: 'warning'
+            , showCancelButton: true
+            , confirmButtonText: 'Yes, delete it!'
+            , customClass: {
+                confirmButton: 'btn btn-danger me-3'
+                , cancelButton: 'btn btn-label-secondary'
+            }
+            , buttonsStyling: false
+        }).then(function(result) {
+            if (result.value) {
+                callback();
+            }
+        });
+    }
+
+</script>
+@endsection
 @endsection
