@@ -19,21 +19,28 @@
                 </div>
                 <div class="col-md-12">
                     <label class="form-label" for="inputDescription{{ $donation->id }}">Description</label>
-                    <textarea id="inputDescription{{ $donation->id }}" name="description" class="form-control">{{ old('description')?? $donation->description }}</textarea>
+                    <textarea id="inputDescription{{ $donation->id }}" name="description" class="form-control" placeholder="Description">{{ old('description')?? $donation->description }}</textarea>
                     @error('description')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="col-md-12">
-                    <label class="form-label d-block" for="inputOrganizationId{{ $donation->id }}">Organization</label>
+                    <label class="form-label d-block" for="inputOrganizationId{{ $donation->id }}">Select Organization</label>
                     <select id="inputOrganizationId{{ $donation->id }}" name="organization_id" class="form-control">
-                        <option value="" selected>Select</option>
+                        <option value="" selected>Choose Organization</option>
                         @foreach ($organizations as $org)
-                            <option value="{{ $org->id }}" {{ $donation->organization->id === $org->id? 'selected': '' }}>{{ $org->name }}</option>
+                            <option value="{{ $org->id }}" {{ ($donation->organization? $donation->organization->id: null) === $org->id? 'selected': '' }}>{{ $org->name }}</option>
                         @endforeach
                     </select>
                     @error('organization_id')
                         <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="col-md-12">
+                    <label for="inputTags{{ $donation->id }}" class="form-label">Tags</label>
+                    <input id="inputTags{{ $donation->id }}" class="form-control" name="tags" value="{{ old('tags')?? formatTagsForTagify($donation->tags) }}" />
+                    @error('tags')
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="col-md-6">
@@ -47,23 +54,6 @@
                     <label class="form-label" for="inputEndDate{{ $donation->id }}">End Date</label>
                     <input type="text" id="inputEndDate{{ $donation->id }}" name="end_date" class="form-control" value="{{ old('end_date')?? $donation->end_date }}">
                     @error('end_date')
-                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="col-md-6 mb-4">
-                    <label for="inputTags{{ $donation->id }}" class="form-label">Tags</label>
-                    <input id="inputTags{{ $donation->id }}" class="form-control" name="tags" value="{{ old('tags')?? formatTagsForTagify($donation->tags) }}" />
-                    @error('tags')
-                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label" for="statusInput{{ $donation->id }}">Status</label>
-                    <select class="form-control" name="status" id="statusInput{{ $donation->id }}">
-                    <option value="1" {{ $donation->status? 'selected': '' }}>Active</option>
-                    <option value="0" {{ !$donation->status? 'selected': '' }}>Disabled</option>
-                    </select>
-                    @error('status')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
