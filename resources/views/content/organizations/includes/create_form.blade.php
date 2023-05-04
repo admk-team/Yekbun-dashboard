@@ -5,7 +5,7 @@
         <div class="col-lg-12 mx-auto">
             <div class="row g-3">
                 <div class="col-md-12">
-                    <label class="form-label" for="inputName">Name</label>
+                    <label class="form-label" for="inputName">Organization Name</label>
                     <input type="text" id="inputName" name="name" class="form-control" value="{{ old('name') }}" placeholder="Organization Name">
                     @error('name')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -32,20 +32,10 @@
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="col-md-6">
-                    <label class="form-label" for="logoInput">Logo</label>
+                <div class="col-md-12">
+                    <label class="form-label" for="logoInput">Upload Logo</label>
                     <input type="file" name="logo" id="logoInput" class="form-control">
                     @error('logo')
-                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label" for="statusInput">Status</label>
-                    <select class="form-control" name="status" id="statusInput">
-                        <option value="1" selected>Active</option>
-                        <option value="0" {{ old('status') === '0'? 'selected': '' }}>Disabled</option>
-                    </select>
-                    @error('status')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>

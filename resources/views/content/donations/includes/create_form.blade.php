@@ -18,20 +18,27 @@
                 </div>
                 <div class="col-md-12">
                     <label class="form-label" for="inputDescription">Description</label>
-                    <textarea id="inputDescription" name="description" class="form-control">{{ old('description') }}</textarea>
+                    <textarea id="inputDescription" name="description" class="form-control" placeholder="Description">{{ old('description') }}</textarea>
                     @error('description')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="col-md-12">
-                    <label class="form-label" for="inputOrganizationId">Organization</label>
+                    <label class="form-label" for="inputOrganizationId">Select Organization</label>
                     <select id="inputOrganizationId" name="organization_id" class="form-control">
-                        <option value="" selected>Select</option>
+                        <option value="" selected>Choose Organization</option>
                         @foreach ($organizations as $org)
                             <option value="{{ $org->id }}" {{ (int) old('organization_id') === $org->id? 'selected': '' }}>{{ $org->name }}</option>
                         @endforeach
                     </select>
                     @error('organization_id')
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="col-md-12">
+                    <label for="inputTags" class="form-label">Tags</label>
+                    <input id="inputTags" class="form-control" name="tags" value="{{ old('tags') }}" />
+                    @error('tags')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
@@ -46,23 +53,6 @@
                     <label class="form-label" for="inputEndDate">End Date</label>
                     <input type="text" id="inputEndDate" name="end_date" class="form-control" value="{{ old('end_date') }}">
                     @error('end_date')
-                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="col-md-6 mb-4">
-                    <label for="inputTags" class="form-label">Tags</label>
-                    <input id="inputTags" class="form-control" name="tags" value="{{ old('tags') }}" />
-                    @error('tags')
-                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label" for="statusInput">Status</label>
-                    <select class="form-control" name="status" id="statusInput">
-                        <option value="1" selected>Active</option>
-                        <option value="0" {{ old('status') === '0'? 'selected': '' }}>Disabled</option>
-                    </select>
-                    @error('status')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>

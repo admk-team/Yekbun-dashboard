@@ -10,12 +10,15 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/flatpickr/flatpickr.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/tagify/tagify.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
 @endsection
 
 @section('vendor-script')
 <script src="{{asset('assets/vendor/libs/flatpickr/flatpickr.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/select2/select2.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/tagify/tagify.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
 @endsection
 
 @section('content')
@@ -81,36 +84,35 @@
       <table class="table">
         <thead>
           <tr>
+            <th>#</th>
             <th>Title</th>
-            <th>Organization</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Created At</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <th>Total Reach</th>
+            <th>Option</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
           @forelse($donations as $donation)
           <tr>
+            <th>{{ $donation->id }}</th>
             <td>{{ $donation->title }}</td>
-            <td>
-              @if ($donation->organization)
-                <a href="{{ route('donations.organizations.edit', $donation->organization->id) }}" target="_blank">{{ $donation->organization->name }}</a>
-              @endif
-            </td>
-            <td>{{ $donation->start_date->format('F jS, Y') }}</td>
-            <td>{{ $donation->end_date->format('F jS, Y') }}</td>
-            <td>{{ $donation->created_at->format('F jS, Y') }}</td>
-            <td>
-              @if ($donation->status)
-                <span class="badge bg-label-primary me-1">Active</span>
-              @else
-                <span class="badge bg-label-danger me-1">Disabled</span>
-              @endif
-            </td>
+            <td>0</td>
             <td>
               <div class="dropdown">
+                <!-- Edit -->
+                <span data-bs-toggle="modal" data-bs-target="#editModal{{ $donation->id }}">
+                  <button class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit">
+                    <i class="bx bx-edit"></i>
+                  </button>
+                </span>
+
+                <!-- Delete -->
+                <form action="{{ route('donations.destroy', $donation->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
+                  @method('DELETE')
+                  @csrf
+                  <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                </form>
+
+                {{--
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                 <div class="dropdown-menu">
                   <!-- <a class="dropdown-item" href="{{ route('donations.edit', $donation->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a> -->
@@ -121,6 +123,7 @@
                     <button type="submit" class="dropdown-item"><i class="bx bx-trash me-1"></i> Delete</button>
                   </form>
                 </div>
+                --}}
               </div>
               <x-modal
                 id="editModal{{ $donation->id }}"
@@ -128,7 +131,7 @@
                 saveBtnText="Update"
                 saveBtnType="submit"
                 saveBtnForm="editForm{{ $donation->id }}"
-                size="xl"
+                size="md"
                 :show="old('showEditFormModal'.$donation->id)? true: false"
               >
                 @include('content.donations.includes.edit_form')
@@ -152,7 +155,7 @@
     saveBtnText="Create"
     saveBtnType="submit"
     saveBtnForm="createForm"
-    size="xl"
+    size="md"
     :show="old('showCreateFormModal')? true: false"
   >
     @include('content.donations.includes.create_form')
@@ -167,3 +170,27 @@
     }, $tags));
   }
 @endphp
+
+@section('page-script')
+<script>
+  function confirmAction(event, callback) {
+    event.preventDefault();
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Are you sure you want to delete this?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      customClass: {
+        confirmButton: 'btn btn-danger me-3',
+        cancelButton: 'btn btn-label-secondary'
+      },
+      buttonsStyling: false
+    }).then(function (result) {
+      if (result.value) {
+        callback();
+      }
+    });
+  }
+</script>
+@endsection

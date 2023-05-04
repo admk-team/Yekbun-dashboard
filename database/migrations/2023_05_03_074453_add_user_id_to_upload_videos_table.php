@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('uplaod_videos', function (Blueprint $table) {
-            $table->dropIfExists('user_id');
+            $table->dropColumn('user_id');
         });
     }
 };
