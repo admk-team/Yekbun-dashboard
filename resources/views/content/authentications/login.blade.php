@@ -36,8 +36,8 @@ $customizerHidden = 'customizer-hide';
           <!-- Logo -->
           <div class="app-brand justify-content-center">
             <a href="{{url('/')}}" class="app-brand-link gap-2">
-              <span class="app-brand-logo demo">@include('_partials.macros',["width"=>25,"withbg"=>'#696cff'])</span>
-              <span class="app-brand-text demo text-body fw-bolder">Yekbun</span>
+              <span class="app-brand-logo demo">@include('_partials.macros',["width"=>220])</span>
+              <!-- <span class="app-brand-text demo text-body fw-bolder">Yekbun</span> -->
             </a>
           </div>
           <!-- /Logo -->
