@@ -44,4 +44,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function stories()
+    {
+        return $this->hasMany(Story::class);
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class, 'reported_user_id', 'id');
+    }
 }

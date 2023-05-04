@@ -450,9 +450,9 @@ $navbarDetached = ($navbarDetached ?? '');
               </form>
               @else
               <li>
-                <a class="dropdown-item" href="{{ Route::has('login') ? route('login') : 'javascript:void(0)' }}">
+                <a class="dropdown-item" href="{{ Route('admin.logout') }}">
                   <i class='bx bx-log-in me-2'></i>
-                  <span class="align-middle">Login</span>
+                  <span class="align-middle">Logout</span>
                 </a>
               </li>
               @endif

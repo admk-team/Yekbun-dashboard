@@ -18,8 +18,17 @@ class PremiumUserController extends Controller
      */
     public function index()
     {
-        $users = User::where("level", 1)->orderBy("updated_at", "DESC")->get();
-        return view("content.users.premium.index", compact("users"));
+        $view = 'male';
+        if (request()->view) {
+            $view = request()->view;
+        }
+
+        if ($view === 'blocked')
+            $users = User::where("level", 1)->where('status', 0)->orderBy("updated_at", "DESC")->get();
+        else
+            $users = User::where("level", 1)->orderBy("updated_at", "DESC")->get();
+
+        return view("content.users.premium.index", compact("users", "view"));
     }
 
     /**
