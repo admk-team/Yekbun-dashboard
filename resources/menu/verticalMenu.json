@@ -311,7 +311,7 @@
       ]
     },
     {
-      "url": "media",
+      "url": "/media",
       "name": "Media",
       "icon": "menu-icon tf-icons fa fa-television",
       "slug": "media"
