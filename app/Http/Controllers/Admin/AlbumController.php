@@ -39,15 +39,15 @@ class AlbumController extends Controller
      */
     public function store(Request $request)
     {
+   
         $request->validate([
             'artist_id' => 'required',
-            'image' => 'required',
-            'album' => 'required',
             'status' => 'required'
         ]);
 
         $album  = new Album();
         $album->artist_id = $request->artist_id;
+        $album->title = $request->title;
         if($request->hasFile('image')){
             $path = $request->file('image')->store('/images/album/img' , 'public');
             $album->image = $path;
@@ -99,7 +99,8 @@ class AlbumController extends Controller
     {
         $album = Album::findorFail($id);
         $album->artist_id = $request->artist_id;
-        if($request->has('image')){
+        $album->title = $request->title;
+        if($request->hasFile('image')){
             if(isset($album->image)){
                 $image_path = public_path('storage/'.$album->image);
                 if(file_exists($image_path)){

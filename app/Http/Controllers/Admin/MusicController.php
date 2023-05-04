@@ -56,6 +56,7 @@ class MusicController extends Controller
 
       $music->audio = $audios;
       $music->status = $request->status;
+      $music->name = $request->title;
 
     if($music->save()){
         return redirect()->route('music.index')->with('success', 'Music Has been inserted');
@@ -105,7 +106,7 @@ class MusicController extends Controller
         
         if($request->hasFile('audio')){
             // $oldaudio[] = $music->audio;
-        foreach($request->hasFile('audio') as $value){
+        foreach($request->file('audio') as $value){
             if(isset($music->audio)){
                 $image_path  = public_path('storage/'.$music->audio);
                 if(file_exists($image_path)){

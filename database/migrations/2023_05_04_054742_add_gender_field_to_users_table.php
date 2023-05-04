@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('reports', function (Blueprint $table) {
-            $table->bigInteger('report_video_id')->nullable();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('gender')->nullable()->default(null)->after('image');
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('reports', function (Blueprint $table) {
-            $table->dropColumn('report_video_id');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('gender');
         });
     }
 };

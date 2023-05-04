@@ -89,12 +89,12 @@
       "submenu": [
         {
           "url": "/vote",
-          "name": "Vote",
-          "slug": "vote"
+          "name": "Add / Manage Vote",
+          "slug": "vote.index"
         },
         {
           "url": "/vote-category",
-          "name": "Category",
+          "name": "Add Categorys",
           "slug": "vote-category"
         }
       ]
@@ -311,7 +311,7 @@
       ]
     },
     {
-      "url": "media",
+      "url": "/media",
       "name": "Media",
       "icon": "menu-icon tf-icons fa fa-television",
       "slug": "media"

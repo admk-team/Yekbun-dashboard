@@ -17,6 +17,15 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
 @endsection
 
+@section('vendor-style')
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+@endsection
+
+@section('vendor-script')
+<script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
+@endsection
+
 @section('content')
 
 <div class="row g-4 mb-4">
@@ -60,108 +69,77 @@
     </div>
 </div>
 
-{{-- Nav TAb --}}
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="nav-align-top mb-4">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a href="{{ route('vote.index') }}">
-                            <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='menu-icon tf-icons bx bxs-user bx-md'></i>Manage Items</button>
-                        </a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a href="{{ route('vote-category.index') }}">
-                            <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='bx bx-plus-circle bx-md'></i>Add Categroy</button>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="d-flex justify-content-center mt-2 mb-2">
-        <button class="btn btn-primary col-md-3" data-bs-toggle="modal" data-bs-target="#createvotingModal">Add Vote</button>
-    </div>
+
 <!-- Basic Bootstrap Table -->
-<div class="card">
-    <h5 class="card-header">Table Basic</h5>
-    <div class="table-responsive text-nowrap">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Title</th>
-                    <th>Category </th>
-                    <th>Status </th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody class="table-border-bottom-0">
-                @foreach($votes as $vote)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $vote->name ?? '' }}</td>
-                    <td>
-                        {{ $vote->voting_category->name  ??  '' }} </option>
-                    </td>
-                    <td>
-                        <div class="dropdown d-inline-block show">
-                            @php
-                            if($vote->status==1){
-                            $btn='success';
-                            }else{
-                            $btn='danger';
-                            }
-                            @endphp
-                            <button type="button" aria-haspopup="true" aria-expanded="true" data-bs-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-{{ $btn }}">
-                                @if ($vote->status==1)
-                                Active
-                                @else
-                                Dective
-                                @endif
-                            </button>
-                            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" x-placement="top-start" style="position: absolute; transform: translate3d(0px, -362px, 0px); top: 0px; left: 0px; will-change: transform;min-width: 9rem;">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a href="{{ route('votes-status',['id'=>$vote->id,'status'=>1]) }}" class="nav-link">Active
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('votes-status',['id'=>$vote->id,'status'=>0]) }}" class="nav-link">Deactive</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="dropdown d-inline-block">
-                            <button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-light">Action
-                            </button>
-                            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <button class="btn " data-bs-toggle="modal" data-bs-target="#editvotingModal{{ $vote->id }}">Edit</button>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);" data-id="{{ route('vote.destroy',$vote->id) }}">
-                                            <i class="nav-link-icon pe-7s-wallet"> </i><span>Delete</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        {{-- Edit Model Form --}}
-                        <x-modal id="editvotingModal{{ $vote->id }}" title="Edit Vote" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm" size="xl">
-                          @include('content.include.voting.editForm')
-                        </x-modal>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+  <div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="m-0">Voting List</h5>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createvotingModal">Add Vote</button>
     </div>
-</div>
-<!--/ Basic Bootstrap Table -->
+    <div class="table-responsive text-nowrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Category </th>
+            <th>Option</th>
+          </tr>
+        </thead>
+        <tbody class="table-border-bottom-0">
+        @forelse($votes as $vote)
+        <tr>
+            <td>{{ $vote->id }}</td>
+            <td>{{ $vote->name ?? '' }}</td>
+            <td>
+                {{ $vote->voting_category->name  ??  '' }} </option>
+            </td>
+            <td>
+                <div class="dropdown d-inline-block">
+                    <!-- Edit -->
+                    <span data-bs-toggle="modal" data-bs-target="#editvotingModal{{ $vote->id }}">
+                        <button class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit" aria-describedby="tooltip557134">
+                            <i class="bx bx-edit"></i>
+                        </button>
+                    </span>
+
+                    <!-- Delete -->
+                    <form action="{{ route('vote.destroy', $vote->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                    </form>
+                    {{--<button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-light">Action
+                    </button>
+                    <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <button class="btn " data-bs-toggle="modal" data-bs-target="#editvotingModal{{ $vote->id }}">Edit</button>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);" data-id="{{ route('vote.destroy',$vote->id) }}">
+                                    <i class="nav-link-icon pe-7s-wallet"> </i><span>Delete</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>--}}
+                </div>
+                {{-- Edit Model Form --}}
+                <x-modal id="editvotingModal{{ $vote->id }}" title="Edit Vote" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm" size="xl">
+                    @include('content.include.voting.editForm')
+                </x-modal>
+            </td>
+        </tr>
+        @empty
+        <tr>
+            <td class="text-center" colspan="8"><b>No Voting found.<b></td>
+        </tr>
+        @endforelse
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!--/ Basic Bootstrap Table -->
 
 <div class="modal fade deleted-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="padding-right: 17px;" aria-modal="true">
     <div class="modal-dialog" role="document">
@@ -202,7 +180,7 @@ title="Create Vote"
  saveBtnText="Create" 
  saveBtnType="submit"
   saveBtnForm="createForm" 
-  size="xl">
+  size="lg">
     
  @include('content.include.voting.createForm')
 </x-modal>
@@ -278,4 +256,28 @@ title="Create Vote"
 
 </script>
 
+@endsection
+
+@section('page-script')
+<script>
+  function confirmAction(event, callback) {
+    event.preventDefault();
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Are you sure you want to delete this?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      customClass: {
+        confirmButton: 'btn btn-danger me-3',
+        cancelButton: 'btn btn-label-secondary'
+      },
+      buttonsStyling: false
+    }).then(function (result) {
+      if (result.value) {
+        callback();
+      }
+    });
+  }
+</script>
 @endsection
