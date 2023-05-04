@@ -39,10 +39,9 @@ class UplaodVideoClipController extends Controller
      */
     public function store(Request $request)
     {
-  
+
 
         $request->validate([
-            'title' => 'required',
             'status' => 'required',
             'thumbnail' => 'required'
           ]); 
@@ -50,8 +49,11 @@ class UplaodVideoClipController extends Controller
       $video = new UplaodVideoClip();
       $video->title = $request->title;
       $video->category_id = $request->artist_id;
-       $videos = collect([]);
-
+      if($request->file('thumbnail')){
+        $path  = $request->file('thumbnail')->store('/images/video_clip/thumbnail/','public');
+        $video->thumbnail = $path;
+      }
+        $videos = collect([]);
       foreach($request->file('video') as $value){
         $path  = $value->store('/images/video/' , 'public');
         $videos->push($path);
@@ -104,6 +106,17 @@ class UplaodVideoClipController extends Controller
         $video = UplaodVideoClip::findorFail($id);
         $video->title = $request->title;
         $video->category_id = $request->artist_id;
+
+        if($request->file('thumbnail')){
+            if(isset($video->thumbnail)){
+                $image_path = public_path('storage/'.$video->thumbnail);
+                if(file_exists($image_path)){
+                    unlink($image_path);
+                }
+                $path = $request->file('thumbnail')->store('/images/video_clip/thumbnail/','public');
+                $video->thumbnail =$path;
+            }
+        }
         $videos = collect([]);
         if($request->file('video')){
                 foreach($request->file('video') as $value){
