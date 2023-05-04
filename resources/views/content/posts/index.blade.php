@@ -556,7 +556,6 @@
     saveBtnText="Create"
     saveBtnType="submit"
     saveBtnForm="createForm"
-    size="xl"
     :show="old('showCreateFormModal')? true: false"
   >
     @include('content.posts.includes.create_form')

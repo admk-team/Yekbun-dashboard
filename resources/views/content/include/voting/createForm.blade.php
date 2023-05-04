@@ -21,22 +21,22 @@
             <form id="createForm" method="POST" action="{{ route('vote.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
-                    <div class="col-lg-8 mx-auto">
+                    <div class="col-lg-12 mx-auto">
                         <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label" for="fullname">Name</label>
-                                <input type="text" id="fullname" class="form-control" placeholder="lorem" name="name">
+                            <div class="col-md-12">
+                                <label class="form-label" for="fullname">Title</label>
+                                <input type="text" id="fullname" class="form-control" placeholder="title" name="name">
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label" for="fullname">Image</label>
+                            <div class="col-md-12">
+                                <label class="form-label" for="fullname">Banner upload</label>
                                 <input type="file" id="fullname" class="form-control" name="image">
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label" for="fullname">Category</label>
+                                <label class="form-label" for="fullname">Select Category</label>
                                 <select name="category_id" class="form-select">
-                                    <option selected>Select Category</option>
+                                    <option selected>Choose a Category</option>
                                     @foreach($vote_category as $vote)
-                                    <option value="{{ $vote->id }}">{{ $vote->name ?? '' }}</option>
+                                        <option value="{{ $vote->id }}">{{ $vote->name ?? '' }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -54,22 +54,22 @@
             <form id="createForm" method="POST" action="{{ route('vote.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
-                    <div class="col-lg-8 mx-auto">
+                    <div class="col-lg-12 mx-auto">
                         <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label" for="fullname">Name</label>
-                                <input type="text" id="fullname" class="form-control" placeholder="lorem" name="name">
+                            <div class="col-md-12">
+                                <label class="form-label" for="fullname">Title</label>
+                                <input type="text" id="fullname" class="form-control" placeholder="title" name="name">
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label" for="fullname">Image</label>
+                            <div class="col-md-12">
+                                <label class="form-label" for="fullname">Banner upload</label>
                                 <input type="file" id="fullname" class="form-control" name="image">
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label" for="fullname">Category</label>
+                                <label class="form-label" for="fullname">Select Category</label>
                                 <select name="category_id" class="form-select">
-                                    <option selected>Select Category</option>
+                                    <option selected>Choose a Category</option>
                                     @foreach($vote_category as $vote)
-                                    <option value="">{{ $vote->name ?? '' }}</option>
+                                        <option value="{{ $vote->id }}">{{ $vote->name ?? '' }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -87,22 +87,22 @@
             <form id="createForm" method="POST" action="{{ route('vote.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
-                    <div class="col-lg-8 mx-auto">
+                    <div class="col-lg-12 mx-auto">
                         <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label" for="fullname">Name</label>
-                                <input type="text" id="fullname" class="form-control" placeholder="lorem" name="name">
+                            <div class="col-md-12">
+                                <label class="form-label" for="fullname">Title</label>
+                                <input type="text" id="fullname" class="form-control" placeholder="title" name="name">
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label" for="fullname">Image</label>
+                            <div class="col-md-12">
+                                <label class="form-label" for="fullname">Banner upload</label>
                                 <input type="file" id="fullname" class="form-control" name="image">
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label" for="fullname">Category</label>
+                                <label class="form-label" for="fullname">Select Category</label>
                                 <select name="category_id" class="form-select">
-                                    <option selected>Select Category</option>
+                                    <option selected>Choose a Category</option>
                                     @foreach($vote_category as $vote)
-                                    <option value="{{ $vote->id }}">{{ $vote->name ?? '' }}</option>
+                                        <option value="{{ $vote->id }}">{{ $vote->name ?? '' }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -121,22 +121,22 @@
             <form id="createForm" method="POST" action="{{ route('vote.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
-                    <div class="col-lg-8 mx-auto">
+                    <div class="col-lg-12 mx-auto">
                         <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label" for="fullname">Name</label>
-                                <input type="text" id="fullname" class="form-control" placeholder="lorem" name="name">
+                            <div class="col-md-12">
+                                <label class="form-label" for="fullname">Title</label>
+                                <input type="text" id="fullname" class="form-control" placeholder="title" name="name">
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label" for="fullname">Image</label>
+                            <div class="col-md-12">
+                                <label class="form-label" for="fullname">Banner upload</label>
                                 <input type="file" id="fullname" class="form-control" name="image">
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label" for="fullname">Category</label>
+                                <label class="form-label" for="fullname">Select Category</label>
                                 <select name="category_id" class="form-select">
-                                    <option selected>Select Category</option>
+                                    <option selected>Choose a Category</option>
                                     @foreach($vote_category as $vote)
-                                    <option value="{{ $vote->id }}">{{ $vote->name ?? '' }}</option>
+                                        <option value="{{ $vote->id }}">{{ $vote->name ?? '' }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -144,6 +144,7 @@
                                 <label class="form-label" for="fullname">Description</label>
                                 <textarea class="form-control" name="description" style="height:150px;" id="inputDescription"></textarea>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -154,22 +155,22 @@
             <form id="createForm" method="POST" action="{{ route('vote.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
-                    <div class="col-lg-8 mx-auto">
+                    <div class="col-lg-12 mx-auto">
                         <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label" for="fullname">Name</label>
-                                <input type="text" id="fullname" class="form-control" placeholder="lorem" name="name">
+                            <div class="col-md-12">
+                                <label class="form-label" for="fullname">Title</label>
+                                <input type="text" id="fullname" class="form-control" placeholder="title" name="name">
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label" for="fullname">Image</label>
+                            <div class="col-md-12">
+                                <label class="form-label" for="fullname">Banner upload</label>
                                 <input type="file" id="fullname" class="form-control" name="image">
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label" for="fullname">Category</label>
+                                <label class="form-label" for="fullname">Select Category</label>
                                 <select name="category_id" class="form-select">
-                                    <option selected>Select Category</option>
+                                    <option selected>Choose a Category</option>
                                     @foreach($vote_category as $vote)
-                                    <option value="{{ $vote->id }}">{{ $vote->name ?? '' }}</option>
+                                        <option value="{{ $vote->id }}">{{ $vote->name ?? '' }}</option>
                                     @endforeach
                                 </select>
                             </div>

@@ -50,7 +50,7 @@
                 saveBtnText="Update"
                 saveBtnType="submit"
                 saveBtnForm="editForm{{ $category->id }}"
-                size="xl"
+                size="sm"
                 :show="old('showEditFormModal'.$category->id)? true: false"
               >
                 @include('content.categories.includes.edit_form')
@@ -74,7 +74,7 @@
     saveBtnText="Create"
     saveBtnType="submit"
     saveBtnForm="createForm"
-    size="xl"
+    size="sm"
     :show="old('showCreateFormModal')? true: false"
   >
     @include('content.categories.includes.create_form')

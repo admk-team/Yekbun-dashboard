@@ -115,7 +115,7 @@
       <a type="button" class="nav-link {{ $view === 'male'? 'active': '' }}" href="?view=male"  aria-controls="solovedReportsTab" aria-selected="false" tabindex="-1">Male User</a>
     </li>
     <li class="nav-item" role="presentation">
-      <a type="button" class="nav-link {{ $view === 'female'? 'active': '' }}" href="?view=female"  aria-controls="awaitingReportsTab" aria-selected="true">Femail User</a>
+      <a type="button" class="nav-link {{ $view === 'female'? 'active': '' }}" href="?view=female"  aria-controls="awaitingReportsTab" aria-selected="true">Female User</a>
     </li>
     <li class="nav-item" role="presentation">
       <a type="button" class="nav-link {{ $view === 'blocked'? 'active': '' }}" href="?view=blocked"  aria-controls="dismissedReportsTab" aria-selected="true">Blocked User</a>
@@ -200,6 +200,7 @@
                     title="Block User"
                     closeBtnText="Cancel"
                     saveBtnText="Confirm"
+                    onSaveBtnClick="$(this.closest('.modal')).modal('hide')"
                 >
                   <form>
                     <div class="d-flex justify-content-start align-items-center user-name mb-4">
@@ -227,6 +228,7 @@
                       title="Warn User"
                       closeBtnText="Cancel"
                       saveBtnText="Warn"
+                      onSaveBtnClick="$(this.closest('.modal')).modal('hide')"
                   >
                     <form>
                       <div class="d-flex justify-content-start align-items-center user-name mb-4">
@@ -258,6 +260,7 @@
                     title="Upgrade to Premium"
                     closeBtnText="Cancel"
                     saveBtnText="Upgrade"
+                    onSaveBtnClick="$(this.closest('.modal')).modal('hide')"
                 >
                   <form>
                     <div class="d-flex justify-content-start align-items-center user-name mb-4">
