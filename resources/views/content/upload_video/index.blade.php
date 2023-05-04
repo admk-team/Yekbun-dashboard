@@ -50,8 +50,9 @@
                     <td><?php $count = DB::table('uplaod_video_clips')->where('category_id' , $video->artist->id)->count(); ?>{{ $count ?? '' }}</td>
                     <td>
                         <div class="d-flex justify-content-start align-items-center">
-                            <button class="btn" data-bs-toggle="modal" data-bs-target="#editvideoclipModal{{ $video->id }}"><i class="bx bx-edit"></i></button>
-                            <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);" data-id="{{ route('upload_video.destroy',$video->id) }}">
+                            <span data-bs-toggle="modal" data-bs-target="#editvideoclipModal{{ $video->id }}">
+                            <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button></span>
+                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove" class="nav-link" type="button" onclick="delete_service(this);" data-id="{{ route('upload_video.destroy',$video->id) }}">
                                 <i class="bx bx-trash"></i></a>
                             <x-modal id="editvideoclipModal{{ $video->id }}" title="Edit Vidoe Clip" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $video->id }}" size="md">
                                 @include('content.include.video_clip.editForm')

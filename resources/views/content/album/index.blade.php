@@ -50,8 +50,9 @@
               ?>
                     <td>
                         <div class="d-flex justify-content-start align-items-center">
-                            <button class="btn" data-bs-toggle="modal" data-bs-target="#editalbumModal{{ $albums->id }}"><i class="bx bx-edit"></i></button>
-                            <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);" data-id="{{ route('album.destroy',$albums->id) }}">
+                            <span data-bs-toggle="modal" data-bs-target="#editalbumModal{{ $albums->id }}">
+                            <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit" ><i class="bx bx-edit"></i></button></span>
+                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove" class="nav-link" type="button" onclick="delete_service(this);" data-id="{{ route('album.destroy',$albums->id) }}">
                                 <i class="bx bx-trash"></i></a>
                             <x-modal id="editalbumModal{{ $albums->id }}" title="Edit Album" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $albums->id }}" size="md">
 
