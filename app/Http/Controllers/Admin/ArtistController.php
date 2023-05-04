@@ -52,6 +52,7 @@ class ArtistController extends Controller
       $artist->city = $request->city;
       $artist->dob= $request->dob;
       $artist->gender = $request->gender;
+      $artist->status = $request->status;
       if($request->hasFile('image')){
         $path  = $request->file('image')->store('/images/artist/' , 'public');
         $artist->image = $path;
@@ -109,7 +110,7 @@ class ArtistController extends Controller
                if(file_exists($image_path)){
                    unlink($image_path);
                }
-               $path = $request->file('audio')->store('/images/artist' , 'public');
+               $path = $request->file('image')->store('/images/artist' , 'public');
                $artist->image = $path;
            }
         }

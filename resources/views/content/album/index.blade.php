@@ -1,4 +1,3 @@
-
 @extends('layouts/layoutMaster')
 
 @section('title', 'Boxicons - Icons')
@@ -11,135 +10,103 @@
 
 {{-- Nav TAb --}}
 <div class="d-flex justify-content-between">
-  <div>
-<h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Album /</span> All Album
-</h4>
-</div>
-<div class="">
-  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createalbumModal">Add Album</button>
-</div>
+    <div>
+        <h4 class="fw-bold py-3 mb-4">
+            <span class="text-muted fw-light">Album /</span> All Album
+        </h4>
+    </div>
+    <div class="">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createalbumModal">Add Album</button>
+    </div>
 </div>
 
-   <!-- Basic Bootstrap Table -->
-  <div class="card">
-    <h5 class="card-header">Table Basic</h5>
+<!-- Basic Bootstrap Table -->
+<div class="card">
+    <h5 class="card-header">Album List</h5>
     <div class="table-responsive text-nowrap">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Artist</th>
-            <th>Image </th>
-            <th>Status </th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody class="table-border-bottom-0">
-            @foreach($album as $albums)
-          <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>
-                {{ $albums->artist->name ?? '' }} 
-            </td>
-            <td><img src="{{ asset('storage/'.$albums->image) }}"  width="70" height="70"></td>
-
-            <td>
-              <?php
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Artist</th>
+                    <th>Album Title </th>
+                    <th>Total Album </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+              @if(count($album))
+                @foreach($album as $albums)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>
+                        {{ $albums->artist->first_name  ?? '' }}
+                    </td>
+                    <td>{{ $albums->title ?? '' }}</td>
+                    <td><?php  $count = DB::table('albums')->where('artist_id' , $albums->artist->id)->count(); ?> {{ $count ?? '' }}</td>
+                    <?php
                  $json = $albums->album;
                  $arr = json_decode($json, true); 
               ?>
-              <audio controls>
-              <source src="{{ asset('storage/'.$arr[0]) }}">
-              </audio>
-            </td>
-            <td>
-               @if($albums->status == '0')
-               <button class="btn btn-danger">UnPublish</button>
-               @else
-               <button class="btn btn-success">Publish</button>
-               @endif
-              </td>
-            <td>
-                <div class="dropdown d-inline-block">
-                  <button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown"
-                    class="mb-2 mr-2 dropdown-toggle btn btn-light">Action
-                  </button>
-                  <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
-                    <ul class="nav flex-column">
-                      <li class="nav-item">
-                        <button class="btn" data-bs-toggle="modal" data-bs-target="#editalbumModal{{ $albums->id }}">Edit</button>
-                      </li>
-                      <li class="nav-item">
-                        <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);"
-                          data-id="{{ route('album.destroy',$albums->id) }}">
-                          <i class="nav-link-icon pe-7s-wallet"> </i><span>Delete</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <x-modal id="editalbumModal{{ $albums->id }}" 
-                title="Edit Album"
-                 saveBtnText="Update" 
-                 saveBtnType="submit"
-                  saveBtnForm="editForm{{ $albums->id }}" 
-                  size="xl">
+                    <td>
+                        <div class="d-flex justify-content-start align-items-center">
+                            <button class="btn" data-bs-toggle="modal" data-bs-target="#editalbumModal{{ $albums->id }}"><i class="bx bx-edit"></i></button>
+                            <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);" data-id="{{ route('album.destroy',$albums->id) }}">
+                                <i class="bx bx-trash"></i></a>
+                            <x-modal id="editalbumModal{{ $albums->id }}" title="Edit Album" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $albums->id }}" size="md">
 
-                  @include('content.include.album.editForm')
-                </x-modal>
-              </td>
-          </tr>
-          @endforeach
-       
-      
-        </tbody>
-      </table>
+                                @include('content.include.album.editForm')
+                            </x-modal>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+                @else
+                <tr>
+                  <td class="text-center" colspan="8">No Album found.</td>
+                </tr>
+                @endif
+            </tbody>
+        </table>
     </div>
-  </div>
-  <!--/ Basic Bootstrap Table -->
+</div>
+<!--/ Basic Bootstrap Table -->
 
-  <div class="modal fade deleted-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  style="padding-right: 17px;" aria-modal="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Delete Banner</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p class="mb-0">Are you Sure to delete this!</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <form action="" method="post" id="delete_form">
-          @csrf
-          @method('DELETE')
-          <button type="submit" class="btn btn-danger">Yes</button>
-        </form>
-      </div>
+<div class="modal fade deleted-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="padding-right: 17px;" aria-modal="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Banner</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Are you Sure to delete this!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form action="" method="post" id="delete_form">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Yes</button>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <script>
-  function delete_service(el){
-    let link=$(el).data('id');
-    $('.deleted-modal').modal('show');
-    $('#delete_form').attr('action', link);
-  }
+    function delete_service(el) {
+        let link = $(el).data('id');
+        $('.deleted-modal').modal('show');
+        $('#delete_form').attr('action', link);
+    }
+
 </script>
 
 {{-- Create Music model --}}
-<x-modal 
-id="createalbumModal" 
-title="Create Album"
- saveBtnText="Create" 
- saveBtnType="submit"
-  saveBtnForm="createForm" 
-  size="xl">
-    
- @include('content.include.album.createForm')
+<x-modal id="createalbumModal" title="Create Album" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm" size="md">
+
+    @include('content.include.album.createForm')
 </x-modal>
 @endsection
