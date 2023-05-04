@@ -89,12 +89,12 @@
       "submenu": [
         {
           "url": "/vote",
-          "name": "Vote",
-          "slug": "vote"
+          "name": "Add / Manage Vote",
+          "slug": "vote.index"
         },
         {
           "url": "/vote-category",
-          "name": "Category",
+          "name": "Add Categorys",
           "slug": "vote-category"
         }
       ]
