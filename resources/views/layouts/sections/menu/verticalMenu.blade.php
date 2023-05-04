@@ -38,25 +38,9 @@ $configData = Helper::appClasses();
     @php
     $activeClass = null;
     $currentRouteName = Route::currentRouteName();
+    $active = isset($menu->submenu)? 'active open': 'active';
 
-    if ($currentRouteName === $menu->slug) {
-    $activeClass = 'active';
-    }
-    elseif (isset($menu->submenu)) {
-    if (gettype($menu->slug) === 'array') {
-    foreach($menu->slug as $slug){
-    if (str_contains($currentRouteName,$slug) and strpos($currentRouteName,$slug) === 0) {
-    $activeClass = 'active open';
-    }
-    }
-    }
-    else{
-    if (str_contains($currentRouteName,$menu->slug) and strpos($currentRouteName,$menu->slug) === 0) {
-    $activeClass = 'active open';
-    }
-    }
-
-    }
+    $activeClass = isNavMenuActive($menu, $currentRouteName)? $active: null;
     @endphp
 
     {{-- main menu --}}
@@ -78,3 +62,23 @@ $configData = Helper::appClasses();
   </ul>
 
 </aside>
+
+@php
+function isNavMenuActive($menu, $currentRouteName)
+{
+  if (! is_array($menu)) {
+    if (isset($menu->submenu)) {
+        return isNavMenuActive($menu->submenu, $currentRouteName);
+    }
+    return (isset($menu->url) && '/'.request()->path() === explode('?', $menu->url)[0]) || (isset($menu->slug) && $currentRouteName === $menu->slug);
+  }
+
+  $isActive = false;
+  foreach ($menu as $item) {
+    $isActive = isNavMenuActive($item, $currentRouteName);
+    if ($isActive) return true;
+  }
+
+  return false;
+}
+@endphp
