@@ -1,3 +1,279 @@
+
+<div id="wizard-create-app{{ $new->id }}" class="bs-stepper wizard-vertical{{ $new->id }} shadow-none vertical mt-2">
+    <div class="bs-stepper-header" style="min-width: auto;">
+        <div class="step" data-target="#en{{ $new->id }}">
+            <button type="button" class="step-trigger">
+            <span class="bs-stepper-circle">EN</span>
+            </button>
+        </div>
+        <div class="line"></div>
+        <div class="step" data-target="#de{{ $new->id }}">
+            <button type="button" class="step-trigger">
+            <span class="bs-stepper-circle">DE</span>
+            </button>
+        </div>
+        <div class="line"></div>
+        <div class="step" data-target="#kr{{ $new->id }}">
+            <button type="button" class="step-trigger">
+            <span class="bs-stepper-circle">KR</span>
+            </button>
+        </div>
+        <div class="line"></div>
+        <div class="step" data-target="#tr{{ $new->id }}">
+            <button type="button" class="step-trigger">
+            <span class="bs-stepper-circle">TR</span>
+            </button>
+        </div>
+        <div class="line"></div>
+        <div class="step" data-target="#ir{{ $new->id }}">
+            <button type="button" class="step-trigger">
+            <span class="bs-stepper-circle">IR</span>
+            </button>
+        </div>
+    </div>
+    <div class="bs-stepper-content">
+        <form id="editForm{{ $new->id }}" method="POST" action="{{ route('news.update',$new->id) }}" enctype="multipart/form-data" onSubmit="return false">
+            @method('put')
+            @csrf
+            <!-- EN -->
+            <div id="en{{ $new->id }}" class="content">
+                <div class="content-header mb-3">
+                    <h6 class="mb-0">EN</h6>
+                    <small>Enter news in EN.</small>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-12">
+                        <label class="form-label" for="fullname">News Title</label>
+                        <input type="text" id="fullname" class="form-control" placeholder="News Title" value="{{ $new->title ?? '' }}" name="title" >
+                        @error('title')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label" for="inputDescription{{ $new->id }}">News Description</label>
+                        <textarea class="form-control" id="inputDescription{{ $new->id }}" name="description" rows="6" placeholder="Type...">{{ $new->description ?? '' }}</textarea>
+                        @error('description')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label" for="fullname">News Image</label>
+                        <input type="file" name="image" class="form-control" id="image" />
+                        @error('image')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Select Category</label>
+                        <select class="form-select" aria-label="Default select example" name="category_id">
+                            <option selected>Choose a Category</option>
+                            @foreach($news_category as $news)
+                            <option value="{{ $news->id }}" {{ $news->id == $new->category_id ? 'selected' : '' }}>{{ $news->name ?? '' }}</option>
+                            @endforeach
+                        </select>
+                        @error('image')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Status</label>
+                        <select class="form-select" aria-label="Default select example" name="status">
+                            <option value="1" {{ (int) $new->status === 1 ? 'selected' : '' }}>Publised</option>
+                            <option value="0" {{ (int) $new->status === 0 ? 'selected' : '' }}>UnPublised</option>
+                        </select>
+                        @error('status')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-12 d-flex justify-content-between">
+                        <button class="btn btn-label-secondary btn-prev{{ $new->id }}" disabled>
+                            <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                        </button>
+                        <button class="btn btn-primary btn-next{{ $new->id }}">
+                            <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
+                            <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DE -->
+            <div id="de{{ $new->id }}" class="content">
+                <div class="content-header mb-3">
+                    <h6 class="mb-0">DE</h6>
+                    <small>Enter news in DE.</small>
+                </div>
+                <div class="col-12 d-flex justify-content-between">
+                    <button class="btn btn-primary btn-prev{{ $new->id }}">
+                    <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                    <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                    </button>
+                    <button class="btn btn-primary btn-next{{ $new->id }}">
+                    <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
+                    <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- KR -->
+            <div id="kr{{ $new->id }}" class="content">
+            <div class="content-header mb-3">
+                    <h6 class="mb-0">KR</h6>
+                    <small>Enter news in KR.</small>
+                </div>
+                <div class="col-12 d-flex justify-content-between">
+                    <button class="btn btn-primary btn-prev{{ $new->id }}">
+                    <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                    <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                    </button>
+                    <button class="btn btn-primary btn-next{{ $new->id }}">
+                    <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
+                    <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- TR -->
+            <div id="tr{{ $new->id }}" class="content">
+                <div class="content-header mb-3">
+                    <h6 class="mb-0">TR</h6>
+                    <small>Enter news in TR.</small>
+                </div>
+                <div class="col-12 d-flex justify-content-between">
+                    <button class="btn btn-primary btn-prev{{ $new->id }}">
+                    <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                    <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                    </button>
+                    <button class="btn btn-primary btn-next{{ $new->id }}">
+                    <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
+                    <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- IR -->
+            <div id="ir{{ $new->id }}" class="content">
+                <div class="content-header mb-3">
+                    <h6 class="mb-0">IR</h6>
+                    <small>Enter news in IR.</small>
+                </div>
+                <div class="col-12 d-flex justify-content-between">
+                    <button class="btn btn-primary btn-prev{{ $new->id }}">
+                    <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                    <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                    </button>
+                    <button class="btn btn-success btn-submit{{ $new->id }}">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    window.addEventListener('load', () => {
+        // Wizard
+        const wizardVertical{{ $new->id }} = document.querySelector('.wizard-vertical{{ $new->id }}'),
+        wizardVerticalBtnNextList{{ $new->id }} = [].slice.call(wizardVertical{{ $new->id }}.querySelectorAll('.btn-next')),
+        wizardVerticalBtnPrevList{{ $new->id }} = [].slice.call(wizardVertical{{ $new->id }}.querySelectorAll('.btn-prev')),
+        wizardVerticalBtnSubmit{{ $new->id }} = wizardVertical{{ $new->id }}.querySelector('.btn-submit');
+
+        if (typeof wizardVertical{{ $new->id }} !== undefined && wizardVertical{{ $new->id }} !== null) {
+            const verticalStepper{{ $new->id }} = new Stepper(wizardVertical{{ $new->id }}, {
+            linear: false
+            });
+            if (wizardVerticalBtnNextList{{ $new->id }}) {
+            wizardVerticalBtnNextList{{ $new->id }}.forEach(wizardVerticalBtnNext => {
+                wizardVerticalBtnNext.addEventListener('click', event => {
+                verticalStepper{{ $new->id }}.next();
+                });
+            });
+            }
+            if (wizardVerticalBtnPrevList{{ $new->id }}) {
+            wizardVerticalBtnPrevList{{ $new->id }}.forEach(wizardVerticalBtnPrev => {
+                wizardVerticalBtnPrev.addEventListener('click', event => {
+                verticalStepper{{ $new->id }}.previous();
+                });
+            });
+            }
+
+            if (wizardVerticalBtnSubmit{{ $new->id }}) {
+            wizardVerticalBtnSubmit{{ $new->id }}.addEventListener('click', event => {
+                wizardVerticalBtnSubmit{{ $new->id }}.closest('form').submit();
+            });
+            }
+        }
+
+        // Editor
+        (function() {
+            // Full Toolbar
+            // --------------------------------------------------------------------
+            const fullToolbar{{ $new->id }} = [
+                [{
+                        font: []
+                    }
+                    , {
+                        size: []
+                    }
+                ]
+                , ['bold', 'italic', 'underline', 'strike']
+                , [{
+                        color: []
+                    }
+                    , {
+                        background: []
+                    }
+                ]
+                , [{
+                        script: 'super'
+                    }
+                    , {
+                        script: 'sub'
+                    }
+                ]
+                , [{
+                        header: '1'
+                    }
+                    , {
+                        header: '2'
+                    }
+                    , 'blockquote'
+                    , 'code-block'
+                ]
+                , [{
+                        list: 'ordered'
+                    }
+                    , {
+                        list: 'bullet'
+                    }
+                    , {
+                        indent: '-1'
+                    }
+                    , {
+                        indent: '+1'
+                    }
+                ]
+                , [{
+                    direction: 'rtl'
+                }]
+                , ['link', 'image', 'video', 'formula']
+                , ['clean']
+            ];
+            const fullEditor{{ $new->id }} = new Quill('#inputDescription{{ $new->id }}', {
+                bounds: '#full-editor{{ $new->id }}'
+                , placeholder: 'Type Something...'
+                , modules: {
+                    formula: true
+                    , toolbar: fullToolbar{{ $new->id }}
+                }
+                , theme: 'snow'
+            });
+
+        }());
+    })
+</script>
+
+@if (false)
 <!-- Property Listing Wizard -->
 <div id="wizard-create-app{{ $new->id }}" class="bs-stepper vertical mt-2 shadow-none border-0">
     <div class="bs-stepper-header border-0 p-1">
@@ -110,7 +386,7 @@
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label" for="fullname">News Title</label>
-                                    <input type="text" id="fullname" class="form-control" placeholder="Jang" name="title">
+                                    <input type="text" id="fullname" class="form-control" placeholder="Jang" name="title" value="{{ $new->title ?? '' }}">
                                     @error('title')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -395,3 +671,4 @@
     })
 
 </script>
+@endif

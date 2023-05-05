@@ -26,7 +26,7 @@
 <div class="card">
     <div class="card-header d-flex align-items-center justify-content-between">
         <h5 class="m-0">Category List</h5>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newscategorymodel">Add Category</button>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newscategorymodel"><i class="bx bx-plus me-0 me-sm-1"></i> Add Category</button>
     </div>
     <div class="table-responsive text-nowrap">
       <table class="table">

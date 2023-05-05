@@ -1,3 +1,277 @@
+<div class="bs-stepper wizard-vertical shadow-none vertical mt-2">
+    <div class="bs-stepper-header" style="min-width: auto;">
+        <div class="step" data-target="#en">
+            <button type="button" class="step-trigger">
+            <span class="bs-stepper-circle">EN</span>
+            </button>
+        </div>
+        <div class="line"></div>
+        <div class="step" data-target="#de">
+            <button type="button" class="step-trigger">
+            <span class="bs-stepper-circle">DE</span>
+            </button>
+        </div>
+        <div class="line"></div>
+        <div class="step" data-target="#kr">
+            <button type="button" class="step-trigger">
+            <span class="bs-stepper-circle">KR</span>
+            </button>
+        </div>
+        <div class="line"></div>
+        <div class="step" data-target="#tr">
+            <button type="button" class="step-trigger">
+            <span class="bs-stepper-circle">TR</span>
+            </button>
+        </div>
+        <div class="line"></div>
+        <div class="step" data-target="#ir">
+            <button type="button" class="step-trigger">
+            <span class="bs-stepper-circle">IR</span>
+            </button>
+        </div>
+    </div>
+    <div class="bs-stepper-content">
+        <form id="createForm" method="POST" action="{{ route('news.store') }}" enctype="multipart/form-data" onSubmit="return false">
+            @csrf
+            <!-- EN -->
+            <div id="en" class="content">
+                <div class="content-header mb-3">
+                    <h6 class="mb-0">EN</h6>
+                    <small>Enter news in EN.</small>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-12">
+                        <label class="form-label" for="fullname">News Title</label>
+                        <input type="text" id="fullname" class="form-control" placeholder="News Title" name="title">
+                        @error('title')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label" for="inputDescription">News Description</label>
+                        <textarea class="form-control" id="inputDescription" name="description" rows="6" placeholder="Type..."></textarea>
+                        @error('description')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label" for="fullname">News Image</label>
+                        <input type="file" name="image" class="form-control" id="image" />
+                        @error('image')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Select Category</label>
+                        <select class="form-select" aria-label="Default select example" name="category_id">
+                            <option selected>Choose a Category</option>
+                            @foreach($news_category as $news)
+                            <option value="{{ $news->id }}">{{ $news->name ?? '' }}</option>
+                            @endforeach
+                        </select>
+                        @error('image')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Status</label>
+                        <select class="form-select" aria-label="Default select example" name="status">
+                            <option value="1">Publised</option>
+                            <option value="0">UnPublised</option>
+                        </select>
+                        @error('status')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-12 d-flex justify-content-between">
+                        <button class="btn btn-label-secondary btn-prev" disabled>
+                            <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                        </button>
+                        <button class="btn btn-primary btn-next">
+                            <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
+                            <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DE -->
+            <div id="de" class="content">
+                <div class="content-header mb-3">
+                    <h6 class="mb-0">DE</h6>
+                    <small>Enter news in DE.</small>
+                </div>
+                <div class="col-12 d-flex justify-content-between">
+                    <button class="btn btn-primary btn-prev">
+                    <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                    <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                    </button>
+                    <button class="btn btn-primary btn-next">
+                    <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
+                    <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- KR -->
+            <div id="kr" class="content">
+            <div class="content-header mb-3">
+                    <h6 class="mb-0">KR</h6>
+                    <small>Enter news in KR.</small>
+                </div>
+                <div class="col-12 d-flex justify-content-between">
+                    <button class="btn btn-primary btn-prev">
+                    <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                    <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                    </button>
+                    <button class="btn btn-primary btn-next">
+                    <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
+                    <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- TR -->
+            <div id="tr" class="content">
+                <div class="content-header mb-3">
+                    <h6 class="mb-0">TR</h6>
+                    <small>Enter news in TR.</small>
+                </div>
+                <div class="col-12 d-flex justify-content-between">
+                    <button class="btn btn-primary btn-prev">
+                    <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                    <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                    </button>
+                    <button class="btn btn-primary btn-next">
+                    <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
+                    <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- IR -->
+            <div id="ir" class="content">
+                <div class="content-header mb-3">
+                    <h6 class="mb-0">IR</h6>
+                    <small>Enter news in IR.</small>
+                </div>
+                <div class="col-12 d-flex justify-content-between">
+                    <button class="btn btn-primary btn-prev">
+                    <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                    <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                    </button>
+                    <button class="btn btn-success btn-submit">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    window.addEventListener('load', () => {
+        // Wizard
+        const wizardVertical = document.querySelector('.wizard-vertical'),
+        wizardVerticalBtnNextList = [].slice.call(wizardVertical.querySelectorAll('.btn-next')),
+        wizardVerticalBtnPrevList = [].slice.call(wizardVertical.querySelectorAll('.btn-prev')),
+        wizardVerticalBtnSubmit = wizardVertical.querySelector('.btn-submit');
+
+        if (typeof wizardVertical !== undefined && wizardVertical !== null) {
+            const verticalStepper = new Stepper(wizardVertical, {
+            linear: false
+            });
+            if (wizardVerticalBtnNextList) {
+            wizardVerticalBtnNextList.forEach(wizardVerticalBtnNext => {
+                wizardVerticalBtnNext.addEventListener('click', event => {
+                verticalStepper.next();
+                });
+            });
+            }
+            if (wizardVerticalBtnPrevList) {
+            wizardVerticalBtnPrevList.forEach(wizardVerticalBtnPrev => {
+                wizardVerticalBtnPrev.addEventListener('click', event => {
+                verticalStepper.previous();
+                });
+            });
+            }
+
+            if (wizardVerticalBtnSubmit) {
+            wizardVerticalBtnSubmit.addEventListener('click', event => {
+                wizardVerticalBtnSubmit.closest('form').submit();
+            });
+            }
+        }
+
+        // Editor
+        (function() {
+            // Full Toolbar
+            // --------------------------------------------------------------------
+            const fullToolbar = [
+                [{
+                        font: []
+                    }
+                    , {
+                        size: []
+                    }
+                ]
+                , ['bold', 'italic', 'underline', 'strike']
+                , [{
+                        color: []
+                    }
+                    , {
+                        background: []
+                    }
+                ]
+                , [{
+                        script: 'super'
+                    }
+                    , {
+                        script: 'sub'
+                    }
+                ]
+                , [{
+                        header: '1'
+                    }
+                    , {
+                        header: '2'
+                    }
+                    , 'blockquote'
+                    , 'code-block'
+                ]
+                , [{
+                        list: 'ordered'
+                    }
+                    , {
+                        list: 'bullet'
+                    }
+                    , {
+                        indent: '-1'
+                    }
+                    , {
+                        indent: '+1'
+                    }
+                ]
+                , [{
+                    direction: 'rtl'
+                }]
+                , ['link', 'image', 'video', 'formula']
+                , ['clean']
+            ];
+            const fullEditor = new Quill('#inputDescription', {
+                bounds: '#full-editor'
+                , placeholder: 'Type Something...'
+                , modules: {
+                    formula: true
+                    , toolbar: fullToolbar
+                }
+                , theme: 'snow'
+            });
+
+        }());
+    })
+</script>
+
+@if (false)
 <!-- Property Listing Wizard -->
 <div id="wizard-create-app" class="bs-stepper vertical mt-2 shadow-none border-0">
     <div class="bs-stepper-header border-0 p-1">
@@ -399,3 +673,4 @@
     })
 
 </script>
+@endif
