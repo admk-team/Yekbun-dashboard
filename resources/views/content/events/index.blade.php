@@ -195,19 +195,19 @@
                       </div>
                       <div class="modal-body">
                         <div class="form-check mt-3">
-                          <input name="status" class="form-check-input" type="radio" value="0" id="pending" {{ $event->status === 0? 'checked': '' }}>
+                          <input name="status" class="form-check-input" type="radio" value="0" id="pending" {{ (int) $event->status === 0? 'checked': '' }}>
                           <label class="form-check-label" for="pending">
                             Pending
                           </label>
                         </div>
                         <div class="form-check mt-3">
-                          <input name="status" class="form-check-input" type="radio" value="1" id="approved" {{ $event->status === 1? 'checked': '' }}>
+                          <input name="status" class="form-check-input" type="radio" value="1" id="approved" {{ (int) $event->status === 1? 'checked': '' }}>
                           <label class="form-check-label" for="approved">
                             Approved
                           </label>
                         </div>
                         <div class="form-check mt-3">
-                          <input name="status" class="form-check-input" type="radio" value="2" id="rejected" {{ $event->status === 2? 'checked': '' }}>
+                          <input name="status" class="form-check-input" type="radio" value="2" id="rejected" {{ (int) $event->status === 2? 'checked': '' }}>
                           <label class="form-check-label" for="rejected">
                             Rejected
                           </label>
