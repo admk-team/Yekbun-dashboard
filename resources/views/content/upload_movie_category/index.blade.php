@@ -49,7 +49,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
                 </div>
@@ -97,7 +97,7 @@
 
                         <!-- Category Model -->
                         <div class="modal fade" id="editmoviecategoryModal{{ $movie->id }}" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-md" role="document">
+                            <div class="modal-dialog modal-sm" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel3">Category</h5>
@@ -109,7 +109,7 @@
                                                 @csrf
                                                 @method('put')
                                                 <div class="row">
-                                                    <div class="col-lg-8 mx-auto">
+                                                    <div class="col-lg-12 mx-auto">
                             
                                                         <div class="row g-3">
                                                             <div class="col-md-12">
@@ -121,7 +121,10 @@
                                                                 @enderror
                                                             </div>
                                                         </div>
-                                                        <button class="btn btn-primary mt-1" type="submit">Update</button>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Update</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </form>
