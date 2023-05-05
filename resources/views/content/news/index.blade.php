@@ -19,6 +19,11 @@
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+<style>
+  .ql-snow {
+    overflow: hidden;
+  }
+</style>
 @endsection
 
 @section('content')
@@ -154,6 +159,7 @@
                   titleTag="h3"
                   saveBtnText="Update" 
                   saveBtnType="submit"
+                  :showFooter="false"
                     saveBtnForm="editForm{{ $new->id }}" 
                     size="lg">
                 @include('content.include.news.editForm')

@@ -44,7 +44,7 @@
                 <div class="row g-3">
                     <div class="col-md-12">
                         <label class="form-label" for="fullname">News Title</label>
-                        <input type="text" id="fullname" class="form-control" placeholder="News Title" name="title">
+                        <input type="text" id="fullname" class="form-control" placeholder="News Title" value="{{ $new->title ?? '' }}" name="title" >
                         @error('title')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
