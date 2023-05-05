@@ -130,4 +130,45 @@ class StandardUserController extends Controller
 
         return back()->with("success", "User successfully deleted.");
     }
+
+    public function block(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->status = 0;
+        $user->block_for_days = $request->block_for_days;
+        $user->save();
+
+        if ($request->block_for_days)
+            return back()->with("success", "User blocked for {$request->block_for_days} days.");
+        else
+            return back()->with("success", "User blocked.");
+    }
+
+    public function warn(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->is_warned = 1;
+        $user->warning_cause = $request->warning_cause;
+        $user->save();
+
+        return back()->with("success", "User warned.");
+    }
+
+    public function upgrade(Request $request, $id)
+    {
+        if ($request->password !== '1234') {
+            return back()->with("error", "Wrong password!");
+        }
+        $user = User::find($id);
+        $user->level = (int) $request->level;
+        $user->save();
+
+        $levels = [
+            0 => 'Standard',
+            1 => 'Premium',
+            2 => 'VIP'
+        ];
+
+        return back()->with("success", "User upgraded to {$levels[$request->level]}.");
+    }
 }
