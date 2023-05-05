@@ -112,7 +112,7 @@
           <tr>
             <td>{{ $event->title }}</td>
             <td>{{ isset($event->category)? $event->category->name: '' }}</td>
-            <td>{{ isset($event->user)? $event->user->name: '' }}</td>
+            <td>{{ isset($event->user)? $event->user->name: 'Admin' }}</td>
             <td>{{ $event->start_time? $event->start_time->format('F jS, Y h:i a'): '' }}</td>
             <td>{{ $event->end_time? $event->end_time->format('F jS, Y h:i a'): '' }}</td>
             <td>{{ $event->created_at->format('F jS, Y h:i a') }}</td>
