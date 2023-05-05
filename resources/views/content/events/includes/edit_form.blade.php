@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12">
-      <div class="bs-stepper wizard-numbered{{ $event->id }} mt-2">
+      <div class="bs-stepper wizard-numbered{{ $event->id }} mt-2 shadow-none">
         <div class="bs-stepper-header">
           <div class="step" data-target="#about-event{{ $event->id }}">
             <button type="button" class="step-trigger">
@@ -83,6 +83,20 @@
                   @error('event_category_id')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                   @enderror
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="inputStartTime{{ $event->id }}">Start Time</label>
+                    <input type="text" id="inputStartTime{{ $event->id }}" name="start_time" class="form-control" value="{{ $event->start_time }}">
+                    @error('start_time')
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="inputEndTime{{ $event->id }}">End Time</label>
+                    <input type="text" id="inputEndTime{{ $event->id }}" name="end_time" class="form-control" value="{{ $event->end_time }}">
+                    @error('end_time')
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="col-sm-6">
                   <label class="form-label" for="inputTitle{{ $event->id }}">Image</label>
@@ -381,11 +395,22 @@
     placeholder: 'Type Something...',
     modules: {
       formula: true,
-      toolbar: fullToolbar
+      toolbar: fullToolbar{{ $event->id }}
     },
     theme: 'snow'
   });
 
   }());
+</script>
+
+<script>
+  document.querySelector('#inputStartTime{{ $event->id }}').flatpickr({
+    monthSelectorType: 'static',
+    enableTime: true
+  });
+  document.querySelector('#inputEndTime{{ $event->id }}').flatpickr({
+    monthSelectorType: 'static',
+    enableTime: true
+  });
 </script>
 @endsection
