@@ -1,3 +1,8 @@
+<style>
+    .ql-toolbar.ql-snow {
+        overflow: hidden !important;
+    }
+</style>
 <div class="nav-align-top mb-4">
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item" role="presentation">
@@ -24,27 +29,27 @@
                 <div class="row">
                     <div class="col-lg-12 mx-auto">
                         <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label" for="fullname">Name</label>
-                                <input type="text" id="fullname" class="form-control" placeholder="lorem" name="name" value="{{ $vote->name ?? '' }}">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label" for="fullname">Image</label>
-                                <input type="file" id="fullname" class="form-control" name="image">
-                                <img src="{{ asset('storage/'.$vote->banner) }}">
+                            <div class="col-md-12">
+                                <label class="form-label" for="fullname">Title</label>
+                                <input type="text" id="fullname" class="form-control" placeholder="title" name="name" value="{{ $vote->name ?? '' }}">
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label" for="fullname">Category</label>
+                                <label class="form-label" for="fullname">Banner upload</label>
+                                <input type="file" id="fullname" class="form-control" name="image">
+                                <!-- <img src="{{ asset('storage/'.$vote->banner) }}"> -->
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label" for="fullname">Select Category</label>
                                 <select name="category_id" class="form-select">
-                                    <option selected>Select Category</option>
+                                    <option selected>Choose a Category</option>
                                     @foreach($vote_category as $votes)
                                     <option value="{{ $votes->id }}" {{ $vote->category_id == $votes->id ? 'selected' : '' }}>{{ $votes->name ?? '' }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label" for="fullname">Description</label>
-                                <textarea class="form-control" name="description" style="height:150px;" id="inputDescription{{ $vote->id }}">{{ $vote->description ?? '' }}</textarea>
+                                <label class="form-label" for="inputDescription{{ $vote->id }}">Description</label>
+                                <textarea class="form-control" name="description" style="height:150px;" id="inputDescription{{ $vote->id }}"></textarea>
                             </div>
                         </div>
                     </div>
@@ -59,27 +64,27 @@
                 <div class="row">
                     <div class="col-lg-12 mx-auto">
                         <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label" for="fullname">Name</label>
-                                <input type="text" id="fullname" class="form-control" placeholder="lorem" name="name" value="{{ $vote->name ?? '' }}">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label" for="fullname">Image</label>
-                                <input type="file" id="fullname" class="form-control" name="image">
-                                <img src="{{ asset('storage/'.$vote->banner) }}">
+                            <div class="col-md-12">
+                                <label class="form-label" for="fullname">Title</label>
+                                <input type="text" id="fullname" class="form-control" placeholder="title" name="name" value="{{ $vote->name ?? '' }}">
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label" for="fullname">Category</label>
+                                <label class="form-label" for="fullname">Banner upload</label>
+                                <input type="file" id="fullname" class="form-control" name="image">
+                                <!-- <img src="{{ asset('storage/'.$vote->banner) }}"> -->
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label" for="fullname">Select Category</label>
                                 <select name="category_id" class="form-select">
-                                    <option selected>Select Category</option>
+                                    <option selected>Choose a Category</option>
                                     @foreach($vote_category as $votes)
                                     <option value="{{ $votes->id }}" {{ $vote->category_id == $votes->id ? 'selected' : '' }}>{{ $votes->name ?? '' }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label" for="fullname">Description</label>
-                                <textarea class="form-control" name="description" style="height:150px;" id="inputDescription{{ $vote->id }}">{{ $vote->description ?? '' }}</textarea>
+                                <label class="form-label" for="inputDescription{{ $vote->id }}">Description</label>
+                                <textarea class="form-control" name="description" style="height:150px;" id="inputDescription{{ $vote->id }}"></textarea>
                             </div>
                         </div>
                     </div>
@@ -94,27 +99,27 @@
                 <div class="row">
                     <div class="col-lg-12 mx-auto">
                         <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label" for="fullname">Name</label>
-                                <input type="text" id="fullname" class="form-control" placeholder="lorem" name="name" value="{{ $vote->name ?? '' }}">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label" for="fullname">Image</label>
-                                <input type="file" id="fullname" class="form-control" name="image">
-                                <img src="{{ asset('storage/'.$vote->banner) }}">
+                            <div class="col-md-12">
+                                <label class="form-label" for="fullname">Title</label>
+                                <input type="text" id="fullname" class="form-control" placeholder="title" name="name" value="{{ $vote->name ?? '' }}">
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label" for="fullname">Category</label>
+                                <label class="form-label" for="fullname">Banner upload</label>
+                                <input type="file" id="fullname" class="form-control" name="image">
+                                <!-- <img src="{{ asset('storage/'.$vote->banner) }}"> -->
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label" for="fullname">Select Category</label>
                                 <select name="category_id" class="form-select">
-                                    <option selected>Select Category</option>
+                                    <option selected>Choose a Category</option>
                                     @foreach($vote_category as $votes)
                                     <option value="{{ $votes->id }}" {{ $vote->category_id == $votes->id ? 'selected' : '' }}>{{ $votes->name ?? '' }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label" for="fullname">Description</label>
-                                <textarea class="form-control" name="description" style="height:150px;" id="inputDescription{{ $vote->id }}">{{ $vote->description ?? '' }}</textarea>
+                                <label class="form-label" for="inputDescription{{ $vote->id }}">Description</label>
+                                <textarea class="form-control" name="description" style="height:150px;" id="inputDescription{{ $vote->id }}"></textarea>
                             </div>
                         </div>
                     </div>
@@ -130,27 +135,27 @@
                 <div class="row">
                     <div class="col-lg-12 mx-auto">
                         <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label" for="fullname">Name</label>
-                                <input type="text" id="fullname" class="form-control" placeholder="lorem" name="name" value="{{ $vote->name ?? '' }}">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label" for="fullname">Image</label>
-                                <input type="file" id="fullname" class="form-control" name="image">
-                                <img src="{{ asset('storage/'.$vote->banner) }}">
+                            <div class="col-md-12">
+                                <label class="form-label" for="fullname">Title</label>
+                                <input type="text" id="fullname" class="form-control" placeholder="title" name="name" value="{{ $vote->name ?? '' }}">
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label" for="fullname">Category</label>
+                                <label class="form-label" for="fullname">Banner upload</label>
+                                <input type="file" id="fullname" class="form-control" name="image">
+                                <!-- <img src="{{ asset('storage/'.$vote->banner) }}"> -->
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label" for="fullname">Select Category</label>
                                 <select name="category_id" class="form-select">
-                                    <option selected>Select Category</option>
+                                    <option selected>Choose a Category</option>
                                     @foreach($vote_category as $votes)
                                     <option value="{{ $votes->id }}" {{ $vote->category_id == $votes->id ? 'selected' : '' }}>{{ $votes->name ?? '' }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label" for="fullname">Description</label>
-                                <textarea class="form-control" name="description" style="height:150px;" id="inputDescription{{ $vote->id }}">{{ $vote->description ?? '' }}</textarea>
+                                <label class="form-label" for="inputDescription{{ $vote->id }}">Description</label>
+                                <textarea class="form-control" name="description" style="height:150px;" id="inputDescription{{ $vote->id }}"></textarea>
                             </div>
                         </div>
                     </div>
@@ -166,27 +171,27 @@
                 <div class="row">
                     <div class="col-lg-12 mx-auto">
                         <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label" for="fullname">Name</label>
-                                <input type="text" id="fullname" class="form-control" placeholder="lorem" name="name" value="{{ $vote->name ?? '' }}">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label" for="fullname">Image</label>
-                                <input type="file" id="fullname" class="form-control" name="image">
-                                <img src="{{ asset('storage/'.$vote->banner) }}">
+                            <div class="col-md-12">
+                                <label class="form-label" for="fullname">Title</label>
+                                <input type="text" id="fullname" class="form-control" placeholder="title" name="name" value="{{ $vote->name ?? '' }}">
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label" for="fullname">Category</label>
+                                <label class="form-label" for="fullname">Banner upload</label>
+                                <input type="file" id="fullname" class="form-control" name="image">
+                                <!-- <img src="{{ asset('storage/'.$vote->banner) }}"> -->
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label" for="fullname">Select Category</label>
                                 <select name="category_id" class="form-select">
-                                    <option selected>Select Category</option>
+                                    <option selected>Choose a Category</option>
                                     @foreach($vote_category as $votes)
                                     <option value="{{ $votes->id }}" {{ $vote->category_id == $votes->id ? 'selected' : '' }}>{{ $votes->name ?? '' }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label" for="fullname">Description</label>
-                                <textarea class="form-control" name="description" style="height:150px;" id="inputDescription{{ $vote->id }}">{{ $vote->description ?? '' }}</textarea>
+                                <label class="form-label" for="inputDescription{{ $vote->id }}">Description</label>
+                                <textarea class="form-control" name="description" style="height:150px;" id="inputDescription{{ $vote->id }}"></textarea>
                             </div>
                         </div>
                     </div>

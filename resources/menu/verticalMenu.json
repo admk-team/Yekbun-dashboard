@@ -94,7 +94,7 @@
         },
         {
           "url": "/vote-category",
-          "name": "Add Categorys",
+          "name": "Add Category",
           "slug": "vote-category"
         }
       ]
