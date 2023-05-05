@@ -102,13 +102,13 @@
 <div class="nav-align-left mb-4">
   <ul class="nav nav-pills me-3" role="tablist">
     <li class="nav-item" role="presentation">
-      <a type="button" class="nav-link {{ $status === 1? 'active': '' }}" href="?status=solved"  aria-controls="solovedReportsTab" aria-selected="false" tabindex="-1">Solved</a>
+      <a type="button" class="nav-link {{ (int) $status === 1? 'active': '' }}" href="?status=solved"  aria-controls="solovedReportsTab" aria-selected="false" tabindex="-1">Solved</a>
     </li>
     <li class="nav-item" role="presentation">
-      <a type="button" class="nav-link {{ $status === 0? 'active': '' }}" href="?status=awaiting"  aria-controls="awaitingReportsTab" aria-selected="true">Awaiting</a>
+      <a type="button" class="nav-link {{ (int) $status === 0? 'active': '' }}" href="?status=awaiting"  aria-controls="awaitingReportsTab" aria-selected="true">Awaiting</a>
     </li>
     <li class="nav-item" role="presentation">
-      <a type="button" class="nav-link {{ $status === 2? 'active': '' }}" href="?status=dismissed"  aria-controls="dismissedReportsTab" aria-selected="true">Dismissed</a>
+      <a type="button" class="nav-link {{ (int) $status === 2? 'active': '' }}" href="?status=dismissed"  aria-controls="dismissedReportsTab" aria-selected="true">Dismissed</a>
     </li>
   </ul>
   <div class="tab-content p-0">
@@ -134,11 +134,11 @@
               <td>{{ $report->reason }}</td>
               <td>{{ $report->created_at->format('F jS, Y') }}</td>
               <td>
-                @if($report->status == 1)
+                @if((int) $report->status == 1)
                   <span class="badge bg-label-success me-1">Solved</span>
-                @elseif($report->status == 0)
+                @elseif((int) $report->status == 0)
                   <span class="badge bg-label-warning me-1">Awaiting</span>
-                @elseif($report->status == 2)
+                @elseif((int) $report->status == 2)
                   <span class="badge bg-label-danger me-1">Dismissed</span>
                 @endif
               </td>
@@ -164,19 +164,19 @@
                         </div>
                         <div class="modal-body">
                           <div class="form-check mt-3">
-                            <input name="status" class="form-check-input" type="radio" value="0" id="awaiting" {{ $report->status === 0? 'checked': '' }}>
+                            <input name="status" class="form-check-input" type="radio" value="0" id="awaiting" {{ (int) $report->status === 0? 'checked': '' }}>
                             <label class="form-check-label" for="awaiting">
                               Awaiting
                             </label>
                           </div>
                           <div class="form-check mt-3">
-                            <input name="status" class="form-check-input" type="radio" value="1" id="solved" {{ $report->status === 1? 'checked': '' }}>
+                            <input name="status" class="form-check-input" type="radio" value="1" id="solved" {{ (int) $report->status === 1? 'checked': '' }}>
                             <label class="form-check-label" for="solved">
                               Solved
                             </label>
                           </div>
                           <div class="form-check mt-3">
-                            <input name="status" class="form-check-input" type="radio" value="2" id="dismissed" {{ $report->status === 2? 'checked': '' }}>
+                            <input name="status" class="form-check-input" type="radio" value="2" id="dismissed" {{ (int) $report->status === 2? 'checked': '' }}>
                             <label class="form-check-label" for="dismissed">
                               Dismissed
                             </label>
