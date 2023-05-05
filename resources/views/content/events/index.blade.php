@@ -14,6 +14,11 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/flatpickr/flatpickr.css')}}" />
 @endsection
 
+@section('vendor-style')
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+@endsection
+
 @section('content')
 <div class="d-flex justify-content-between">
   <div>
@@ -128,9 +133,29 @@
             </td>
             <td>
               <div class="dropdown">
+                <span data-bs-toggle="modal" data-bs-target="#changeStatusModal">
+                  <button class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Change Status">
+                    <i class="bx bx-transfer"></i>
+                  </button>
+                </span>
+
+                <!-- Edit -->
+                <span data-bs-toggle="modal" data-bs-target="#editModal{{ $event->id }}">
+                  <button class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit">
+                    <i class="bx bx-edit"></i>
+                  </button>
+                </span>
+
+                <!-- Delete -->
+                <form action="{{ route('events.destroy', $event->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
+                  @method('DELETE')
+                  @csrf
+                  <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                </form>
+
+                {{--
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                 <div class="dropdown-menu">
-                  {{-- <a class="dropdown-item" href="{{ route('events.edit', $event->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a> --}}
                   <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal{{ $event->id }}"><i class="bx bx-edit-alt me-1"></i> Edit</button>
                   <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#changeStatusModal">
                     <i class="bx bx-transfer-alt me-1"></i> Change Status
@@ -141,6 +166,7 @@
                     <button type="submit" class="dropdown-item"><i class="bx bx-trash me-1"></i> Delete</button>
                   </form>
                 </div>
+                --}}
               </div>
 
               <x-modal
@@ -232,6 +258,7 @@
 <script src="{{asset('assets/vendor/libs/quill/katex.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/quill/quill.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/flatpickr/flatpickr.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
 
 <script>
   const wizardNumbered = document.querySelector('.wizard-numbered'),
@@ -334,5 +361,29 @@
   });
 
   }());
+</script>
+@endsection
+
+@section('page-script')
+<script>
+  function confirmAction(event, callback) {
+    event.preventDefault();
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Are you sure you want to delete this?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      customClass: {
+        confirmButton: 'btn btn-danger me-3',
+        cancelButton: 'btn btn-label-secondary'
+      },
+      buttonsStyling: false
+    }).then(function (result) {
+      if (result.value) {
+        callback();
+      }
+    });
+  }
 </script>
 @endsection

@@ -146,7 +146,8 @@ class EventController extends Controller
     public function requests()
     {
         $events = Event::where("status", 0)->orderBy("updated_at", "desc")->get();
-        return view('content.events.requests', compact("events"));
+        $categories = Category::where('target', 'event')->where('status', 1)->get();
+        return view('content.events.requests', compact("events", "categories"));
     }
 
     public function tickets()
