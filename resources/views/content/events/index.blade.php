@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/quill/typography.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/quill/katex.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/quill/editor.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/flatpickr/flatpickr.css')}}" />
 @endsection
 
 @section('content')
@@ -148,6 +149,9 @@
                 size="xl"
                 :show="old('showEditFormModal'.$event->id)? true: false"
                 :showSaveBtn="false"
+                :showFooter="false"
+                :titleCentered="true"
+                titleTag="h3"
               >
                 @include('content.events.includes.edit_form')
               </x-modal>
@@ -210,6 +214,9 @@
     size="xl"
     :show="old('showCreateFormModal')? true: false"
     :showSaveBtn="false"
+    :showFooter="false"
+    :titleCentered="true"
+    titleTag="h3"
   >
     @include('content.events.includes.create_form')
   </x-modal>
@@ -224,6 +231,7 @@
 <script src="{{asset('assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/quill/katex.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/quill/quill.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/flatpickr/flatpickr.js')}}"></script>
 
 <script>
   const wizardNumbered = document.querySelector('.wizard-numbered'),

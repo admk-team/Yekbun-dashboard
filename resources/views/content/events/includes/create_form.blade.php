@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12">
-      <div class="bs-stepper wizard-numbered mt-2">
+      <div class="bs-stepper wizard-numbered mt-2 shadow-none">
         <div class="bs-stepper-header">
             <div class="step" data-target="#about-event">
                 <button type="button" class="step-trigger">
@@ -82,6 +82,20 @@
                     @error('event_category_id')
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="inputStartTime">Start Time</label>
+                        <input type="text" id="inputStartTime" name="start_time" class="form-control" value="{{ old('start_time') }}">
+                        @error('start_time')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="inputEndTime">End Time</label>
+                        <input type="text" id="inputEndTime" name="end_time" class="form-control" value="{{ old('end_time') }}">
+                        @error('end_time')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-sm-6">
                     <label class="form-label" for="inputTitle">Image</label>
@@ -282,3 +296,17 @@
       </div>
     </div>
   </div>
+
+@section('page-script')
+@parent
+<script>
+  document.querySelector('#inputStartTime').flatpickr({
+    monthSelectorType: 'static',
+    enableTime: true
+  });
+  document.querySelector('#inputEndTime').flatpickr({
+    monthSelectorType: 'static',
+    enableTime: true
+  });
+</script>
+@endsection
