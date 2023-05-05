@@ -167,6 +167,9 @@ Route::prefix("/users")->name("users.")->group(function () {
 
     // Users
     Route::prefix("/users")->name("users.")->group(function () {
+        Route::post('{id}/block/', [StandardUserController::class, 'block'])->name('block');
+        Route::post('{id}/warn/', [StandardUserController::class, 'warn'])->name('warn');
+        Route::post('{id}/upgrade/', [StandardUserController::class, 'upgrade'])->name('upgrade');
         Route::resource("standard", StandardUserController::class);
         Route::resource("premium", PremiumUserController::class);
         Route::resource("vip", DiamondUserController::class);
