@@ -74,7 +74,7 @@
   <div class="card">
     <div class="card-header d-flex align-items-center justify-content-between">
         <h5 class="m-0">Voting List</h5>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createvotingModal">Add Vote</button>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createvotingModal"><i class="bx bx-plus me-0 me-sm-1"></i> Add Vote</button>
     </div>
     <div class="table-responsive text-nowrap">
       <table class="table">

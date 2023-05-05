@@ -32,7 +32,6 @@
     <!-- <a href="{{ route('donations.create') }}">
       <button class="btn btn-primary" >Add Donation</button>
     </a> -->
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Add Donation</button>
 </div>
 </div>
 
@@ -79,7 +78,10 @@
 
   <!-- Basic Bootstrap Table -->
   <div class="card">
-    <h5 class="card-header">Donation List</h5>
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="m-0">Donation List</h5>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal"><i class="bx bx-plus me-0 me-sm-1"></i> Add Donation</button>
+    </div>
     <div class="table-responsive text-nowrap">
       <table class="table">
         <thead>
