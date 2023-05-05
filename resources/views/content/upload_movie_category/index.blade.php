@@ -115,19 +115,15 @@
                                                 </div>
                                             </div>
                                     </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Update</button>
-                                        </div>
-
-
-                                        </form>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Update</button>
                                     </div>
-
-
+                                    </form>
                                 </div>
                             </div>
-                    
+                        </div>
+
                     </td>
                 </tr>
                 @endforeach
@@ -136,8 +132,6 @@
                     <td class="text-center" colspan="8">No Music Category found.</td>
                 </tr>
                 @endif
-
-
             </tbody>
         </table>
     </div>

@@ -328,10 +328,21 @@
       "slug": "media"
     },
     {
-      "url": "/bazar",
       "name": "Bazar",
       "icon": "menu-icon tf-icons fa fa-cart-plus",
-      "slug": "bazar"
+      "slug": "bazar",
+      "submenu": [
+        {
+          "url": "/bazar",
+          "name": "Manage Items",
+          "slug": "bazar.index"
+        },
+        {
+          "url": "/bazar-category",
+          "name": "Add Category",
+          "slug": "bazar.category.index"
+        }
+      ]
     },
     {
       "menuHeader": "Components"
