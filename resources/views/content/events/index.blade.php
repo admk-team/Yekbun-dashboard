@@ -24,7 +24,6 @@
     {{-- <a href="{{ route('events.create') }}">
       <button class="btn btn-primary">Add Event</button>
     </a> --}}
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Add Event</button>
 </div>
 </div>
 
@@ -90,7 +89,10 @@
 
   <!-- Basic Bootstrap Table -->
   <div class="card">
-    <h5 class="card-header">Events List</h5>
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="m-0">Events List</h5>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal"><i class="bx bx-plus me-0 me-sm-1"></i> Add Event</button>
+    </div>
     <div class="table-responsive text-nowrap">
     <table class="table">
         <thead>
