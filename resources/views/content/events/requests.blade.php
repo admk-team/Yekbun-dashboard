@@ -102,9 +102,9 @@
             <td>{{ $event->end_time? $event->end_time->format('F jS, Y h:i a'): '' }}</td>
             <td>{{ $event->created_at->format('F jS, Y h:i a') }}</td>
             <td>
-              @if ($event->status === 0)
+              @if ((int) $event->status === 0)
                 <span class="badge bg-label-primary me-1">Pending</span>
-              @elseif ($event->status === 1)
+              @elseif ((int) $event->status === 1)
                 <span class="badge bg-label-success me-1">Approved</span>
               @else
                 <span class="badge bg-label-danger me-1">Rejected</span>
