@@ -16,7 +16,7 @@ class BazarController extends Controller
      */
     public function index()
     {
-        $bazars = Bazar::with('bazar_category')->get();
+         $bazars = Bazar::with('bazar_category')->get();
         $bazar_category = BazarCategory::get();
         return view('content.bazars.index' , compact('bazars' , 'bazar_category'));
     }
@@ -39,11 +39,9 @@ class BazarController extends Controller
      */
     public function store(Request $request)
     {
-        
+   
         $request->validate([
             'title' => 'required',
-            'user_name'=>'required',
-            'category_id'=>'required',
             'image'=>'required'
           ]);
 
