@@ -7,6 +7,8 @@ use Illuminate\View\Component;
 class Modal extends Component
 {
     public $title;
+    public $titleCentered;
+    public $titleTag;
 
     public $saveBtnText;
     public $saveBtnType;
@@ -20,6 +22,7 @@ class Modal extends Component
     public $size;
     public $show;
     public $centered;
+    public $showFooter;
 
     /**
      * Create a new component instance.
@@ -27,7 +30,9 @@ class Modal extends Component
      * @return void
      */
     public function __construct(
-        $title = null, 
+        $title = null,
+        $titleCentered = false,
+        $titleTag = 'h4',
 
         $saveBtnText = null,
         $saveBtnType = null,
@@ -40,10 +45,13 @@ class Modal extends Component
 
         $size = 'md',
         $show = false,
-        $centered = true
+        $centered = true,
+        $showFooter = true
     )
     {
         $this->title = $title;
+        $this->titleCentered = $titleCentered;
+        $this->titleTag = $titleTag;
 
         $this->saveBtnText = $saveBtnText;
         $this->saveBtnType = $saveBtnType;
@@ -55,6 +63,7 @@ class Modal extends Component
         $this->size = $size;
         $this->show = $show;
         $this->centered = $centered;
+        $this->showFooter = $showFooter;
 
         $this->closeBtnText = $closeBtnText;
     }

@@ -50,6 +50,7 @@ class NewsController extends Controller
       $news->title = $request->title;
       $news->description = $request->description;
       $news->category_id = $request->category_id;
+      $news->status = (int) $request->status;
       
       if($request->hasFile('image')){
         $path  = $request->file('image')->store('/images/news/' , 'public');

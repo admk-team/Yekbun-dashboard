@@ -27,12 +27,15 @@
 </h4>
 </div>
 <div class="">
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Add Category</button>
+    
 </div>
 </div>
   <!-- Basic Bootstrap Table -->
   <div class="card">
-    <h5 class="card-header">{{ ucfirst(($target?? '')) }} Categories List</h5>
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="m-0">{{ ucfirst(($target?? '')) }} Categories List</h5>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal"><i class="bx bx-plus me-0 me-sm-1"></i> Add Category</button>
+    </div>
     <div class="table-responsive text-nowrap">
       <table class="table">
         <thead>

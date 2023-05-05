@@ -190,10 +190,21 @@
       "slug": "posts.index"
     },
     {
-      "url": "/news",
       "name": "News",
       "icon": "menu-icon tf-icons bx bx-news",
-      "slug": "news"
+      "slug": "news",
+      "submenu": [
+        {
+          "url": "/news",
+          "name": "Add / Manage News",
+          "slug": "news.index"
+        },
+        {
+          "url": "/news-category",
+          "name": "Add Category",
+          "slug": "news-category.index"
+        }
+      ]
     },
     {
       "url": "/video",
