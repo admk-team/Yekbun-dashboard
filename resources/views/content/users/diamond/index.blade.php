@@ -156,7 +156,7 @@
               <td>{{ $user->created_at->format('F jS, Y') }}</td>
               <td>{{ $user->reports->count() }}</td>
               <td>
-                @if ($user->status)
+                @if ((int) $user->status)
                 <span class="badge bg-label-success me-1">Active</span>
                 @else
                 <span class="badge bg-label-secondary me-1">Disabled</span>

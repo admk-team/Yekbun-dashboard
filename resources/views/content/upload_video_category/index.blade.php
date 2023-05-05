@@ -35,28 +35,27 @@
 
 <!-- Category Model -->
 <div class="modal fade" id="videocategorymodel" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel3">Category</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <form method="POST" action="{{ route('upload-video-category.store') }}">
-                        @csrf
+                <form method="POST" action="{{ route('upload-video-category.store') }}">
+                    @csrf
+                    <div class="row">
                         <div class="col mb-3">
                             <label for="nameLarge" class="form-label">Name</label>
                             <input type="text" id="nameLarge" class="form-control" placeholder="Enter Name" name="video_category">
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
             </div>
-
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+            </form>
         </div>
     </div>
 </div>
@@ -75,12 +74,12 @@
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-              @if(count($video_category))
+                @if(count($video_category))
                 @foreach($video_category as $video)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $video->category ?? '' }}</td>
-                    
+
 
                     <td>
                         <div class="d-flex justify-content-start align-items-center">
@@ -95,44 +94,41 @@
                             </form>
                         </div>
                         <div class="modal fade" id="editvideocategoryModal{{ $video->id }}" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-sm" role="document">
+                            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel3">Edit Category</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <form method="POST" action="{{ route('upload-video-category.update',$video->id) }}" enctype="multipart/form-data">
+                                   
+                                        <div class="modal-body">
+                                            <form method="POST" action="{{ route('upload-video-category.update',$video->id) }}">
                                                 @csrf
-                                                @method('put')
                                                 <div class="row">
-                                                    <div class="col-lg-8 mx-auto">
-                                                        <div class="row g-3">
-                                                            <div class="col-md-12">
-
-                                                                <label class="form-label" for="fullname">Video Category</label>
-                                                                <input type="text" id="fullname" class="form-control" placeholder="" name="video_category" value="{{ $video->category ?? '' }}">
-                                                                @error('video_category')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                                @enderror
-                                                            </div>
-                                                            <button class="mt-1 btn btn-primary">Submit</button>
-                                                        </div>
+                                                    <div class="col mb-3">
+                                                        <label for="nameLarge" class="form-label">Name</label>
+                                                        <input type="text" id="nameLarge" class="form-control" placeholder="Enter Name" name="video_category" value="{{ $video->category ?? '' }}">
                                                     </div>
                                                 </div>
-                                            </form>
                                         </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Update</button>
+                                        </div>
+                                    </form>
+                                   
                                     </div>
 
                                 </div>
                             </div>
-                        </div>
+                     
                     </td>
                 </tr>
                 @endforeach
                 @else
-                <tr><td class="text-center" colspan="8">No Video Category found.</td></tr>
+                <tr>
+                    <td class="text-center" colspan="8">No Video Category found.</td>
+                </tr>
                 @endif
 
 
