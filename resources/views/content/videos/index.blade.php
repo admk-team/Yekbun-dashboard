@@ -87,115 +87,130 @@
     </div>
 </div>
 
-<div class="contianer">
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="nav-align-top mb-4">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a href="{{ route('upload-video.index') }}">
-                            <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='bx bx-plus-circle bx-lg'></i>Manage Video</button>
-                        </a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a href="{{ route('upload-video-category.index') }}">
-                            <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='bx bx-plus-circle bx-lg'></i>Add Categroy</button>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+<div class="d-flex justify-content-between">
+    <div>
+        <h4 class="fw-bold py-3 mb-4">
+            <span class="text-muted fw-light">Video /</span> All Video
+        </h4>
     </div>
-    <div class="d-flex justify-content-center mt-2 mb-2">
+    <div class="">
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createvideoModal">Add Video</button>
     </div>
 </div>
-
+{{-- <div class=" d-flex justify-content-end">
+    <div id="DataTables_Table_0_filter" class="">
+    <input type="search" class="form-control col-md-3" placeholder="Search" aria-controls="DataTables_Table_0">
+</div>
+</div> --}}
 
 <div class="row">
-    <div class="d-none d-md-block col-md-3">
-        <div class="card">
-            <div class="card-body p-0 border-none">
-                <div class="list-group" role="tablist">
-                    <a class="list-group-item list-group-item-action" href="?show=all">
-                        <i class='bx bxs-shopping-bags'></i> All Uploaded Video<br>
-                        <small class="text-muted">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All user video here</small>
-                    </a>
-                    <a class="list-group-item list-group-item-action" href="?show=fanpage">
-                        <i class='bx bxs-shopping-bags'></i> All Live Stream<br>
-                        <small class="text-muted">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All Fan Feed here</small>
-                    </a>
-                    <a class="list-group-item list-group-item-action" href="?show=reported">
-                        <i class='bx bxs-shopping-bags'></i> Reported Videos<br>
-                        <small class="text-muted">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User Report</small>
-                    </a>
+    <div class="col-md-3">
+        <div class="d-none d-md-block">
+            <div class="card mt-3">
+                <div class="card-body p-0 border-none">
+                    <div class="list-group" role="tablist">
+                        <a class="list-group-item list-group-item-action" href="?show=all">
+                            <i class='bx bxs-shopping-bags'></i> All Uploaded Video<br>
+                            <small class="text-muted">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All user video here</small>
+                        </a>
+                        <a class="list-group-item list-group-item-action" href="?show=fanpage">
+                            <i class='bx bxs-shopping-bags'></i> All Live Stream<br>
+                            <small class="text-muted">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All Fan Feed here</small>
+                        </a>
+                        <a class="list-group-item list-group-item-action" href="?show=reported">
+                            <i class='bx bxs-shopping-bags'></i> Reported Videos<br>
+                            <small class="text-muted">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User Report</small>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="col-md-9">
+        <div class="row">
+            @if(count($upload_video))
+            @foreach($upload_video as $video)
+            <div class="col-md-6 mt-2">
+                @php
+                $json = $video->video;
+                $arr = json_decode($json, true);
+                @endphp
 
-    @foreach($upload_video as $video)
-    <div class="col-md-4">
-        @php
-        $json = $video->video;
-        $arr = json_decode($json, true);
-        @endphp
-        <video controls width="460px">
-            <source src="{{ asset('storage/'.$arr[0]) }}" />
-        </video>
-        <div class="image d-flex gap-2">
-            <img src="{{ asset('assets/img/avatars/20.png') }}" width="50" height="50" style="border-radius: 50%">
-            <div>
-                <p class="m-0">{{ $video->title ?? '' }}</p>
-                <p>{{ $video->videocategory->category ?? '' }}</p>
-            </div>
-            <div class="dropup d-none d-sm-block">
-                <button class="btn p-0" type="button" id="sharedList" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bx bx-dots-vertical"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sharedList" style="">
-                    <form action="{{ route('upload-video.destroy', $video->id) }}" method="post">
-                        @method('DELETE')
-                        @csrf
-                        <button type="submit" class="dropdown-item">
-                            Remove Feed<br>
-                            <small class="text-muted">Feed removed only</small>
-                        </button>
-                    </form>
-                   
-                  <form action="{{ $video->user_id ? route('upload-video.destroyAndFlagUser', ['id' => $video->id, 'user_id' => $video->user_id]): '' }}" method="post">
-                        @method('DELETE')
-                        @csrf
-                        <button type="{{ $video->user_id? 'submit': 'button' }}" class="dropdown-item">
-                            Remove - Flag User<br>
-                            <small class="text-muted">Remove Feed - Flag User</small>
-                        </button>
-                    </form>
-                       
-                    <form action="{{ $video->user_id ? route('upload-video.destroyAndBlockUser', ['id' => $video->id, 'user_id' => $video->user_id]): '' }}" method="post">
-                        @method('DELETE')
-                        @csrf
-                        <button type="{{ $video->user_id? 'submit': 'button' }}" class="dropdown-item">
-                            Remove Block<br>
-                            <small class="text-muted">Remove Feed - Block User</small>
-                        </button>
-                    </form>
-                    
-                    <form action="{{ $video->user_id? route('upload-video.destroyAndRemoveUser', $video->user_id): '' }}" method="post">
-                        @method('DELETE')
-                        @csrf
-                        <button type="{{ $video->user_id? 'submit': 'button' }}" class="dropdown-item">
-                            Remove User<br>
-                            <small class="text-muted">Remove Account - IMEI</small>
-                        </button>
-                    </form>
+                <div class="card mb-3">
+                    <video controls class="">
+                        <source src="{{ asset('storage/'.$arr[0]) }}" />
+                    </video>
+                    <div class="card-body">
+                        <div class="image d-flex align-items-center gap-2" style="position: relative;">
+                            <img src="{{ asset('assets/img/avatars/20.png') }}" width="50" height="50" style="border-radius: 50%">
+                            <div>
+                                <p class="m-0">{{ $video->title ?? '' }}</p>
+                                <p>{{ $video->created_at->format('d M Y') }} at {{ $video->created_at->format('h:i A') }}</p>
+                            </div>
+                            <div class="dropup d-none d-sm-block" style="position: absolute; right:20px;">
+                                <button class="btn p-0" type="button" id="sharedList" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bx bx-dots-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sharedList" style="">
+                                    <form action="{{ route('upload-video.destroy', $video->id) }}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="dropdown-item">
+                                            Remove Feed<br>
+                                            <small class="text-muted">Feed removed only</small>
+                                        </button>
+                                    </form>
+    
+                                    <form action="{{ $video->user_id ? route('upload-video.destroyAndFlagUser', ['id' => $video->id, 'user_id' => $video->user_id]): '' }}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="{{ $video->user_id? 'submit': 'button' }}" class="dropdown-item">
+                                            Remove - Flag User<br>
+                                            <small class="text-muted">Remove Feed - Flag User</small>
+                                        </button>
+                                    </form>
+    
+                                    <form action="{{ $video->user_id ? route('upload-video.destroyAndBlockUser', ['id' => $video->id, 'user_id' => $video->user_id]): '' }}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="{{ $video->user_id? 'submit': 'button' }}" class="dropdown-item">
+                                            Remove Block<br>
+                                            <small class="text-muted">Remove Feed - Block User</small>
+                                        </button>
+                                    </form>
+    
+                                    <form action="{{ $video->user_id? route('upload-video.destroyAndRemoveUser', $video->user_id): '' }}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="{{ $video->user_id? 'submit': 'button' }}" class="dropdown-item">
+                                            Remove User<br>
+                                            <small class="text-muted">Remove Account - IMEI</small>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
                 </div>
+
+
+
+
+
             </div>
+            @endforeach
+            @else
+            <strong class="text-center"> {{ isset($msg) ? $msg : '' }} </strong>
+            @endif
+
         </div>
 
     </div>
-    @endforeach
 </div>
+
+
+
 <!-- Basic Bootstrap Table -->
 {{-- <div class="card">
     <h5 class="card-header">Table Basic</h5>
@@ -315,7 +330,7 @@
     }
 
 </script>
-<x-modal id="createvideoModal" title="Create Video" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm" size="xl">
+<x-modal id="createvideoModal" title="Create Video" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm" size="md">
     @include('content.include.videos.createFile')
 </x-modal>
 

@@ -5,7 +5,20 @@
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
 @endsection
+@section('vendor-style')
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/flatpickr/flatpickr.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/tagify/tagify.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+@endsection
 
+@section('vendor-script')
+<script src="{{asset('assets/vendor/libs/flatpickr/flatpickr.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/select2/select2.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/tagify/tagify.js')}}"></script> 
+<script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
+@endsection
 @section('content')
 <div class="d-flex justify-content-between">
   <div>
@@ -14,16 +27,20 @@
 </h4>
 </div>
 <div class="">
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Add Category</button>
+    
 </div>
 </div>
   <!-- Basic Bootstrap Table -->
   <div class="card">
-    <h5 class="card-header">{{ ucfirst(($target?? '')) }} Categories List</h5>
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="m-0">{{ ucfirst(($target?? '')) }} Categories List</h5>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal"><i class="bx bx-plus me-0 me-sm-1"></i> Add Category</button>
+    </div>
     <div class="table-responsive text-nowrap">
       <table class="table">
         <thead>
           <tr>
+            <th>#</th>
             <th>Name</th>
             <th>Actions</th>
           </tr>
@@ -31,18 +48,20 @@
         <tbody class="table-border-bottom-0">
           @forelse($categories as $category)
           <tr>
+            <td>{{$loop->iteration}}</td>
             <td>{{ $category->name }}</td>
             <td>
-              <div class="dropdown">
-                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-                <div class="dropdown-menu">
-                  <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal{{ $category->id }}"><i class="bx bx-edit-alt me-1"></i> Edit</button>
-                  <form action="{{ route('categories.destroy', $category->id) }}" method="post">
+
+              <div class="d-flex justify-content-start align-items-center">
+                <span data-bs-toggle="modal" data-bs-target="#editModal{{ $category->id }}">
+                    <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button>
+                </span>
+
+                <form action="{{ route('categories.destroy', $category->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
                     @method('DELETE')
                     @csrf
-                    <button type="submit" class="dropdown-item"><i class="bx bx-trash me-1"></i> Delete</button>
-                  </form>
-                </div>
+                 <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                </form>
               </div>
               <x-modal
                 id="editModal{{ $category->id }}"
@@ -79,4 +98,28 @@
   >
     @include('content.categories.includes.create_form')
   </x-modal>
+  @section('page-script')
+<script>
+    function confirmAction(event, callback) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?'
+            , text: "Are you sure you want to delete this?"
+            , icon: 'warning'
+            , showCancelButton: true
+            , confirmButtonText: 'Yes, delete it!'
+            , customClass: {
+                confirmButton: 'btn btn-danger me-3'
+                , cancelButton: 'btn btn-label-secondary'
+            }
+            , buttonsStyling: false
+        }).then(function(result) {
+            if (result.value) {
+                callback();
+            }
+        });
+    }
+
+</script>
+@endsection
 @endsection

@@ -31,9 +31,11 @@ class UplaodVideoController extends Controller
            switch($show){
             case "all":
                   $upload_video = UplaodVideo::with('videocategory')->orderBy("updated_at" , "desc")->get();
+                  $msg = "No Video found.";
                   break;
             case "fanpage":
                  $upload_video =UplaodVideo::with('videocategory')->orderBy("updated_at" , "desc")->get();
+                 $msg = "No Live Stream found.";
                  break;
             case "reported":
                $upload_video=UplaodVideo::whereExists(function($query){
@@ -42,12 +44,13 @@ class UplaodVideoController extends Controller
                     ->whereColumn('reports.report_video_id' , 'uplaod_videos.id')
                     ->where('status' , 0);
                 })->orderBy('uplaod_videos.updated_at' , 'desc')->get();
+                $msg = "No Reproted Video found.";
                 break;
 
            }
 
          $video_category = UploadVideoCategory::get();    
-        return view('content.videos.index' ,compact('upload_video' , 'video_category'));
+        return view('content.videos.index' ,compact('upload_video' , 'video_category' , 'msg'));
     }
 
     /**
@@ -260,12 +263,12 @@ class UplaodVideoController extends Controller
         return back()->with("success", "Post deleted and user blocked.");
     }
 
-    public function destroyAndRemoveUser($id , $user_id){
+    public function destroyAndRemoveUser($user_id){
         $video = UplaodVideo::where("user_id", $user_id)->get();
         $video->map(function ($post) {
             // Delete Image
-            if ($post->image)
-                Storage::delete($post->image);
+            if ($post->video)
+                Storage::delete($post->video);
             $post->delete();
         });
 
