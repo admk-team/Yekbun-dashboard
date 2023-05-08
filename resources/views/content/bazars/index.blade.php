@@ -148,7 +148,9 @@
                         $json = $bazar->image;
                         $arr  =json_decode($json , true);
                         @endphp
-                        <img src="{{ asset('storage/'.$arr[0]) }}" height="150">
+                        <div class="avatar-wrapper">
+                            <div class="avatar avatar-sm me-3"><img src="{{ asset('storage/'.$arr[0]) }}" alt="Avatar" class="rounded-circle"></div>
+                          </div>
                     </td>
                     <td>{{ $bazar->user_name ?? '' }}</td>
                     <td>{{ $bazar->bazar_category->name ?? '' }}</td>
