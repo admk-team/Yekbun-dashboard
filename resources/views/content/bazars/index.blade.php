@@ -4,6 +4,8 @@
 
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/css/pages/ui-carousel.css')}}" />
+
 @endsection
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/flatpickr/flatpickr.css')}}" />
@@ -11,6 +13,8 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/tagify/tagify.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/swiper/swiper.css')}}" />
+
 @endsection
 
 @section('vendor-script')
@@ -132,6 +136,7 @@
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
+                @if(count($bazars))
                 @foreach($bazars as $bazar)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
@@ -171,13 +176,27 @@
                             @include('content.include.bazar.editForm')
                         </x-modal>
                         {{-- view modal --}}
-                        <x-modal id="viewbazarModal{{ $bazar->id }}" title="View Items" saveBtnText="Edit" saveBtnType="button" saveBtnForm="viewForm{{ $bazar->id }}" size="lg">
+                        <x-modal id="viewbazarModal{{ $bazar->id }}" title="View Items" saveBtnText="Edit" saveBtnType="button" saveBtnForm="viewForm{{ $bazar->id }}" size="md">
+                          <x-slot:footer>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editbazarModal{{ $bazar->id }}">Edit</button>
+                                <form action="{{ route('bazar.destroy', $bazar->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button class="btn btn-danger" type="submit">Remove Item</button>
+                                </form>
+                                <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                          </x-slot:footer>
                             @include('content.include.bazar.viewForm')
                         </x-modal>
                     </td>
                 </tr>
                 @endforeach
-
+                @else
+                <tr>
+                    <td class="text-center" colspan="8">No Bazar found.</td>
+                </tr>
+                @endif
+ 
 
             </tbody>
         </table>
@@ -219,6 +238,10 @@
 <x-modal id="createbazarModal" title="Create Bazar" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm" size="md">
     @include('content.include.bazar.createForm')
 </x-modal>
+
+@endsection
+
+
 @section('page-script')
 <script>
     function confirmAction(event, callback) {
@@ -242,20 +265,25 @@
     }
 
 </script>
-@endsection
 
-{{-- <script>
-    const categories = {
-    @foreach ($categories as $category)
-      {{ $category->id }}: [
-        @foreach ($category->sub_categories as $c)
-          {
-            id: {{ $c->id }}
-            name: {{ $c->name }}
-          },
-        @endforeach
-      ]
-    @endforeach
-  };
-</script> --}}
+<script src="{{asset('assets/vendor/libs/swiper/swiper.js')}}"></script>
+
+<script>    
+    'use strict';
+    (function () {
+        let swiperWithArrows = document.querySelectorAll('.swiper-with-arrows');
+            // With arrows
+            swiperWithArrows.forEach(element => {
+                new Swiper(element, {
+                slidesPerView: 'auto',
+                navigation: {
+                    prevEl: '.swiper-button-prev',
+                    nextEl: '.swiper-button-next'
+                }
+                });
+                
+            });
+    }())
+</script>
+
 @endsection

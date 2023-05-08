@@ -1,28 +1,22 @@
-<div id="viewForm{{ $bazar->id }}">
 
+<div id="viewForm{{ $bazar->id }}">
     <div class="row">
         <div class="col-lg-12">
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <img src="{{ asset('storage/'.$arr[0]) }}" alt="Image" width="100%" height="auto">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="swiper swiper-with-arrows">
+                        <div class="swiper-wrapper">
+                            @foreach($arr as $img)
+                          <div class="swiper-slide" style="background-image:url({{asset('storage/'.$img)}})"></div>
+                          @endforeach
                         </div>
-                        <div class="col-md-4">
-                            @php
-                            $firstThreeImages = array_slice($arr, 1, 2);
-                            @endphp
-                            @foreach ($firstThreeImages as  $img)
-                                  <img src="{{ asset('storage/'.$img) }}" alt="Image" width="100%" height="auto"><br><br>
-                            @endforeach
+                        <div class="swiper-button-next swiper-button-white custom-icon">
                         </div>
-
-                    </div>
-                    @error('image')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
+                        <div class="swiper-button-prev swiper-button-white custom-icon">
+                        </div>
+                      </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <table class="table table-borderless">
                         <h5 class="text-center">{{ $bazar->title ?? '' }}</h5>
                         <thead>
@@ -45,13 +39,8 @@
                 </div>
             </div>
         </div>
-            <button class="btn"data-bs-toggle="modal" data-bs-target="#editbazarModal{{ $bazar->id }}">Edit</button>
-            
-            <form action="{{ route('bazar.destroy', $bazar->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
-                @method('DELETE')
-                @csrf
-                <button class="btn">Remove Item</button>
-            </form>
     </div>
-  
 </div>
+
+
+
