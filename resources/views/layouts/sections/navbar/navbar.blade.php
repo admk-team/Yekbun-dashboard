@@ -558,7 +558,7 @@ $navbarDetached = ($navbarDetached ?? '');
                                 <h4 class="onboarding-title text-body">To build your audience</h4>
                                 <div class="onboarding-info">Lorem ipsum sit dolor amet is a dummy text used by the typography industry and the web industry.</div> <br><br>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#animationModal">
-                                  Launch modal
+                                  Got it
                                 </button>
                             </div>
                         </div>
@@ -569,10 +569,9 @@ $navbarDetached = ($navbarDetached ?? '');
     </div>
     <!--/ slider modal -->
 
-
           <!-- Modal -->
           <div class="modal fade animate__animated fadeIn" id="animationModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel5">Modal title</h5>
