@@ -305,7 +305,7 @@
         },
         {
           "url": "/events/categories?target=event",
-          "name": "Categories",
+          "name": "Add Category",
           "slug": "events.categories.index"
         },
         {
@@ -316,10 +316,21 @@
       ]
     },
     {
-      "url": "/history",
       "name": "History",
       "icon": "menu-icon tf-icons bx bxs-watch",
-      "slug": "history"
+      "slug": "history",
+      "submenu": [
+        {
+          "url": "/history",
+          "name": "Manage History",
+          "slug": "history.index"
+        },
+        {
+          "url": "/history-category",
+          "name": "Add Category",
+          "slug": "history-category.index"
+        }
+      ]
     },
     {
       "name": "Donation",
