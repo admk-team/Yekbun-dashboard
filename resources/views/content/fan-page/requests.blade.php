@@ -113,11 +113,11 @@
             <td>{{ $page->user_name ?? '' }}</td>
             <td>{{ $page->fanpage_name ?? '' }}</td>
             <td>
-              @if ($page->status === 0)
+              @if ((int) $page->status === 0)
                 <span class="badge bg-label-primary me-1">Pending</span>
-              @elseif ($page->status === 1)
+              @elseif ((int) $page->status === 1)
                 <span class="badge bg-label-success me-1">Accepted</span>
-              @elseif ($page->status === 2)
+              @elseif ((int) $page->status === 2)
                 <span class="badge bg-label-warning me-1">Rejected</span>
               @else
                 <span class="badge bg-label-danger me-1">Blocked</span>

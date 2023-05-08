@@ -200,9 +200,11 @@
                     title="Block User"
                     closeBtnText="Cancel"
                     saveBtnText="Confirm"
-                    onSaveBtnClick="$(this.closest('.modal')).modal('hide')"
+                    saveBtnForm="blockForm{{ $user->id }}"
+                    saveBtnType="submit"
                 >
-                  <form>
+                  <form id="blockForm{{ $user->id }}" action="{{ route('users.block', $user->id) }}" method="post">
+                    @csrf
                     <div class="d-flex justify-content-start align-items-center user-name mb-4">
                       <div class="avatar-wrapper">
                         <div class="avatar avatar-sm me-3"><img src="{{$user->image? url('storage/' . $user->image): 'https://www.w3schools.com/howto/img_avatar.png' }}" alt="Avatar" class="rounded-circle"></div>
@@ -214,8 +216,8 @@
                       </div>
                     </div>
                       <label class="form-label" for="inputBlockDays">Block User for(days)</label>
-                      <input type="text" id="inputBlockDays" name="block_days" class="form-control" placeholder="Type number of days">
-                      @error('block_days')
+                      <input type="text" id="inputBlockDays" name="block_for_days" class="form-control" placeholder="Type number of days">
+                      @error('block_for_days')
                       <div class="invalid-feedback d-block">{{ $message }}</div>
                       @enderror
                   </form>
@@ -228,9 +230,11 @@
                       title="Warn User"
                       closeBtnText="Cancel"
                       saveBtnText="Warn"
-                      onSaveBtnClick="$(this.closest('.modal')).modal('hide')"
+                      saveBtnForm="warnForm{{ $user->id }}"
+                      saveBtnType="submit"
                   >
-                    <form>
+                    <form id="warnForm{{ $user->id }}" action="{{ route('users.warn', $user->id) }}" method="post">
+                      @csrf
                       <div class="d-flex justify-content-start align-items-center user-name mb-4">
                         <div class="avatar-wrapper">
                           <div class="avatar avatar-sm me-3"><img src="{{$user->image? url('storage/' . $user->image): 'https://www.w3schools.com/howto/img_avatar.png' }}" alt="Avatar" class="rounded-circle"></div>
@@ -243,9 +247,9 @@
                       </div>
                         <label class="form-label" for="inputWarningCause">Select warning cause</label>
                         <select id="inputWarningCause" name="warning_cause" class="form-control">
-                          <option>cause1</option>
-                          <option>cause2</option>
-                          <option>cause3</option>
+                          <option value="cause1">cause1</option>
+                          <option value="cause2">cause2</option>
+                          <option value="cause3">cause3</option>
                         </select>
                         @error('warning_cause')
                         <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -260,9 +264,11 @@
                     title="Upgrade to Premium"
                     closeBtnText="Cancel"
                     saveBtnText="Upgrade"
-                    onSaveBtnClick="$(this.closest('.modal')).modal('hide')"
+                    saveBtnForm="upgradeForm{{ $user->id }}"
+                    saveBtnType="submit"
                 >
-                  <form>
+                  <form id="upgradeForm{{ $user->id }}" action="{{ route('users.upgrade', $user->id) }}" method="post">
+                    @csrf
                     <div class="d-flex justify-content-start align-items-center user-name mb-4">
                       <div class="avatar-wrapper">
                         <div class="avatar avatar-sm me-3"><img src="{{$user->image? url('storage/' . $user->image): 'https://www.w3schools.com/howto/img_avatar.png' }}" alt="Avatar" class="rounded-circle"></div>
@@ -280,7 +286,7 @@
                             <span class="custom-option-body">
                               <span class="custom-option-title">Premium</span>
                             </span>
-                            <input name="customRadioIcon" class="form-check-input" type="radio" value="" id="customRadioIcon1" checked="">
+                            <input name="level" class="form-check-input" type="radio" value="1" id="customRadioIcon1" checked="">
                           </label>
                         </div>
                       </div>
@@ -290,7 +296,7 @@
                             <span class="custom-option-body">
                               <span class="custom-option-title">VIP</span>
                             </span>
-                            <input name="customRadioIcon" class="form-check-input" type="radio" value="" id="customRadioIcon2">
+                            <input name="level" class="form-check-input" type="radio" value="2" id="customRadioIcon2">
                           </label>
                         </div>
                       </div>
