@@ -140,7 +140,8 @@
                     @endphp {{ $rand ?? '' }}</td>
                     <td>
                         @php 
-                        $arr  =json_decode($bazar->image);
+                        $json = $bazar->image;
+                        $arr  =json_decode($json , true);
                         @endphp
                         <img src="{{ asset('storage/'.$arr[0]) }}" height="150">
                     </td>
