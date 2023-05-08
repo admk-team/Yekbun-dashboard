@@ -18,10 +18,19 @@
 
 @endsection
 
+@section('vendor-style')
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+@endsection
+
+@section('vendor-script')
+<script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
+@endsection
+
 @section('content')
 
 <div class="row g-4 mb-4">
-    <div class="col-sm-6 col-xl-3">
+    <div class="col-sm-6 col-xl-6">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between">
@@ -40,7 +49,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6 col-xl-3">
+    <div class="col-sm-6 col-xl-6">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between">
@@ -61,114 +70,79 @@
     </div>
 </div>
 
-
-
-{{-- Nav TAb --}}
-<div class="row">
-    <div class="col-xl-12">
-        <div class="nav-align-top mb-4">
-            <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <a href="{{ route('history.index') }}">
-                        <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='menu-icon tf-icons bx bxs-user bx-md'></i>Manage History</button>
-                    </a>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <a href="{{ route('history-category.index') }}">
-                        <button type="button" class="nav-link active" role="tab" aria-selected="true"><i class='bx bx-plus-circle bx-md'></i>Add Categroy</button>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-<div class="d-flex justify-content-center mt-2 mb-2">
-    <button class="btn btn-primary col-md-3" data-bs-toggle="modal" data-bs-target="#createhistoryModal">Add History</button>
-</div>
-
-
-
-
 <!-- Basic Bootstrap Table -->
 <div class="card">
-    <div class="table-responsive text-nowrap">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Title</th>
-                    <th>Category Name</th>
-                    <th>Language</th>
-                    <th>Status </th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody class="table-border-bottom-0">
-                @foreach($history as $historys)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $historys->title ?? '' }}</td>
-                    <td>{{ $historys->history_category->name ?? '' }}</td>
-                    <td>{{ $historys->language ?? '' }}</td>
-                    <td>
-                        <div class="dropdown d-inline-block show">
-                            @php
-                            if($historys->status==1){
-                            $btn='success';
-                            }else{
-                            $btn='danger';
-                            }
-                            @endphp
-                            <button type="button" aria-haspopup="true" aria-expanded="true" data-bs-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-{{ $btn }}">
-                                @if ($historys->status==1)
-                                Active
-                                @else
-                                Dective
-                                @endif
-                            </button>
-                            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" x-placement="top-start" style="position: absolute; transform: translate3d(0px, -362px, 0px); top: 0px; left: 0px; will-change: transform;min-width: 9rem;">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a href="{{ route('history-status',['id'=>$historys->id,'status'=>1]) }}" class="nav-link">Active
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('history-status',['id'=>$historys->id,'status'=>0]) }}" class="nav-link">Deactive</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </td>
-
-                    <td>
-                        <div class="dropdown d-inline-block">
-                            <button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-light">Action
-                            </button>
-                            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a href="{{ route('history.edit',$historys->id) }}" class="nav-link">
-                                            <i class="nav-link-icon pe-7s-chat"> </i><span>Edit</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);" data-id="{{ route('history.destroy',$historys->id) }}">
-                                            <i class="nav-link-icon pe-7s-wallet"> </i><span>Delete</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                @endforeach
-
-
-            </tbody>
-        </table>
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="m-0">History List</h5>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createhistoryModal"><i class="bx bx-plus me-0 me-sm-1"></i> Add History</button>
     </div>
-</div>
-<!--/ Basic Bootstrap Table -->
+    <div class="table-responsive text-nowrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Category</th>
+            <th>Title</th>
+            <th>Languages</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody class="table-border-bottom-0">
+        @forelse($history as $historys)
+            <tr>
+                <td>{{ $historys->id }}</td>
+                <td>{{ $historys->history_category->name ?? '' }}</td>
+                <td>{{ $historys->title ?? '' }}</td>
+                <td>{{ $historys->language ?? '' }}</td>
+                <td>
+                    <div class="dropdown d-inline-block">
+                        <!-- Edit -->
+                        <span data-bs-toggle="modal" data-bs-target="#editModal{{ $historys->id }}">
+                            <button class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit">
+                                <i class="bx bx-edit"></i>
+                            </button>
+                        </span>
+
+                        <!-- Delete -->
+                        <form action="{{ route('history.destroy',$historys->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                        </form>
+
+                        {{--<button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-light">Action
+                        </button>
+                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a href="{{ route('history.edit',$historys->id) }}" class="nav-link">
+                                        <i class="nav-link-icon pe-7s-chat"> </i><span>Edit</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);" data-id="{{ route('history.destroy',$historys->id) }}">
+                                        <i class="nav-link-icon pe-7s-wallet"> </i><span>Delete</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>--}}
+                    </div>
+
+                    <x-modal id="editModal{{ $historys->id }}" title="Edit History" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $historys->id }}" size="lg">
+                        @include('content.include.history.editForm')
+                    </x-modal>
+                </td>
+            </tr>
+            @empty
+          <tr>
+            <td class="text-center" colspan="8"><b>No history found.<b></td>
+          </tr>
+          @endforelse
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!--/ Basic Bootstrap Table -->
 
 <div class="modal fade deleted-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="padding-right: 17px;" aria-modal="true">
     <div class="modal-dialog" role="document">
@@ -201,7 +175,7 @@
     }
 
 </script>
-<x-modal id="createhistoryModal" title="Create History" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm" size="xl">
+<x-modal id="createhistoryModal" title="Create History" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm" size="lg">
     @include('content.include.history.createForm')
 </x-modal>
 
@@ -279,4 +253,28 @@
 
 </script>
 
+@endsection
+
+@section('page-script')
+<script>
+  function confirmAction(event, callback) {
+    event.preventDefault();
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Are you sure you want to delete this?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      customClass: {
+        confirmButton: 'btn btn-danger me-3',
+        cancelButton: 'btn btn-label-secondary'
+      },
+      buttonsStyling: false
+    }).then(function (result) {
+      if (result.value) {
+        callback();
+      }
+    });
+  }
+</script>
 @endsection
