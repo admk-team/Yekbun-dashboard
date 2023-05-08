@@ -25,18 +25,40 @@
               
                 <div class="col-md-12">
                     <label class="form-label" for="fullname">Image</label>
-                    <input type="file" name="image" class="form-control" id="language" />
+                    <input type="file" name="image[]" class="form-control" id="language" multiple />
                     @error('image')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="col-md-12">
-                    <label class="form-label" for="fullname">Description</label>
-                    <textarea type="file" name="description" class="form-control" id="language"></textarea>
-                    @error('description')
-                    <span class="text-danger">{{ $message }}</span>
+                    <label for="form-lable" for="price">Price</label>
+                    <input type="number" class="form-control" name="price" placeholder="Price">
+                    @error('price')
+                        <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+              <div class="col-md-12">
+                <label class="form-label" for="Status">Status</label>
+                <select class="form-select" name="status">
+                  <option value="" selected>Select Status</option>
+                  <option value="0">Unpublish</option>
+                  <option value="1">Publish</option>
+                </select>
+                @error('status')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
+              </div>
+              <div class="col-md-12">
+                <label class="form-label" for="Warranty">Warranty</label>
+                <select class="form-select" name="warranty">
+                  <option value="" selected>Select warranty</option>
+                  <option value="0">No</option>
+                  <option value="1">Yes</option>
+                </select>
+                @error('warranty')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
+              </div>
             </div>
         </div>
     </div>
