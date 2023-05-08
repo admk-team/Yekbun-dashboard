@@ -26,19 +26,19 @@
                     <label class="form-label" for="inputDescription">Description</label>
                     <textarea class="form-control" name="description" style="height:150px;" id="inputDescription" placeholder="Type..."></textarea>
                 </div>
-                <!-- <div class="col-md-12">
+                <div class="col-md-12">
                     <label class="form-label" for="inputDescription">Images Upload</label>
                     <input type="file" class="form-control" name="image[]" accept="image/*" multiple>
                 </div>
                 <div class="col-md-12">
                     <label class="form-label" for="inputDescription">Video Upload</label>
                     <input type="file" class="form-control" name="video[]" accept="video/*" multiple>
-                </div> -->
-                <div class="col-12">
+                </div>
+                <!-- <div class="col-12">
                     <div class="card">
                         <h5 class="card-header">Images Upload</h5>
                         <div class="card-body">
-                            <div class="dropzone needsclick" id="dropzone-img">
+                            <div class="dropzone needsclick" action="/" id="dropzone-img">
                                 <div class="dz-message needsclick">
                                     Drop files here or click to upload
                                 </div>
@@ -49,7 +49,6 @@
                         </div>
                     </div>
                 </div>
-                <!--
                 <div class="col-12">
                     <div class="card">
                         <h5 class="card-header">Video Upload</h5>
@@ -71,12 +70,12 @@
 
 </form>
 <script>
-    // $(document).on('ready', function () {
-    //   $('.dz-dropzone').each(function () {
-    //     // initialization of dropzone file attach module
-    //     var dropzone = $.HSCore.components.HSDropzone.init('#' + $(this).attr('id'));
-    //   });
-    // });
+    $(document).on('ready', function () {
+      $('.dz-dropzone').each(function () {
+        // initialization of dropzone file attach module
+        var dropzone = $.HSCore.components.HSDropzone.init('#' + $(this).attr('id'));
+      });
+    });
   </script>
 
 <script>
@@ -105,19 +104,17 @@
             // Multiple Dropzone
 
             const dropzoneMulti = new Dropzone('#dropzone-img', {
-                url: '/upload',
-                autoProcessQueue: true,
                 previewTemplate: previewTemplate,
-                parallelUploads: 100,
-                maxFilesize: 10,
+                parallelUploads: 1,
+                maxFilesize: 5,
                 addRemoveLinks: true
             });
-            // const dropzoneMulti1 = new Dropzone('#dropzone-video', {
-            //     previewTemplate: previewTemplate,
-            //     parallelUploads: 1,
-            //     maxFilesize: 5,
-            //     addRemoveLinks: true
-            // });
+            const dropzoneMulti1 = new Dropzone('#dropzone-video', {
+                previewTemplate: previewTemplate,
+                parallelUploads: 1,
+                maxFilesize: 5,
+                addRemoveLinks: true
+            });
 
 
            
