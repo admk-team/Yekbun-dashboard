@@ -50,7 +50,11 @@
           @foreach($upload_movie as $movie)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td><img src="{{ asset('storage/'.$movie->thumbnail) }}" width="100" height="100"></td>
+            <td>
+              <div class="avatar-wrapper">
+                <div class="avatar avatar-sm me-3"><img src="{{ asset('storage/'.$movie->thumbnail) }}" alt="Avatar" class="rounded-circle"></div>
+              </div>
+            </td>
             <td>{{ \Illuminate\Support\Str::random(5) }}</td>
             <td>{{ $movie->title ?? '' }}</td>
           
