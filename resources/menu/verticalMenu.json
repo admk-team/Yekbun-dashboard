@@ -72,11 +72,8 @@
               "url": "/album",
               "name": "Add Album",
               "slug": "artist.album.index"
-            },{
-              "url":"/upload_video",
-              "name":"Add Video",
-              "slug":"artist.video.index"
-            }           
+            }
+                 
           ]
         }
       ]

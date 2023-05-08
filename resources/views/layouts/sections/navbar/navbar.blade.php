@@ -547,7 +547,6 @@ $navbarDetached = ($navbarDetached ?? '');
                             Next
                           </button>
                           </a>   
-                           
                         </div>
                         <div class="carousel-item">
                             <div class="onboarding-media">
@@ -557,18 +556,13 @@ $navbarDetached = ($navbarDetached ?? '');
                             </div>
                             <div class="onboarding-content">
                                 <h4 class="onboarding-title text-body">To build your audience</h4>
-                                <div class="onboarding-info">Lorem ipsum sit dolor amet is a dummy text used by the typography industry and the web industry.</div>
+                                <div class="onboarding-info">Lorem ipsum sit dolor amet is a dummy text used by the typography industry and the web industry.</div> <br><br>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#animationModal">
                                   Launch modal
                                 </button>
                             </div>
                         </div>
-
                     </div>
-                    {{-- <a class="carousel-control-prev" href="#modalCarouselControls" role="button" data-bs-slide="prev">
-                        <i class="bx bx-chevrons-left lh-1"></i><span>Previous</span>
-                    </a> --}}
-                   
                 </div>
             </div>
         </div>
