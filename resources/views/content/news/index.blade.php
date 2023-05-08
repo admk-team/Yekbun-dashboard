@@ -113,7 +113,9 @@
           <td>
               {{ $new->news_category->name  ??  '' }} </option>
           </td>
-          <td><img src="{{ asset('storage/'.$new->image) }}" style="height:100px; width:100px"></td>
+          <td>
+            <img class="rounded" src="{{ asset('storage/'.$new->image) }}" height="100" width="100" alt="">
+          </td>
           <td>
             @if ($new->status)
               <span class="badge bg-label-success me-1">Published</span>

@@ -1,5 +1,6 @@
   <form id="createForm" method="POST" action="{{ route('upload-video.store') }}" enctype="multipart/form-data">
       @csrf
+      <input type="hidden" name="app" value="{{ $app }}">
       <div class="row">
           <div class="col-lg-12 mx-auto">
               <div class="row g-3">
@@ -8,7 +9,11 @@
                       <select class="form-select" aria-label="Default select example" name="category_id">
                           <option value="">Select Category</option>
                           @foreach($video_category as $video)
-                          <option value="{{ $video->id }}">{{ $video->category ?? '' }}</option>
+                            @if ($app === 'main')
+                                <option value="{{ $video->id }}">{{ $video->category ?? '' }}</option>
+                            @else
+                                <option value="{{ $video->id }}">{{ $video->name ?? '' }}</option>
+                            @endif
                           @endforeach
                       </select>
                       @error('category_id')

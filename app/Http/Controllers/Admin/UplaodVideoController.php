@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use App\Models\FlaggedUser;
 use App\Models\User;
@@ -24,33 +25,41 @@ class UplaodVideoController extends Controller
      */
     public function index()
     {
+        $app = 'main';
+        if (request()->app) 
+            $app = request()->app;
+
         $show = "all";
         if(request()->show)
            $show = request()->show;
 
            switch($show){
             case "all":
-                  $upload_video = UplaodVideo::with('videocategory')->orderBy("updated_at" , "desc")->get();
+                  $upload_video = UplaodVideo::where('app', $app)->with('videocategory')->orderBy("updated_at" , "desc")->get();
                   $msg = "No Video found.";
                   break;
             case "fanpage":
-                 $upload_video =UplaodVideo::with('videocategory')->orderBy("updated_at" , "desc")->get();
+                 $upload_video =UplaodVideo::where('app', $app)->with('videocategory')->orderBy("updated_at" , "desc")->get();
                  $msg = "No Live Stream found.";
                  break;
             case "reported":
-               $upload_video=UplaodVideo::whereExists(function($query){
+               $upload_video=UplaodVideo::where('app', $app)->whereExists(function($query){
                     $query->select(DB::raw(1))
                     ->from('reports')
                     ->whereColumn('reports.report_video_id' , 'uplaod_videos.id')
                     ->where('status' , 0);
                 })->orderBy('uplaod_videos.updated_at' , 'desc')->get();
-                $msg = "No Reproted Video found.";
+                $msg = "No Reported Video found.";
                 break;
 
            }
+        
+        if ($app === 'zarok')
+            $video_category = Category::where('target', 'zarok-app-videos')->get();
+        else
+            $video_category = UploadVideoCategory::get();
 
-         $video_category = UploadVideoCategory::get();    
-        return view('content.videos.index' ,compact('upload_video' , 'video_category' , 'msg'));
+        return view('content.videos.index' ,compact('upload_video' , 'video_category' , 'msg', 'app'));
     }
 
     /**
@@ -76,12 +85,14 @@ class UplaodVideoController extends Controller
             'thumbnail' => 'required',
             'title' => 'required',
             'video' => 'required',
+            'app' => 'nullable'
           ]); 
 
         $video = new UplaodVideo();
         $video->title = $request->title;
         $video->description = $request->description;
         $video->category_id = $request->category_id;
+        $video->app = $request->app?? 'main';
         $videos = collect([]);
 
         if($request->file('thumbnail')){
@@ -96,9 +107,9 @@ class UplaodVideoController extends Controller
         $video->video = $videos->toJson();
 
        if($video->save()){
-        return redirect()->route('upload-video.index')->with('success', 'Video Has been inserted');
+        return redirect()->back()->with('success', 'Video Has been inserted');
        }else{
-        return redirect()->route('upload-video.index')->with('error', 'Video Has not inserted');
+        return redirect()->back()->with('error', 'Video Has not inserted');
 
        }
     }
@@ -172,9 +183,9 @@ class UplaodVideoController extends Controller
         }
 
         if($video->update()){
-            return redirect()->route('upload-video.index')->with('success', 'Video Has been updated');
+            return redirect()->back()->with('success', 'Video Has been updated');
            }else{
-            return redirect()->route('upload-video.index')->with('error', 'Video Has not updated');
+            return redirect()->back()->with('error', 'Video Has not updated');
     
            }
     }
@@ -197,10 +208,10 @@ class UplaodVideoController extends Controller
          }
 
          if($video->delete($video->id)){
-            return redirect()->route('upload-video.index')->with('success', 'Video Has been Deleted');
+            return redirect()->back()->with('success', 'Video Has been Deleted');
 
          }else{
-            return redirect()->route('upload-video.index')->with('success', 'Video not Deleted');
+            return redirect()->back()->with('success', 'Video not Deleted');
 
          }
     }
@@ -209,9 +220,9 @@ class UplaodVideoController extends Controller
         $video = UplaodVideo::find($id);
         $video->status = $status;
         if($video->update()){
-            return redirect()->route('upload-video.index')->with('success', 'Status Has been Updated');
+            return redirect()->back()->with('success', 'Status Has been Updated');
         }else{
-            return redirect()->route('upload-video.index')->with('error', 'Status is not changed');
+            return redirect()->back()->with('error', 'Status is not changed');
 
         }
     }
@@ -240,7 +251,7 @@ class UplaodVideoController extends Controller
             "reason" => "Flagged by admin for inappropriate post."
         ]);
 
-        return back()->with("success", "Post deleted and user flagged.");
+        return back()->with("success", "Video deleted and user flagged.");
     }
 
     public function destroyAndBlockUser($id , $user_id){
@@ -260,7 +271,7 @@ class UplaodVideoController extends Controller
         $user->status = 0;
         $user->save();
 
-        return back()->with("success", "Post deleted and user blocked.");
+        return back()->with("success", "Video deleted and user blocked.");
     }
 
     public function destroyAndRemoveUser($user_id){

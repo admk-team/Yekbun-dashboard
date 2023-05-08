@@ -46,7 +46,7 @@ use App\Http\Controllers\Admin\UplaodVideoClipController;
 use App\Http\Controllers\Admin\SubCategoryBazarController;
 use App\Http\Controllers\Admin\UploadMovieCategoryController;
 use App\Http\Controllers\Admin\UploadVideoCategoryController;
-
+use App\Models\Story;
 
 /*
 |--------------------------------------------------------------------------
@@ -214,6 +214,13 @@ Route::prefix("/users")->name("users.")->group(function () {
         Route::get('/requests', [EventController::class, 'requests'])->name('requests');
     });
     Route::resource("events", EventController::class);
+
+    // Zarok App
+    Route::prefix('zarok-app')->name('zarok-app.')->group(function () {
+        Route::get('/videos/categories', [CategoryController::class, 'index'])->name('videos.categories.index');
+        Route::get('/videos', [UplaodVideoController::class, 'index'])->name('videos.index');
+        Route::get('/stories', [StoryController::class, 'index'])->name('stories.index');
+    });
 
 
     // News

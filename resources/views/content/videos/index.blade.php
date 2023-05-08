@@ -8,8 +8,15 @@
 
 @section('content')
 
+@php
+if ($app === 'main')
+    $cardsCount = 4;
+else 
+    $cardsCount = 3;
+@endphp
+
 <div class="row g-4 mb-4">
-    <div class="col-sm-6 col-xl-3">
+    <div class="col-sm-6 col-xl-{{ 12 / $cardsCount }}">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between">
@@ -28,7 +35,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6 col-xl-3">
+    <div class="col-sm-6 col-xl-{{ 12 / $cardsCount }}">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between">
@@ -47,7 +54,8 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6 col-xl-3">
+    @if ($app === 'main')
+    <div class="col-sm-6 col-xl-{{ 12 / $cardsCount }}">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between">
@@ -66,7 +74,8 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6 col-xl-3">
+    @endif
+    <div class="col-sm-6 col-xl-{{ 12 / $cardsCount }}">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between">
@@ -109,15 +118,15 @@
             <div class="card mt-3">
                 <div class="card-body p-0 border-none">
                     <div class="list-group" role="tablist">
-                        <a class="list-group-item list-group-item-action" href="?show=all">
+                        <a class="list-group-item list-group-item-action" href="?show=all&app={{ $app }}">
                             <i class='bx bxs-shopping-bags'></i> All Uploaded Video<br>
                             <small class="text-muted">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All user video here</small>
                         </a>
-                        <a class="list-group-item list-group-item-action" href="?show=fanpage">
+                        <a class="list-group-item list-group-item-action" href="?show=fanpage&app={{ $app }}">
                             <i class='bx bxs-shopping-bags'></i> All Live Stream<br>
                             <small class="text-muted">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All Fan Feed here</small>
                         </a>
-                        <a class="list-group-item list-group-item-action" href="?show=reported">
+                        <a class="list-group-item list-group-item-action" href="?show=reported&app={{ $app }}">
                             <i class='bx bxs-shopping-bags'></i> Reported Videos<br>
                             <small class="text-muted">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User Report</small>
                         </a>
@@ -145,7 +154,7 @@
                             <img src="{{ asset('assets/img/avatars/20.png') }}" width="50" height="50" style="border-radius: 50%">
                             <div>
                                 <p class="m-0">{{ $video->title ?? '' }}</p>
-                                <p>{{ $video->created_at->format('d M Y') }} at {{ $video->created_at->format('h:i A') }}</p>
+                                <p class="m-0">{{ $video->created_at->format('d M Y') }} at {{ $video->created_at->format('h:i A') }}</p>
                             </div>
                             <div class="dropup d-none d-sm-block" style="position: absolute; right:20px;">
                                 <button class="btn p-0" type="button" id="sharedList" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -47,6 +47,12 @@ class StoryController extends Controller
     {
         $validated = $request->validated();
 
+        $mediaPath = $validated["thumbnail_path"]?? null; // Get thumbnail path if exists in request
+        if ($request->hasFile('thumbnail')) { // Store actual thumbnail if thumbnail file exists
+            $thumbnailPath = $request->thumbnail->store("/stories", "public");
+            $validated["thumbnail_path"] = $thumbnailPath;
+        }
+
         $mediaPath = $validated["media_path"]?? null; // Get media path if exists in request
         if ($request->hasFile('media')) { // Store actual media if media file exists
             $mediaPath = $request->media->store("/stories", "public");
@@ -91,6 +97,12 @@ class StoryController extends Controller
     {
         $validated = $request->validated();
 
+        $mediaPath = $validated["thumbnail_path"]?? null; // Get thumbnail path if exists in request
+        if ($request->hasFile('thumbnail')) { // Store actual thumbnail if thumbnail file exists
+            $thumbnailPath = $request->thumbnail->store("/stories", "public");
+            $validated["thumbnail_path"] = $thumbnailPath;
+        }
+
         $mediaPath = $validated["media_path"]?? null; // Get media path if exists in request
         if ($request->hasFile('media')) { // Store actual media if media file exists
             $mediaPath = $request->media->store("/stories", "public");
@@ -114,7 +126,11 @@ class StoryController extends Controller
     {
         $story = Story::find($id);
 
-        // Delete Image
+        // Delete thumbnail
+        if ($story->thumbnail_path)
+            Storage::delete($story->thumbnail_path);
+
+        // Delete media
         if ($story->media_path)
             Storage::delete($story->media_path);
 
