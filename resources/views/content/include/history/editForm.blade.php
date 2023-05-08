@@ -1,14 +1,15 @@
-<form id="createForm" method="POST" action="{{ route('history.store') }}" enctype="multipart/form-data">
+<form id="editForm{{ $historys->id }}" method="POST" action="{{ route('history.update', $historys->id) }}" enctype="multipart/form-data">
+    @method('PUT')
     @csrf
     <div class="row">
         <div class="col-lg-12 mx-auto">
             <div class="row g-3">
                 <div class="col-md-12">
-                    <label class="form-label" for="inputCategory">Select Category</label>
-                    <select class="form-select" aria-label="Default select example" id="inputCategory" name="category_id">
+                    <label class="form-label" for="inputCategory{{ $historys->id }}">Select Category</label>
+                    <select class="form-select" aria-label="Default select example" id="inputCategory{{ $historys->id }}" name="category_id">
                         <option selected>Choose Category</option>
                         @foreach($history_category as $history)
-                        <option value="{{ $history->id }}">{{ $history->name ?? '' }}</option>
+                        <option value="{{ $history->id }}" {{ (int)$history->id === (int)$historys->history_category->id? 'selected': '' }}>{{ $history->name ?? '' }}</option>
                         @endforeach
                     </select>
                     @error('category_id')
@@ -16,15 +17,15 @@
                     @enderror
                 </div>
                 <div class="col-md-12">
-                    <label class="form-label" for="inputTitle">Title</label>
-                    <input type="text" id="inputTitle" class="form-control" placeholder="Title" name="title">
+                    <label class="form-label" for="inputTitle{{ $historys->id }}">Title</label>
+                    <input type="text" id="inputTitle{{ $historys->id }}" class="form-control" placeholder="Title" name="title" value="{{ $historys->title }}">
                     @error('title')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="col-md-12">
-                    <label class="form-label" for="inputDescription">Description</label>
-                    <textarea class="form-control" name="description" style="height:150px;" id="inputDescription" placeholder="Type..."></textarea>
+                    <label class="form-label" for="inputDescription{{ $historys->id }}">Description</label>
+                    <textarea class="form-control" name="description" style="height:150px;" id="inputDescription{{ $historys->id }}" placeholder="Type...">{{ $historys->description }}</textarea>
                 </div>
                 <div class="col-md-12">
                     <label class="form-label" for="inputDescription">Images Upload</label>

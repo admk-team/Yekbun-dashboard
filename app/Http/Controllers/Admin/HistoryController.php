@@ -39,14 +39,12 @@ class HistoryController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
-        dd($request->image);
         $request->validate([
             'title' => 'required',
             'category_id'=>'required',
             'description' => 'required',
-            'image'=> 'required',
-            'video'=> 'required'
+            // 'image'=> 'required',
+            // 'video'=> 'required'
           ]);
 
           $history = new History();
@@ -96,7 +94,8 @@ class HistoryController extends Controller
     {
         $history = History::find($id);
         $history->title  = $request->title;
-        $history->language  = $request->language;
+        $history->description  = $request->description;
+        //$history->language  = $request->language;
         $history->category_id = $request->category_id;
         if($history->update()){
             return redirect()->route('history.index')->with('success', 'History Has been Updated');
