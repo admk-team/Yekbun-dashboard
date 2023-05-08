@@ -128,9 +128,9 @@
                         </div>--}}
                     </div>
 
-                    <x-modal id="editModal{{ $historys->id }}" title="Edit History" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $historys->id }}" size="lg">
+                    {{--<x-modal id="editModal{{ $historys->id }}" title="Edit History" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $historys->id }}" size="lg">
                         @include('content.include.history.editForm')
-                    </x-modal>
+                    </x-modal>--}}
                 </td>
             </tr>
             @empty
