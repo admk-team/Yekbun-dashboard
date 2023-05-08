@@ -664,9 +664,7 @@
         </optgroup>
       </select>
       <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#animationModal">
-        Launch modal
-      </button>
+     
 
       <!-- Modal -->
       <div class="modal fade animate__animated fadeIn" id="animationModal" tabindex="-1" aria-hidden="true">
