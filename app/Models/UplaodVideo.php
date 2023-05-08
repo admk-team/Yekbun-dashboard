@@ -13,7 +13,8 @@ class UplaodVideo extends Model
         'thumbnail',
         'description',
         'video',
-        'category_id'
+        'category_id',
+        'app'
     ];
 
     public function videocategory(){

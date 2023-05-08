@@ -7,9 +7,23 @@
         <div class="col-lg-12 mx-auto">
             <div class="row g-3">
                 <div class="col-md-12">
-                    <label class="form-label" for="inputName{{ $story->id }}">Title</label>
-                    <input type="text" id="inputName{{ $story->id }}" name="name" class="form-control" value="{{ old('name')?? $story->name }}" placeholder="Story Title">
-                    @error('name')
+                    <label class="form-label" for="inputTitle{{ $story->id }}">Title</label>
+                    <input type="text" id="inputTitle{{ $story->id }}" name="title" class="form-control" value="{{ old('title')?? $story->title }}" placeholder="Story Title">
+                    @error('title')
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label" for="inputMedia{{ $story->id }}">Thumbnail</label>
+                    <input type="file" id="inputMedia{{ $story->id }}" name="thumbnail" class="form-control" value="{{ old('thumbnail') }}" accept="image/png, image/gif, image/jpeg">
+                    @error('thumbnail')
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label" for="inputMedia{{ $story->id }}">Media</label>
+                    <input type="file" id="inputMedia{{ $story->id }}" name="media" class="form-control" value="{{ old('media') }}" accept="video/*">
+                    @error('media')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>

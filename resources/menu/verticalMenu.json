@@ -261,10 +261,32 @@
       ]
     },
     {
-      "url": "app/schools",
       "name": "Zarok App",
       "icon": "menu-icon tf-icons fa fa-graduation-cap",
-      "slug": "app-school"
+      "slug": "zarok-app",
+      "submenu": [
+        {
+          "name": "Add Videos",
+          "slug": "zarok-app.videos",
+          "submenu": [
+            {
+              "url": "/zarok-app/videos/categories?target=zarok-app-videos&hide-target=1",
+              "name": "Add Category",
+              "slug": "zarok-app.categories.index"
+            },
+            {
+              "url": "/zarok-app/videos?app=zarok",
+              "name": "Add Videos",
+              "slug": "zarok-app.videos.index"
+            }
+          ]
+        },
+        {
+          "url": "/zarok-app/stories?app=main",
+          "name": "Add Stories",
+          "slug": "zarok-app.stories.index"
+        }
+      ]
     },
     {
       "name": "Events",

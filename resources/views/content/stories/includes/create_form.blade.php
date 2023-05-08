@@ -13,8 +13,15 @@
                     @enderror
                 </div>
                 <div class="col-md-12">
+                    <label class="form-label" for="inputMedia">Thumbnail</label>
+                    <input type="file" id="inputMedia" name="thumbnail" class="form-control" value="{{ old('thumbnail') }}" accept="image/png, image/gif, image/jpeg">
+                    @error('thumbnail')
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="col-md-12">
                     <label class="form-label" for="inputMedia">Media</label>
-                    <input type="file" id="inputMedia" name="media" class="form-control" value="{{ old('media') }}">
+                    <input type="file" id="inputMedia" name="media" class="form-control" value="{{ old('media') }}" accept="video/*">
                     @error('media')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror

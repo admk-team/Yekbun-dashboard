@@ -96,16 +96,16 @@
             // Multiple Dropzone
 
             const dropzoneMulti = new Dropzone('#dropzone-img', {
-                previewTemplate: previewTemplate
-                , parallelUploads: 1
-                , maxFilesize: 5
-                , addRemoveLinks: true
+                previewTemplate: previewTemplate,
+                parallelUploads: 1,
+                maxFilesize: 5,
+                addRemoveLinks: true
             });
             const dropzoneMulti1 = new Dropzone('#dropzone-video', {
-                previewTemplate: previewTemplate
-                , parallelUploads: 1
-                , maxFilesize: 5
-                , addRemoveLinks: true
+                previewTemplate: previewTemplate,
+                parallelUploads: 1,
+                maxFilesize: 5,
+                addRemoveLinks: true
             });
 
 

@@ -136,16 +136,27 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>@php
-                        $rand = ceil(rand(0,9)/10);
+                        $rand = (rand(1,9));
                     @endphp {{ $rand ?? '' }}</td>
-                    <td><img src="{{ asset('storage/'.$bazar->image) }}" height="150"></td>
+                    <td>
+                        @php 
+                        $json = $bazar->image;
+                        $arr  =json_decode($json , true);
+                        @endphp
+                        <img src="{{ asset('storage/'.$arr[0]) }}" height="150">
+                    </td>
                     <td>{{ $bazar->user_name ?? '' }}</td>
                     <td>{{ $bazar->bazar_category->name ?? '' }}</td>
+                    <td>subcategory 01</td>
                  
 
                     <td>
 
-                        <div class="d-flex justify-content-start align-items-center">
+                        <div class="d-flex">
+                            <span data-bs-toggle="modal" data-bs-target="#viewbazarModal{{ $bazar->id }}">
+                                <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="View"><i class='bx bx-show'></i></button>
+                            </span>
+
                             <span data-bs-toggle="modal" data-bs-target="#editbazarModal{{ $bazar->id }}">
                                 <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button>
                             </span>
@@ -158,6 +169,10 @@
                         </div>
                         <x-modal id="editbazarModal{{ $bazar->id }}" title="Edit Bazar" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $bazar->id }}" size="md">
                             @include('content.include.bazar.editForm')
+                        </x-modal>
+                        {{-- view modal --}}
+                        <x-modal id="viewbazarModal{{ $bazar->id }}" title="View Items" saveBtnText="Edit" saveBtnType="button" saveBtnForm="viewForm{{ $bazar->id }}" size="lg">
+                            @include('content.include.bazar.viewForm')
                         </x-modal>
                     </td>
                 </tr>
@@ -228,4 +243,19 @@
 
 </script>
 @endsection
+
+{{-- <script>
+    const categories = {
+    @foreach ($categories as $category)
+      {{ $category->id }}: [
+        @foreach ($category->sub_categories as $c)
+          {
+            id: {{ $c->id }}
+            name: {{ $c->name }}
+          },
+        @endforeach
+      ]
+    @endforeach
+  };
+</script> --}}
 @endsection
