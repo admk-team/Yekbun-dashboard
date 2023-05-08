@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    public $casts =["image" => "array"];
     /**
      * Run the migrations.
      *
@@ -16,10 +17,11 @@ return new class extends Migration
         Schema::create('bazars', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
-            $table->string('user_name')->nullable();
+            $table->integer('user_id')->nullable();
             $table->integer('category_id')->nullable();
-            $table->string('image')->nullable();
-            $table->string('description')->nullable();
+            $table->json('image')->nullable();
+            $table->bigInteger('price')->nullable();
+            $table->integer('warranty')->nullable();
             $table->integer('status')->default(1);
             $table->timestamps();
         });

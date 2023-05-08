@@ -39,22 +39,29 @@ class BazarController extends Controller
      */
     public function store(Request $request)
     {
-   
         $request->validate([
             'title' => 'required',
             'image'=>'required'
           ]);
 
           $bazar = new Bazar();
-          $bazar->title  = $request->title;
-          $bazar->user_name  = $request->user_name;
           $bazar->category_id = $request->category_id;
-          $bazar->description = $request->description;
-
-          if($request->hasFile('image')){
-            $path = $request->file('image')->store('/images/bazar/' , 'public');
-            $bazar->image = $path;
+          $bazar->title  = $request->title;
+          $images = collect([]);
+          foreach($request->file('image') as $value){
+             $path = $value->store('/images/bazar/img' , 'public');
+             $images->push($path);
           }
+          $bazar->image = $images;
+        //   if($request->hasFile('image')){
+        //     $path = $request->file('image')->store('/images/bazar/' , 'public');
+        //     $bazar->image = $path;
+        //   }
+          $bazar->user_id  = auth()->user()->id ?? null;
+          $bazar->price = $request->price;
+          $bazar->status = $request->status;
+          $bazar->warranty = $request->warranty;
+
           if($bazar->save()){
             return redirect()->route('bazar.index')->with('success', 'Bazar Has been inserted');
         }else{
@@ -97,20 +104,27 @@ class BazarController extends Controller
     {
         $bazar = Bazar::findorFail($id);
         $bazar->title = $request->title;
-        $bazar->user_name = $request->user_name;
         $bazar->category_id = $request->category_id;
-        $bazar->description = $request->description;
+        $bazar->title = $request->title;
+        $bazar->warranty =  $request->warranty;
+        $bazar->status = $request->status;
+        $images = collect([]);
 
   
         if($request->hasFile('image')){
+            foreach($request->file('image') as $value){
            if(isset($bazar->image)){
                $image_path  = public_path('storage/'.$bazar->image);
                if(file_exists($image_path)){
                    unlink($image_path);
                }
-               $path = $request->file('image')->store('/images/bazar/' , 'public');
-               $bazar->image = $path;
+               $path = $value->store('/images/bazar/img' , 'public');
+               $images->push($path);
            }
+        }
+        $bazar->image = $images;
+        }else{
+            $bazar->image = $bazar->image ?? '';
         }
 
         if($bazar->update()){
