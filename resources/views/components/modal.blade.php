@@ -16,9 +16,13 @@ $uid = uniqid();
             </div>
             @if ($showFooter)
             <div class="modal-footer">
-                <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">{{ $closeBtnText?? 'Close' }}</button>
-                @if ($showSaveBtn)
-                    <button type="{{ $saveBtnType?? 'button' }}" form="{{ $saveBtnForm }}" class="{{ $saveBtnClass? $saveBtnClass:'btn btn-primary' }}" onclick="{{ $onSaveBtnClick }}">{{ $saveBtnText?? 'Save changes' }}</button>
+                @if (isset($footer))
+                    {{ $footer }}
+                @else
+                    <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">{{ $closeBtnText?? 'Close' }}</button>
+                    @if ($showSaveBtn)
+                        <button type="{{ $saveBtnType?? 'button' }}" form="{{ $saveBtnForm }}" class="{{ $saveBtnClass? $saveBtnClass:'btn btn-primary' }}" onclick="{{ $onSaveBtnClick }}">{{ $saveBtnText?? 'Save changes' }}</button>
+                    @endif
                 @endif
             </div>
             @endif
