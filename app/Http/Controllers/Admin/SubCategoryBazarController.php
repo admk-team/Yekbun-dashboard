@@ -45,6 +45,8 @@ class SubCategoryBazarController extends Controller
         $model = new SubCategoryBazar();
         $model->category_id = $request->category_id;
         $model->name = $request->name;
+        $model->city = $request->city;
+        $model->state = $request->state;
         if($model->save()){
             return redirect()->route('bazar-category.index');
         }

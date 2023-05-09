@@ -43,8 +43,6 @@
                 <tr>
                     <th>#</th>
                     <th>Artist Image</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -53,14 +51,18 @@
                 @foreach($artist as $artists)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>
+                    <td><div class="d-flex justify-content-start align-items-center user-name">
                         <div class="avatar-wrapper">
-                            <div class="avatar avatar-sm me-3">
-                                <img src="{{ asset('storage/'.$artists->image) }}" alt="Avatar" class="rounded-circle">
-                            </div>
-                          </div>
-                    <td>{{ $artists->first_name ?? '' }}</td>
-                    <td>{{ $artists->last_name ?? '' }}</td>
+                          <div class="avatar avatar-sm me-3"><img src="{{asset('storage/'.$artists->image )}}" alt="Avatar" class="rounded-circle"></div>
+                        </div>
+                        <div class="d-flex flex-column">
+                          <a href="javascript:void(0)" class="text-body text-truncate">
+                            <span class="fw-semibold">{{ $artists->first_name ?? '' }}</span>
+                          </a>
+                          <small class="text-muted">{{ $artists->last_name ?? '' }}</small>
+                        </div>
+                      </div></td>
+         
            
 
     <td>

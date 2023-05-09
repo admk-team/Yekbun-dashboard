@@ -10099,6 +10099,7 @@ form select.selectpicker.is-invalid ~ .btn {
   top: auto;
   bottom: 0.75rem;
   opacity: 1;
+
 }
 .modal-onboarding .carousel-control-prev {
   left: 1rem;

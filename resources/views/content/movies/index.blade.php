@@ -34,14 +34,14 @@
 
   <!-- Basic Bootstrap Table -->
   <div class="card">
-    <h5 class="card-header">Table Basic</h5>
+    <h5 class="card-header">List of Movies</h5>
     <div class="table-responsive text-nowrap">
       <table class="table">
         <thead>
           <tr>
             <th>#</th>
             <th>Thumbnail</th>
-            <th>Letters</th>
+            {{-- <th>Letters</th> --}}
             <th>Video title</th>
             <th>Actions</th>
           </tr>
@@ -51,11 +51,9 @@
           <tr>
             <td>{{ $loop->iteration }}</td>
             <td>
-              <div class="avatar-wrapper">
-                <div class="avatar avatar-sm me-3"><img src="{{ asset('storage/'.$movie->thumbnail) }}" alt="Avatar" class="rounded-circle"></div>
-              </div>
+              <img src="{{ asset('storage/'.$movie->thumbnail) }}" alt="Avatar" class="rounded" width="100" height="100">
             </td>
-            <td>{{ \Illuminate\Support\Str::random(5) }}</td>
+            {{-- <td>{{ \Illuminate\Support\Str::random(5) }}</td> --}}
             <td>{{ $movie->title ?? '' }}</td>
           
               @php

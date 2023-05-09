@@ -27,13 +27,13 @@
                 <div class="col-md-12">
                     <label class="form-label" for="fullname">Audio</label>
                     <input type="file" name="audio[]" class="form-control" id="audioFile{{ $musics->id }}" accept="audio/*" multiple />
-                    @foreach($arr as $key => $value)
+                    {{-- @foreach($arr as $key => $value)
                     <?php
                       $getaudio = $value ?? null; 
                     ?>
                     <audio controls>
                         <source src="{{ asset('storage/'.$getaudio)}}" /></audio><br>
-                    @endforeach
+                    @endforeach --}}
                     @error('audio')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
