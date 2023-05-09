@@ -79,13 +79,35 @@ class Modal extends Component
         return view('components.modal');
     }
 
-    public function footer()
+    public function footerDefault()
     {
         return Blade::render('<button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">{{ $closeBtnText?? \'Close\' }}</button>
         @if ($showSaveBtn)
             <button type="{{ $saveBtnType?? \'button\' }}" form="{{ $saveBtnForm }}" class="{{ $saveBtnClass? $saveBtnClass:\'btn btn-primary\' }}" onclick="{{ $onSaveBtnClick }}">{{ $saveBtnText?? \'Save changes\' }}</button>
         @endif', [
             "closeBtnText" => $this->closeBtnText,
+            "showSaveBtn" => $this->showSaveBtn,
+            "saveBtnType" => $this->saveBtnType,
+            "saveBtnForm" => $this->saveBtnForm,
+            "saveBtnClass" => $this->saveBtnClass,
+            "onSaveBtnClick" => $this->onSaveBtnClick,
+            "saveBtnText" => $this->saveBtnText,
+        ]);
+    }
+
+    public function closeBtn()
+    {
+        return Blade::render('<button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">{{ $closeBtnText?? \'Close\' }}</button>', [
+            "closeBtnText" => $this->closeBtnText,
+        ]);
+    }
+
+    public function saveBtn()
+    {
+        return Blade::render('
+        @if ($showSaveBtn)
+            <button type="{{ $saveBtnType?? \'button\' }}" form="{{ $saveBtnForm }}" class="{{ $saveBtnClass? $saveBtnClass:\'btn btn-primary\' }}" onclick="{{ $onSaveBtnClick }}">{{ $saveBtnText?? \'Save changes\' }}</button>
+        @endif', [
             "showSaveBtn" => $this->showSaveBtn,
             "saveBtnType" => $this->saveBtnType,
             "saveBtnForm" => $this->saveBtnForm,

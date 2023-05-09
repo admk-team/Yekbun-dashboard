@@ -130,6 +130,8 @@
             <tr>
               <th>User ID</th>
               <th>User</th>
+              <th>Device Type</th>
+              <th>Device IMEI</th>
               <th>Join</th>
               <th>Reports</th>
               <th>Status</th>
@@ -153,6 +155,8 @@
                   </div>
                 </div>
               </td>
+              <td>{{ $user->device_type }}</td>
+              <td>{{ $user->device_imei }}</td>
               <td>{{ $user->created_at->format('F jS, Y') }}</td>
               <td>{{ $user->reports->count() }}</td>
               <td>
