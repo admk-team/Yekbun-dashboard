@@ -8786,6 +8786,9 @@ html:not([dir=rtl]) .input-group > .btn-group:last-child > .btn:not([class*=btn-
   padding: 1.5rem;
   border-radius: 0.375rem;
 }
+.tabcontent--1{
+  padding:0px !important;
+}
 
 .nav-scrollable {
   display: -webkit-inline-box;
@@ -24600,3 +24603,22 @@ a.bg-vimeo:hover, a.bg-vimeo:focus {
 .footer.bg-lighter hr {
   border-color: rgba(105, 122, 141, 0.076604902);
 }
+.feeds_icons{
+  transition:all 400ms linear;
+}
+.feeds_icons:hover{
+  color:#5596e6;
+  cursor:pointer;
+}
+.comments_section{
+  cursor: pointer;
+}
+.comments_section{
+   color : #5596e6;
+}
+.hr__commemnts{
+  color: #5596e6;
+  width: 113%;
+}
+
+

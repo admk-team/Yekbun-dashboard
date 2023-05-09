@@ -76,7 +76,7 @@
             <div class="modal-body">
                 <div class="row">
                         <div class="col-12 mb-3">
-                            <label for="nameLarge" class="form-label">Name</label>
+                            <label for="nameLarge" class="form-label">Category</label>
                             <select class="form-select" name="category_id">
                                 <option>Select Category</option>
                                 @foreach($bazar_category as $bazar)
@@ -88,8 +88,14 @@
                             <label for="nameLarge" class="form-label">Name</label>
                             <input type="text" id="nameLarge" class="form-control" placeholder="Enter Name" name="name">
                         </div>
-                    
-                   
+                        <div class="col-12 mb-3">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" class="form-control" name="city" placeholder="City" />
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="state" class="form-label">State</label>
+                            <input type="text" class="form-control" name="state" placeholder="State" />
+                        </div>
                 </div>
             </div>
             <div class="modal-footer">

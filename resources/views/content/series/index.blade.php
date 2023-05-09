@@ -53,10 +53,7 @@
           <tr>
             <td>{{ $loop->iteration }}</td>
             <td>
-
-              <div class="avatar-wrapper">
-                <div class="avatar avatar-sm me-3"><img src="{{ asset('storage/'.$serie->thumbnail) }}" alt="Avatar" class="rounded-circle"></div>
-              </div>
+              <img src="{{ asset('storage/'.$serie->thumbnail) }}" alt="Avatar" class="rounded" width="100" height="100">
             <td>{{ \Illuminate\Support\Str::random(5) }}</td>
             <td>{{ $serie->title ?? '' }}</td>
         

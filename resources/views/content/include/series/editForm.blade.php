@@ -47,6 +47,15 @@
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+
+                <div class="col-md-12">
+                    <label class="form-label" for="fullname">Status</label>
+                    <select class="form-select" name="status">
+                      <option value="0" {{ $serie->status == 0 ? 'selected' : '' }}>Unpublish</option>
+                      <option value="1" {{ $serie->status == 1 ? 'selected' : '' }}>Publish</option>
+                    </select>
+
+                </div>
            
            
             </div>

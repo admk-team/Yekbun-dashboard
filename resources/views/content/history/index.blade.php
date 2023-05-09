@@ -28,6 +28,9 @@
 @endsection
 
 @section('content')
+<script>
+    const dropZoneInitFunctions = [];
+</script>
 
 <div class="row g-4 mb-4">
     <div class="col-sm-6 col-xl-6">
@@ -277,4 +280,10 @@
     });
   }
 </script>
+<script>
+    function drpzone_init() {
+        dropZoneInitFunctions.forEach(callback => callback());
+    }
+</script>
+<script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js" onload="drpzone_init()"></script>
 @endsection

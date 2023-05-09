@@ -40,7 +40,7 @@
                 <div class="col-md-12">
                     <label class="form-label" for="fullname">Image</label>
                     <input type="file" id="fullname" class="form-control" name="image">
-                    <img src="{{ asset('storage/'.$artists->image) }}" height="150" width="300" class="mt-1">
+                    {{-- <img src="{{ asset('storage/'.$artists->image) }}" height="150" width="300" class="mt-1"> --}}
                 </div>
             </div>
         </div>

@@ -49,6 +49,7 @@ class SeriesController extends Controller
         $serie->title = $request->title;
         $serie->description = $request->description;
         $serie->category_id = $request->category_id;
+        $serie->status = $request->status;
         $series = collect([]);
 
         if($request->hasFile('thumbnail')){
@@ -106,6 +107,7 @@ class SeriesController extends Controller
         $serie->title = $request->title;
         $serie->description = $request->description;
         $serie->category_id = $request->category_id;
+        $serie->status = $request->status;
         $series = collect([]);
 
         if($request->hasFile('thumbnail')){

@@ -478,37 +478,81 @@ $navbarDetached = ($navbarDetached ?? '');
     <div class="modal fade" id="livestreammodel" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Publish</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Album</a>
-                    </li>
-                    <li class="nav-item">
-                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#onboardingSlideModal">Video</button>
-                    </li>
-                </ul>
-                <div class="modal-body">
-                    <div class="row">
-                        <form method="POST" action="{{ route('news-category.store') }}">
-                            @csrf
-                            <div class="col-12 d-flex">
-                                <div>
-                                    <img src="{{ asset('assets/img/avatars/1.png') }}" width="80" class="rounded-circle">
-                                </div>
-                                <textarea type="text" id="nameLarge" class="form-control border-0" placeholder="Write Something here" name="news_category"></textarea>
-                            </div>
-                        </form>
-                        <div class="col-12 d-flex" style="margin-top:100px; border-top:1px solid #f7f7f7 ">
-                            <button class="btn " style="background-color:#f7f7f7; border-radius:500px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera">
-                                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                                    <circle cx="12" cy="13" r="4"></circle>
-                                </svg>Media</button>
-                            <button class="btn " style="background-color:#f7f7f7; border-radius:500px;"><img src={{ asset('assets/img/emoji-1.svg') }} width="25">Activity</button>
-                            <button class="btn " style="background-color:#f7f7f7; border-radius:500px;"><i class='bx bx-dots-horizontal-rounded '></i></button>
-                        </div>
+                <div class="col-xl-6">
+                    <div class="nav-align-top mb-4">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">Publish</button>
+                            </li>
+                            <li class="nav-item">
+                                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-profile" aria-controls="navs-top-profile" aria-selected="false">Album</button>
+                            </li>
+                            <li class="nav-item">
+                                <button type="button" class="nav-link" role="tab" data-bs-toggle="modal" data-bs-target="#onboardingSlideModal" aria-controls="onboardingSlideModal" aria-selected="false">Video</button>
+                            </li>
+                        </ul>
                     </div>
+                </div>
+
+                <div class="modal-body">
+                    <div class="tab-content tabcontent--1">
+                        <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
+                            <div class="row">
+                                <form method="POST" action="{{ route('news-category.store') }}">
+                                    @csrf
+                                    <div class="col-12 d-flex">
+                                        <div>
+                                            <img src="{{ asset('assets/img/avatars/1.png') }}" width="50" class="rounded-circle">
+                                        </div>
+                                        <textarea type="text" id="nameLarge" class="form-control border-0" placeholder="Write Something here" name="news_category"></textarea>
+                                    </div>
+                                </form>
+                                <div class="col-12 " style="display:flex;gap:16px;margin-top:100px; border-top:1px solid #f7f7f7 ">
+                                    <div>
+                                        <button class="btn" style="background-color:#f7f7f7; border-radius:500px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera">
+                                                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                                                <circle cx="12" cy="13" r="4"></circle>
+                                            </svg>&nbsp;Media</button>
+                                    </div>
+                                    <div>
+                                        <button class="btn " style="background-color:#f7f7f7; border-radius:500px;">
+                                            <img src={{ asset('assets/img/emoji-1.svg') }} width="25">&nbsp;Activity</button>
+                                    </div>
+
+                                    <div>
+                                        <button class="btn " style="background-color:#f7f7f7; border-radius:500px;">
+                                            <i class='bx bx-dots-horizontal-rounded '></i></button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="navs-top-profile" role="tabpanel">
+                            <div class="row">
+                                <form method="POST" action="{{ route('news-category.store') }}">
+                                    @csrf
+                                    <div class="col-12 d-flex">
+                                        <div>
+                                            <img src="{{ asset('assets/img/avatars/1.png') }}" width="50" class="rounded-circle">
+                                        </div>
+                                        <textarea type="text" id="nameLarge" class="form-control border-0" placeholder="Write Something here" name="news_category"></textarea>
+                                    </div>
+                                </form>
+                                <div class="col-12" style="display:flex;gap:16px;margin-top:100px; border-top:1px solid #f7f7f7 ">
+                                    <div><button class="btn " style="background-color:#f7f7f7; border-radius:500px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera">
+                                                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                                                <circle cx="12" cy="13" r="4"></circle>
+                                            </svg>&nbsp;Media</button></div>
+                                    <div> <button class="btn " style="background-color:#f7f7f7; border-radius:500px;"><img src={{ asset('assets/img/emoji-1.svg') }} width="25">&nbsp;Activity</button></div>
+                                    <button class="btn " style="background-color:#f7f7f7; border-radius:500px;"><i class='bx bx-dots-horizontal-rounded '></i></button>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>
@@ -542,11 +586,11 @@ $navbarDetached = ($navbarDetached ?? '');
                                 <p>Lorem ipsum sit dolor amet is a dummy text used by the typography industry and the web industry.</p>
                                 <br><br>
                             </div>
-                         <a class="carousel-control-next" href="#modalCarouselControls" role="button" data-bs-slide="next">
-                          <button type="button" class="btn btn-primary">
-                            Next
-                          </button>
-                          </a>   
+                            <a class="carousel-control-next" href="#modalCarouselControls" role="button" data-bs-slide="next">
+                                <button type="button" class="btn btn-primary">
+                                    Next
+                                </button>
+                            </a>
                         </div>
                         <div class="carousel-item">
                             <div class="onboarding-media">
@@ -558,7 +602,7 @@ $navbarDetached = ($navbarDetached ?? '');
                                 <h4 class="onboarding-title text-body">To build your audience</h4>
                                 <div class="onboarding-info">Lorem ipsum sit dolor amet is a dummy text used by the typography industry and the web industry.</div> <br><br>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#animationModal">
-                                  Got it
+                                    Got it
                                 </button>
                             </div>
                         </div>
@@ -569,36 +613,284 @@ $navbarDetached = ($navbarDetached ?? '');
     </div>
     <!--/ slider modal -->
 
-          <!-- Modal -->
-          <div class="modal fade animate__animated fadeIn" id="animationModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-              <div class="modal-content">
+    <!-- Modal -->
+    <div class="modal fade animate__animated fadeIn" id="animationModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel5">Modal title</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="exampleModalLabel5">Go Live</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                  <div class="row">
-                    <div class="col mb-3">
-                      <label for="nameAnimation" class="form-label">Name</label>
-                      <input type="text" id="nameAnimation" class="form-control" placeholder="Enter Name">
+                {{-- <div class="modal-body"> --}}
+                <div class="row ">
+                    <div class="col-md-7">
+                        <div class="video-container">
+                            <iframe width="100%" height="680" src="https://media.istockphoto.com/id/1365258482/video/adaptive-interface-design-video-concept.mp4?s=mp4-640x640-is&k=20&c=tf7tups5Y05BtaiZnfdCfyMrt3lhDbH3sX_H6R8Tji8=">
+                            </iframe>
+                        </div>
                     </div>
-                  </div>
-                  <div class="row g-2">
-                    <div class="col mb-0">
-                      <label for="emailAnimation" class="form-label">Email</label>
-                      <input type="email" id="emailAnimation" class="form-control" placeholder="xxxx@xxx.xx">
+                    <div class="col-md-5">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="d-flex justify-content-start align-items-center user-name ">
+                                    <div class="avatar-wrapper">
+                                        <div class="avatar avatar-sm me-3"><img src="{{asset('assets/img/10.png')}}" alt="Avatar" class="rounded-circle"></div>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <a href="javascript:void(0)" class="text-body text-truncate">
+                                            <span class="fw-semibold">Jenna Devis <span>is live</span></span>
+                                        </a>
+                                        <small class="text-muted">right now</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn border rounded">Follow</button>
+                                <div class="dropup d-none d-sm-block" style="position: absolute; right:10px; top:55px;">
+                                    <button class="btn p-0" type="button" id="sharedList" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="bx bx-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sharedList" style="padding:10px;">
+
+                                        <strong>Who can see this ?</strong>
+                                        <ul class="list-group list-unstyled">
+                                            <li><a>
+                                                    <div class="d-flex justify-content-center align-items-center user-name ">
+                                                        <div class="avatar-wrapper">
+                                                            <div class="avatar avatar-sm me-3 text-center"><i class='bx bx-world'></i></div>
+                                                        </div>
+                                                        <div class="d-flex flex-column">
+                                                            <a href="javascript:void(0)" class="text-body text-truncate">
+                                                                <span class="fw-semibold">Public</span>
+                                                            </a>
+                                                            <small class="text-muted">Anyone can see this publication.</small>
+                                                        </div>
+                                                    </div>
+                                                </a></li>
+                                            <li><a>
+                                                    <div class="d-flex justify-content-center align-items-center user-name ">
+                                                        <div class="avatar-wrapper">
+                                                            <div class="avatar avatar-sm me-3 text-center"><i class='bx bx-group'></i></div>
+                                                        </div>
+                                                        <div class="d-flex flex-column">
+                                                            <a href="javascript:void(0)" class="text-body text-truncate">
+                                                                <span class="fw-semibold">Friends</span>
+                                                            </a>
+                                                            <small class="text-muted">Only Friends can see this publication.</small>
+                                                        </div>
+                                                    </div>
+                                                </a></li>
+                                            <li><a>
+                                                    <div class="d-flex justify-content-center align-items-center user-name ">
+                                                        <div class="avatar-wrapper">
+                                                            <div class="avatar avatar-sm me-3 text-center"><i class='bx bxs-right-arrow-alt'></i></div>
+                                                        </div>
+                                                        <div class="d-flex flex-column">
+                                                            <a href="javascript:void(0)" class="text-body text-truncate">
+                                                                <span class="fw-semibold">Specific Friends</span>
+                                                            </a>
+                                                            <small class="text-muted">Dont Show it to some friends.</small>
+                                                        </div>
+                                                    </div>
+                                                </a></li>
+                                            <hr>
+                                            <li><a>
+                                                    <div class="d-flex justify-content-center align-items-center user-name ">
+                                                        <div class="avatar-wrapper">
+                                                            <div class="avatar avatar-sm me-3 text-center"><i class='bx bxs-user'></i></div>
+                                                        </div>
+                                                        <div class="d-flex flex-column">
+                                                            <a href="javascript:void(0)" class="text-body text-truncate">
+                                                                <span class="fw-semibold">Only me</span>
+                                                            </a>
+                                                            <small class="text-muted">Only me can see this publication.</small>
+                                                        </div>
+                                                    </div>
+                                                </a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-11 mt-4">
+                                <input type="text" class="form-control form-rounded" placeholder="what is this live about?" />
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-8 ">
+                                <span style="margin-left:10px;">
+                                    <i class='bx bx-heart'></i>&nbsp;&nbsp;0</span>
+                                <span style="margin-left:10px;">
+                                    <i class='bx bx-share'></i>&nbsp;&nbsp;0</span>
+                                <span style="margin-left:10px;">
+                                    <i class='bx bx-chat'></i>&nbsp;&nbsp;0</span>
+                            </div>
+
+                            <div class="col-md-4 ">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888da8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>&nbsp;&nbsp;0</span><span>&nbsp;&nbsp;views</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-11">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-3">
+                                <span class="feeds_icons">
+                                    <i class='bx bx-like'></i>&nbsp;Like
+                                </span>
+                            </div>
+                            <div class="col-md-3">
+                                <span class="feeds_icons">
+                                    <i class='bx bx-chat'></i>&nbsp;Comment
+                                </span>
+                            </div>
+                            <div class="col-md-3">
+                                <span class="feeds_icons">
+                                    <i class='bx bx-share'></i>&nbsp;Share
+                                </span>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="dropdown show">
+                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img src="{{asset('assets/img/10.png')}}" alt="Avatar" class="rounded-circle" width="20" height="20">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink" style="padding:10px;">
+                                        <div class="d-flex justify-content-start align-items-center user-name">
+                                            <div class="avatar-wrapper">
+                                                <div class="avatar avatar-sm me-3"><img src="{{asset('assets/img/10.png')}}" alt="Avatar" class="rounded-circle"></div>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <a href="javascript:void(0)" class="text-body text-truncate">
+                                                    <span class="fw-semibold">Jenna Devis <span>is live</span></span>
+                                                </a>
+                                                <small class="text-muted">right now</small>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="d-flex justify-content-start align-items-center user-name">
+                                            <div class="avatar-wrapper">
+                                                <div class="avatar avatar-sm me-3"><img src="{{asset('assets/img/10.png')}}" alt="Avatar" class="rounded-circle"></div>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <a href="javascript:void(0)" class="text-body text-truncate">
+                                                    <span class="fw-semibold">Jenna Devis <span>is live</span></span>
+                                                </a>
+                                                <small class="text-muted">right now</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-5">
+
+                            <div class="col-md-6 ">
+                                <h6 class="comments_section"><a>Comments</a></h6>
+                                <hr class="hr__commemnts">
+                            </div>
+                            <div class="col-md-6">
+                                <h6><a>UpComing</a></h6>
+                                <hr>
+                            </div>
+
+                        </div>
+
+                        <div class="section_feeds overflow-auto" style="height:300px">
+                            <div class="container-fluid">
+                                {{-- item 1 --}}
+                                <div class="row mb-1">
+                                    <div class="col">
+                                        <div class="d-flex justify-content-start align-items-center user-name">
+                                            <div class="avatar-wrapper">
+                                                <div class="avatar avatar-sm me-3"><img src="{{asset('assets/img/10.png')}}" alt="Avatar" class="rounded-circle"></div>
+                                            </div>
+                                            <div class="d-flex flex-column p-2" style="background: #f5f6f7">
+                                                <a href="javascript:void(0)" class="text-body text-truncate">
+                                                    <span class="fw-semibold">Jenna Devis <span>is live</span></span>
+                                                </a>
+                                                <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros</small>
+                                                <span style=" color: #5596e6;">Like</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- item 2 --}}
+                                <div class="row mb-1">
+                                    <div class="col">
+                                        <div class="d-flex justify-content-start align-items-center user-name">
+                                            <div class="avatar-wrapper">
+                                                <div class="avatar avatar-sm me-3"><img src="{{asset('assets/img/10.png')}}" alt="Avatar" class="rounded-circle"></div>
+                                            </div>
+                                            <div class="d-flex flex-column p-2" style="background: #f5f6f7">
+                                                <a href="javascript:void(0)" class="text-body text-truncate">
+                                                    <span class="fw-semibold">Jenna Devis <span>is live</span></span>
+                                                </a>
+                                                <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros</small>
+                                                <span style=" color: #5596e6;">Like</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- item 2 --}}
+                                <div class="row mb-1">
+                                    <div class="col">
+                                        <div class="d-flex justify-content-start align-items-center user-name">
+                                            <div class="avatar-wrapper">
+                                                <div class="avatar avatar-sm me-3"><img src="{{asset('assets/img/10.png')}}" alt="Avatar" class="rounded-circle"></div>
+                                            </div>
+                                            <div class="d-flex flex-column p-2" style="background: #f5f6f7">
+                                                <a href="javascript:void(0)" class="text-body text-truncate">
+                                                    <span class="fw-semibold">Jenna Devis <span>is live</span></span>
+                                                </a>
+                                                <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros</small>
+                                                <span style=" color: #5596e6;">Like</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- item 3 --}}
+                                <div class="row mb-1">
+                                    <div class="col">
+                                        <div class="d-flex justify-content-start align-items-center user-name">
+                                            <div class="avatar-wrapper">
+                                                <div class="avatar avatar-sm me-3"><img src="{{asset('assets/img/10.png')}}" alt="Avatar" class="rounded-circle"></div>
+                                            </div>
+                                            <div class="d-flex flex-column p-2" style="background: #f5f6f7">
+                                                <a href="javascript:void(0)" class="text-body text-truncate">
+                                                    <span class="fw-semibold">Jenna Devis <span>is live</span></span>
+                                                </a>
+                                                <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros</small>
+                                                <span style=" color: #5596e6;">Like</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-11">
+                                <div class="d-flex gap-2">
+                                    <img src="{{asset('assets/img/10.png')}}" alt="Avatar" class="rounded-circle" width="40" height="40">
+                                    <input type="text" class="form-control form-rounded" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col mb-0">
-                      <label for="dobAnimation" class="form-label">DOB</label>
-                      <input type="date" id="dobAnimation" class="form-control" placeholder="DD / MM / YY">
-                    </div>
-                  </div>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-              </div>
+                {{-- </div> --}}
             </div>
-          </div>
+        </div>
+    </div>

@@ -15,6 +15,7 @@ class ArtistController extends Controller
     public function index()
     {
         $artist  = Artist::get();
+        
         return view('content.artist.index' , compact('artist'));
     }
 

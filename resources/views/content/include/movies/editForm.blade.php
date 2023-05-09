@@ -48,6 +48,14 @@
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+
+                <div class="col-md-12">
+                    <label class="form-label" for="status">Status</label>
+                    <select name="status" class="form-select">
+                        <option value="0" {{ $movie->status == 0 ? 'selected' : '' }}>Unpublish</option>
+                        <option value="1" {{ $movie->status == 1 ? 'selected' : '' }}>Publish</option>
+                    </select>
+                </div>
            
              
             </div>

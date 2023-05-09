@@ -10771,6 +10771,7 @@ html:not([dir=rtl]) .modal-top .btn-close:hover {
 .modal-onboarding .carousel-control-next {
   top: auto;
   bottom: 0.75rem;
+  left:241px;
   opacity: 1;
 }
 [dir=rtl] .modal-onboarding .carousel-control-prev,
