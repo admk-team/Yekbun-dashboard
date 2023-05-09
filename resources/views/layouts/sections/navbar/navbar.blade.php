@@ -480,41 +480,51 @@ $navbarDetached = ($navbarDetached ?? '');
             <div class="modal-content">
                 <div class="col-xl-6">
                     <div class="nav-align-top mb-4">
-                      <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item">
-                          <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">Publish</button>
-                        </li>
-                        <li class="nav-item">
-                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-profile" aria-controls="navs-top-profile" aria-selected="false">Album</button>
-                        </li>
-                        <li class="nav-item">
-                          <button type="button" class="nav-link" role="tab" data-bs-toggle="modal" data-bs-target="#onboardingSlideModal" aria-controls="onboardingSlideModal" aria-selected="false">Video</button>
-                        </li>
-                      </ul>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">Publish</button>
+                            </li>
+                            <li class="nav-item">
+                                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-top-profile" aria-controls="navs-top-profile" aria-selected="false">Album</button>
+                            </li>
+                            <li class="nav-item">
+                                <button type="button" class="nav-link" role="tab" data-bs-toggle="modal" data-bs-target="#onboardingSlideModal" aria-controls="onboardingSlideModal" aria-selected="false">Video</button>
+                            </li>
+                        </ul>
                     </div>
-                  </div>
+                </div>
 
                 <div class="modal-body">
-                   
-                    <div class="tab-content">
+                    <div class="tab-content tabcontent--1">
                         <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
                             <div class="row">
                                 <form method="POST" action="{{ route('news-category.store') }}">
                                     @csrf
                                     <div class="col-12 d-flex">
                                         <div>
-                                            <img src="{{ asset('assets/img/avatars/1.png') }}" width="80" class="rounded-circle">
+                                            <img src="{{ asset('assets/img/avatars/1.png') }}" width="50" class="rounded-circle">
                                         </div>
                                         <textarea type="text" id="nameLarge" class="form-control border-0" placeholder="Write Something here" name="news_category"></textarea>
                                     </div>
                                 </form>
-                                <div class="col-12 d-flex" style="margin-top:100px; border-top:1px solid #f7f7f7 ">
-                                    <button class="btn " style="background-color:#f7f7f7; border-radius:500px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera">
-                                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                                            <circle cx="12" cy="13" r="4"></circle>
-                                        </svg>Media</button>
-                                    <button class="btn " style="background-color:#f7f7f7; border-radius:500px;"><img src={{ asset('assets/img/emoji-1.svg') }} width="25">Activity</button>
-                                    <button class="btn " style="background-color:#f7f7f7; border-radius:500px;"><i class='bx bx-dots-horizontal-rounded '></i></button>
+                                <div class="col-12 " style="display:flex;gap:16px;margin-top:100px; border-top:1px solid #f7f7f7 ">
+                                    <div>
+                                        <button class="btn" style="background-color:#f7f7f7; border-radius:500px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera">
+                                                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                                                <circle cx="12" cy="13" r="4"></circle>
+                                            </svg>&nbsp;Media</button>
+                                    </div>
+                                    <div>
+                                        <button class="btn " style="background-color:#f7f7f7; border-radius:500px;">
+                                            <img src={{ asset('assets/img/emoji-1.svg') }} width="25">&nbsp;Activity</button>
+                                    </div>
+
+                                    <div>
+                                        <button class="btn " style="background-color:#f7f7f7; border-radius:500px;">
+                                            <i class='bx bx-dots-horizontal-rounded '></i></button>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -524,23 +534,24 @@ $navbarDetached = ($navbarDetached ?? '');
                                     @csrf
                                     <div class="col-12 d-flex">
                                         <div>
-                                            <img src="{{ asset('assets/img/avatars/1.png') }}" width="80" class="rounded-circle">
+                                            <img src="{{ asset('assets/img/avatars/1.png') }}" width="50" class="rounded-circle">
                                         </div>
                                         <textarea type="text" id="nameLarge" class="form-control border-0" placeholder="Write Something here" name="news_category"></textarea>
                                     </div>
                                 </form>
-                                <div class="col-12 d-flex" style="margin-top:100px; border-top:1px solid #f7f7f7 ">
-                                    <button class="btn " style="background-color:#f7f7f7; border-radius:500px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera">
-                                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                                            <circle cx="12" cy="13" r="4"></circle>
-                                        </svg>Media</button>
-                                    <button class="btn " style="background-color:#f7f7f7; border-radius:500px;"><img src={{ asset('assets/img/emoji-1.svg') }} width="25">Activity</button>
+                                <div class="col-12" style="display:flex;gap:16px;margin-top:100px; border-top:1px solid #f7f7f7 ">
+                                    <div><button class="btn " style="background-color:#f7f7f7; border-radius:500px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera">
+                                                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                                                <circle cx="12" cy="13" r="4"></circle>
+                                            </svg>&nbsp;Media</button></div>
+                                    <div> <button class="btn " style="background-color:#f7f7f7; border-radius:500px;"><img src={{ asset('assets/img/emoji-1.svg') }} width="25">&nbsp;Activity</button></div>
                                     <button class="btn " style="background-color:#f7f7f7; border-radius:500px;"><i class='bx bx-dots-horizontal-rounded '></i></button>
+                                    <div></div>
                                 </div>
                             </div>
                         </div>
-                        
-                      </div>
+
+                    </div>
 
                 </div>
 
