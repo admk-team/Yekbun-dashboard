@@ -27,7 +27,7 @@ class FileController extends Controller
         if (! $request->path) {
             return response('', 400);
         }
-
+        unlink(public_path('storage/' . $request->path));
         if (Storage::delete($request->path)) {
             return [
                 'status' => true

@@ -133,4 +133,30 @@ class HistoryController extends Controller
 
         }
     }
+
+    public function deleteImage(Request $request, $id)
+    {
+        $history = History::find($id);
+        $history->image = array_filter($history->image, function ($path) use ($request) {
+            return !($path === $request->path); 
+        });
+        $history->save();
+        unlink(public_path('storage/' . $request->path));
+        return [
+            'status' => true
+        ];
+    }
+
+    public function deleteVideo(Request $request, $id)
+    {
+        $history = History::find($id);
+        $history->video = array_filter($history->video, function ($path) use ($request) {
+            return !($path === $request->path); 
+        });
+        $history->save();
+        unlink(public_path('storage/' . $request->path));
+        return [
+            'status' => true
+        ];
+    }
 }

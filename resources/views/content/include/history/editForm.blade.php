@@ -1,4 +1,5 @@
-<form id="editForm{{ $historys->id }}" method="POST" action="{{ route('history.update', $historys->id) }}" enctype="multipart/form-data">
+
+<form id="editForm{{ $historys->id }}" class="edit-form" method="POST" action="{{ route('history.update', $historys->id) }}" enctype="multipart/form-data">
     @method('PUT')
     @csrf
     <div class="hidden-inputs">
@@ -142,7 +143,7 @@ dropZoneInitFunctions.push(function () {
                 }
 
                 $.ajax({
-                    url: '{{ route("file.delete") }}',
+                    url: '{{ route("history.delete-image", $historys->id) }}',
                     method: 'delete',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -156,34 +157,37 @@ dropZoneInitFunctions.push(function () {
         });
 
         @foreach ($historys->image as $img)
+            $("document").ready(()=>{
+                var path = "{{ asset('storage/'.$img) }}";
+                imageUrlToFile(path).then((file) => {
+                    file['status'] = "success";
+                    file['previewElement'] = "div.dz-preview.dz-image-preview";
+                    file['previewTemplate'] = "div.dz-preview.dz-image-preview";
+                    file['_removeLink'] = "a.dz-remove";
+                    // file['webkitRelativePath'] = "";
+                    file['width'] = 500;
+                    file['height'] = 500;
+                    file['accepted'] = true;
+                    file['dataURL'] = path;
+                    file['processing'] = true;
+                    file['addPathToDataset'] = true;
+                    dropzoneMulti.on('addedfile', function (file) {
+                        if (file.addPathToDataset)
+                            file.previewElement.dataset.path = '{{ $img }}';
+                    });
+                    file['upload'] = {
+                        bytesSent: 0 ,
+                        progress: 0 ,
+                    };
 
-        $("document").ready(()=>{
-            var path = "{{ asset('storage/'.$img) }}";
-            imageUrlToFile(path).then((file) => {
-                file['status'] = "queued";
-                file['status'] = "queued";
-                file['previewElement'] = "div.dz-preview.dz-image-preview";
-                file['previewTemplate'] = "div.dz-preview.dz-image-preview";
-                file['_removeLink'] = "a.dz-remove";
-                // file['webkitRelativePath'] = "";
-                file['width'] = 500;
-                file['height'] = 500;
-                file['accepted'] = true;
-                file['dataURL'] = path;
-                file['addPathToDataset'] = true;
-                dropzoneMulti.on('addedfile', function (file) {
-                    if (file.addPathToDataset)
-                        file.previewElement.dataset.path = path;
-                })
-
-                dropzoneMulti.emit("addedfile", file , path);
-                dropzoneMulti.emit("thumbnail", file , path);
-                // myDropzone.emit("complete", itemInfo);
-                // myDropzone.options.maxFiles = myDropzone.options.maxFiles - 1;
-                dropzoneMulti.files.push(file);
+                    dropzoneMulti.emit("addedfile", file , path);
+                    dropzoneMulti.emit("thumbnail", file , path);
+                    // myDropzone.emit("complete", itemInfo);
+                    // myDropzone.options.maxFiles = myDropzone.options.maxFiles - 1;
+                    dropzoneMulti.files.push(file);
+                });
             });
-        });
-@endforeach
+        @endforeach
 
         const dropzoneMulti1 = new Dropzone('#dropzone-video{{ $historys->id }}', {
             url: '{{ route('file.upload') }}',
@@ -214,7 +218,7 @@ dropZoneInitFunctions.push(function () {
                 }
 
                 $.ajax({
-                    url: '{{ route("file.delete") }}',
+                    url: '{{ route("history.delete-video", $historys->id) }}',
                     method: 'delete',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -226,6 +230,39 @@ dropZoneInitFunctions.push(function () {
                 return this._updateMaxFilesReachedClass();
             }
         });
+
+        @foreach ($historys->video as $video)
+            $("document").ready(()=>{
+                var path = "{{ asset('storage/'.$video) }}";
+                imageUrlToFile(path).then((file) => {
+                    file['status'] = "queued";
+                    file['status'] = "queued";
+                    file['previewElement'] = "div.dz-preview.dz-image-preview";
+                    file['previewTemplate'] = "div.dz-preview.dz-image-preview";
+                    file['_removeLink'] = "a.dz-remove";
+                    // file['webkitRelativePath'] = "";
+                    file['width'] = 500;
+                    file['height'] = 500;
+                    file['accepted'] = true;
+                    file['dataURL'] = path;
+                    file['addPathToDataset'] = true;
+                    dropzoneMulti1.on('addedfile', function (file) {
+                        if (file.addPathToDataset)
+                            file.previewElement.dataset.path = '{{ $video }}';
+                    });
+                    file['upload'] = {
+                        bytesSent: 0 ,
+                        progress: 0 ,
+                    };
+
+                    dropzoneMulti1.emit("addedfile", file , path);
+                    dropzoneMulti1.emit("thumbnail", file , path);
+                    // myDropzone.emit("complete", itemInfo);
+                    // myDropzone.options.maxFiles = myDropzone.options.maxFiles - 1;
+                    dropzoneMulti1.files.push(file);
+                });
+            });
+        @endforeach
     })
 </script>
 
