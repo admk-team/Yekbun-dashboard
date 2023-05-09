@@ -11,7 +11,14 @@ class History extends Model
     protected $fillable=[
         'title',
         'category_id',
-        'language'
+        'language',
+        'image',
+        'video'
+    ];
+
+    protected $casts = [
+        'image' => 'array',
+        'video' => 'array',
     ];
 
     public function history_category(){

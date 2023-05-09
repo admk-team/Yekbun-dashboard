@@ -24,6 +24,7 @@
 
 @section('vendor-script')
 <script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/jquery-repeater/jquery-repeater.js')}}"></script>
 @endsection
 
 @section('content')
@@ -177,13 +178,13 @@
 <x-modal 
 id="createvotingModal" 
 title="Create Vote"
- saveBtnText="Create" 
- saveBtnType="submit"
-  saveBtnForm="createForm" 
-  size="lg">
-    
+saveBtnText="Create" 
+saveBtnType="submit"
+saveBtnForm="createForm" 
+size="lg">
  @include('content.include.voting.createForm')
 </x-modal>
+
 
 <script src="{{asset('assets/vendor/libs/quill/katex.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/quill/quill.js')}}"></script>
@@ -279,5 +280,62 @@ title="Create Vote"
       }
     });
   }
+</script>
+
+<script>
+// bootstrap-maxlength & repeater (jquery)
+$(function () {
+  //var maxlengthInput = $('.bootstrap-maxlength-example'),
+    var formRepeater = $('.form-repeater');
+
+  // Bootstrap Max Length
+  // --------------------------------------------------------------------
+//   if (maxlengthInput.length) {
+//     maxlengthInput.each(function () {
+//       $(this).maxlength({
+//         warningClass: 'label label-success bg-success text-white',
+//         limitReachedClass: 'label label-danger',
+//         separator: ' out of ',
+//         preText: 'You typed ',
+//         postText: ' chars available.',
+//         validate: true,
+//         threshold: +this.getAttribute('maxlength')
+//       });
+//     });
+//   }
+
+  // Form Repeater
+  // ! Using jQuery each loop to add dynamic id and class for inputs. You may need to improve it based on form fields.
+  // -----------------------------------------------------------------------------------------------------------------
+
+  if (formRepeater.length) {
+    var row = 2;
+    var col = 1;
+    formRepeater.on('submit', function (e) {
+      e.preventDefault();
+    });
+    formRepeater.repeater({
+        // initEmpty: true,
+      show: function () {
+        var fromControl = $(this).find('.form-control, .form-select');
+        var formLabel = $(this).find('.form-label');
+
+        fromControl.each(function (i) {
+          var id = 'form-repeater-' + row + '-' + col;
+          $(fromControl[i]).attr('id', id);
+          $(formLabel[i]).attr('for', id);
+          col++;
+        });
+
+        row++;
+
+        $(this).slideDown();
+      },
+      hide: function (e) {
+        $(this).slideUp(e);
+      }
+    });
+  }
+});
 </script>
 @endsection

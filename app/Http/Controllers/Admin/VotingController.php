@@ -40,7 +40,6 @@ class VotingController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'name' => 'required',
             'image' => 'required',
@@ -48,10 +47,18 @@ class VotingController extends Controller
             'description' => 'required'
           ]); 
 
+          $options = [];
+          if ($request->{'group-a'}) {
+            $options = array_map(function ($option) {
+                return ["title" => $option['option']];
+            }, $request->{'group-a'});
+          }
+
           $vote = new Voting();
           $vote->name = $request->name;
           $vote->category_id = $request->category_id;
           $vote->description = $request->description;
+          $vote->options = $options;
 
           if($request->hasFile('image')){
             $path = $request->file('image')->store('/images/voting/' , 'public');
@@ -103,6 +110,14 @@ class VotingController extends Controller
         $vote->name = $request->name;
         $vote->category_id = $request->category_id;
         $vote->description = $request->description;
+
+        $options = $vote->options;
+        if ($request->{'group-a'}) {
+            $options = array_map(function ($option) {
+                return ["title" => $option['option']];
+            }, $request->{'group-a'});
+        }
+        $vote->options = $options;
 
         if($request->hasFile('image'))
         {
