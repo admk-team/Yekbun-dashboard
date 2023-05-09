@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
+use Illuminate\Support\Facades\Blade;
 
 class Modal extends Component
 {
@@ -76,5 +77,21 @@ class Modal extends Component
     public function render()
     {
         return view('components.modal');
+    }
+
+    public function footer()
+    {
+        return Blade::render('<button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">{{ $closeBtnText?? \'Close\' }}</button>
+        @if ($showSaveBtn)
+            <button type="{{ $saveBtnType?? \'button\' }}" form="{{ $saveBtnForm }}" class="{{ $saveBtnClass? $saveBtnClass:\'btn btn-primary\' }}" onclick="{{ $onSaveBtnClick }}">{{ $saveBtnText?? \'Save changes\' }}</button>
+        @endif', [
+            "closeBtnText" => $this->closeBtnText,
+            "showSaveBtn" => $this->showSaveBtn,
+            "saveBtnType" => $this->saveBtnType,
+            "saveBtnForm" => $this->saveBtnForm,
+            "saveBtnClass" => $this->saveBtnClass,
+            "onSaveBtnClick" => $this->onSaveBtnClick,
+            "saveBtnText" => $this->saveBtnText,
+        ]);
     }
 }
