@@ -26,7 +26,7 @@
                 <div class="col-md-12">
                     <label class="form-label" for="fullname">Image</label>
                     <input type="file" name="image" class="form-control" id="image" />
-                    <img src="{{ asset('storage/'.$albums->image) }}" width="150" height="150"> 
+                    {{-- <img src="{{ asset('storage/'.$albums->image) }}" width="150" height="150">  --}}
                     @error('image')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -34,14 +34,14 @@
                 <div class="col-md-12">
                     <label class="form-label" for="fullname">Album</label>
                     <input type="file" name="album[]" class="form-control" id="audioFile{{ $albums->id }}" multiple />
-                    @foreach($arr as $key=> $value)
+                    {{-- @foreach($arr as $key=> $value)
                     <?php
                       $getalbum  = $value?? null; 
                     ?>
                      <audio controls class="mt-1">
                         <source src="{{ asset('storage/'.$getalbum) }}">
                      </audio><br>
-                    @endforeach
+                    @endforeach --}}
                     @error('album')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror

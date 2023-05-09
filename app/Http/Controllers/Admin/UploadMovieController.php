@@ -50,6 +50,7 @@ class UploadMovieController extends Controller
          $movie->title = $request->title;
         $movie->description = $request->description;
         $movie->category_id = $request->category_id;
+        $movie->status = $request->status;
         $movies = collect([]);
         
         foreach($request->file('movie') as $value){
@@ -110,6 +111,7 @@ class UploadMovieController extends Controller
         $movie->title = $request->title;
         $movie->description = $request->description;
         $movie->category_id = $request->category_id;
+        $movie->status   = $request->status;
         $videos = collect([]);
 
         if($request->hasFile('thumbnail')){
