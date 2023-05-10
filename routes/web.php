@@ -49,8 +49,7 @@ use App\Http\Controllers\Admin\UplaodVideoClipController;
 use App\Http\Controllers\Admin\SubCategoryBazarController;
 use App\Http\Controllers\Admin\UploadMovieCategoryController;
 use App\Http\Controllers\Admin\UploadVideoCategoryController;
-use App\Models\Category;
-use App\Models\Story;
+use App\Http\Controllers\Admin\LanguageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -430,7 +429,12 @@ Route::get('/fanpage-status/{id}/{status}' , [FanPageController::class, 'status'
 // Route::resource('/block-fanpage' , BlockFanPageController::class);
 // Route::get('/blockfanpage-status/{id}/{status}' , [BlockFanPageController::class, 'status'])->name('fanpage.blockfanpage-status');
 
+
+// Language 
+Route::resource('/language' , LanguageController::class);
+
 // Report Page
+
 Route::get('/user-report' , $controller_path . '\report\Report@user_report')->name('user-report');
 Route::get('/user-warning' , $controller_path . '\report\Report@user_warning')->name('user-warning');
 
