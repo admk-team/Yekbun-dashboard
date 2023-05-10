@@ -37,7 +37,22 @@ class LanguageController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+
+        $request->validate([
+            'icon' => 'required',
+            'title' => 'required',
+        ]);
+
+        $language = new Language();
+        $language->icon   = $request->icon;
+        $language->title = $request->title;
+        $language->status = $request->status;
+        if($language->save()) {
+            return redirect()->route('language.index')->with('success', 'Your language has been created successfully.');
+        }else{
+            return redirect()->route('language.index')->with('error', 'Your language has not  been created successfully.');
+
+        }
     }
 
     /**
@@ -69,9 +84,18 @@ class LanguageController extends Controller
      * @param  \App\Models\Language  $language
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Language $language)
+    public function update(Request $request, $id)
     {
-        //
+        $language = Language::find($id);
+        $language->icon   = $request->icon;
+        $language->title = $request->title;
+        $language->status = $request->status;
+        if($language->update()) {
+            return redirect()->route('language.index')->with('success', 'Your language has been updated successfully.');
+        }else{
+            return redirect()->route('language.index')->with('error', 'Your language has not  been updated.');
+
+        }
     }
 
     /**
@@ -80,8 +104,14 @@ class LanguageController extends Controller
      * @param  \App\Models\Language  $language
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Language $language)
+    public function destroy($id)
     {
-        //
+        $language = Language::find($id);
+        if($language->delete()){
+            return redirect()->route('language.index')->with('success', 'Your language has been Deleted successfully.');
+        }else{
+            return redirect()->route('language.index')->with('success', 'Your language has been not deleted.');
+
+        }
     }
 }
