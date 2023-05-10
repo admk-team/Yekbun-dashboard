@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Report::class, 'reported_user_id', 'id');
     }
+
+    public function ads()
+    {
+        return $this->hasMany(Ads::class);
+    }
 }

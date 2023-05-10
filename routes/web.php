@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\user\Diamond;
 use App\Http\Controllers\user\Premium;
@@ -47,6 +48,7 @@ use App\Http\Controllers\Admin\UplaodVideoClipController;
 use App\Http\Controllers\Admin\SubCategoryBazarController;
 use App\Http\Controllers\Admin\UploadMovieCategoryController;
 use App\Http\Controllers\Admin\UploadVideoCategoryController;
+use App\Models\Category;
 use App\Models\Story;
 
 /*
@@ -318,6 +320,14 @@ Route::prefix("/users")->name("users.")->group(function () {
     // Route::get('/managefanpage-status/{id}/{status}' , [ManageFanPageController::class, 'status'])->name('fanpage.managefanpage-status');
     // Route::resource('/block-fanpage' , BlockFanPageController::class);
     // Route::get('/blockfanpage-status/{id}/{status}' , [BlockFanPageController::class, 'status'])->name('fanpage.blockfanpage-status');
+
+    // Ads
+    Route::get('/ads/categories', [CategoryController::class, 'index'])->name('ads.categories.index');
+    Route::get('/ads/requests', [AdController::class, 'requests'])->name('ads.requests');
+    Route::get('/ads/accepted', [AdController::class, 'accepted'])->name('ads.accepted');
+    Route::get('/ads/denied', [AdController::class, 'denied'])->name('ads.denied');
+    Route::resource('/ads' , AdController::class);
+    Route::get('/ads-status/{id}/{status}' , [AdController::class, 'status'])->name('ads-status');
 
     // Report Page
     Route::get('/user-report' , $controller_path . '\report\Report@user_report')->name('user-report');

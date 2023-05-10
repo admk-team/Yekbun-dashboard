@@ -18,9 +18,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $hasSubcategories = request()->has_sub_categories;
         $target = request()->target;
-        $categories = Category::where('target', $target)->get();
-        return view("content.categories.index", compact("categories", "target"));
+        $categories = Category::where('target', $target)
+                            ->whereNull('parent_id')
+                            ->get();
+        return view("content.categories.index", compact("categories", "target", "hasSubcategories"));
     }
 
     /**
