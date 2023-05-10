@@ -1,4 +1,13 @@
+<style>
+    .edit-form .dropzone {
+        display: flex;
+        flex-wrap: wrap;
+    }
 
+    .edit-form .dropzone .dz-message {
+        width: 100%;
+    }
+</style>
 <form id="editForm{{ $historys->id }}" class="edit-form" method="POST" action="{{ route('history.update', $historys->id) }}" enctype="multipart/form-data">
     @method('PUT')
     @csrf
@@ -235,8 +244,7 @@ dropZoneInitFunctions.push(function () {
             $("document").ready(()=>{
                 var path = "{{ asset('storage/'.$video) }}";
                 imageUrlToFile(path).then((file) => {
-                    file['status'] = "queued";
-                    file['status'] = "queued";
+                    file['status'] = "success";
                     file['previewElement'] = "div.dz-preview.dz-image-preview";
                     file['previewTemplate'] = "div.dz-preview.dz-image-preview";
                     file['_removeLink'] = "a.dz-remove";

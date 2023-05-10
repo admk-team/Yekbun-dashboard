@@ -34,7 +34,12 @@
   <div class="card">
     <div class="card-header d-flex align-items-center justify-content-between">
         <h5 class="m-0">{{ !request()->{'hide-target'}? ucfirst(str_replace("-", " ", ($target?? ''))): '' }} Categories List</h5>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal"><i class="bx bx-plus me-0 me-sm-1"></i> Add Category</button>
+        <div class="">
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal"><i class="bx bx-plus me-0 me-sm-1"></i> Add Category</button>
+          @if (isset($hasSubcategories) && $hasSubcategories)
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createSubcategoryModal"><i class="bx bx-plus me-0 me-sm-1"></i> Add Subcategory</button>
+          @endif
+        </div>
     </div>
     <div class="table-responsive text-nowrap">
       <table class="table">
@@ -42,16 +47,21 @@
           <tr>
             <th>#</th>
             <th>Name</th>
+            @if (isset($hasSubcategories) && $hasSubcategories)
+            <th>Subcategory</th>
+            @endif
             <th>Actions</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
           @forelse($categories as $category)
           <tr>
-            <td>{{$loop->iteration}}</td>
+            <td>{{ $category->id }}</td>
             <td>{{ $category->name }}</td>
+            @if (isset($hasSubcategories) && $hasSubcategories)
+            <td><button class="btn btn-sm bg-label-secondary text-dark" data-bs-toggle="modal" data-bs-target="#showSubcategoriesModal{{ $category->id }}">Subcategory</button></td>
+            @endif
             <td>
-
               <div class="d-flex justify-content-start align-items-center gap-1">
                 <span data-bs-toggle="modal" data-bs-target="#editModal{{ $category->id }}">
                     <button class="btn p-0" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button>
@@ -74,11 +84,19 @@
               >
                 @include('content.categories.includes.edit_form')
               </x-modal>
+
+              <x-modal
+                id="showSubcategoriesModal{{ $category->id }}"
+                title="Subcategories"
+                :showSaveBtn="false"
+              >
+                @include('content.categories.includes.subcategories', ['subcategories' => $category->children])
+              </x-modal>
             </td>
           </tr>
           @empty
           <tr>
-            <td class="text-center" colspan="8"><b>No categories found.<b></td>
+            <td class="text-center" colspan="{{ isset($hasSubcategories) && $hasSubcategories? 4: 3 }}"><b>No categories found.<b></td>
           </tr>
           @endforelse
         </tbody>
@@ -97,6 +115,18 @@
     :show="old('showCreateFormModal')? true: false"
   >
     @include('content.categories.includes.create_form')
+  </x-modal>
+
+  <x-modal
+    id="createSubcategoryModal"
+    title="Add Subcategory" 
+    saveBtnText="Create"
+    saveBtnType="submit"
+    saveBtnForm="createSubcategoryForm"
+    size="sm"
+    :show="old('showCreateSubcategoryFormModal')? true: false"
+  >
+    @include('content.categories.includes.create_form', ['enableParentCategory' => true])
   </x-modal>
   @section('page-script')
 <script>
@@ -121,5 +151,6 @@
     }
 
 </script>
+@yield('modals')
 @endsection
 @endsection
