@@ -44,6 +44,7 @@ use App\Http\Controllers\Admin\OnlineCategoryController;
 use App\Http\Controllers\Admin\VotingCategoryController;
 use App\Http\Controllers\laravel_example\UserManagement;
 use App\Http\Controllers\Admin\HistoryCategoryController;
+use App\Http\Controllers\Admin\ServerController;
 use App\Http\Controllers\Admin\UplaodVideoClipController;
 use App\Http\Controllers\Admin\SubCategoryBazarController;
 use App\Http\Controllers\Admin\UploadMovieCategoryController;
@@ -336,6 +337,12 @@ Route::prefix("/users")->name("users.")->group(function () {
 
     // maps
     Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');
+
+    Route::prefix('settings')->name('settings.')->group(function () {
+        // Ftp settings
+        Route::resource('/servers', ServerController::class)->only(['index', 'store', 'update', 'destroy']);
+    });
+    
 });
 Route::resource("events", EventController::class);
 
@@ -430,6 +437,8 @@ Route::get('/user-warning' , $controller_path . '\report\Report@user_warning')->
 
 // maps
 Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');
+
+
 
 
 
