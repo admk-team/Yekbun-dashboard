@@ -1,5 +1,6 @@
 <form id="createForm" method="POST" action="{{ route('history.store') }}" enctype="multipart/form-data">
     @csrf
+    <div class="hidden-inputs"></div>
     <div class="row">
         <div class="col-lg-12 mx-auto">
             <div class="row g-3">
@@ -26,15 +27,15 @@
                     <label class="form-label" for="inputDescription">Description</label>
                     <textarea class="form-control" name="description" style="height:150px;" id="inputDescription" placeholder="Type..."></textarea>
                 </div>
-                <div class="col-md-12">
+                <!-- <div class="col-md-12">
                     <label class="form-label" for="inputDescription">Images Upload</label>
                     <input type="file" class="form-control" name="image[]" accept="image/*" multiple>
                 </div>
                 <div class="col-md-12">
                     <label class="form-label" for="inputDescription">Video Upload</label>
                     <input type="file" class="form-control" name="video[]" accept="video/*" multiple>
-                </div>
-                <!-- <div class="col-12">
+                </div> -->
+                <div class="col-12">
                     <div class="card">
                         <h5 class="card-header">Images Upload</h5>
                         <div class="card-body">
@@ -63,25 +64,25 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>
 
 </form>
 <script>
-    $(document).on('ready', function () {
-      $('.dz-dropzone').each(function () {
-        // initialization of dropzone file attach module
-        var dropzone = $.HSCore.components.HSDropzone.init('#' + $(this).attr('id'));
-      });
-    });
+    // $(document).on('ready', function () {
+    //   $('.dz-dropzone').each(function () {
+    //     // initialization of dropzone file attach module
+    //     var dropzone = $.HSCore.components.HSDropzone.init('#' + $(this).attr('id'));
+    //   });
+    // });
   </script>
 
 <script>
     'use strict';
 
-    function drpzone_init(){
+    dropZoneInitFunctions.push(function (){
             // previewTemplate: Updated Dropzone default previewTemplate
 
             const previewTemplate = `<div class="dz-preview dz-file-preview">
@@ -104,22 +105,88 @@
             // Multiple Dropzone
 
             const dropzoneMulti = new Dropzone('#dropzone-img', {
+                url: '{{ route('file.upload') }}',
                 previewTemplate: previewTemplate,
                 parallelUploads: 1,
-                maxFilesize: 5,
-                addRemoveLinks: true
+                maxFilesize: 100,
+                addRemoveLinks: true,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                sending: function (file, xhr, formData) {
+                    formData.append('folder', 'history');
+                },
+                success: function (file, response) {
+                    if (file.previewElement) {
+                        file.previewElement.classList.add("dz-success");
+                    }
+                    file.previewElement.dataset.path = response.path;
+                    const hiddenInputsContainer = file.previewElement.closest('form').querySelector('.hidden-inputs');
+                    hiddenInputsContainer.innerHTML += `<input type="hidden" name="image_paths[]" value="${response.path}" data-path="${response.path}">`;
+                },
+                removedfile: function (file) {
+                    const hiddenInputsContainer = file.previewElement.closest('form').querySelector('.hidden-inputs');
+                    hiddenInputsContainer.querySelector(`input[data-path="${file.previewElement.dataset.path}"]`).remove();
+
+                    if (file.previewElement != null && file.previewElement.parentNode != null) {
+                        file.previewElement.parentNode.removeChild(file.previewElement);
+                    }
+
+                    $.ajax({
+                        url: '{{ route("file.delete") }}',
+                        method: 'delete',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        data: {path: file.previewElement.dataset.path},
+                        success: function () {}
+                    });
+                    
+                    return this._updateMaxFilesReachedClass();
+                }
             });
+
             const dropzoneMulti1 = new Dropzone('#dropzone-video', {
+                url: '{{ route('file.upload') }}',
                 previewTemplate: previewTemplate,
                 parallelUploads: 1,
-                maxFilesize: 5,
-                addRemoveLinks: true
+                maxFilesize: 1000,
+                addRemoveLinks: true,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                sending: function (file, xhr, formData) {
+                    formData.append('folder', 'history');
+                },
+                success: function (file, response) {
+                    if (file.previewElement) {
+                        file.previewElement.classList.add("dz-success");
+                    }
+                    file.previewElement.dataset.path = response.path;
+                    const hiddenInputsContainer = file.previewElement.closest('form').querySelector('.hidden-inputs');
+                    hiddenInputsContainer.innerHTML += `<input type="hidden" name="video_paths[]" value="${response.path}" data-path="${response.path}">`;
+                },
+                removedfile: function (file) {
+                    const hiddenInputsContainer = file.previewElement.closest('form').querySelector('.hidden-inputs');
+                    hiddenInputsContainer.querySelector(`input[data-path="${file.previewElement.dataset.path}"]`).remove();
+
+                    if (file.previewElement != null && file.previewElement.parentNode != null) {
+                        file.previewElement.parentNode.removeChild(file.previewElement);
+                    }
+
+                    $.ajax({
+                        url: '{{ route("file.delete") }}',
+                        method: 'delete',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        data: {path: file.previewElement.dataset.path},
+                        success: function () {}
+                    });
+                    
+                    return this._updateMaxFilesReachedClass();
+                }
             });
-
-
-           
-        }
+        });
   </script> 
-
-<script src="{{asset('assets/vendor/libs/dropzone/dropzone.js')}}" onload="drpzone_init()"></script> 
 

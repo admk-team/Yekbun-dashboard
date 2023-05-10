@@ -51,7 +51,9 @@ class HistoryController extends Controller
           $history->title  = $request->title;
           $history->category_id = $request->category_id;
           $history->description = $request->description;
-          $images = collect([]);
+          $history->image = $request->image_paths?? [];
+          $history->video = $request->video_paths?? [];
+          
           if($history->save()){
             return redirect()->route('history.index')->with('success', 'History Has been inserted');
         }else{
@@ -97,6 +99,8 @@ class HistoryController extends Controller
         $history->description  = $request->description;
         //$history->language  = $request->language;
         $history->category_id = $request->category_id;
+        $history->image = $request->image_paths?? [];
+        $history->video = $request->video_paths?? [];
         if($history->update()){
             return redirect()->route('history.index')->with('success', 'History Has been Updated');
         }else{
@@ -128,5 +132,31 @@ class HistoryController extends Controller
             return redirect()->route('history.index')->with('error', 'Status is not changed');
 
         }
+    }
+
+    public function deleteImage(Request $request, $id)
+    {
+        $history = History::find($id);
+        $history->image = array_filter($history->image, function ($path) use ($request) {
+            return !($path === $request->path); 
+        });
+        $history->save();
+        unlink(public_path('storage/' . $request->path));
+        return [
+            'status' => true
+        ];
+    }
+
+    public function deleteVideo(Request $request, $id)
+    {
+        $history = History::find($id);
+        $history->video = array_filter($history->video, function ($path) use ($request) {
+            return !($path === $request->path); 
+        });
+        $history->save();
+        unlink(public_path('storage/' . $request->path));
+        return [
+            'status' => true
+        ];
     }
 }

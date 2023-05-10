@@ -35,6 +35,7 @@ use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\StandardUserController;
 use App\Http\Controllers\Admin\BazarCategoryController;
 use App\Http\Controllers\Admin\EventCategoryController;
+use App\Http\Controllers\Admin\FileController;
 use App\Http\Controllers\Admin\ManageFanPageController;
 use App\Http\Controllers\Admin\MediaCategoryController;
 use App\Http\Controllers\Admin\MusicCategoryController;
@@ -175,6 +176,10 @@ Route::prefix("/users")->name("users.")->group(function () {
         Route::resource("vip", DiamondUserController::class);
     });
 
+    // Files
+    Route::post('file/upload', [FileController::class, 'upload'])->name('file.upload');
+    Route::delete('file/delete', [FileController::class, 'delete'])->name('file.delete');
+
     // Flagged users
     Route::prefix("reports")->name("reports.")->group(function () {
         Route::resource('/flagged-users', FlaggedUserController::class);
@@ -268,7 +273,10 @@ Route::prefix("/users")->name("users.")->group(function () {
     // Events 
     Route::get('/app/events', $controller_path . '\apps\event\Event@index')->name('app-event');
     Route::get('/app/events/add-event', $controller_path . '\apps\event\Event@create')->name('app-event-create');
+    
     // History 
+    Route::delete('/history/{id}/image', [HistoryController::class, 'deleteImage'])->name('history.delete-image');
+    Route::delete('/history/{id}/video', [HistoryController::class, 'deleteVideo'])->name('history.delete-video');
     Route::resource('/history', HistoryController::class);
     Route::get('/history/{id}/{status}' , [HistoryController::class, 'status'])->name('history-status');
 

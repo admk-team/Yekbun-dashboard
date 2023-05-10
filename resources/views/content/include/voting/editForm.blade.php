@@ -51,6 +51,51 @@
                                 <label class="form-label" for="inputDescription{{ $vote->id }}">Description</label>
                                 <textarea class="form-control" name="description" style="height:150px;" id="inputDescription{{ $vote->id }}"></textarea>
                             </div>
+                            <div class="col-md-12 mt-5">
+                                <!-- Form Repeater -->
+                                <div class="form-repeater">
+                                    <div data-repeater-list="group-a">
+                                        @forelse ($vote->options?? [] as $option)
+                                        <div data-repeater-item>
+                                            <div class="row">
+                                                <div class="col-lg-9 col-12 mb-0">
+                                                    <input type="text" id="form-repeater-1-1" class="form-control" name="option" value="{{ $option['title'] }}" placeholder="Option" />
+                                                </div>
+                                                <div class="col-lg-3 col-12 d-flex align-items-center mb-0">
+                                                    <button type="button" class="btn btn-label-danger" data-repeater-delete>
+                                                    <i class="bx bx-x me-1"></i>
+                                                    <span class="align-middle">Delete</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        </div>
+                                        @empty
+                                        <div data-repeater-item>
+                                            <div class="row">
+                                                <div class="col-lg-9 col-12 mb-0">
+                                                    <input type="text" id="form-repeater-1-1" class="form-control" name="option" placeholder="Option" />
+                                                </div>
+                                                <div class="col-lg-3 col-12 d-flex align-items-center mb-0">
+                                                    <button type="button" class="btn btn-label-danger" data-repeater-delete>
+                                                    <i class="bx bx-x me-1"></i>
+                                                    <span class="align-middle">Delete</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        </div>
+                                        @endforelse
+                                    </div>
+                                    <div class="mb-0">
+                                        <button type="button" class="btn btn-primary" data-repeater-create>
+                                            <i class="bx bx-plus me-1"></i>
+                                            <span class="align-middle">Add More Fields</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- /Form Repeater -->
+                            </div>
                         </div>
                     </div>
                 </div>
