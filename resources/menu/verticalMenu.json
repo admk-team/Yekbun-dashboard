@@ -369,6 +369,33 @@
       ]
     },
     {
+      "name": "Advertisement",
+      "icon": "menu-icon tf-icons bx bxs-rocket",
+      "slug": "ads",
+      "submenu": [
+        {
+          "url": "/ads/categories?target=ads&has_sub_categories=1",
+          "name": "Add / Manage Category",
+          "slug": "ads.categories.index"
+        },
+        {
+          "url": "/ads/requests",
+          "name": "Manage New Request",
+          "slug": "ads.requests"
+        },
+        {
+          "url": "/ads/accepted",
+          "name": "Accepted Ads",
+          "slug": "ads.accepted"
+        },
+        {
+          "url": "/ads/denied",
+          "name": "Denied Ads",
+          "slug": "ads.denied"
+        }
+      ]
+    },
+    {
       "menuHeader": "Components"
     },
     {

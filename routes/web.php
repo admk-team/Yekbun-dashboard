@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\user\Diamond;
 use App\Http\Controllers\user\Premium;
@@ -43,6 +44,7 @@ use App\Http\Controllers\Admin\OnlineCategoryController;
 use App\Http\Controllers\Admin\VotingCategoryController;
 use App\Http\Controllers\laravel_example\UserManagement;
 use App\Http\Controllers\Admin\HistoryCategoryController;
+use App\Http\Controllers\Admin\ServerController;
 use App\Http\Controllers\Admin\UplaodVideoClipController;
 use App\Http\Controllers\Admin\SubCategoryBazarController;
 use App\Http\Controllers\Admin\UploadMovieCategoryController;
@@ -319,6 +321,14 @@ Route::prefix("/users")->name("users.")->group(function () {
     // Route::resource('/block-fanpage' , BlockFanPageController::class);
     // Route::get('/blockfanpage-status/{id}/{status}' , [BlockFanPageController::class, 'status'])->name('fanpage.blockfanpage-status');
 
+    // Ads
+    Route::get('/ads/categories', [CategoryController::class, 'index'])->name('ads.categories.index');
+    Route::get('/ads/requests', [AdController::class, 'requests'])->name('ads.requests');
+    Route::get('/ads/accepted', [AdController::class, 'accepted'])->name('ads.accepted');
+    Route::get('/ads/denied', [AdController::class, 'denied'])->name('ads.denied');
+    Route::resource('/ads' , AdController::class);
+    Route::get('/ads-status/{id}/{status}' , [AdController::class, 'status'])->name('ads-status');
+
     // Report Page
     Route::get('/user-report' , $controller_path . '\report\Report@user_report')->name('user-report');
     Route::get('/user-warning' , $controller_path . '\report\Report@user_warning')->name('user-warning');
@@ -326,6 +336,12 @@ Route::prefix("/users")->name("users.")->group(function () {
 
     // maps
     Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');
+
+    Route::prefix('settings')->name('settings.')->group(function () {
+        // Ftp settings
+        Route::resource('/servers', ServerController::class)->only(['index', 'store', 'update', 'destroy']);
+    });
+    
 });
 Route::resource("events", EventController::class);
 
@@ -425,6 +441,8 @@ Route::get('/user-warning' , $controller_path . '\report\Report@user_warning')->
 
 // maps
 Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');
+
+
 
 
 
