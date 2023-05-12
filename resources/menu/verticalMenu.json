@@ -454,19 +454,30 @@
           "slug": "policy"
         },
         {
-          "url": "/standard-user-setting",
-          "name": "Standard User Setting",
-          "slug": "standard-user-setting"
-        },
-        {
-          "url": "/premium-user-setting",
-          "name": "Premium User Setting",
-          "slug": "premium-user-setting"
-        },
-        {
-          "url": "/vip-user-setting",
-          "name": "Vip User Setting",
-          "slug": "vip-user-setting"
+          "name": "User Roles",
+          "slug": "settings.user-roles",
+          "submenu": [
+            {
+              "url": "/settings/user-roles/standard",
+              "name": "Standard User",
+              "slug": "settings.user-roles.standard"
+            },
+            {
+              "url": "/settings/user-roles/premium",
+              "name": "Premium User",
+              "slug": "settings.user-roles.premium"
+            },
+            {
+              "url": "/settings/user-roles/vip",
+              "name": "VIP User",
+              "slug": "settings.user-roles.vip"
+            },
+            {
+              "url": "/settings/user-roles/fanpage",
+              "name": "FanPage",
+              "slug": "settings.user-roles.fanpage"
+            }
+          ]
         },
         {
           "url": "/chat-setting",

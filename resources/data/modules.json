@@ -1,0 +1,38 @@
+[
+    {
+        "name": "post",
+        "label": "Post",
+        "icon": "bx bx-pin",
+        "userPermissions": [
+            {
+                "name": "like",
+                "label": "Like",
+                "values": [
+                    {
+                        "label": "Allowed",
+                        "value": "allowed"
+                    },
+                    {
+                        "label": "Not Allowed",
+                        "value": "not_allowed"
+                    }
+                ]
+            },
+            {
+                "name": "dislike",
+                "label": "Dislike",
+                "values": [
+                    {
+                        "label": "Allowed",
+                        "value": "allowed"
+                    },
+                    {
+                        "label": "Not Allowed",
+                        "value": "not_allowed"
+                    }
+                ]
+            }
+
+        ]
+    }
+]
