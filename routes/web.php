@@ -363,6 +363,7 @@ Route::prefix("/users")->name("users.")->group(function () {
 
         // Save Setting Value via Ajax
         Route::post('/save', [SettingController::class, 'save'])->name('save');
+        Route::post('/save-many', [SettingController::class, 'saveMany'])->name('saveMany');
     });
     
 });

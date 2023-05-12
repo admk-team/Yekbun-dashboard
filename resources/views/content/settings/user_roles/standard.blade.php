@@ -29,227 +29,46 @@
 
 <div class="nav-align-left mb-4">
     <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#post" aria-controls="post"><i class='bx bx-pin'></i> Post</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#music" aria-controls="music"><i class='bx bx-music'></i> Music</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#news" aria-controls="news"><i class='bx bx-rss' ></i> News</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#events" aria-controls="events"><i class='bx bx-calendar'></i> Events</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#videos" aria-controls="videos"><i class='bx bx-calendar'></i> Videos</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#online-shop" aria-controls="navs-left-messages"><i class='bx bx-cart-add' ></i> <span style="white-space: nowrap;">Online Shop</span></button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#bazar" aria-controls="bazar"><i class='bx bx-cart-download' ></i> Bazar</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#history" aria-controls="history"><i class='bx bx-stopwatch' ></i> History</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#media" aria-controls="media"><i class='bx bx-stopwatch' ></i> Media</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#voting" aria-controls="voting"><i class='bx bx-stopwatch' ></i> Voting</button>
-        </li>
+        @foreach ($modules as $module)
+            <li class="nav-item" role="presentation">
+                <button type="button" class="nav-link {{ $loop->first? 'active': '' }}" role="tab" data-bs-toggle="tab" data-bs-target="#{{ $module->name }}" aria-controls="{{ $module->name }}">
+                    <i class='{{ $module->icon }}'></i> {{ $module->label }}
+                </button>
+            </li>
+            @section('tab-page')
+                @parent
+                <div class="tab-pane fade {{ $loop->first? 'active show': '' }}" id="{{ $module->name }}" role="tabpanel">
+                    <h4 class="px-4">{{ $module->label }}</h4>
+                    <!-- <hr class="m-0"> -->
+                    <div class="p-4 pb-0">
+                        <form action="" method="post">
+                            @csrf
+                            <input type="hidden" name="module" value="{{ $module->name }}">
+                            @foreach ($module->userPermissions as $permission)
+                                <div class="mb-3 row">
+                                    <label class="col-md-2 col-form-label">{{ $permission->label }}</label>
+                                    <div class="col-md-5 d-flex align-items-center">
+                                        @if ($permission->inputType === 'select')
+                                            <select class="form-control" data-setting name="{{ $userLevel . '_' . $module->name . '_' . $permission->name }}">
+                                                @foreach ($permission->options as $option)
+                                                    <option value="{{ $option->value }}" {{ $permission->value && $option->value === $permission->value? 'selected': '' }}>{{ $option->label }}</option>
+                                                @endforeach
+                                            </select>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endforeach
+                            <div class="">
+                                <button type="button" class="btn btn-primary" onclick="updateSettings(event)">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            @endsection
+        @endforeach
     </ul>
     <div class="tab-content">
-        <div class="tab-pane fade active show" id="post" role="tabpanel">
-            <h5>Page Settings</h5>
-            <hr class="m-0">
-            <div class="p-4">
-                <form action="" method="post">
-                    @csrf
-                    <input type="hidden" name="name" value="post_module">
-                    <div class="mb-3 row">
-                        <label class="col-md-1 col-form-label">Status</label>
-                        <div class="col-md-11 d-flex align-items-center">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" onclick="confirmSettingUpdate(event)" type="checkbox" {{ $post_module->value === 'true'? 'checked': '' }}>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="tab-pane fade" id="music" role="tabpanel">
-            <h5>Page Settings</h5>
-            <hr class="m-0">
-            <div class="p-4">
-                <form action="" method="post">
-                    @csrf
-                    <input type="hidden" name="name" value="music_module">
-                    <div class="mb-3 row">
-                        <label class="col-md-1 col-form-label">Status</label>
-                        <div class="col-md-11 d-flex align-items-center">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" onclick="confirmSettingUpdate(event)" type="checkbox" {{ $music_module->value === 'true'? 'checked': '' }}>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="tab-pane fade" id="news" role="tabpanel">
-            <h5>Page Settings</h5>
-            <hr class="m-0">
-            <div class="p-4">
-                <form action="" method="post">
-                    @csrf
-                    <input type="hidden" name="name" value="news_module">
-                    <div class="mb-3 row">
-                        <label class="col-md-1 col-form-label">Status</label>
-                        <div class="col-md-11 d-flex align-items-center">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" onclick="confirmSettingUpdate(event)" type="checkbox" {{ $news_module->value === 'true'? 'checked': '' }}>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="tab-pane fade" id="events" role="tabpanel">
-            <h5>Page Settings</h5>
-            <hr class="m-0">
-            <div class="p-4">
-                <form action="" method="post">
-                    @csrf
-                    <input type="hidden" name="name" value="events_module">
-                    <div class="mb-3 row">
-                        <label class="col-md-1 col-form-label">Status</label>
-                        <div class="col-md-11 d-flex align-items-center">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" onclick="confirmSettingUpdate(event)" type="checkbox" {{ $events_module->value === 'true'? 'checked': '' }}>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="tab-pane fade" id="videos" role="tabpanel">
-            <h5>Page Settings</h5>
-            <hr class="m-0">
-            <div class="p-4">
-                <form action="" method="post">
-                    @csrf
-                    <input type="hidden" name="name" value="videos_module">
-                    <div class="mb-3 row">
-                        <label class="col-md-1 col-form-label">Status</label>
-                        <div class="col-md-11 d-flex align-items-center">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" onclick="confirmSettingUpdate(event)" type="checkbox" {{ $videos_module->value === 'true'? 'checked': '' }}>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="tab-pane fade" id="online-shop" role="tabpanel">
-            <h5>Page Settings</h5>
-            <hr class="m-0">
-            <div class="p-4">
-                <form action="" method="post">
-                    @csrf
-                    <input type="hidden" name="name" value="online_shop_module">
-                    <div class="mb-3 row">
-                        <label class="col-md-1 col-form-label">Status</label>
-                        <div class="col-md-11 d-flex align-items-center">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" onclick="confirmSettingUpdate(event)" type="checkbox" {{ $online_shop_module->value === 'true'? 'checked': '' }}>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="tab-pane fade" id="bazar" role="tabpanel">
-            <h5>Page Settings</h5>
-            <hr class="m-0">
-            <div class="p-4">
-                <form action="" method="post">
-                    @csrf
-                    <input type="hidden" name="name" value="bazar_module">
-                    <div class="mb-3 row">
-                        <label class="col-md-1 col-form-label">Status</label>
-                        <div class="col-md-11 d-flex align-items-center">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" onclick="confirmSettingUpdate(event)" type="checkbox" {{ $bazar_module->value === 'true'? 'checked': '' }}>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="tab-pane fade" id="history" role="tabpanel">
-            <h5>Page Settings</h5>
-            <hr class="m-0">
-            <div class="p-4">
-                <form action="" method="post">
-                    @csrf
-                    <input type="hidden" name="name" value="history_module">
-                    <div class="mb-3 row">
-                        <label class="col-md-1 col-form-label">Status</label>
-                        <div class="col-md-11 d-flex align-items-center">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" onclick="confirmSettingUpdate(event)" type="checkbox" {{ $history_module->value === 'true'? 'checked': '' }}>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="tab-pane fade" id="media" role="tabpanel">
-            <h5>Page Settings</h5>
-            <hr class="m-0">
-            <div class="p-4">
-                <form action="" method="post">
-                    @csrf
-                    <input type="hidden" name="name" value="media_module">
-                    <div class="mb-3 row">
-                        <label class="col-md-1 col-form-label">Status</label>
-                        <div class="col-md-11 d-flex align-items-center">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" onclick="confirmSettingUpdate(event)" type="checkbox" {{ $media_module->value === 'true'? 'checked': '' }}>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="tab-pane fade" id="voting" role="tabpanel">
-            <h5>Page Settings</h5>
-            <hr class="m-0">
-            <div class="p-4">
-                <form action="" method="post">
-                    @csrf
-                    <input type="hidden" name="name" value="voting_module">
-                    <div class="mb-3 row">
-                        <label class="col-md-1 col-form-label">Status</label>
-                        <div class="col-md-11 d-flex align-items-center">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" onclick="confirmSettingUpdate(event)" type="checkbox" {{ $voting_module->value === 'true'? 'checked': '' }}>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+        @yield('tab-page')
     </div>
 </div>
 
@@ -278,18 +97,23 @@
         });
     }
 
-    function updateSetting(event) {
+    function updateSettings(event) {
         const self = event.target;
-        const name = self.closest('form').querySelector('[name=name]').value;
-        const value = self.checked? 'true': 'false';
-        console.log(name, value);
+        const userLevel = '{{ $userLevel }}';
+        const form = self.closest('form');
+        const settingInputs = form.querySelectorAll('[data-setting]');
+        const settings = [];
+        settingInputs.forEach(input => {
+            settings.push({
+                name: input.name,
+                value: input.value
+            });
+        });
+
         $.ajax({
-            url: '{{ route('settings.page-settings') }}',
+            url: '{{ route('settings.saveMany') }}',
             method: 'POST',
-            data: {
-                name: name,
-                value: value
-            },
+            data: {settings},
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },

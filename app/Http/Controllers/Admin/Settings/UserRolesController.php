@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Settings;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class UserRolesController extends Controller
@@ -26,9 +27,32 @@ class UserRolesController extends Controller
             $settingNames = array_merge($settingNames, $chunk);
         }
 
-        d
-        
+        // Get settings from database
+        $settings = Setting::whereIn('name', $settingNames)->get();
 
-        return view("content.settings.user_roles.standard", );
+        // Attach values from settings to their respective permissions
+        $modules = array_map(function ($module) use ($userLevel, $settings) {
+            $settingName = $userLevel . "_" . $module->name;
+            $module->userPermissions = array_map(function ($permission) use ($settingName, $settings) {
+                $settingName = $settingName . "_" . $permission->name;
+                $setting = $settings->search(function ($item) use ($settingName) {
+                    return $item->name === $settingName;
+                });
+                if ($setting === false) { // then create one
+                    $setting = Setting::create([
+                        'name' => $settingName,
+                        'value' => $permission->defaultValue?? null
+                    ]);
+                } else {
+                    $setting = $settings->get($setting);
+                }
+                
+                $permission->value = $setting->value;
+                return $permission;
+            }, $module->userPermissions);
+            return $module;
+        }, $modules);
+        
+        return view("content.settings.user_roles.standard", compact("modules", "userLevel"));
     }
 }
