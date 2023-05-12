@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Settings - Payment Methods')
+@section('title', 'Settings - Page Settings')
 
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
@@ -23,7 +23,7 @@
 @section('content')
 <div class="d-flex justify-content-between">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">Settings /</span> Payment Methods
+        <span class="text-muted fw-light">Settings /</span> Page Settings
     </h4>
 </div>
 

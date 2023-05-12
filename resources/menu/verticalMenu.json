@@ -506,9 +506,9 @@
           ]
         },
         {
-          "url": "/banner-setting",
-          "name": "Banner Setting",
-          "slug": "banner-setting"
+          "url": "/settings/pricing",
+          "name": "Pricing",
+          "slug": "settings.pricing"
         },
         {
           "url": "/popup-setting",
