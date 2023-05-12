@@ -42,7 +42,7 @@
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#events" aria-controls="events"><i class='bx bx-calendar'></i> Events</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#videos" aria-controls="videos"><i class='bx bx-calendar'></i> Videos</button>
+            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#videos" aria-controls="videos"><i class='bx bx-video'></i> Videos</button>
         </li>
         <li class="nav-item" role="presentation">
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#online-shop" aria-controls="navs-left-messages"><i class='bx bx-cart-add' ></i> <span style="white-space: nowrap;">Online Shop</span></button>
@@ -54,10 +54,10 @@
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#history" aria-controls="history"><i class='bx bx-stopwatch' ></i> History</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#media" aria-controls="media"><i class='bx bx-stopwatch' ></i> Media</button>
+            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#media" aria-controls="media"><i class='bx bx-tv' ></i> Media</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#voting" aria-controls="voting"><i class='bx bx-stopwatch' ></i> Voting</button>
+            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#voting" aria-controls="voting"><i class='bx bx-check-circle' ></i> Voting</button>
         </li>
     </ul>
     <div class="tab-content">
