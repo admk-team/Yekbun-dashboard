@@ -114,54 +114,52 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                          <div class="card">
-                                            <div class="table-responsive text-nowrap">
-
-                                         
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Type</th>
-                                                        <th scope="col">File</th>
-                                                        <th scope="col">Progress</th>
-                                                        <th scope="col">Done</th>
-                                                        <th scope="col">Total</th>
-                                                        <th scope="col">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="table-border-bottom-0">
-                                                    <tr>
-                                                        <td>Application</td>
-                                                        <td>Main</td>
-                                                        <td>
-                                                            <div class="progress">
-                                                                <div class="progress-bar" role="progressbar" style="width: {{ rand(0,100) }}%;" aria-valuenow="{{ rand(0,100) }}" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </td>
-                                                        <td>{{ rand(0,100) }}</td>
-                                                        <td>{{ rand(0,100) }}</td>
-                                                        <td> <span data-bs-toggle="modal" data-bs-target="#languageModal__1{{ $language->id }}">
-                                                                <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button>
-                                                            </span></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Application</td>
-                                                        <td>Task</td>
-                                                        <td>
-                                                            <div class="progress">
-                                                                <div class="progress-bar" role="progressbar" style="width: {{ rand(0,100) }}%;" aria-valuenow="{{ rand(0,100) }}" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </td>
-                                                        <td>{{ rand(0,100) }}</td>
-                                                        <td>{{ rand(0,100) }}</td>
-                                                        <td> <span data-bs-toggle="modal" data-bs-target="#languageModal__1{{ $language->id }}">
-                                                                <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button>
-                                                            </span></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                          </div>
-                                        </div>
+                                            <div class="card">
+                                                <div class="table-responsive text-nowrap">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">Type</th>
+                                                                <th scope="col">File</th>
+                                                                <th scope="col">Progress</th>
+                                                                <th scope="col">Done</th>
+                                                                <th scope="col">Total</th>
+                                                                <th scope="col">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="table-border-bottom-0">
+                                                            <tr>
+                                                                <td>Application</td>
+                                                                <td>Main</td>
+                                                                <td>
+                                                                    <div class="progress">
+                                                                        <div class="progress-bar" role="progressbar" style="width: {{ rand(0,100) }}%;" aria-valuenow="{{ rand(0,100) }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>{{ rand(0,100) }}</td>
+                                                                <td>{{ rand(0,100) }}</td>
+                                                                <td> <span data-bs-toggle="modal" data-bs-target="#languageModal__1{{ $language->id }}">
+                                                                        <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button>
+                                                                    </span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Application</td>
+                                                                <td>Task</td>
+                                                                <td>
+                                                                    <div class="progress">
+                                                                        <div class="progress-bar" role="progressbar" style="width: {{ rand(0,100) }}%;" aria-valuenow="{{ rand(0,100) }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>{{ rand(0,100) }}</td>
+                                                                <td>{{ rand(0,100) }}</td>
+                                                                <td> <span data-bs-toggle="modal" data-bs-target="#languageModal__1{{ $language->id }}">
+                                                                        <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button>
+                                                                    </span></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
