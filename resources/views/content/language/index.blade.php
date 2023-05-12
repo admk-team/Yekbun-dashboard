@@ -1,6 +1,8 @@
 @extends('layouts/layoutMaster')
 
 @section('title', 'Boxicons - Icons')
+
+
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
 
@@ -53,25 +55,25 @@
             <td>
               @switch($language->icon)
                 @case('AE')
-                  <img src="{{ asset('assets/img/AE.png') }}">
+                  <img src="{{ asset('assets/img/AE.png') }}" class="rounded">
                   @break
                   @case('GB')
-                  <img src="{{ asset('assets/img/GB.png') }}">
+                  <img src="{{ asset('assets/img/GB.png') }}" class="rounded">
                   @break
                   @case('US')
-                  <img src="{{ asset('assets/img/US.png') }}">
+                  <img src="{{ asset('assets/img/US.png') }}" class="rounded">
                   @break
                   @case('FR')
-                  <img src="{{ asset('assets/img/FR.png') }}">
+                  <img src="{{ asset('assets/img/FR.png') }}" class="rounded">
                   @break
                   @case('DE')
-                  <img src="{{ asset('assets/img/DE.png') }}">
+                  <img src="{{ asset('assets/img/DE.png') }}" class="rounded">
                   @break
                   @case('IT')
-                  <img src="{{ asset('assets/img/IT.png') }}">
+                  <img src="{{ asset('assets/img/IT.png') }}" class="rounded">
                   @break
                   @case('ES')
-                  <img src="{{ asset('assets/img/ES.png') }}">
+                  <img src="{{ asset('assets/img/ES.png') }}" class="rounded">
                   @break
                 @default
                   
@@ -103,6 +105,7 @@
        @endif
         </tbody>
       </table>
+     
     </div>
   </div>
  
@@ -136,6 +139,23 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.js"></script>
+<script type="text/javascript">
+  function custom_template(obj){
+            var data = $(obj.element).data();
+            var text = $(obj.element).text();
+            if(data && data['img_src']){
+                img_src = data['img_src'];
+                template = $("<div style=\"display:flex;gap:4px;\"><img src=\"" + img_src + "\" style=\"width:20px;height:20px;border-radius:20px;\"/><p style=\"font-weight: 400;font-size:10pt; margin-top:-5px;\">" + text + "</p></div>");
+                return template;
+            }
+        }
+    var options = {
+        'templateSelection': custom_template,
+        'templateResult': custom_template,
+    }
+    $('#id_select2_example').select2(options);
+    $('.select2-container--default .select2-selection--single').css({'height': '47px'});
 
+</script>
 @endsection
 @endsection
