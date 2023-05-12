@@ -29,6 +29,11 @@ class UserRolesController extends Controller
         return view("content.settings.user_roles", compact("modules", "userLevel"));
     }
 
+    public function fanpage()
+    {
+        return view("content.settings.fanpage");
+    }
+
     protected function getModules($userLevel = 'standard')
     {
         $modules = json_decode(file_get_contents(base_path('resources/data/modules.json')));

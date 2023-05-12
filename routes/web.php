@@ -361,6 +361,7 @@ Route::prefix("/users")->name("users.")->group(function () {
             Route::get('/standard', [UserRolesController::class, 'standard'])->name('standard');
             Route::get('/premium', [UserRolesController::class, 'premium'])->name('premium');
             Route::get('/vip', [UserRolesController::class, 'vip'])->name('vip');
+            Route::get('/fanpage', [UserRolesController::class, 'fanpage'])->name('fanpage');
         });
 
         // Save Setting Value via Ajax
