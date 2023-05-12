@@ -53,6 +53,9 @@ use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\PaymentOfficeController;
 use App\Http\Controllers\Admin\Settings\PageSettingsController;
 use App\Http\Controllers\Admin\Settings\PaymentMethodController;
+use App\Http\Controllers\Admin\Settings\PricingController;
+use App\Http\Controllers\Admin\Settings\SettingController;
+use App\Http\Controllers\Admin\Settings\UserRolesController;
 use App\Http\Controllers\Admin\PolicyAndTermsController;
 
 /*
@@ -354,6 +357,21 @@ Route::prefix("/users")->name("users.")->group(function () {
         // Page Settings
         Route::get('page-settings', [PageSettingsController::class, 'index'])->name('page-settings');
         Route::post('page-settings', [PageSettingsController::class, 'save'])->name('page-settings');
+
+        // User Roles
+        Route::prefix('user-roles')->name('user-roles.')->group(function () {
+            Route::get('/standard', [UserRolesController::class, 'standard'])->name('standard');
+            Route::get('/premium', [UserRolesController::class, 'premium'])->name('premium');
+            Route::get('/vip', [UserRolesController::class, 'vip'])->name('vip');
+            Route::get('/fanpage', [UserRolesController::class, 'fanpage'])->name('fanpage');
+        });
+
+        // Pricing
+        Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
+
+        // Save Setting Value via Ajax
+        Route::post('/save', [SettingController::class, 'save'])->name('save');
+        Route::post('/save-many', [SettingController::class, 'saveMany'])->name('saveMany');
     });
     
 });
