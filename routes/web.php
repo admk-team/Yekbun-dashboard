@@ -50,6 +50,9 @@ use App\Http\Controllers\Admin\SubCategoryBazarController;
 use App\Http\Controllers\Admin\UploadMovieCategoryController;
 use App\Http\Controllers\Admin\UploadVideoCategoryController;
 use App\Http\Controllers\Admin\LanguageController;
+use App\Http\Controllers\Admin\PaymentOfficeController;
+use App\Http\Controllers\Admin\Settings\PageSettingsController;
+use App\Http\Controllers\Admin\Settings\PaymentMethodController;
 
 /*
 |--------------------------------------------------------------------------
@@ -337,9 +340,19 @@ Route::prefix("/users")->name("users.")->group(function () {
     // maps
     Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');
 
+    // Settings
     Route::prefix('settings')->name('settings.')->group(function () {
         // Ftp settings
         Route::resource('/servers', ServerController::class)->only(['index', 'store', 'update', 'destroy']);
+
+        // Payment Offices
+        Route::resource('/payment-offices', PaymentOfficeController::class);
+        // Payment Methods
+        Route::get('/payment-methods', [PaymentMethodController::class, 'index'])->name('payment-methods');
+        Route::post('/payment-methods', [PaymentMethodController::class, 'save'])->name('payment-methods');
+        // Page Settings
+        Route::get('page-settings', [PageSettingsController::class, 'index'])->name('page-settings');
+        Route::post('page-settings', [PageSettingsController::class, 'save'])->name('page-settings');
     });
     
 });
