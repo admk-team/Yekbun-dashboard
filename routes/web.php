@@ -56,6 +56,7 @@ use App\Http\Controllers\Admin\Settings\PaymentMethodController;
 use App\Http\Controllers\Admin\Settings\PricingController;
 use App\Http\Controllers\Admin\Settings\SettingController;
 use App\Http\Controllers\Admin\Settings\UserRolesController;
+use App\Http\Controllers\Admin\PolicyAndTermsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -376,6 +377,9 @@ Route::prefix("/users")->name("users.")->group(function () {
 });
 Route::resource("events", EventController::class);
 
+
+// policy and terms 
+Route::resource('policy_and_terms' , PolicyAndTermsController::class);
 
 // News
 Route::resource('/news' , NewsController::class);

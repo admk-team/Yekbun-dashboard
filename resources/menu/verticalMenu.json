@@ -449,7 +449,7 @@
           "slug": "add-admin"
         },
         {
-          "url": "/policy",
+          "url": "/policy_and_terms",
           "name": "Policy and Terms",
           "slug": "policy"
         },
