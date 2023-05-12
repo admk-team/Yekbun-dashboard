@@ -424,19 +424,24 @@
           "slug": "how-it-work"
         },
         {
-          "url": "/payment-method",
-          "name": "Payment Method",
-          "slug": "payment-method"
+          "name": "Payments Type",
+          "submenu": [
+            {
+              "url": "/settings/payment-offices",
+              "name": "Add / Manage Payment Offices",
+              "slug": "settings.payment-offices.index"
+            },
+            {
+              "url": "/settings/payment-methods",
+              "name": "Payment Methods",
+              "slug": "settings.payment-methods"
+            }
+          ]
         },
         {
-          "url": "/payment-offices",
-          "name": "Payment offices",
-          "slug": "payment-offices"
-        },
-        {
-          "url": "/page-setting",
-          "name": "Page Setting",
-          "slug": "page-setting"
+          "url": "/settings/page-settings",
+          "name": "Page Settings",
+          "slug": "page-settings"
         },
         {
           "url": "/add-admin",
