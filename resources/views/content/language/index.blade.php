@@ -273,7 +273,7 @@
         var text = $(obj.element).text();
         if (data && data['img_src']) {
             img_src = data['img_src'];
-            template = $("<div style=\"display:flex;gap:4px;\"><img src=\"" + img_src + "\" style=\"width:20px;height:20px;border-radius:20px;\"/><p style=\"font-weight: 400;font-size:10pt; margin-top:-5px;\">" + text + "</p></div>");
+            template = $("<div style=\"display:flex;gap:4px;margin-top:10px;\"><img src=\"" + img_src + "\" style=\"width:20px;height:20px;border-radius:20px;\"/><p style=\"font-weight: 400;font-size:10pt; margin-top:-5px;\">" + text + "</p></div>");
             return template;
         }
     }

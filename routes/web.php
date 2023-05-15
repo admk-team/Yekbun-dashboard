@@ -54,6 +54,9 @@ use App\Http\Controllers\Admin\PaymentOfficeController;
 use App\Http\Controllers\Admin\Settings\PageSettingsController;
 use App\Http\Controllers\Admin\Settings\PaymentMethodController;
 use App\Http\Controllers\Admin\PolicyAndTermsController;
+use App\Http\Controllers\Admin\SystemLogController;
+use App\Http\Controllers\Admin\MobileSettingsController;
+use App\Http\Controllers\Admin\SmileyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -205,7 +208,9 @@ Route::prefix("/users")->name("users.")->group(function () {
         Route::get('/categories', [CategoryController::class, 'index'])->name('series.categories.index');
     });
 
-
+// mobile setting s
+Route::resource('mobile-settings', MobileSettingsController::class);
+Route::any('mobile-setting', [MobileSettingsController::class, 'save'])->name('mobile-setting');
     // Donations
     Route::resource('/donations', DonationController::class);
 
@@ -362,6 +367,8 @@ Route::resource("events", EventController::class);
 
 // policy and terms 
 Route::resource('policy_and_terms' , PolicyAndTermsController::class);
+// system logs
+Route::resource('logs' , SystemLogController::class);
 
 // News
 Route::resource('/news' , NewsController::class);
@@ -460,6 +467,7 @@ Route::get('/user-warning' , $controller_path . '\report\Report@user_warning')->
 Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');
 
 
-
+// Smiley 
+Route::resource('/smiley' , SmileyController::class);
 
 
