@@ -63,6 +63,8 @@ use App\Http\Controllers\Admin\Settings\RegionController;
 use App\Http\Controllers\Admin\SystemLogController;
 use App\Http\Controllers\Admin\MobileSettingsController;
 use App\Http\Controllers\Admin\SmileyController;
+use App\Http\Controllers\Admin\RingtoneController;
+use App\Http\Controllers\Admin\ChatSettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -497,5 +499,8 @@ Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('map
 
 // Smiley 
 Route::resource('/smiley' , SmileyController::class);
+Route::resource('/ringtone' , RingtoneController::class);
+Route::resource('/chat-settings' , ChatSettingController::class);
+Route::post('/chat-setting' ,[ChatSettingController::class , 'save'])->name('chat-setting');
 
 
