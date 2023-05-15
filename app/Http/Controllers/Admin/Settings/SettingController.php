@@ -20,7 +20,7 @@ class SettingController extends Controller
 
         $setting = Setting::firstOrCreate(['name' => $name]);
         $setting->value = $value;
-        $setting->description = $description;
+        $setting->description = isset($description)? $description: null;
         $setting->save();
 
         return "1";

@@ -27,7 +27,7 @@
 <div class="d-flex justify-content-between">
   <div>
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">System Logs</span>
+  <span class="text-muted fw-light">Settings /</span> System Logs
 </h4>
 </div>
 {{-- <div class="">
