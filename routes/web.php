@@ -62,6 +62,7 @@ use App\Http\Controllers\Admin\Settings\CountryController;
 use App\Http\Controllers\Admin\Settings\RegionController;
 use App\Http\Controllers\Admin\SystemLogController;
 use App\Http\Controllers\Admin\MobileSettingsController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SmileyController;
 use App\Http\Controllers\Admin\RingtoneController;
 use App\Http\Controllers\Admin\ChatSettingController;
@@ -385,6 +386,11 @@ Route::any('mobile-setting', [MobileSettingsController::class, 'save'])->name('m
         Route::resource('/provinces', RegionController::class);
         // Cities
         Route::resource('/cities', CityController::class);
+
+        // Team
+        Route::prefix('team')->name('team.')->group(function () {
+            Route::resource('roles', RoleController::class);
+        });
 
         // Save Setting Value via Ajax
         Route::post('/save', [SettingController::class, 'save'])->name('save');

@@ -448,9 +448,9 @@
           "slug": "add-team",
           "submenu": [
             {
-              "url": "team/roles",
+              "url": "settings/team/roles",
               "name": "Roles",
-              "slug": "team.roles.index"
+              "slug": "settings.team.roles.index"
             }
           ]
         },

@@ -31,7 +31,7 @@ class RoleController extends Controller
     {
         $validated = $request->validated();
 
-        $validated['identifier'] = str_replace(' ', '_', $validated['name']);
+        $validated['identifier'] = strtolower(str_replace(' ', '_', $validated['name']));
 
         $role = Role::create($validated);
 
@@ -49,7 +49,7 @@ class RoleController extends Controller
     {
         $validated = $request->validated();
 
-        $validated['identifier'] = str_replace(' ', '_', $validated['name']);
+        $validated['identifier'] = strtolower(str_replace(' ', '_', $validated['name']));
 
         $role = Role::find($id);
         $role->fill($validated);

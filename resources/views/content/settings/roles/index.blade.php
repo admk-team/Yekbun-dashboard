@@ -1,3 +1,7 @@
+@php
+  $configData = Helper::appClasses();
+@endphp
+
 @extends('layouts/layoutMaster')
 
 @section('title', 'Countries - List')
@@ -16,105 +20,72 @@
 @endsection
 
 @section('content')
-<div class="d-flex justify-content-between">
-  <div>
-<h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Settings /</span> Add / Manage Country
-</h4>
-</div>
+<h4 class="fw-bold py-3 mb-2">Roles List</h4>
+
+<p>A role provided access to predefined menus and features so that depending on <br> assigned role an administrator can have access to what user needs.</p>
+<!-- Role cards -->
+<div class="row g-4">
+  @foreach($roles as $role)
+  <div class="col-xl-4 col-lg-6 col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between mb-2">
+          <h6 class="fw-normal">Total {{ $role->users->count() }} users</h6>
+          <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">
+            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="Vinnie Mostowy" class="avatar avatar-sm pull-up">
+              <img class="rounded-circle" src="{{asset('assets/img/avatars/5.png')}}" alt="Avatar">
+            </li>
+            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="Allen Rieske" class="avatar avatar-sm pull-up">
+              <img class="rounded-circle" src="{{asset('assets/img/avatars/12.png')}}" alt="Avatar">
+            </li>
+            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="Julee Rossignol" class="avatar avatar-sm pull-up">
+              <img class="rounded-circle" src="{{asset('assets/img/avatars/6.png')}}" alt="Avatar">
+            </li>
+            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="Kaith D'souza" class="avatar avatar-sm pull-up">
+              <img class="rounded-circle" src="{{asset('assets/img/avatars/15.png')}}" alt="Avatar">
+            </li>
+            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="John Doe" class="avatar avatar-sm pull-up">
+              <img class="rounded-circle" src="{{asset('assets/img/avatars/1.png')}}" alt="Avatar">
+            </li>
+          </ul>
+        </div>
+        <div class="d-flex justify-content-between align-items-end">
+          <div class="role-heading">
+            <h4 class="mb-1">{{ $role->name }}</h4>
+            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#editRoleModal{{ $role->id }}" class="role-edit-modal"><small>Edit Role</small></a>
+          </div>
+          <a href="javascript:void(0);" class="text-muted"><i class="bx bx-copy"></i></a>
+        </div>
+        @include('content.settings.roles.includes.edit_form')
+      </div>
+    </div>
+  </div>
+  @endforeach
+  <div class="col-xl-4 col-lg-6 col-md-6">
+    <div class="card h-100">
+      <div class="row h-100">
+        <div class="col-sm-5">
+          <div class="d-flex align-items-end h-100 justify-content-center mt-sm-0 mt-3">
+            <img src="{{asset('assets/img/illustrations/sitting-girl-with-laptop-'.$configData['style'].'.png')}}" class="img-fluid" alt="Image" width="120" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png">
+          </div>
+        </div>
+        <div class="col-sm-7">
+          <div class="card-body text-sm-end text-center ps-sm-0">
+            <button data-bs-target="#addRoleModal" data-bs-toggle="modal" class="btn btn-primary mb-3 text-nowrap add-new-role">Add New Role</button>
+            <p class="mb-0">Add role, if it does not exist</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <div class="">
     <!-- <a href="{{ route('donations.organizations.create') }}">
       <button class="btn btn-primary">Add Organization</button>
     </a> -->
 </div>
 </div>
-  <!-- Basic Bootstrap Table -->
-  <div class="card">
-    <div class="card-header d-flex align-items-center justify-content-between">
-        <h5 class="m-0">Countries List</h5>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal"><i class="bx bx-plus me-0 me-sm-1"></i> Add Country</button>
-    </div>
-    <div class="table-responsive text-nowrap">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Country Name</th>
-            <th>Total People</th>
-            <th>Options</th>
-          </tr>
-        </thead>
-        <tbody class="table-border-bottom-0">
-          @forelse($countries as $country)
-          <tr>
-            <td>{{ $country->id }}</td>
-            <td>{{ $country->name }}</td>
-            <td>{{ $country->users->count() }}</td>
-            <td>
-              <div>
-                <!-- Edit -->
-                <span data-bs-toggle="modal" data-bs-target="#editModal{{ $country->id }}">
-                  <button class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit">
-                    <i class="bx bx-edit"></i>
-                  </button>
-                </span>
 
-                <!-- Delete -->
-                <form action="{{ route('settings.countries.destroy', $country->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
-                  @method('DELETE')
-                  @csrf
-                  <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
-                </form>
-              </div>
-              {{--
-              <div class="dropdown d-inline-block">
-                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-                <div class="dropdown-menu">
-                  <!-- <a class="dropdown-item" href="{{ route('donations.organizations.edit', $organization->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a> -->
-                  <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal{{ $organization->id }}"><i class="bx bx-edit-alt me-1"></i> Edit</button>
-                  <form action="{{ route('donations.organizations.destroy', $organization->id) }}" method="post">
-                    @method('DELETE')
-                    @csrf
-                    <button type="submit" class="dropdown-item"><i class="bx bx-trash me-1"></i> Delete</button>
-                  </form>
-                </div>
-              </div>
-              --}}
-              <x-modal
-                id="editModal{{ $country->id }}"
-                title="Edit Country" 
-                saveBtnText="Update"
-                saveBtnType="submit"
-                saveBtnForm="editForm{{ $country->id }}"
-                size="sm"
-                :show="old('showEditFormModal'.$country->id)? true: false"
-              >
-                @include('content.settings.countries.includes.edit_form')
-              </x-modal>
-            </td>
-          </tr>
-          @empty
-          <tr>
-            <td class="text-center" colspan="4"><b>No countries found.<b></td>
-          </tr>
-          @endforelse
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <!--/ Basic Bootstrap Table -->
-
-  <x-modal
-    id="createModal"
-    title="Add Country" 
-    saveBtnText="Create"
-    saveBtnType="submit"
-    saveBtnForm="createForm"
-    size="sm"
-    :show="old('showCreateFormModal')? true: false"
-  >
-    @include('content.settings.countries.includes.create_form')
-  </x-modal>
+@include('content.settings.roles.includes.create_form')
 @endsection
 
 @section('page-script')
