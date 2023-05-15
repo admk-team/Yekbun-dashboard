@@ -59,4 +59,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Ads::class);
     }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function City()
+    {
+        return $this->belongsTo(City::class);
+    }
 }

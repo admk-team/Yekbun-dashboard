@@ -521,9 +521,25 @@
           "slug": "system-logs"
         },
         {
-          "url": "/location",
           "name": "Location",
-          "slug": "location"
+          "slug": "location",
+          "submenu": [
+            {
+              "url": "/settings/countries",
+              "name": "Add / Manage Country",
+              "slug": "settings.countries.index"
+            },
+            {
+              "url": "/settings/provinces",
+              "name": "Add / Manage Province",
+              "slug": "settings.provinces.index"
+            },
+            {
+              "url": "/settings/cities",
+              "name": "Add / Manage City - Zipcode",
+              "slug": "settings.cities.index"
+            }
+          ]
         }
       ]
     },

@@ -57,6 +57,9 @@ use App\Http\Controllers\Admin\Settings\PricingController;
 use App\Http\Controllers\Admin\Settings\SettingController;
 use App\Http\Controllers\Admin\Settings\UserRolesController;
 use App\Http\Controllers\Admin\PolicyAndTermsController;
+use App\Http\Controllers\Admin\Settings\CityController;
+use App\Http\Controllers\Admin\Settings\CountryController;
+use App\Http\Controllers\Admin\Settings\RegionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -368,6 +371,13 @@ Route::prefix("/users")->name("users.")->group(function () {
 
         // Pricing
         Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
+
+        // Countries
+        Route::resource('/countries', CountryController::class);
+        // Regions
+        Route::resource('/provinces', RegionController::class);
+        // Cities
+        Route::resource('/cities', CityController::class);
 
         // Save Setting Value via Ajax
         Route::post('/save', [SettingController::class, 'save'])->name('save');
