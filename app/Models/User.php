@@ -45,6 +45,98 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function hasRole($role = null) {
+        $role = Role::where(is_numeric($role)? 'id': 'identifier', $role)
+                    ->where('status', 1)
+                    ->first();
+
+        if (! $role) return false;
+
+        return (bool) UserRole::where('user_id', $this->id)
+                              ->where('role_id', $role->id)
+                              ->first();
+    }
+
+    public function hasRoles($roles = [])
+    {
+        foreach ($roles as $role) {
+            if (! $this->hasRole($role))
+                return false;
+        }
+
+        return true;
+    }
+
+    public function hasAnyRole($roles = [])
+    {
+        foreach ($roles as $role) {
+            if ($this->hasRole($role))
+                return true;
+        }
+
+        return false;
+    }
+
+    public function hasActiveRole()
+    {
+        $userRole = UserRole::where('user_id', $this->id)
+                ->first();
+        return (bool) Role::where('id', $userRole->role_id)
+                        ->where('status', 1)
+                        ->first();
+    }
+
+    public function assignRole($role)
+    {
+        $role = Role::where(is_numeric($role)? 'id': 'identifier', $role)
+                    ->first();
+        
+        if (! $role) throw new \Exception("Role does not exists.");
+
+        // Check if role is already assigned
+        $userRole = UserRole::where('user_id', $this->id)
+                            ->where('role_id', $role->id)
+                            ->first();        
+        if ($userRole ) return true;
+
+        UserRole::create([
+            'user_id' => $this->id,
+            'role_id' => $role->id
+        ]);
+
+        return true;
+    }
+
+    public function assignRoles($roles = [])
+    {
+        foreach ($roles as $role) $this->assignRole($role);
+    }
+
+    public function removeRole($role)
+    {
+        $role = Role::where(is_numeric($role)? 'id': 'identifier', $role)
+                    ->first();
+        
+        if (! $role) return true;
+
+        UserRole::where('user_id', $this->id)
+                ->where('role_id', $role->id)
+                ->first()
+                ->delete();
+
+        return true;
+    }
+
+    public function removeRoles($roles = [])
+    {
+        foreach ($roles as $role) $this->removeRole($role);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_roles');
+    }
+
     public function stories()
     {
         return $this->hasMany(Story::class);
