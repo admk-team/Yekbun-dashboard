@@ -13,6 +13,10 @@
     .nav-tabs .nav-item .nav-link {
         padding: 1rem;
     }
+
+    [x-cloak] {
+        display: none;
+    }
 </style>
 @endsection
 
@@ -48,11 +52,11 @@
                             <tr>
                                 <td>Standard</td>
                                 <td x-data="{editPrice: false}">
-                                    <div @click.prevent @dblclick="editPrice = !editPrice" @ class="bg-label-secondary py-2 px-3 rounded" style="width:fit-content">
+                                    <div @click.prevent @dblclick="editPrice = !editPrice" class="py-2 px-3 rounded" style="width:fit-content">
                                         <div x-show="!editPrice">{{ $standard_price->value }}€</div>
-                                        <!-- <div x-show="editPrice" class="">
-                                            <input type="number" min="1" step="any" value="{{ $standard_price->value }}">
-                                        </div> -->
+                                        <div x-cloak x-show="editPrice" class="">
+                                            <input type="number" min="1" step="any" value="{{ $standard_price->value }}" style="width:fit-content;">
+                                        </div>
                                     </div>
                                 </td>
                                 <td>
