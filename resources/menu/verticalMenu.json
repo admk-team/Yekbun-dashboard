@@ -480,23 +480,34 @@
           ]
         },
         {
-          "url": "/chat-setting",
           "name": "Chat Setting",
-          "slug": "chat-setting"
+          "slug": "chat-setting",
+          "submenu":[
+            {
+              "url":"/smiley",
+              "name": "Smileys",
+              "slug":"chat-setting.smileys.index"
+            },
+            {
+              "url":"/ringtone",
+              "name": "Add Ring Tones",
+              "slug":"chat-setting.ringtone.index"
+            },
+            {
+              "url":"/chat-settings",
+              "name": "Setting",
+              "slug":"chat-setting.chat-settings.index"
+            }
+          ]
         },
         {
           "name": "Mobile App",
           "slug": "mobile-app",
           "submenu": [
             {
-              "url": "/sign-up",
-              "name": "Sign Up",
-              "slug": "sign-up"
-            },
-            {
-              "url": "/sign-in",
-              "name": "Sign In",
-              "slug": "sign-in"
+              "url": "/mobile-settings",
+              "name": "Settings",
+              "slug": "mobile-app.settings.index"
             },
             {
               "url": "/images",
@@ -516,7 +527,7 @@
           "slug": "popup-setting"
         },
         {
-          "url": "/system-logs",
+          "url": "/logs",
           "name": "System Logs",
           "slug": "system-logs"
         },

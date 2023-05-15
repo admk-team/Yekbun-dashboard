@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Setting;
 
-class PolicyAndTermsController extends Controller
+class MobileSettingsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,24 @@ class PolicyAndTermsController extends Controller
      */
     public function index()
     {
-        $privacy = Setting::firstorCreate(['name' => 'privacy_policy']);
-        $disclaimer = Setting::firstorCreate(['name' => 'disclaimer']);
-        return  view('content.policy_and_terms.index' , compact('privacy' , 'disclaimer'));
+        $sign_in = Setting::firstOrCreate(['name' => 'sign_in']);
+        $sign_up = Setting::firstOrCreate(['name' => 'sign_up']);
+        return view('content.mobile_settings.index' , compact('sign_in' , 'sign_up'));
+    }
+
+    public function save(Request $request){
+        $validated = $request->validate([
+            "name" => "required",
+            "value" => "nullable",
+        ]);
+
+        extract($validated);
+
+        $setting = Setting::firstOrCreate(['name' => $name]);
+        $setting->value = $value;
+        $setting->save();
+
+        return "1";
     }
 
     /**
@@ -38,36 +53,7 @@ class PolicyAndTermsController extends Controller
      */
     public function store(Request $request)
     {
-    
-        if($request->has('privacy')){
-            $request->validate([
-                'policy_text' => 'required',
-                'privacy' => 'required'
-            ]);
-        }else{
-            $request->validate([
-                'disclaimer_text' => 'required',
-                'disclaimer' => 'required'
-            ]);
-        }
-      
-        if($request->has('privacy')){
-        
-            $setting = Setting::firstorCreate(['name'=>$request->privacy]);
-            $setting->description = $request->policy_text;
-
-        }else{
-
-            $setting = Setting::firstorCreate(['name'=>$request->disclaimer]);
-            $setting->description = $request->disclaimer_text;
-
-        }
-        if($setting->save()){
-            return redirect()->route('policy_and_terms.index')->with('success' , 'Policy has been Updated successfully');
-        }else{
-            return redirect()->route('policy_and_terms.index')->with('error' , 'Failed to Updated Policy');
-
-        }
+        //
     }
 
     /**
