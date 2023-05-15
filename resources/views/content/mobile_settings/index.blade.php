@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Settings - Payment Methods')
+@section('title', 'Settings - Mobile App')
 
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
@@ -23,17 +23,17 @@
 @section('content')
 <div class="d-flex justify-content-between">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">Mobile Settings </span>
+        <span class="text-muted fw-light">Settings /</span> Mobile App 
     </h4>
 </div>
 
 <div class="nav-align-left mb-4">
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item" role="presentation">
-            <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#sign-in" aria-controls="sign-in"><i class='bx bx-pin'></i> Sign In</button>
+            <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#sign-in" aria-controls="sign-in"><i class='bx bx-user-circle'></i> Sign In</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#sign-up" aria-controls="sign-up"><i class='bx bx-music'></i> Sign Up</button>
+            <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#sign-up" aria-controls="sign-up"><i class='bx bx-user-pin'></i> Sign Up</button>
         </li>
     </ul>
     <div class="tab-content">
