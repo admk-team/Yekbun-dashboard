@@ -64,7 +64,7 @@
                                             </span>
                                         </div>
                                         <div x-cloak x-show="editPrice" class="edit-price align-items-center gap-1">
-                                            <input x-model="value" type="number" min="1" step="any" value="{{ $standard_price->value }}" style="width:fit-content;">
+                                            <input x-model="value" type="number" class="form-control form-control-sm" min="1" step="any" value="{{ $standard_price->value }}" style="width:fit-content;">
                                             <span  @click="showLoader=true; updatePrice({name, value}, () => {showLoader=false; editPrice=false})">
                                                 <button class="btn bg-primary btn-sm p-1 text-white" x-bind:disabled="showLoader" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Save">
                                                     <i x-show="!showLoader" class="bx bx-check bx-xs"></i>
@@ -94,7 +94,7 @@
                                             </span>
                                         </div>
                                         <div x-cloak x-show="editPrice" class="edit-price align-items-center gap-1">
-                                            <input x-model="value" type="number" min="1" step="any" value="{{ $premium_price->value }}" style="width:fit-content;">
+                                            <input x-model="value" type="number" class="form-control form-control-sm" min="1" step="any" value="{{ $premium_price->value }}" style="width:fit-content;">
                                             <span  @click="showLoader=true; updatePrice({name, value}, () => {showLoader=false; editPrice=false})">
                                                 <button class="btn bg-primary btn-sm p-1 text-white" x-bind:disabled="showLoader" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Save">
                                                     <i x-show="!showLoader" class="bx bx-check bx-xs"></i>
@@ -124,7 +124,7 @@
                                             </span>
                                         </div>
                                         <div x-cloak x-show="editPrice" class="edit-price align-items-center gap-1">
-                                            <input x-model="value" type="number" min="1" step="any" value="{{ $vip_price->value }}" style="width:fit-content;">
+                                            <input x-model="value" type="number" class="form-control form-control-sm" min="1" step="any" value="{{ $vip_price->value }}" style="width:fit-content;">
                                             <span  @click="showLoader=true; updatePrice({name, value}, () => {showLoader=false; editPrice=false})">
                                                 <button class="btn bg-primary btn-sm p-1 text-white" x-bind:disabled="showLoader" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Save">
                                                     <i x-show="!showLoader" class="bx bx-check bx-xs"></i>
