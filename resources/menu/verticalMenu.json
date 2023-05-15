@@ -444,48 +444,76 @@
           "slug": "page-settings"
         },
         {
-          "url": "/add-admin",
-          "name": "Add Admin",
-          "slug": "add-admin"
+          "name": "Add Team",
+          "slug": "add-team",
+          "submenu": [
+            {
+              "url": "settings/team/roles",
+              "name": "Roles",
+              "slug": "settings.team.roles.index"
+            }
+          ]
         },
         {
-          "url": "/policy",
+          "url": "/policy_and_terms",
           "name": "Policy and Terms",
           "slug": "policy"
         },
         {
-          "url": "/standard-user-setting",
-          "name": "Standard User Setting",
-          "slug": "standard-user-setting"
+          "name": "User Roles",
+          "slug": "settings.user-roles",
+          "submenu": [
+            {
+              "url": "/settings/user-roles/standard",
+              "name": "Standard User",
+              "slug": "settings.user-roles.standard"
+            },
+            {
+              "url": "/settings/user-roles/premium",
+              "name": "Premium User",
+              "slug": "settings.user-roles.premium"
+            },
+            {
+              "url": "/settings/user-roles/vip",
+              "name": "VIP User",
+              "slug": "settings.user-roles.vip"
+            },
+            {
+              "url": "/settings/user-roles/fanpage",
+              "name": "FanPage",
+              "slug": "settings.user-roles.fanpage"
+            }
+          ]
         },
         {
-          "url": "/premium-user-setting",
-          "name": "Premium User Setting",
-          "slug": "premium-user-setting"
-        },
-        {
-          "url": "/vip-user-setting",
-          "name": "Vip User Setting",
-          "slug": "vip-user-setting"
-        },
-        {
-          "url": "/chat-setting",
           "name": "Chat Setting",
-          "slug": "chat-setting"
+          "slug": "chat-setting",
+          "submenu":[
+            {
+              "url":"/smiley",
+              "name": "Smileys",
+              "slug":"chat-setting.smileys.index"
+            },
+            {
+              "url":"/ringtone",
+              "name": "Add Ring Tones",
+              "slug":"chat-setting.ringtone.index"
+            },
+            {
+              "url":"/chat-settings",
+              "name": "Setting",
+              "slug":"chat-setting.chat-settings.index"
+            }
+          ]
         },
         {
           "name": "Mobile App",
           "slug": "mobile-app",
           "submenu": [
             {
-              "url": "/sign-up",
-              "name": "Sign Up",
-              "slug": "sign-up"
-            },
-            {
-              "url": "/sign-in",
-              "name": "Sign In",
-              "slug": "sign-in"
+              "url": "/mobile-settings",
+              "name": "Settings",
+              "slug": "mobile-app.settings.index"
             },
             {
               "url": "/images",
@@ -495,9 +523,9 @@
           ]
         },
         {
-          "url": "/banner-setting",
-          "name": "Banner Setting",
-          "slug": "banner-setting"
+          "url": "/settings/pricing",
+          "name": "Pricing",
+          "slug": "settings.pricing"
         },
         {
           "url": "/popup-setting",
@@ -505,14 +533,30 @@
           "slug": "popup-setting"
         },
         {
-          "url": "/system-logs",
+          "url": "/logs",
           "name": "System Logs",
           "slug": "system-logs"
         },
         {
-          "url": "/location",
           "name": "Location",
-          "slug": "location"
+          "slug": "location",
+          "submenu": [
+            {
+              "url": "/settings/countries",
+              "name": "Add / Manage Country",
+              "slug": "settings.countries.index"
+            },
+            {
+              "url": "/settings/provinces",
+              "name": "Add / Manage Province",
+              "slug": "settings.provinces.index"
+            },
+            {
+              "url": "/settings/cities",
+              "name": "Add / Manage City - Zipcode",
+              "slug": "settings.cities.index"
+            }
+          ]
         }
       ]
     },

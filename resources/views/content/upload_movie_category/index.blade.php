@@ -81,7 +81,6 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $movie->category ?? '' }}</td>
 
-
                     <td>
                         <div class="d-flex justify-content-start align-items-center">
                             <span data-bs-toggle="modal" data-bs-target="#editmoviecategoryModal{{ $movie->id }}">

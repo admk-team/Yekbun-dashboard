@@ -1,3 +1,14 @@
+<style>
+    .select2-container {
+        z-index: 5000;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow b{
+      border-style: none;
+    }
+    .light-style .select2-container--default .select2-selection--single .select2-selection__rendered{
+        padding-top: 8px;
+    }
+  </style>
 <form id=createForm method="POST" action="{{ route('language.store') }}" enctype="multipart/form-data">
     @csrf
     <div class="row">
@@ -5,15 +16,15 @@
             <div class="row g-3">
                 <div class="col-md-12">
                     <label class="form-label" for="fullname">Icon</label>
-                    <select class="form-select" name="icon" id="mySelect">
-                            <option selected="">Choose a language</option>
-                            <option value="AE" data-img-src="{{ asset('assets/img/arabic_flag1.jpg') }}">Arabic</option>
-                            <option value="GB" style="background-image: url('assets/img/arabic_flag1.jpg')">English (GB)</option>
-                            <option value="US" data-img-src="img/US.png">English (USA)</option>
-                            <option value="FR" data-img-src="img/FR.png">French</option>
-                            <option value="DE" data-img-src="img/DE.png">Deutsch</option>
-                            <option value="IT" data-img-src="img/IT.png">Italian</option>
-                            <option value="ES" data-img-src="img/ES.png">Spanish</option>
+                    <select class="" name="icon"  id="id_select2_example" style="width: 200px;">
+                            <span>Choose a language</span>
+                            <option value="AE" data-img_src="{{ asset('assets/img/AE.png') }}">Arabic</option>
+                            <option value="GB" data-img_src="{{ asset('assets/img/GB.png') }}">English (GB)</option>
+                            <option value="US" data-img_src="{{ asset('assets/img/US.png') }}">English (USA)</option>
+                            <option value="FR" data-img_src="{{ asset('assets/img/FR.png') }}">French</option>
+                            <option value="DE" data-img_src="{{ asset('assets/img/DE.png') }}">Deutsch</option>
+                            <option value="IT" data-img_src="{{ asset('assets/img/IT.png') }}">Italian</option>
+                            <option value="ES" data-img_src="{{ asset('assets/img/ES.png') }}">Spanish</option>
                     </select>             
                     @error('title')
                     <span class="text-danger">{{ $message }}</span>
@@ -44,4 +55,3 @@
         </div>
     </div>
 </form>
-

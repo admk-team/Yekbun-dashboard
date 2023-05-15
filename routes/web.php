@@ -53,6 +53,19 @@ use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\PaymentOfficeController;
 use App\Http\Controllers\Admin\Settings\PageSettingsController;
 use App\Http\Controllers\Admin\Settings\PaymentMethodController;
+use App\Http\Controllers\Admin\Settings\PricingController;
+use App\Http\Controllers\Admin\Settings\SettingController;
+use App\Http\Controllers\Admin\Settings\UserRolesController;
+use App\Http\Controllers\Admin\PolicyAndTermsController;
+use App\Http\Controllers\Admin\Settings\CityController;
+use App\Http\Controllers\Admin\Settings\CountryController;
+use App\Http\Controllers\Admin\Settings\RegionController;
+use App\Http\Controllers\Admin\SystemLogController;
+use App\Http\Controllers\Admin\MobileSettingsController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SmileyController;
+use App\Http\Controllers\Admin\RingtoneController;
+use App\Http\Controllers\Admin\ChatSettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -204,7 +217,9 @@ Route::prefix("/users")->name("users.")->group(function () {
         Route::get('/categories', [CategoryController::class, 'index'])->name('series.categories.index');
     });
 
-
+// mobile setting s
+Route::resource('mobile-settings', MobileSettingsController::class);
+Route::any('mobile-setting', [MobileSettingsController::class, 'save'])->name('mobile-setting');
     // Donations
     Route::resource('/donations', DonationController::class);
 
@@ -353,11 +368,43 @@ Route::prefix("/users")->name("users.")->group(function () {
         // Page Settings
         Route::get('page-settings', [PageSettingsController::class, 'index'])->name('page-settings');
         Route::post('page-settings', [PageSettingsController::class, 'save'])->name('page-settings');
+
+        // User Roles
+        Route::prefix('user-roles')->name('user-roles.')->group(function () {
+            Route::get('/standard', [UserRolesController::class, 'standard'])->name('standard');
+            Route::get('/premium', [UserRolesController::class, 'premium'])->name('premium');
+            Route::get('/vip', [UserRolesController::class, 'vip'])->name('vip');
+            Route::get('/fanpage', [UserRolesController::class, 'fanpage'])->name('fanpage');
+        });
+
+        // Pricing
+        Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
+
+        // Countries
+        Route::resource('/countries', CountryController::class);
+        // Regions
+        Route::resource('/provinces', RegionController::class);
+        // Cities
+        Route::resource('/cities', CityController::class);
+
+        // Team
+        Route::prefix('team')->name('team.')->group(function () {
+            Route::resource('roles', RoleController::class);
+        });
+
+        // Save Setting Value via Ajax
+        Route::post('/save', [SettingController::class, 'save'])->name('save');
+        Route::post('/save-many', [SettingController::class, 'saveMany'])->name('saveMany');
     });
     
 });
 Route::resource("events", EventController::class);
 
+
+// policy and terms 
+Route::resource('policy_and_terms' , PolicyAndTermsController::class);
+// system logs
+Route::resource('logs' , SystemLogController::class);
 
 // News
 Route::resource('/news' , NewsController::class);
@@ -456,6 +503,10 @@ Route::get('/user-warning' , $controller_path . '\report\Report@user_warning')->
 Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');
 
 
-
+// Smiley 
+Route::resource('/smiley' , SmileyController::class);
+Route::resource('/ringtone' , RingtoneController::class);
+Route::resource('/chat-settings' , ChatSettingController::class);
+Route::post('/chat-setting' ,[ChatSettingController::class , 'save'])->name('chat-setting');
 
 
