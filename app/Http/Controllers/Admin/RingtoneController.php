@@ -42,6 +42,7 @@ class RingtoneController extends Controller
         ]);
 
         $ringtone  = new Ringtone();
+        $ringtone->title = $request->title;
         if($request->has('ringtone')){
             $path = $request->file('ringtone')->store('/images/ringtone/','public');
             $ringtone->ringtone_path = $path;
@@ -86,6 +87,7 @@ class RingtoneController extends Controller
     public function update(Request $request, $id)
     {
         $ringtone  =Ringtone::find($id);
+        $ringtone->title = $request->title;
         if($request->has('ringtone')){
             if(isset($ringtone->ringtone_path)){
                 $img_path = public_path('storage/'.$ringtone->ringtone_path);

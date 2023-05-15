@@ -42,6 +42,8 @@ class SmileyController extends Controller
         ]);
 
         $smiley  = new Smiley();
+        $smiley->name = $request->title;
+        $smiley->code = $request->code;
         if($request->has('smiley')){
             $path = $request->file('smiley')->store('/images/smiley/','public');
             $smiley->smiley_path = $path;
@@ -86,6 +88,8 @@ class SmileyController extends Controller
     public function update(Request $request, $id)
     {
         $smiley  =Smiley::find($id);
+        $smiley->name = $request->title;
+        $smiley->code = $request->code;
         if($request->has('smiley')){
             if(isset($smiley->smiley_path)){
                 $img_path = public_path('storage/'.$smiley->smiley_path);
