@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Role;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
+use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -18,7 +19,8 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::all();
-        return view("content.settings.roles.index", compact("roles"));
+        $permissions = Permission::all();
+        return view("content.settings.roles.index", compact("roles", "permissions"));
     }
 
     /**
@@ -30,10 +32,9 @@ class RoleController extends Controller
     public function store(StoreRoleRequest $request)
     {
         $validated = $request->validated();
-
-        $validated['identifier'] = strtolower(str_replace(' ', '_', $validated['name']));
-
+  
         $role = Role::create($validated);
+        $role->syncPermissions($validated['permissions']);
 
         return back()->with("success", "Role successfully created.");
     }
@@ -49,10 +50,11 @@ class RoleController extends Controller
     {
         $validated = $request->validated();
 
-        $validated['identifier'] = strtolower(str_replace(' ', '_', $validated['name']));
-
         $role = Role::find($id);
+        if ($role->name === 'Super Admin')
+            abort(403);
         $role->fill($validated);
+        $role->syncPermissions($validated['permissions']);
         $role->save();
 
         return back()->with("success", "Role successfully updated.");
@@ -67,6 +69,8 @@ class RoleController extends Controller
     public function destroy($id)
     {
         $role = Role::find($id);
+        if ($role->name === 'Super Admin')
+            abort(403);
         $role->delete();
 
         return back()->with("success", "Role successfully deleted.");

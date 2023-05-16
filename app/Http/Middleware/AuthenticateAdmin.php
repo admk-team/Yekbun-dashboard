@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthenticateAdmin
 {
@@ -16,7 +17,7 @@ class AuthenticateAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (session()->has('logged_in') && session()->get('logged_in') === true)
+        if (Auth::check() && Auth::user()->is_admin_user)
             return $next($request);
         return redirect()->route('admin.login');
     }

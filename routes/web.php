@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\MusicController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\ArtistController;
+use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SeriesController;
 use App\Http\Controllers\Admin\TicketController;
@@ -66,6 +67,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SmileyController;
 use App\Http\Controllers\Admin\RingtoneController;
 use App\Http\Controllers\Admin\ChatSettingController;
+use App\Http\Controllers\Admin\Settings\TeamMemberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,34 +88,13 @@ Route::get("/cmd/{cmd}", function ($cmd) {
     return \Artisan::output();
 });
 
-Route::get('/login', function () {
-    $pageConfigs = ['myLayout' => 'blank'];
-    return view('content.authentications.login', ['pageConfigs' => $pageConfigs]);
-})->name('admin.login')->middleware('guest');
+Route::get('/login', [LoginController::class, 'index'])->name('admin.login')->middleware('guest');
 
-Route::post('/login', function () {
-    request()->validate([
-        'email' => 'required',
-        'password' => 'required',
-    ]);
-
-    $email = request()->email;
-    $password = request()->password;
-
-    if ($email === 'admin@gmail.com' && $password === '1234') {
-        session()->put('logged_in', true);
-        return redirect()->route('dashboard-analytics');
-    }
-
-    return back()->withInput(request()->only(['email', 'password']))->with('error', "Invalid Credentials!");
-})->name('admin.login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate'])->name('admin.login')->middleware('guest');
 
 
 Route::middleware(['admin.auth'])->group(function () use ($controller_path) {
-    Route::get('/logout', function () {
-        session()->forget('logged_in');
-        return redirect()->route('admin.login');
-    })->name('admin.logout');
+    Route::post('/logout', [LoginController::class, 'logout'])->name('admin.logout');
 
     // Main Page Route
     Route::get('/', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
@@ -389,6 +370,7 @@ Route::any('mobile-setting', [MobileSettingsController::class, 'save'])->name('m
 
         // Team
         Route::prefix('team')->name('team.')->group(function () {
+            Route::resource('members', TeamMemberController::class);
             Route::resource('roles', RoleController::class);
         });
 

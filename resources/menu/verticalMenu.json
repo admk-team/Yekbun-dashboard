@@ -283,6 +283,7 @@
       "name": "Events",
       "icon": "menu-icon tf-icons fa fa-calendar",
       "slug": "events",
+      "permissions": "events",
       "submenu": [
         {
           "url": "/events/requests",
@@ -447,6 +448,11 @@
           "name": "Add Team",
           "slug": "add-team",
           "submenu": [
+            {
+              "url": "settings/team/members",
+              "name": "Add / Manage Members",
+              "slug": "settings.team.members.index"
+            },
             {
               "url": "settings/team/roles",
               "name": "Roles",
