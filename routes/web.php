@@ -62,6 +62,7 @@ use App\Http\Controllers\Admin\MobileSettingsController;
 use App\Http\Controllers\Admin\SmileyController;
 use App\Http\Controllers\Admin\RingtoneController;
 use App\Http\Controllers\Admin\ChatSettingController;
+use App\Http\Controllers\Admin\AnalyticsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -492,5 +493,9 @@ Route::resource('/smiley' , SmileyController::class);
 Route::resource('/ringtone' , RingtoneController::class);
 Route::resource('/chat-settings' , ChatSettingController::class);
 Route::post('/chat-setting' ,[ChatSettingController::class , 'save'])->name('chat-setting');
+
+
+// analystics 
+Route::get('/analytics', [AnalyticsController::class , 'index'])->name('dashboard-analytics');
 
 

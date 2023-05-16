@@ -13,6 +13,11 @@
           "url": "/dashboard/ecommerce",
           "name": "eCommerce",
           "slug": "dashboard-ecommerce"
+        },
+        {
+          "url": "/analytics",
+          "name": "Analytics",
+          "slug": "dashboard.analytics"
         }
       ]
     },
