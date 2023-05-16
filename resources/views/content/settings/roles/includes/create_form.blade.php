@@ -37,7 +37,7 @@
                     <td class="text-nowrap fw-semibold">{{ $permission->label?? ucfirst(str_replace('_', ' ', $permission->name)) }}</td>
                     <td>
                       <div class="d-flex">
-                        @foreach ($permissions->where(fn($i) => $i->parent_id === $permission->id) as $childPermission)
+                        @foreach ($permissions->where(fn($i) => (int)$i->parent_id === (int)$permission->id) as $childPermission)
                         <div class="form-check me-3 me-lg-5">
                           <input class="form-check-input" type="checkbox" name="permissions[]" value="{{ $childPermission->name }}" id="permission{{ $childPermission->id }}" />
                           <label class="form-check-label" for="permission{{ $childPermission->id }}">
