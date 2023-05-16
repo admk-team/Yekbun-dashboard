@@ -97,6 +97,10 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('admin.log
 Route::middleware(['admin.auth'])->group(function () use ($controller_path) {
     Route::post('/logout', [LoginController::class, 'logout'])->name('admin.logout');
 
+    Route::get('/', [AnalyticsController::class , 'index'])->name('adminpanel');
+    // analystics 
+    Route::get('/analytics', [AnalyticsController::class , 'index'])->name('dashboard-analytics');
+
     // Main Page Route
     // Route::get('/', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
     Route::get('/dashboard/ecommerce', $controller_path . '\dashboard\Ecommerce@index')->name('dashboard-ecommerce');
@@ -492,8 +496,5 @@ Route::resource('/ringtone' , RingtoneController::class);
 Route::resource('/chat-settings' , ChatSettingController::class);
 Route::post('/chat-setting' ,[ChatSettingController::class , 'save'])->name('chat-setting');
 
-
-// analystics 
-Route::get('/analytics', [AnalyticsController::class , 'index'])->name('dashboard-analytics');
 
 
