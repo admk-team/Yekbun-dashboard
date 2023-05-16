@@ -27,7 +27,7 @@
 <div class="row g-4">
   @foreach($roles as $role)
   <div class="col-xl-4 col-lg-6 col-md-6">
-    <div class="card">
+    <div class="card h-100">
       <div class="card-body">
         <div class="d-flex justify-content-between mb-2">
           <h6 class="fw-normal">Total {{ $role->users->count() }} users</h6>
@@ -52,9 +52,17 @@
         <div class="d-flex justify-content-between align-items-end">
           <div class="role-heading">
             <h4 class="mb-1">{{ $role->name }}</h4>
+            @if ($role->name !== 'Super Admin')
             <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#editRoleModal{{ $role->id }}" class="role-edit-modal"><small>Edit Role</small></a>
+            @endif
           </div>
-          <a href="javascript:void(0);" class="text-muted"><i class="bx bx-copy"></i></a>
+          @if ($role->name !== 'Super Admin')
+          <form action="{{ route('settings.team.roles.destroy', $role->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="POST">
+            @method('DELETE')
+            @csrf
+            <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+          </form>
+          @endif
         </div>
         @include('content.settings.roles.includes.edit_form')
       </div>
@@ -109,5 +117,17 @@
       }
     });
   }
+</script>
+
+<script>
+  (function () {
+    const adminAccessCheckbox = document.querySelectorAll('.admin-access');
+    adminAccessCheckbox.forEach(checkbox => {
+      checkbox.addEventListener('change', () => {
+        const allOtherCheckboxes = checkbox.closest('table').querySelectorAll('[name="permissions[]"]');
+        allOtherCheckboxes.forEach(permission => permission.checked = checkbox.checked);
+      });
+    });
+  })();
 </script>
 @endsection
