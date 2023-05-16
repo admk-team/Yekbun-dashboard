@@ -13,6 +13,14 @@
     .nav-tabs .nav-item .nav-link {
         padding: 1rem;
     }
+
+    .edit-price {
+        display: flex;
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
 </style>
 @endsection
 
@@ -47,17 +55,91 @@
                         <tbody class="table-border-bottom-0">
                             <tr>
                                 <td>Standard</td>
-                                <td x-data="{editPrice: false}">
-                                    <div @click.prevent @dblclick="editPrice = !editPrice" @ class="bg-label-secondary py-2 px-3 rounded" style="width:fit-content">
-                                        <div x-show="!editPrice">{{ $standard_price->value }}€</div>
-                                        <!-- <div x-show="editPrice" class="">
-                                            <input type="number" min="1" step="any" value="{{ $standard_price->value }}">
-                                        </div> -->
+                                <td x-data="{editPrice: false, showLoader: false, name: 'standard_price', value: {{ $standard_price->value }}}">
+                                    <div class="py-2 px-3 rounded" style="width:fit-content">
+                                        <div x-show="!editPrice">
+                                            <span x-text="value + ' €'" class="me-4">{{ $standard_price->value }} €</span>
+                                            <span  @click="editPrice = !editPrice">
+                                                <button class="btn bg-primary btn-sm p-1 text-white" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit Price"><i class="bx bx-pencil bx-xs"></i></button>
+                                            </span>
+                                        </div>
+                                        <div x-cloak x-show="editPrice" class="edit-price align-items-center gap-1">
+                                            <input x-model="value" type="number" class="form-control form-control-sm" min="1" step="any" value="{{ $standard_price->value }}" style="width:fit-content;">
+                                            <span  @click="showLoader=true; updatePrice({name, value}, () => {showLoader=false; editPrice=false})">
+                                                <button class="btn bg-primary btn-sm p-1 text-white" x-bind:disabled="showLoader" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Save">
+                                                    <i x-show="!showLoader" class="bx bx-check bx-xs"></i>
+                                                    <span x-show="showLoader" class="spinner-border" role="status" aria-hidden="true" style="height: 1.5em; width: 1.5em;"></span>
+                                                </button>
+                                            </span>
+                                            <span  @click="editPrice = !editPrice">
+                                                <button class="btn bg-secondary btn-sm p-1 text-white" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Cancel"><i class="tf-icons bx bx-x bx-xs"></i></button>
+                                            </span>
+                                        </div>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" onclick="confirmSettingUpdate(event)" type="checkbox" {{ $standard_is_free->value === 'true'? 'checked': '' }}>
+                                        <input class="form-check-input" onclick="updateSetting(event)" data-name="standard_is_free" type="checkbox" {{ $standard_is_free->value === 'true'? 'checked': '' }}>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Premium</td>
+                                <td x-data="{editPrice: false, showLoader: false, name: 'premium_price', value: {{ $premium_price->value }}}">
+                                    <div class="py-2 px-3 rounded" style="width:fit-content">
+                                        <div x-show="!editPrice">
+                                            <span x-text="value + ' €'" class="me-4">{{ $premium_price->value }} €</span>
+                                            <span  @click="editPrice = !editPrice">
+                                                <button class="btn bg-primary btn-sm p-1 text-white" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit Price"><i class="bx bx-pencil bx-xs"></i></button>
+                                            </span>
+                                        </div>
+                                        <div x-cloak x-show="editPrice" class="edit-price align-items-center gap-1">
+                                            <input x-model="value" type="number" class="form-control form-control-sm" min="1" step="any" value="{{ $premium_price->value }}" style="width:fit-content;">
+                                            <span  @click="showLoader=true; updatePrice({name, value}, () => {showLoader=false; editPrice=false})">
+                                                <button class="btn bg-primary btn-sm p-1 text-white" x-bind:disabled="showLoader" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Save">
+                                                    <i x-show="!showLoader" class="bx bx-check bx-xs"></i>
+                                                    <span x-show="showLoader" class="spinner-border" role="status" aria-hidden="true" style="height: 1.5em; width: 1.5em;"></span>
+                                                </button>
+                                            </span>
+                                            <span  @click="editPrice = !editPrice">
+                                                <button class="btn bg-secondary btn-sm p-1 text-white" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Cancel"><i class="tf-icons bx bx-x bx-xs"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" onclick="updateSetting(event)" data-name="premium_is_free" type="checkbox" {{ $premium_is_free->value === 'true'? 'checked': '' }}>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>VIP</td>
+                                <td x-data="{editPrice: false, showLoader: false, name: 'vip_price', value: {{ $vip_price->value }}}">
+                                    <div class="py-2 px-3 rounded" style="width:fit-content">
+                                        <div x-show="!editPrice">
+                                            <span x-text="value + ' €'" class="me-4">{{ $vip_price->value }} €</span>
+                                            <span  @click="editPrice = !editPrice">
+                                                <button class="btn bg-primary btn-sm p-1 text-white" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit Price"><i class="bx bx-pencil bx-xs"></i></button>
+                                            </span>
+                                        </div>
+                                        <div x-cloak x-show="editPrice" class="edit-price align-items-center gap-1">
+                                            <input x-model="value" type="number" class="form-control form-control-sm" min="1" step="any" value="{{ $vip_price->value }}" style="width:fit-content;">
+                                            <span  @click="showLoader=true; updatePrice({name, value}, () => {showLoader=false; editPrice=false})">
+                                                <button class="btn bg-primary btn-sm p-1 text-white" x-bind:disabled="showLoader" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Save">
+                                                    <i x-show="!showLoader" class="bx bx-check bx-xs"></i>
+                                                    <span x-show="showLoader" class="spinner-border" role="status" aria-hidden="true" style="height: 1.5em; width: 1.5em;"></span>
+                                                </button>
+                                            </span>
+                                            <span  @click="editPrice = !editPrice">
+                                                <button class="btn bg-secondary btn-sm p-1 text-white" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Cancel"><i class="tf-icons bx bx-x bx-xs"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" onclick="updateSetting(event)" data-name="vip_is_free" type="checkbox" {{ $vip_is_free->value === 'true'? 'checked': '' }}>
                                     </div>
                                 </td>
                             </tr>
@@ -68,4 +150,41 @@
         </div>
     </div>
 </div>
+
+<script>
+    function updatePrice(data, callback) {
+        $.ajax({
+            url: "{{ route('settings.save') }}",
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: data,
+            success: function (res) {
+                callback();
+                toastr.success("Settings successfully updated.");
+            }
+        });
+    }
+
+    function updateSetting(event) {
+        const self = event.target;
+        const name = self.dataset.name;
+        const value = self.checked? 'true': 'false';
+        $.ajax({
+            url: '{{ route('settings.save') }}',
+            method: 'POST',
+            data: {
+                name: name,
+                value: value
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (res) {
+                toastr.success("Settings successfully updated.");
+            }
+        });
+    }
+</script>
 @endsection

@@ -102,7 +102,7 @@
                         @csrf
                         <input type = "hidden" name="disclaimer" value="disclaimer"/>  
                         <label class="form-label" for="inputDescription">Description</label>
-                        <textarea id="inputDescription" name="disclaimer_text" class="form-control" placeholder="Event Description" rows="6"  value={{ $disclaimer->description ?? '' }}>{{ old('description') }} </textarea>
+                        <textarea id="inputDescription" name="disclaimer_text" class="form-control" placeholder="Event Description" rows="6"  value={{ $disclaimer->description ?? '' }}>{{ old('description') }}</textarea>
                         @error('disclaimer')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
