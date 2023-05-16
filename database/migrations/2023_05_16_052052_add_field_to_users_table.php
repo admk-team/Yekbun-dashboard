@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('identifier')->unique();
-            $table->text('description')->nullable()->default(null);
-            $table->tinyInteger('status')->default(1);
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->boolean('is_admin_user')->default(false);
+            $table->boolean('is_superadmin')->default(false);
         });
     }
 
@@ -30,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('is_admin_user');
+            $table->dropColumn('is_superadmin');
+        });
     }
 };

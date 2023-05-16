@@ -21,20 +21,7 @@ class ChatSettingController extends Controller
         return view('content.chat_setting.index' , compact('group_chat' , 'file_size' , 'font_type'));
     }
 
-    public function save(Request $request){
-        $validated = $request->validate([
-            "name" => "required",
-            "value" => "nullable",
-        ]);
-
-        extract($validated);
-
-        $setting = Setting::firstOrCreate(['name' => $name]);
-        $setting->value = $value;
-        $setting->save();
-
-        return "1";
-    }
+   
 
     /**
      * Show the form for creating a new resource.
@@ -54,7 +41,19 @@ class ChatSettingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+         $group_chat = Setting::firstOrCreate(['name' => 'group_chat']);
+         $group_chat->value = $request->group_chat;
+         $group_chat->save(); 
+         $file_size = Setting::firstorCreate(['name' => 'file_size']);
+         $file_size->value = $request->file_size;
+         $file_size->save();
+         $font_type = Setting::firstorCreate(['name' => 'font_type']);
+         $font_type->value = $request->font_type;
+         $font_type->save();
+
+            return redirect()->route('chat-settings.index')->with('success', 'Setting Updated Successfully');
+
     }
 
     /**

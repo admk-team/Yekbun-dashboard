@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_roles', function (Blueprint $table) {
-            $table->id();
-            $table->integer('user_id');
-            $table->integer('role_id');
-            $table->timestamps();
+        Schema::table('permissions', function (Blueprint $table) {
+            $table->integer('parent_id')->nullable()->default(null)->after('guard_name');
+            $table->string('label')->nullable()->default(null)->after('parent_id');
         });
     }
 
@@ -28,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_roles');
+        Schema::table('permissions', function (Blueprint $table) {
+            $table->dropColumn('parent_id');
+            $table->dropColumn('label');
+        });
     }
 };
