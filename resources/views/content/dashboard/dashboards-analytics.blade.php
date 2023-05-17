@@ -119,7 +119,7 @@ $configData = Helper::appClasses();
           <div class="card-body pb-0">
             <img src="https://random.country/wp-content/uploads/2022/05/random-country-fb.jpg" class="rounded-circle" style="margin-left:30px;width:100px">
             <span class="d-block fw-semibold mb-1 text-center mt-3">Total Country</span>
-            <h3 class="card-title mb-1 text-center">276k</h3>
+            <h3 class="card-title mb-1 text-center">{{ $country ?? '' }}</h3>
           </div>
         </div>
       </div>

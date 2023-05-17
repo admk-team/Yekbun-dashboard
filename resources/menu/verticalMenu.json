@@ -1,6 +1,7 @@
 {
   "menu": [
     {
+      "url":"/analytics",
       "name": "Dashboards",
       "icon": "menu-icon tf-icons bx bxs-dashboard",
       "slug": "dashboard",
@@ -8,18 +9,6 @@
       "badge": [
         "primary",
         "3"
-      ],
-      "submenu": [
-        {
-          "url": "/dashboard/ecommerce",
-          "name": "eCommerce",
-          "slug": "dashboard-ecommerce"
-        },
-        {
-          "url": "/analytics",
-          "name": "Analytics",
-          "slug": "dashboard.analytics"
-        }
       ]
     },
     {

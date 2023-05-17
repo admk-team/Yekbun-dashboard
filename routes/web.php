@@ -69,6 +69,7 @@ use App\Http\Controllers\Admin\RingtoneController;
 use App\Http\Controllers\Admin\ChatSettingController;
 use App\Http\Controllers\Admin\Settings\TeamMemberController;
 use App\Http\Controllers\Admin\AnalyticsController;
+use App\Http\Controllers\Admin\AdminProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,6 +90,10 @@ Route::get("/cmd/{cmd}", function ($cmd) {
     return \Artisan::output();
 });
 
+// Admin Profiel
+Route::get("/admin/profile", [AdminProfileController::class , 'index'])->name('admin_profile');
+Route::post('/admin/profile/store' , [AdminProfileController::class , 'store'])->name('admin_profile.store');
+Route::get('/admin/profile/security' , [AdminProfileController::class , 'security'])->name('admin_profile.security');
 Route::get('/login', [LoginController::class, 'index'])->name('admin.login')->middleware('guest');
 
 Route::post('/login', [LoginController::class, 'authenticate'])->name('admin.login')->middleware('guest');

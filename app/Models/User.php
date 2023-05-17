@@ -25,6 +25,14 @@ class User extends Authenticatable
         'image',
         'status',
         'level',
+        'username',
+        'fname',
+        'lname',
+        'gender',
+        'dob',
+        'address',
+        'province',
+        'city',
         'is_admin_user',
         'is_superadmin'
     ];

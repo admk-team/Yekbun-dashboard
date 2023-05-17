@@ -10,12 +10,24 @@ class Bazar extends Model
     use HasFactory;
     protected $fillable = [
         'title',
-        'user_name',
         'image',
-        'category_id'
+        'category_id',
+        'user_id',
+        'price',
+        'status',
+        'warranty'
     ];
+    public function getImageAttribute($value)
+    {
+        return json_decode($value);
+    }
 
+    public function setImageAttribute($value)
+    {
+        $this->attributes['image'] = json_encode($value);
+    }
     public function bazar_category(){
+        
         return $this->belongsTo(BazarCategory::class ,'category_id');
     }
 }
