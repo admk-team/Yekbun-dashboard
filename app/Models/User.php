@@ -25,7 +25,6 @@ class User extends Authenticatable
         'image',
         'status',
         'level',
-<<<<<<< HEAD
         'username',
         'fname',
         'lname',
@@ -34,10 +33,8 @@ class User extends Authenticatable
         'address',
         'province',
         'city',
-=======
         'is_admin_user',
         'is_superadmin'
->>>>>>> 391d583d9e2f95de13f9c9a9b3eb3084b6b1c5a8
     ];
 
     /**
