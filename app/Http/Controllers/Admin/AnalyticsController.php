@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Music;
+use App\Models\Country;
 
 class AnalyticsController extends Controller
 {
@@ -14,6 +15,7 @@ class AnalyticsController extends Controller
     $male_account = User::where('gender', '=', 'male')->count();
     $female_account = User::where('gender', '=', 'female')->count();
     $music = Music::count(); 
-    return view('content.dashboard.dashboards-analytics' , compact('male_account', 'female_account', 'music'));
+    $country  = Country::count();
+    return view('content.dashboard.dashboards-analytics' , compact('male_account', 'female_account', 'music' , 'country'));
   }
 }

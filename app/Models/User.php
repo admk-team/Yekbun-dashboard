@@ -23,7 +23,15 @@ class User extends Authenticatable
         'password',
         'image',
         'status',
-        'level'
+        'level',
+        'username',
+        'fname',
+        'lname',
+        'gender',
+        'dob',
+        'address',
+        'province',
+        'city',
     ];
 
     /**

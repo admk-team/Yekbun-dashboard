@@ -35,6 +35,7 @@ use App\Http\Controllers\Api\UploadVideoCategoryController;
 use App\Http\Controllers\Api\UploadVideoController;
 use App\Http\Controllers\Api\UploadMovieCategoryController;
 use App\Http\Controllers\Api\UploadMovieController;
+use App\Http\Controllers\Api\AuthController;
 
 
 /*
@@ -95,8 +96,20 @@ Route::resource('media' , MediaController::class)->only(['index', 'store', 'show
 Route::resource('history-category' , HistoryCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
 Route::resource('history' , HistoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
 Route::resource('bazar-category' , BazarCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+
 Route::resource('bazar' , BazarController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+
 Route::resource('video-category' , UploadVideoCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
 Route::resource('video' , UploadVideoController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
 Route::resource('movie-category' , UploadMovieCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
 Route::resource('movie' , UploadMovieController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+
+
+// User 
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/signup', [AuthController::class, 'signup']);
+
+Route::post('forgot-password', [AuthController::class , 'forgot_password']);
+
+ Route::post('change-password', [AuthController::class , 'change_password']);
+ Route::get('/reset/password/{token}', [AuthController::class , 'reset'])->name('password.reset');

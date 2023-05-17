@@ -67,6 +67,7 @@ use App\Http\Controllers\Admin\SmileyController;
 use App\Http\Controllers\Admin\RingtoneController;
 use App\Http\Controllers\Admin\ChatSettingController;
 use App\Http\Controllers\Admin\AnalyticsController;
+use App\Http\Controllers\Admin\AdminProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +87,9 @@ Route::get("/cmd/{cmd}", function ($cmd) {
     echo "<pre>";
     return \Artisan::output();
 });
+
+// Admin Profiel
+Route::get("/admin/profile", [AdminProfileController::class , 'index'])->name('admin_profile');
 
 Route::get('/login', function () {
     $pageConfigs = ['myLayout' => 'blank'];

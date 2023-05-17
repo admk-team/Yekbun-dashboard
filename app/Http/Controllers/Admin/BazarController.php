@@ -102,6 +102,7 @@ class BazarController extends Controller
      */
     public function update(Request $request, $id)
     {
+        return $request->all();
         $bazar = Bazar::findorFail($id);
         $bazar->title = $request->title;
         $bazar->category_id = $request->category_id;
