@@ -5,6 +5,7 @@
       "name": "Dashboards",
       "icon": "menu-icon tf-icons bx bxs-dashboard",
       "slug": "dashboard",
+      "permissions": "dashboard.read",
       "badge": [
         "primary",
         "3"
@@ -14,6 +15,7 @@
       "name": "User",
       "icon": "menu-icon tf-icons bx bxs-user",
       "slug": "users",
+      "permissions": "users.read,users.create,users.write,users.delete",
       "submenu": [
         {
           "url": "/users/standard",
@@ -36,6 +38,7 @@
        "name": "Music",
       "icon": "menu-icon tf-icons bx bxs-music",
       "slug": "music",
+      "permissions": "music.read,music.create,music.write,music.delete",
       "submenu": [
         {
           "url": "/music",
@@ -71,6 +74,7 @@
       "name": "Voting",
       "icon": "menu-icon tf-icons fa fa-pie-chart",
       "slug": "app-voting",
+      "permissions": "voting.read,voting.create,voting.write,voting.delete",
       "submenu": [
         {
           "url": "/vote",
@@ -88,6 +92,7 @@
       "name": "Online Shop",
       "icon": "menu-icon tf-icons bx bxs-store",
       "slug": "online-shop",
+      "permissions": "online_shop.read,online_shop.create,online_shop.write,online_shop.delete",
       "submenu": [
         {
           "url": "/dashboard",
@@ -130,6 +135,7 @@
       "name": "FanPage",
       "icon": "menu-icon tf-icons bx bxs-user",
       "slug": "fanpage",
+      "permissions": "fanpage.read,fanpage.create,fanpage.write,fanpage.delete",
       "submenu": [
         {
           "url": "/fanpage/requests",
@@ -152,6 +158,7 @@
       "name": "Report",
       "icon": "menu-icon tf-icons bx bxs-report",
       "slug": "reports",
+      "permissions": "reports.read,reports.create,reports.write,reports.delete",
       "submenu": [
         {
           "url": "/reports",
@@ -172,12 +179,14 @@
       "url": "posts",
       "name": "Post",
       "icon": "menu-icon tf-icons fa fa-bullhorn",
-      "slug": "posts.index"
+      "slug": "posts.index",
+      "permissions": "posts.read,posts.create,posts.write,posts.delete"
     },
     {
       "name": "News",
       "icon": "menu-icon tf-icons bx bx-news",
       "slug": "news",
+      "permissions": "news.read,news.create,news.write,news.delete",
       "submenu": [
         {
           "url": "/news",
@@ -196,6 +205,7 @@
       "name": "Add videos",
       "icon": "menu-icon tf-icons bx bxs-videos",
       "slug": "upload-video",
+      "permissions": "videos.read,videos.create,videos.write,videos.delete",
       "submenu": [
         {
           "url": "/upload-video-category",
@@ -214,6 +224,7 @@
       "slug": "add-movies",
       "icon": "menu-icon tf-icons bx bxs-movie",
       "url": "/video",
+      "permissions": "movies.read,movies.create,movies.write,movies.delete",
       "submenu": [
         {
           "url": "/upload-movies-category",
@@ -232,6 +243,7 @@
       "slug": "add-series",
       "icon": "menu-icon tf-icons bx bxs-playlist",
       "url": "/series",
+      "permissions": "series.read,series.create,series.write,series.delete",
       "submenu": [
         {
           "url": "/series/categories?target=series",
@@ -249,6 +261,7 @@
       "name": "Zarok App",
       "icon": "menu-icon tf-icons fa fa-graduation-cap",
       "slug": "zarok-app",
+      "permissions": "zarok_app.read,zarok_app.create,zarok_app.write,zarok_app.delete",
       "submenu": [
         {
           "name": "Add Videos",
@@ -277,6 +290,7 @@
       "name": "Events",
       "icon": "menu-icon tf-icons fa fa-calendar",
       "slug": "events",
+      "permissions": "events.read,events.create,events.write,events.delete",
       "submenu": [
         {
           "url": "/events/requests",
@@ -304,6 +318,7 @@
       "name": "History",
       "icon": "menu-icon tf-icons bx bxs-watch",
       "slug": "history",
+      "permissions": "history.read,history.create,history.write,history.delete",
       "submenu": [
         {
           "url": "/history",
@@ -321,6 +336,7 @@
       "name": "Donation",
       "icon": "menu-icon tf-icons fa fa-heartbeat",
       "slug": "donations",
+      "permissions": "donations.read,donations.create,donations.write,donations.delete",
       "submenu": [
         {
           "url": "/donations",
@@ -343,12 +359,14 @@
       "url": "/media",
       "name": "Media",
       "icon": "menu-icon tf-icons fa fa-television",
-      "slug": "media"
+      "slug": "media",
+      "permissions": "meida.read,meida.create,meida.write,meida.delete"
     },
     {
       "name": "Bazar",
       "icon": "menu-icon tf-icons fa fa-cart-plus",
       "slug": "bazar",
+      "permissions": "bazar.read,bazar.create,bazar.write,bazar.delete",
       "submenu": [
         {
           "url": "/bazar",
@@ -366,6 +384,7 @@
       "name": "Advertisement",
       "icon": "menu-icon tf-icons bx bxs-rocket",
       "slug": "ads",
+      "permissions": "advertisement.read,advertisement.create,advertisement.write,advertisement.delete",
       "submenu": [
         {
           "url": "/ads/categories?target=ads&has_sub_categories=1",
@@ -441,6 +460,11 @@
           "name": "Add Team",
           "slug": "add-team",
           "submenu": [
+            {
+              "url": "settings/team/members",
+              "name": "Add / Manage Members",
+              "slug": "settings.team.members.index"
+            },
             {
               "url": "settings/team/roles",
               "name": "Roles",

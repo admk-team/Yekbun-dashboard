@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +25,7 @@ class User extends Authenticatable
         'image',
         'status',
         'level',
+<<<<<<< HEAD
         'username',
         'fname',
         'lname',
@@ -32,6 +34,10 @@ class User extends Authenticatable
         'address',
         'province',
         'city',
+=======
+        'is_admin_user',
+        'is_superadmin'
+>>>>>>> 391d583d9e2f95de13f9c9a9b3eb3084b6b1c5a8
     ];
 
     /**
@@ -52,98 +58,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function hasRole($role = null) {
-        $role = Role::where(is_numeric($role)? 'id': 'identifier', $role)
-                    ->where('status', 1)
-                    ->first();
-
-        if (! $role) return false;
-
-        return (bool) UserRole::where('user_id', $this->id)
-                              ->where('role_id', $role->id)
-                              ->first();
-    }
-
-    public function hasRoles($roles = [])
-    {
-        foreach ($roles as $role) {
-            if (! $this->hasRole($role))
-                return false;
-        }
-
-        return true;
-    }
-
-    public function hasAnyRole($roles = [])
-    {
-        foreach ($roles as $role) {
-            if ($this->hasRole($role))
-                return true;
-        }
-
-        return false;
-    }
-
-    public function hasActiveRole()
-    {
-        $userRole = UserRole::where('user_id', $this->id)
-                ->first();
-        return (bool) Role::where('id', $userRole->role_id)
-                        ->where('status', 1)
-                        ->first();
-    }
-
-    public function assignRole($role)
-    {
-        $role = Role::where(is_numeric($role)? 'id': 'identifier', $role)
-                    ->first();
-        
-        if (! $role) throw new \Exception("Role does not exists.");
-
-        // Check if role is already assigned
-        $userRole = UserRole::where('user_id', $this->id)
-                            ->where('role_id', $role->id)
-                            ->first();        
-        if ($userRole ) return true;
-
-        UserRole::create([
-            'user_id' => $this->id,
-            'role_id' => $role->id
-        ]);
-
-        return true;
-    }
-
-    public function assignRoles($roles = [])
-    {
-        foreach ($roles as $role) $this->assignRole($role);
-    }
-
-    public function removeRole($role)
-    {
-        $role = Role::where(is_numeric($role)? 'id': 'identifier', $role)
-                    ->first();
-        
-        if (! $role) return true;
-
-        UserRole::where('user_id', $this->id)
-                ->where('role_id', $role->id)
-                ->first()
-                ->delete();
-
-        return true;
-    }
-
-    public function removeRoles($roles = [])
-    {
-        foreach ($roles as $role) $this->removeRole($role);
-    }
-
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class, 'user_roles');
-    }
 
     public function stories()
     {

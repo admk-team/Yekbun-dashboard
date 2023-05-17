@@ -351,7 +351,7 @@ $navbarDetached = ($navbarDetached ?? '');
                     <li class="nav-item navbar-dropdown dropdown-user dropdown">
                         <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                             <div class="avatar avatar-online">
-                                <img src="{{ Auth::user() ? Auth::user()->profile_photo_url : asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
+                                <img src="{{ Auth::user() ? asset('storage/'.Auth::user()->image) : asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
@@ -360,7 +360,7 @@ $navbarDetached = ($navbarDetached ?? '');
                                     <div class="d-flex">
                                         <div class="flex-shrink-0 me-3">
                                             <div class="avatar avatar-online">
-                                                <img src="{{ Auth::user() ? Auth::user()->profile_photo_url : asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
+                                                <img src="{{ Auth::user() ? asset('storage/'.Auth::user()->image) : asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
                                             </div>
                                         </div>
                                         <div class="flex-grow-1">
@@ -371,7 +371,7 @@ $navbarDetached = ($navbarDetached ?? '');
                                                 John Doe
                                                 @endif
                                             </span>
-                                            <small class="text-muted">Admin</small>
+                                            <small class="text-muted">{{ Auth::user()->email }}</small>
                                         </div>
                                     </div>
                                 </a>
@@ -385,7 +385,7 @@ $navbarDetached = ($navbarDetached ?? '');
                                     <span class="align-middle">My Profile</span>
                                 </a>
                             </li>
-                            @if (Auth::check() && Laravel\Jetstream\Jetstream::hasApiFeatures())
+                            @if (Auth::check() && false && Laravel\Jetstream\Jetstream::hasApiFeatures())
                             <li>
                                 <a class="dropdown-item" href="{{ route('api-tokens.index') }}">
                                     <i class='bx bx-key me-2'></i>
@@ -394,7 +394,7 @@ $navbarDetached = ($navbarDetached ?? '');
                             </li>
                             @endif
 
-                            @if (Auth::User() && Laravel\Jetstream\Jetstream::hasTeamFeatures())
+                            @if (Auth::User() && false && Laravel\Jetstream\Jetstream::hasTeamFeatures())
                             <li>
                                 <div class="dropdown-divider"></div>
                             </li>
@@ -440,21 +440,14 @@ $navbarDetached = ($navbarDetached ?? '');
                             </li>
                             @if (Auth::check())
                             <li>
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <a class="dropdown-item" href="{{ route('admin.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <i class='bx bx-power-off me-2'></i>
                                     <span class="align-middle">Logout</span>
                                 </a>
                             </li>
-                            <form method="POST" id="logout-form" action="{{ route('logout') }}">
+                            <form method="POST" id="logout-form" action="{{ route('admin.logout') }}">
                                 @csrf
                             </form>
-                            @else
-                            <li>
-                                <a class="dropdown-item" href="{{ Route('admin.logout') }}">
-                                    <i class='bx bx-log-in me-2'></i>
-                                    <span class="align-middle">Logout</span>
-                                </a>
-                            </li>
                             @endif
                         </ul>
                     </li>
