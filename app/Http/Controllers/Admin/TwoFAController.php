@@ -33,6 +33,9 @@ class TwoFAController extends Controller
   
         if (!is_null($find)) {
             Session::put('user_2fa', auth()->user()->id);
+            activity()
+                ->event('logged_in')
+                ->log("<strong>" . Auth::user()->name . "</strong> logged in");
            return redirect()->intended(route('dashboard-analytics'));
         }
   
