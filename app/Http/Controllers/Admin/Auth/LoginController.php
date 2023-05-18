@@ -25,8 +25,12 @@ class LoginController extends Controller
         $credentials['status'] = 1;
 
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended(route('dashboard-analytics'));
+            
+            // $request->session()->regenerate();
+            // return redirect()->intended(route('dashboard-analytics'));
+            auth()->user()->generateCode();
+  
+            return redirect()->route('2fa.index');
         }
     
         return back()->withInput(request()->only(['email', 'password']))->with('error', "Invalid Credentials!");

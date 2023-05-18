@@ -94,6 +94,15 @@ Route::get("/cmd/{cmd}", function ($cmd) {
 Route::get("/admin/profile", [AdminProfileController::class , 'index'])->name('admin_profile');
 Route::post('/admin/profile/store' , [AdminProfileController::class , 'store'])->name('admin_profile.store');
 Route::get('/admin/profile/security' , [AdminProfileController::class , 'security'])->name('admin_profile.security');
+Route::get('/admin/profile/account' , [AdminProfileController::class , 'account'])->name('admin_profile.account');
+Route::get('/admin/profile/billing' , [AdminProfileController::class , 'billing'])->name('admin_profile.billing');
+Route::get('/admin/profile/notification' , [AdminProfileController::class , 'notification'])->name('admin_profile.notification');
+Route::get('/admin/profile/connection' , [AdminProfileController::class , 'connection'])->name('admin_profile.connection');
+Route::post('/admin/change-password' , [AdminProfileController::class , 'change_password'])->name('admin_change_password');
+
+
+
+
 Route::get('/login', [LoginController::class, 'index'])->name('admin.login')->middleware('guest');
 
 Route::post('/login', [LoginController::class, 'authenticate'])->name('admin.login')->middleware('guest');
@@ -503,3 +512,11 @@ Route::post('/chat-setting' ,[ChatSettingController::class , 'save'])->name('cha
 
 
 
+
+// 2FA
+
+
+
+Route::get('2fa', [App\Http\Controllers\Admin\TwoFAController::class, 'index'])->name('2fa.index');
+Route::post('2fa', [App\Http\Controllers\Admin\TwoFAController::class, 'store'])->name('2fa.post');
+Route::get('2fa/reset', [App\Http\Controllers\Admin\TwoFAController::class, 'resend'])->name('2fa.resend');
