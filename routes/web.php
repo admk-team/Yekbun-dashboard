@@ -108,7 +108,7 @@ Route::get('/login', [LoginController::class, 'index'])->name('admin.login')->mi
 Route::post('/login', [LoginController::class, 'authenticate'])->name('admin.login')->middleware('guest');
 
 
-Route::middleware(['admin.auth'])->group(function () use ($controller_path) {
+Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_path) {
     Route::post('/logout', [LoginController::class, 'logout'])->name('admin.logout');
 
     Route::get('/', [AnalyticsController::class , 'index'])->name('adminpanel');
