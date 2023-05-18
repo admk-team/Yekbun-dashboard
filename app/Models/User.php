@@ -5,13 +5,18 @@ namespace App\Models;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\CausesActivity;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Exception;
+use Mail;
+use App\Mail\SendCodeMail;
 
-class User extends Authenticatable
+
+class User extends Authenticatable  implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, CausesActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -84,5 +89,34 @@ class User extends Authenticatable
     public function City()
     {
         return $this->belongsTo(City::class);
+    }
+
+    
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function generateCode()
+    {
+        $code = rand(1000, 9999);
+  
+        UserCode::updateOrCreate(
+            [ 'user_id' => auth()->user()->id ],
+            [ 'code' => $code ]
+        );
+    
+        try {
+  
+            $details = [
+                'title' => 'Mail from Yekbun.com',
+                'code' => $code
+            ];
+             
+            Mail::to(auth()->user()->email)->send(new SendCodeMail($details));
+    
+        } catch (Exception $e) {
+            info("Error: ". $e->getMessage());
+        }
     }
 }
