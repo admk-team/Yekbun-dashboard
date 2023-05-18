@@ -34,6 +34,21 @@ class AdminProfileController extends Controller
     public function security(){
         return view('content.pages.pages-account-settings-security');
     }
+
+    public function enable(Request $request){
+        
+        if($request->has('enable')){
+             auth()->user()->enable_2fa  = true;
+             auth()->user()->save();
+             return back()->with('success', 'Two Factor Authentication Enabled');
+        }else{
+            auth()->user()->enable_2fa  = false;
+            auth()->user()->save();
+            return back()->with('error', 'Two Factor Authentication Disabled');
+        }
+        
+    }
+
     public function account(){
         return view('content.pages.pages-account-settings-account');
     }

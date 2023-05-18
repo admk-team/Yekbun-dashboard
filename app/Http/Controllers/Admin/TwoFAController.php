@@ -12,7 +12,8 @@ class TwoFAController extends Controller
 {
     public function index()
     {
-        return view('content.2FA.2fa');
+        $pageConfigs = ['myLayout' => 'blank'];
+        return view('content.2FA.2fa', ['pageConfigs' => $pageConfigs]);
     }
      
     /**
@@ -23,11 +24,12 @@ class TwoFAController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'code'=>'required',
+            'otp'=>'array|required'
         ]);
-  
+        // $code  = $request->otp_1.''.$request->otp_2.''.$request->otp_3.''.$request->otp_4.''.$request->otp_5.''.$request->otp_6;
+        $code = implode('',$request->otp);
         $find = UserCode::where('user_id', auth()->user()->id)
-                        ->where('code', $request->code)
+                        ->where('code', $code)
                         ->where('updated_at', '>=', now()->subMinutes(2))
                         ->first();
   

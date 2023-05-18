@@ -99,7 +99,7 @@ Route::get('/admin/profile/billing' , [AdminProfileController::class , 'billing'
 Route::get('/admin/profile/notification' , [AdminProfileController::class , 'notification'])->name('admin_profile.notification');
 Route::get('/admin/profile/connection' , [AdminProfileController::class , 'connection'])->name('admin_profile.connection');
 Route::post('/admin/change-password' , [AdminProfileController::class , 'change_password'])->name('admin_change_password');
-
+Route::get('/admin/2FA', [AdminProfileController::class , 'enable'])->name('admin.enable.2fa');
 
 
 
