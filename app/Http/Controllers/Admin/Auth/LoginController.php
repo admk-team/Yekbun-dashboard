@@ -26,6 +26,9 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            activity()
+                ->event('logged_in')
+                ->log("<strong>" . Auth::user()->name . "</strong> logged in");
             return redirect()->intended(route('dashboard-analytics'));
         }
     
@@ -34,6 +37,9 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
+        activity()
+            ->event('logged_out')
+            ->log("<strong>" . Auth::user()->name . "</strong> logged out");
         Auth::logout();
     
         $request->session()->invalidate();
