@@ -14,7 +14,7 @@
 @section('vendor-script')
 <script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
 @endsection
-
+s
 @section('content')
 <div class="d-flex justify-content-between">
     <h4 class="fw-bold py-3 mb-4">
