@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdController;
+use App\Http\Controllers\Admin\ActivityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\user\Diamond;
 use App\Http\Controllers\user\Premium;
@@ -121,6 +122,9 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
 
     // locale
     Route::get('lang/{locale}', $controller_path . '\language\LanguageController@swap');
+
+    // Activity pages via ajax
+    Route::get('/activity', [ActivityController::class, 'index'])->name('ajax-activity');
  
 // Video 
 Route::resource('/upload-video', UplaodVideoController::class);
