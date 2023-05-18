@@ -12,9 +12,11 @@
         </li>
         @endif
       </ul>
+      @if (! $actions->onLastPage())
       <div class="text-center">
         <button  class="btn btn-primary" style="width: 150px" onclick="loadMoreActivity(this)">Load More</button>
       </div>
+      @endif
     </div>
 </div>
 

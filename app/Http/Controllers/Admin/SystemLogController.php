@@ -16,7 +16,7 @@ class SystemLogController extends Controller
      */
     public function index()
     {
-        $activity = Activity::orderBy('created_at', 'DESC')->paginate(5);
+        $activity = Activity::orderBy('created_at', 'DESC')->paginate(20);
         return view('content.system_log.index', compact('activity'));
     }
 

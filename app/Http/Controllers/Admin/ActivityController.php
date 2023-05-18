@@ -14,9 +14,9 @@ class ActivityController extends Controller
     {
         $activity = [];
         if ($request->all) {
-            $activity = Activity::orderBy('created_at', 'DESC')->paginate(5);
+            $activity = Activity::orderBy('created_at', 'DESC')->paginate(20);
         } else {
-            $activity = Auth::user()->actions()->orderBy('created_at', 'DESC')->paginate(5);
+            $activity = Auth::user()->actions()->orderBy('created_at', 'DESC')->paginate(20);
         }
 
         $data = [];

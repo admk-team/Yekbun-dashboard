@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class History extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
+    
     protected $fillable=[
         'title',
         'category_id',
@@ -20,6 +23,11 @@ class History extends Model
         'image' => 'array',
         'video' => 'array',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults();
+    }
 
     public function history_category(){
         return $this->belongsTo(HistoryCategory::class, 'category_id');
