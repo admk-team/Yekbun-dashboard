@@ -14,9 +14,14 @@ $event = $action->event;
 $causer = $action->causer()->first();
 
 if ($event === 'logged_in' || $event === 'logged_out') {
-    $name = $action->description;
+    $causerName = auth()->user()->id === $causer->id? 'You': $causer->name;
+    $name = "<strong>$causerName</strong> " . str_replace('_', ' ', $event);
 } elseif (in_array($event, $modelEvents)) {
+    $subjectTypeArr = explode("\\", $action->subject_type);
+    $subjectName = $subjectTypeArr[count($subjectTypeArr) - 1];
     
+    $causerName = auth()->user()->id === $causer->id? 'you': $causer->name;
+    $name = "<strong><i>$subjectName</i></strong> $event by <strong>{$causerName}</strong>";
 }
 
 @endphp
@@ -36,7 +41,6 @@ if ($event === 'logged_in' || $event === 'logged_out') {
             <span class="fw-bold text-body">invoices.pdf</span>
             </a>
         </div> -->
-        @if ($action->event === 'logged_in' || $action->event === 'logged_out')
         <div class="d-flex justify-content-start align-items-center user-name">
             <div class="avatar-wrapper">
                 <div class="avatar avatar-sm me-3"><img src="{{$causer->image? url('storage/' . $causer->image): 'https://www.w3schools.com/howto/img_avatar.png' }}" alt="Avatar" class="rounded-circle"></div>
@@ -48,6 +52,5 @@ if ($event === 'logged_in' || $event === 'logged_out') {
                 <small class="text-muted">{{ $causer->email }}</small>
             </div>
         </div>
-        @endif
     </div>
 </li>
