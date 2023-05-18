@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdController;
+use App\Http\Controllers\Admin\ActivityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\user\Diamond;
 use App\Http\Controllers\user\Premium;
@@ -99,7 +100,7 @@ Route::get('/admin/profile/billing' , [AdminProfileController::class , 'billing'
 Route::get('/admin/profile/notification' , [AdminProfileController::class , 'notification'])->name('admin_profile.notification');
 Route::get('/admin/profile/connection' , [AdminProfileController::class , 'connection'])->name('admin_profile.connection');
 Route::post('/admin/change-password' , [AdminProfileController::class , 'change_password'])->name('admin_change_password');
-
+Route::get('/admin/2FA', [AdminProfileController::class , 'enable'])->name('admin.enable.2fa');
 
 
 
@@ -121,6 +122,9 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
 
     // locale
     Route::get('lang/{locale}', $controller_path . '\language\LanguageController@swap');
+
+    // Activity pages via ajax
+    Route::get('/activity', [ActivityController::class, 'index'])->name('ajax-activity');
  
 // Video 
 Route::resource('/upload-video', UplaodVideoController::class);
@@ -510,13 +514,7 @@ Route::resource('/ringtone' , RingtoneController::class);
 Route::resource('/chat-settings' , ChatSettingController::class);
 Route::post('/chat-setting' ,[ChatSettingController::class , 'save'])->name('chat-setting');
 
-
-
-
 // 2FA
-
-
-
 Route::get('2fa', [App\Http\Controllers\Admin\TwoFAController::class, 'index'])->name('2fa.index');
 Route::post('2fa', [App\Http\Controllers\Admin\TwoFAController::class, 'store'])->name('2fa.post');
 Route::get('2fa/reset', [App\Http\Controllers\Admin\TwoFAController::class, 'resend'])->name('2fa.resend');

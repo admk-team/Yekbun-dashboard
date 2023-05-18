@@ -103,7 +103,14 @@
         <p class="w-75">Two-factor authentication adds an additional layer of security to your account by requiring more than just a password to log in.
           <a href="javascript:void(0);">Learn more.</a>
         </p>
-        <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#enableOTP">Enable two-factor authentication</button>
+        <form action="{{ route('admin.enable.2fa') }}">
+        @if(auth()->user()->enable_2fa) 
+          <button class="btn btn-danger mt-2" name="disable" value="0">Disable two-factor authentication</button>
+          @else
+          <button class="btn btn-primary mt-2" name="enable" value="1">Enable two-factor authentication</button>
+          @endif
+        </form>
+        
       </div>
     </div>
     <!-- Modal -->

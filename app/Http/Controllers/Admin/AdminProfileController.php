@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Activitylog\Models\Activity;
 
 class AdminProfileController extends Controller
 {
     public function index(){
-     
-        return view('content.admin_profile.index');
+        
+        $activity = Auth::user()->actions()->orderBy('created_at', 'DESC')->paginate(20);
+        return view('content.admin_profile.index', compact("activity"));
     }
 
     public function store(Request $request){
@@ -34,6 +37,21 @@ class AdminProfileController extends Controller
     public function security(){
         return view('content.pages.pages-account-settings-security');
     }
+
+    public function enable(Request $request){
+        
+        if($request->has('enable')){
+             auth()->user()->enable_2fa  = true;
+             auth()->user()->save();
+             return back()->with('success', 'Two Factor Authentication Enabled');
+        }else{
+            auth()->user()->enable_2fa  = false;
+            auth()->user()->save();
+            return back()->with('error', 'Two Factor Authentication Disabled');
+        }
+        
+    }
+
     public function account(){
         return view('content.pages.pages-account-settings-account');
     }
