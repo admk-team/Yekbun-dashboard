@@ -55,7 +55,7 @@
     },
     {
         "name": "voting",
-        "label": "Music Management",
+        "label": "Voting",
         "children": [
             {
                 "name": "read",

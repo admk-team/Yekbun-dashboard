@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Voting extends Model
 {
-    use HasFactory;
+    use HasFactory , LogsActivity;
 
     protected $fillable=[
         'name',
@@ -25,7 +27,10 @@ class Voting extends Model
     protected $casts = [
         'options' => 'array',
     ];
-
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults();
+    }
     public function voting_category(){
         return $this->belongsTo(VotingCategory::class , 'category_id');
     }

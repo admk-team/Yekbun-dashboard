@@ -113,9 +113,11 @@
             <td>
               <div class="dropdown">
                 <span data-bs-toggle="modal" data-bs-target="#changeStatusModal">
+                  @can('requests.write')
                   <button class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Change Status">
                     <i class="bx bx-transfer"></i>
                   </button>
+                  @endcan
                 </span>
 
                 {{--<!-- Edit -->

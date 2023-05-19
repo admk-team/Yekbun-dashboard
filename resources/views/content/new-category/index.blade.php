@@ -53,7 +53,9 @@
 <div class="card">
     <div class="card-header d-flex align-items-center justify-content-between">
         <h5 class="m-0">Category List</h5>
+        @can('news.create')
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createnewscategoryModal"><i class="bx bx-plus me-0 me-sm-1"></i> Add Category</button>
+        @endcan
     </div>
     <div class="table-responsive text-nowrap">
       <table class="table">
@@ -72,17 +74,21 @@
                 <td>
                     <div class="dropdown d-inline-block">
                         <!-- Edit -->
+                        @can('news.write')
                         <span data-bs-toggle="modal" data-bs-target="#editnewscategoryModal{{ $news->id }}">
                             <button class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit" aria-describedby="tooltip408529">
                                 <i class="bx bx-edit"></i>
                             </button>
+                            @endcan
                         </span>
 
                         <!-- Delete -->
                         <form action="{{ route('news-category.destroy',$news->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
                             @method ('DELETE')
                             @csrf
+                            @can('news.delete')
                             <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                            @endcan
                         </form>
 
                         {{--<button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-light">Action

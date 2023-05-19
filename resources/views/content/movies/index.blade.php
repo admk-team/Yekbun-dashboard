@@ -27,7 +27,9 @@
       </h4>
   </div>
   <div class="">
+    @can('movies.create')
       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createmovieModal">Add Movie</button>
+      @endcan
   </div>
 </div>
 
@@ -65,13 +67,17 @@
             <td>
               <div class="d-flex justify-content-start align-items-center">
                 <span data-bs-toggle="modal" data-bs-target="#editmoviesModal{{ $movie->id }}">
+                  @can('movies.write')
                     <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button>
+                    @endcan
                 </span>
 
                 <form action="{{ route('upload-movies.destroy', $movie->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
                     @method('DELETE')
                     @csrf
+                    @can('movies.delete')
                     <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                    @endcan
                 </form>
               </div>
               <x-modal id="editmoviesModal{{$movie->id}}" title="Update Movie" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{$movie->id}}" size="md">

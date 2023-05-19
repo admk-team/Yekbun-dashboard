@@ -124,20 +124,25 @@
             <td>{{ $ad->payment_type }}</td>
             <td>{{ $ad->denied_reason?? '' }}</td>
             <td>
+              @can('advertisement.write')
               <a href="{{ route('ads-status', ['id' => $ad->id, 'status' => 1]) }}" class="btn badge badge-center bg-label-secondary ms-1" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Accept"><i class="bx bx-check"></i></a>
-
+              @endcan
               <!-- View -->
               <span data-bs-toggle="modal" data-bs-target="#viewModal{{ $ad->id }}" class="ms-1">
+                @can('advertisement.read')
                 <button class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="View">
                   <i class="fa fa-eye fa-lg"></i>
                 </button>
+                @endcan
               </span>
 
               <!-- Delete -->
               <form action="{{ route('ads.destroy', $ad->id) }}" class="ms-1 d-inline-block" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
                 @method('DELETE')
                 @csrf
+                @can('advertisement.delete')
                 <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                @endcan
               </form>
 
               <x-modal

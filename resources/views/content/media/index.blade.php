@@ -14,11 +14,15 @@
 </h4>
 </div>
 <div class="">
+  @can('media.create')
     <a href="{{ route('media.create') }}">
 <button class="btn btn-primary">Add Media</button>
 </a>
+@endcan
+@can('media.create')
 <a href="{{ route('media-category.index') }}">
 <button class="btn btn-primary">Category</button></a>
+@endcan
 </div>
 </div>
 
@@ -166,15 +170,19 @@
                   <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
                     <ul class="nav flex-column">
                       <li class="nav-item">
+                        @can('media.write')
                         <a href="{{ route('media.edit',$medias->id) }}" class="nav-link">
                           <i class="nav-link-icon pe-7s-chat"> </i><span>Edit</span>
                         </a>
+                        @endcan
                       </li>
                       <li class="nav-item">
+                        @can('media.delete')
                         <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);"
                           data-id="{{ route('media.destroy',$medias->id) }}">
                           <i class="nav-link-icon pe-7s-wallet"> </i><span>Delete</span>
                         </a>
+                        @endcan
                       </li>
                     </ul>
                   </div>
