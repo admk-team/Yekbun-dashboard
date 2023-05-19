@@ -62,7 +62,7 @@ class AdminProfileController extends Controller
         return view('content.pages.pages-account-settings-notifications');
     }
     public function connection(){
-        return view('content.pages.pagesss-account-settings-connections');
+        return view('content.pages.pages-account-settings-connections');
     }
 
     public function change_password(Request $request)

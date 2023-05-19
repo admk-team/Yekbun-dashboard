@@ -44,7 +44,9 @@ $configData = Helper::appClasses();
       <div class="col-lg-6 col-md-12 col-6 mb-4">
         <div class="card">
           <div class="card-body pb-0">
-            <img src="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo/assets/img/avatars/9.png" alt="Avatar" class="rounded-circle" style="margin-left:30px;width:80px">
+           <div class="m-auto text-center">
+            <span class="badge bg-label-primary p-2"><i class='bx bx-male' style="font-size:70px;"></i></span>
+           </div>
             <span class="d-block fw-semibold mb-1 text-center mt-3">Male Account</span>
             <h3 class="card-title mb-1 text-center">{{ $male_account ?? '' }}</h3>
           </div>
@@ -53,7 +55,9 @@ $configData = Helper::appClasses();
       <div class="col-lg-6 col-md-12 col-6 mb-4">
         <div class="card">
           <div class="card-body pb-0">
-            <img src="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo/assets/img/avatars/6.png" alt="Avatar" class="rounded-circle"style="margin-left:30px;width:80px">
+            <div class="m-auto text-center">
+              <span class="badge bg-label-info p-2"><i class='bx bx-female' style="font-size:70px;"></i></span>
+             </div>
             <span class="d-block fw-semibold mb-1 text-center mt-3">Female Account</span>
             <h3 class="card-title mb-1 text-center">{{ $female_account ?? '' }}</h3>
           </div>
@@ -117,7 +121,9 @@ $configData = Helper::appClasses();
       <div class="col-lg-6 col-md-12 col-6 mb-4">
         <div class="card">
           <div class="card-body pb-0">
-            <img src="https://random.country/wp-content/uploads/2022/05/random-country-fb.jpg" class="rounded-circle" style="margin-left:30px;width:100px">
+            <div class="m-auto text-center">
+              <span class="badge bg-label-info p-2"><i class='bx bx-globe' style="font-size:70px;"></i></span>
+             </div>
             <span class="d-block fw-semibold mb-1 text-center mt-3">Total Country</span>
             <h3 class="card-title mb-1 text-center">{{ $country ?? '' }}</h3>
           </div>
@@ -127,7 +133,9 @@ $configData = Helper::appClasses();
       <div class="col-lg-6 col-md-12 col-6 mb-4">
         <div class="card">
           <div class="card-body pb-0">
-            <img src="https://img.freepik.com/free-vector/music-vinyl-record-label-with-sound-notes-background_1017-36729.jpg?w=360" class="rounded-circle" style="margin-left:30px;width:80px">
+            <div class="m-auto text-center">
+              <span class="badge bg-label-primary p-2"><i class='bx bx-music' style="font-size:70px;"></i></span>
+             </div>
             <span class="d-block fw-semibold mb-1 text-center mt-3">Music Uploaded</span>
             <h3 class="card-title mb-1 text-center">{{ $music ?? '' }}</h3>
           </div>
@@ -355,7 +363,7 @@ $configData = Helper::appClasses();
                 <h6 class="mb-0">Refund</h6>
               </div>
               <div class="user-progress d-flex align-items-center gap-1">
-                <h6 class="mb-0">+637.91</h6> <span class="text-muted">USD</span>
+                <h6 class="mb-0">+637.70</h6> <span class="text-muted">USD</span>
               </div>
             </div>
           </li>

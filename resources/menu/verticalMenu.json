@@ -260,7 +260,7 @@
     {
       "name": "Zarok App",
       "icon": "menu-icon tf-icons fa fa-graduation-cap",
-      "slug": "zarok-app",
+      "slug": "'zarok-app'",
       "permissions": "zarok_app.read,zarok_app.create,zarok_app.write,zarok_app.delete",
       "submenu": [
         {

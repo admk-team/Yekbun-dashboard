@@ -24,7 +24,9 @@
 </h4>
 </div>
 <div class="">
+  @can('zarok_app.create')
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Add Story</button>
+    @endcan
 </div>
 </div>
   <!-- Basic Bootstrap Table -->
@@ -50,11 +52,15 @@
               <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                 <div class="dropdown-menu">
+                  @can('zarok_app.write')
                   <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal{{ $story->id }}"><i class="bx bx-edit-alt me-1"></i> Edit</button>
+                  @endcan
                   <form action="{{ route('stories.destroy', $story->id) }}" method="post" onsubmit="confirmAction(event, () => event.target.submit())">
                     @method('DELETE')
                     @csrf
+                    @can('zarok_app.delete')
                     <button type="submit" class="dropdown-item"><i class="bx bx-trash me-1"></i> Delete</button>
+                    @endcan
                   </form>
                 </div>
               </div>

@@ -103,7 +103,9 @@ else
         </h4>
     </div>
     <div class="">
+        @can('videos.create')
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createvideoModal">Add Video</button>
+        @endcan
     </div>
 </div>
 {{-- <div class=" d-flex justify-content-end">

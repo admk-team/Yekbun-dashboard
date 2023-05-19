@@ -125,7 +125,9 @@
             </td>
             <td>
               <a href="{{ route('fanpage-status', ['id' => $page->id, 'status' => 1]) }}" class="btn badge badge-center bg-label-secondary ms-1" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Accept"><i class="bx bx-check"></i></a>
+              @can('fanpage.write')
               <button class="btn badge badge-center bg-label-danger ms-1" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Reject" onclick="$('#warningModal{{ $page->id }}').modal('show')"><i class="bx bx-x-circle"></i></button>
+              @endcan
               <x-modal
                 id="warningModal{{ $page->id }}"
                 onSaveBtnClick="window.location.href = '{{ route('fanpage-status', ['id' => $page->id, 'status' => 2]) }}'"
