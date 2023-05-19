@@ -12,6 +12,8 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/tagify/tagify.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/dropzone/dropzone.css')}}" />
+
 @endsection
 
 @section('vendor-script')
@@ -22,7 +24,9 @@
 @endsection
 
 @section('content')
-
+<script>
+  const dropZoneInitFunctions = [];
+</script>
 
 <div class="row g-4 mb-4">
   <div class="col-sm-6 col-xl-3">
@@ -112,7 +116,9 @@
 </h4>
 </div>
 <div class="">
+  @can('music.create')
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createmusicModal">Add Music</button>
+  @endcan
 </div>
 </div>
 
@@ -139,12 +145,8 @@
                 {{ $musics->music_category->name ?? '' }} 
             </td>
             <td>
-              <?php
-                 $json = $musics->audio;
-                 $arr = json_decode($json, true); 
-              ?>
               <audio controls>
-              <source src="{{ asset('storage/'.$arr[0]) }}">
+              <source src="{{ isset($musics->audio[0]) ? asset('storage/'.$musics->audio[0]) : '' }}">
               </audio>
             </td>
             <td>
@@ -157,12 +159,17 @@
             <td>
               <div class="d-flex justify-content-start align-items-center">
                 <span data-bs-toggle="modal" data-bs-target="#editmusicModal{{ $musics->id }}">
-                  <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button>
+                  @can('music.write')
+                  <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i>
+                  @endcan
+                  </button>
                 </span>
                 <form action="{{ route('music.destroy', $musics->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
                   @method('DELETE')
                   @csrf
+                  @can('music.delete')
                   <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                  @endcan
                 </form>
                 <x-modal id="editmusicModal{{ $musics->id }}" 
                 title="Edit Music"
@@ -233,5 +240,11 @@ title="Create Music"
     });
   }
 </script>
+<script>
+  function drpzone_init() {
+      dropZoneInitFunctions.forEach(callback => callback());
+  }
+</script>
+<script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js" onload="drpzone_init()"></script>
 @endsection
 @endsection

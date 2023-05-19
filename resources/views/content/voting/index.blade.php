@@ -75,7 +75,9 @@
   <div class="card">
     <div class="card-header d-flex align-items-center justify-content-between">
         <h5 class="m-0">Voting List</h5>
+        @can('voting.create')
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createvotingModal"><i class="bx bx-plus me-0 me-sm-1"></i> Add Vote</button>
+        @endcan
     </div>
     <div class="table-responsive text-nowrap">
       <table class="table">
@@ -99,16 +101,20 @@
                 <div class="dropdown d-inline-block">
                     <!-- Edit -->
                     <span data-bs-toggle="modal" data-bs-target="#editvotingModal{{ $vote->id }}">
+                        @can('voting.write')
                         <button class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit" aria-describedby="tooltip557134">
                             <i class="bx bx-edit"></i>
                         </button>
+                        @endcan
                     </span>
 
                     <!-- Delete -->
                     <form action="{{ route('vote.destroy', $vote->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
                         @method('DELETE')
                         @csrf
+                        @can('voting.delete')
                         <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                        @endcan
                     </form>
                     {{--<button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-light">Action
                     </button>

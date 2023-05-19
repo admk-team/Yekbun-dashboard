@@ -29,7 +29,9 @@
         </h4>
     </div>
     <div class="">
+        @can('videos.create')
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#videocategorymodel">Add Video Category</button>
+        @endcan
     </div>
 </div>
 
@@ -83,14 +85,18 @@
 
                     <td>
                         <div class="d-flex justify-content-start align-items-center">
+                            @can('videos.write')
                             <span data-bs-toggle="modal" data-bs-target="#editvideocategoryModal{{ $video->id }}">
                                 <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button>
+                                @endcan
                             </span>
 
                             <form action="{{ route('upload-video-category.destroy', $video->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
                                 @method('DELETE')
                                 @csrf
+                                @can('videos.delete')
                                 <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                                @endcan
                             </form>
                         </div>
                         <div class="modal fade" id="editvideocategoryModal{{ $video->id }}" tabindex="-1" aria-hidden="true">

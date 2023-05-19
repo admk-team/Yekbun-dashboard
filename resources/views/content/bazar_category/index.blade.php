@@ -29,8 +29,10 @@
         </h4>
     </div>
     <div class="">
+        @can('bazar.create')
         <button class="btn btn-primary  mr-2" data-bs-toggle="modal" data-bs-target="#createbazarcategoryModal">Add Category</button>
         <button class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#createbazarsubcategoryModal">Add SubCategory</button>
+        @endcan
     </div>
 </div>
 
@@ -131,7 +133,9 @@
                         @php
                         $subcategory = DB::table('sub_category_bazars')->where('category_id' , $bazar->id)->first();
                         @endphp
+                        @can('bazar.read')
                         <span><button class="btn" data-bs-toggle="modal" data-bs-target="#checkfullsubcategory{{ $bazar->id }}"> {{ $subcategory->name ?? ''  }}</button> </span>
+                        @endcan
                         <!--  Create Sub Category Model -->
                         <div class="modal fade" id="checkfullsubcategory{{ $bazar->id }}" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
@@ -162,14 +166,18 @@
                     <td>
 
                         <div class="d-flex justify-content-start align-items-center">
+                            @can('bazar.write')
                             <span data-bs-toggle="modal" data-bs-target="#editbazarcategoryModal{{ $bazar->id }}">
                                 <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button>
                             </span>
+                            @endcan
 
                             <form action="{{ route('bazar-category.destroy', $bazar->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
                                 @method('DELETE')
                                 @csrf
+                                @can('bazar.delete')
                                 <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash"></i></button>
+                                @endcan
 
                             </form>
                         </div>

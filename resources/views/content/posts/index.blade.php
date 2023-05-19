@@ -33,7 +33,9 @@
     {{-- <a href="{{ route('posts.create') }}">
       <button class="btn btn-primary">Add Post</button>
     </a>--}}
+    @can('posts.create')
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Add Post</button>
+    @endcan
 </div>
 </div>
 

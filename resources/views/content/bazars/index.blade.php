@@ -114,7 +114,9 @@
         </h4>
     </div>
     <div class="">
+        @can('bazar.create')
         <button class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#createbazarModal">Add Bazar</button>
+        @endcan
     </div>
 </div>
 
@@ -159,17 +161,23 @@
 
                         <div class="d-flex">
                             <span data-bs-toggle="modal" data-bs-target="#viewbazarModal{{ $bazar->id }}">
+                                @can('bazar.write')
                                 <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="View"><i class='bx bx-show'></i></button>
+                                @endcan
                             </span>
 
                             <span data-bs-toggle="modal" data-bs-target="#editbazarModal{{ $bazar->id }}">
+                                @can('bazar.write')
                                 <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button>
+                                @endcan
                             </span>
 
                             <form action="{{ route('bazar.destroy', $bazar->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
                                 @method('DELETE')
                                 @csrf
+                                @can('bazar.write')
                                 <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash"></i></button>
+                                @endcan
                             </form>
                         </div>
                         <x-modal id="editbazarModal{{ $bazar->id }}" title="Edit Bazar" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $bazar->id }}" size="md">

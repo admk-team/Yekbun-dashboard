@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TicketSale extends Model
 {
-    use HasFactory;
+    use HasFactory , LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -19,4 +21,8 @@ class TicketSale extends Model
         'user_id',
         'total'
     ];
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults();
+    }
 }

@@ -420,6 +420,8 @@ Route::get('/news_category/{id}/{status}' , [NewsCategoryController::class, 'sta
 // Music
 Route::resource('/music', MusicController::class);
 Route::get('/musics/{id}/{status}' , [MusicController::class , 'status'])->name('musics-status');
+Route::delete('/music/{id}/music', [MusicController::class, 'deleteMusic'])->name('music.delete-audio');
+
 
 Route::resource('/music-category' , MusicCategoryController::class);
 Route::get('/music_category/{id}/{status}' , [MusicCategoryController::class, 'status'])->name('musiccat-status');

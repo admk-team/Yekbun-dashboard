@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ReportVideo extends Model
 {
-    use HasFactory, LogsActivity;
+    use HasFactory , LogsActivity;
 
     public function getActivitylogOptions(): LogOptions
     {

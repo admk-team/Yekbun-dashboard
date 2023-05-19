@@ -169,18 +169,26 @@
               <td>
                 <div class="dropdown">
                   <span data-bs-toggle="modal" data-bs-target="#blockModal{{ $user->id }}">
+                    @can('users.write')
                     <button class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Block"><i class="bx bx-block"></i></button>
+                    @endcan
                   </span>
                   <span data-bs-toggle="modal" data-bs-target="#warnModal{{ $user->id }}">
+                    @can('users.write')
                     <button class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Warn"><i class='bx bx-alarm-exclamation'></i></button>
+                    @endcan
                   </span>
                   <span data-bs-toggle="modal" data-bs-target="#upgradeModal{{ $user->id }}">
+                    @can('users.write')
                     <button class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Upgrade"><i class='bx bx-dollar'></i></button>
+                    @endcan
                   </span>
                   <form action="{{ route('users.standard.destroy', $user->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" class="d-inline" method="post">
                     @method('DELETE')
                     @csrf
-                    <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                    @can('users.delete')
+                    <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>                      
+                    @endcan
                   </form>
                   {{--<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                   <div class="dropdown-menu">

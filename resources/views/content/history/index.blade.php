@@ -77,7 +77,9 @@
 <div class="card">
     <div class="card-header d-flex align-items-center justify-content-between">
         <h5 class="m-0">History List</h5>
+        @can('history.create')
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createhistoryModal"><i class="bx bx-plus me-0 me-sm-1"></i> Add History</button>
+        @endcan
     </div>
     <div class="table-responsive text-nowrap">
       <table class="table">
@@ -101,16 +103,20 @@
                     <div class="dropdown d-inline-block">
                         <!-- Edit -->
                         <span data-bs-toggle="modal" data-bs-target="#editModal{{ $historys->id }}">
+                            @can('history.write')
                             <button class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit">
                                 <i class="bx bx-edit"></i>
                             </button>
+                            @endcan
                         </span>
 
                         <!-- Delete -->
                         <form action="{{ route('history.destroy',$historys->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
                             @method('DELETE')
                             @csrf
+                            @can('history.delete')
                             <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                            @endcan
                         </form>
 
                         {{--<button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-light">Action

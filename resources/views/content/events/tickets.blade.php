@@ -43,9 +43,11 @@
               <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                 <div class="dropdown-menu">
+                  @can('events.read')
                   <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ticketSalesModal">
                     View Sale History
                   </button>
+                  @endcan
                 </div>
               </div>
               <!-- Modal -->

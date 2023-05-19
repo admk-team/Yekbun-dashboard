@@ -38,8 +38,7 @@ class MusicController extends Controller
      */
     public function store(Request $request)
     {
-     
-        
+  
         $request->validate([
             'category_id'=>'required',
             'status' => 'required'
@@ -48,21 +47,15 @@ class MusicController extends Controller
       
       $music = new Music();
       $music->category_id = $request->category_id;
-      $audios = collect([]);
-      foreach($request->file('audio') as $value){
-        $path = $value->store('/images/music/','public');
-        $audios->push($path);
-      }
-
-      $music->audio = $audios;
+      $music->audio = $request->audio_paths??[];
       $music->status = $request->status;
       $music->name = $request->title;
 
-    if($music->save()){
-        return redirect()->route('music.index')->with('success', 'Music Has been inserted');
-    }else{
-        return redirect()->route('music.index')->with('error', 'Failed to add music');
-    }
+        if($music->save()){
+            return redirect()->route('music.index')->with('success', 'Music Has been inserted');
+        }else{
+            return redirect()->route('music.index')->with('error', 'Failed to add music');
+        }
     }
 
     /**
@@ -102,31 +95,34 @@ class MusicController extends Controller
         $music = Music::findorFail($id);
         $music->name = $request->title;
         $music->category_id = $request->category_id;
-        $audios = collect([]);
-        
-        if($request->hasFile('audio')){
-            // $oldaudio[] = $music->audio;
-        foreach($request->file('audio') as $value){
-            if(isset($music->audio)){
-                $image_path  = public_path('storage/'.$music->audio);
-                if(file_exists($image_path)){
-                    unlink($image_path);
-                }
-                $path = $value->store('/images/music' , 'public');
-            //    $newaudio[] =  $audios->push($path);
-                $audios->push($path);
-                   // Combine old and new audio
-                //  $updatedImages[] = array_merge($oldaudio, $newaudio);
-                //  $music->audio = $updatedImages;
-                $music->audio = $audios;
-            }
-         
-        }
-    }else{ 
-        $arr = $music->audio;
-        $music->audio = $arr;
+        $music->audio = $request->audio_paths ?? [];
 
-    }
+
+    //     $audios = collect([]);
+        
+    //     if($request->hasFile('audio')){
+    //         // $oldaudio[] = $music->audio;
+    //     foreach($request->file('audio') as $value){
+    //         if(isset($music->audio)){
+    //             $image_path  = public_path('storage/'.$music->audio);
+    //             if(file_exists($image_path)){
+    //                 unlink($image_path);
+    //             }
+    //             $path = $value->store('/images/music' , 'public');
+    //         //    $newaudio[] =  $audios->push($path);
+    //             $audios->push($path);
+    //                // Combine old and new audio
+    //             //  $updatedImages[] = array_merge($oldaudio, $newaudio);
+    //             //  $music->audio = $updatedImages;
+    //             $music->audio = $audios;
+    //         }
+         
+    //     }
+    // }else{ 
+    //     $arr = $music->audio;
+    //     $music->audio = $arr;
+
+    // }
         
         if($music->update()){
             return redirect()->route('music.index')->with('success', 'Music Has been Updated');
@@ -170,5 +166,18 @@ class MusicController extends Controller
             return redirect()->route('music.index')->with('error', 'Status is not changed');
 
         }
+    }
+
+    public function deleteMusic(Request $request, $id)
+    {
+        $music = Music::find($id);
+        $music->image = array_filter($music->audio, function ($path) use ($request) {
+            return !($path === $request->path); 
+        });
+        $music->save();
+        unlink(public_path('storage/' . $request->path));
+        return [
+            'status' => true
+        ];
     }
 }

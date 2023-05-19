@@ -29,7 +29,9 @@
         </h4>
     </div>
     <div class="">
+        @can('music.create')
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createmusiccategoryModal">Add Category</button>
+        @endcan
     </div>
 </div>
 
@@ -113,12 +115,16 @@
                     <td>
 
                       <div class="d-flex justify-content-start align-items-center">
+                        @can('music.write')
                         <span data-bs-toggle="modal" data-bs-target="#editmusiccategoryModal{{ $music->id }}">
                         <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button></span>
+                        @endcan
                           <form action="{{ route('music-category.destroy', $music->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
                                 @method('DELETE')
                                 @csrf
+                                @can('music.delete')
                   <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                  @endcan
                           </form>
                     </div>
                         {{-- Edit Category Music Model --}}

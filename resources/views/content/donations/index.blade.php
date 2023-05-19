@@ -80,7 +80,9 @@
   <div class="card">
     <div class="card-header d-flex align-items-center justify-content-between">
         <h5 class="m-0">Donation List</h5>
+        @can('donation.create')
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal"><i class="bx bx-plus me-0 me-sm-1"></i> Add Donation</button>
+        @endcan
     </div>
     <div class="table-responsive text-nowrap">
       <table class="table">
@@ -102,16 +104,20 @@
               <div class="dropdown">
                 <!-- Edit -->
                 <span data-bs-toggle="modal" data-bs-target="#editModal{{ $donation->id }}">
+                  @can('donation.write')
                   <button class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit">
                     <i class="bx bx-edit"></i>
                   </button>
+                  @endcan
                 </span>
 
                 <!-- Delete -->
                 <form action="{{ route('donations.destroy', $donation->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
                   @method('DELETE')
                   @csrf
+                  @can('donation.delete')
                   <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                  @endcan
                 </form>
 
                 {{--
