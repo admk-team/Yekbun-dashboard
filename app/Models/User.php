@@ -2,21 +2,23 @@
 
 namespace App\Models;
 
+use Mail;
+use Exception;
+use App\Mail\SendCodeMail;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\LogOptions;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Exception;
-use Mail;
-use App\Mail\SendCodeMail;
 
 
 class User extends Authenticatable  implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, CausesActivity;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, CausesActivity, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -60,6 +62,11 @@ class User extends Authenticatable  implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults();
+    }
 
     public function stories()
     {

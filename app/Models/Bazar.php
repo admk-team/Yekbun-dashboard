@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Bazar extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
     protected $fillable = [
         'title',
         'image',
@@ -17,6 +19,12 @@ class Bazar extends Model
         'status',
         'warranty'
     ];
+    
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults();
+    }
+    
     public function getImageAttribute($value)
     {
         return json_decode($value);
