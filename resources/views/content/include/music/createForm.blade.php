@@ -145,7 +145,5 @@ let file = this.files[0];
 let title = file.name;
 document.querySelector('input[name="title"]').value = title;
 }
-
-
 });
 </script>

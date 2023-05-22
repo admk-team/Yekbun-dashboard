@@ -13,6 +13,8 @@ class SubCategoryBazar extends Model
     protected $fillable=[
         'category_id',
         'name',
+        'city',
+        'state'
     ];
     public function getActivitylogOptions(): LogOptions
     {

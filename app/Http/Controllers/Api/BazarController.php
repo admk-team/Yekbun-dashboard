@@ -36,6 +36,7 @@ class BazarController extends Controller
    */
   public function store(Request $request)
   {
+
     $request->validate([
       'title' => 'required',
     //   'image' => 'required|array|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -43,16 +44,16 @@ class BazarController extends Controller
     ]);
 
     // try {
-      $images = collect([]);
+      $images = [];
       foreach ($request->file('image') as $value) {
-        $path = $value->store('/images/bazar/img', 'public');
-        $images->push($path);
+        $path = $value->store('/images/bazar/img','public');
+        $images[] = $path;
       }
 
       $bazar = Bazar::create([
         'category_id' => $request->category_id,
         'title' => $request->title,
-        'image' => $images->toJson(),
+        'image' => json_encode($images),
         'user_id' => auth()->user()->id ?? null,
         'price' => $request->price,
         'status' => $request->status,
@@ -66,17 +67,6 @@ class BazarController extends Controller
         ],
         200
       );
-    // } catch (Exception $e) {
-    //   Log::error('Error creating bazar: ' . $e->getMessage());
-    //   return response()->json(
-    //     [
-    //       'success' => false,
-    //       'message' => 'Error creating bazar',
-    //       'error' => $e->getMessage(),
-    //     ],
-    //     500
-    //   );
-    // }
   }
 
   /**
@@ -110,7 +100,7 @@ class BazarController extends Controller
    */
   public function update($id, Request $request)
   {
-
+  
     $bazar = Bazar::findOrFail($id);
     $bazar->title = $request->title ?? $bazar->title;
     $bazar->category_id = $request->category_id ?? $bazar->category_id;
@@ -118,7 +108,7 @@ class BazarController extends Controller
     $bazar->status = $request->status ?? $bazar->status;
     $images = collect([]);
     if($request->hasFile('image')){
-        foreach($reqeust->file('image') as $value){
+        foreach($request->file('image') as $value){
             if(isset($bazar->image)){
                 $image_path =public_path('storage/'.$bazar->image);
                 if(file_exists($image_path)){

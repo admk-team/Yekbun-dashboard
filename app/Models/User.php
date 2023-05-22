@@ -104,7 +104,7 @@ class User extends Authenticatable  implements MustVerifyEmail
      *
      * @return response()
      */
-    public function generateCode()
+    public  function generateCode()
     {
         $code = rand(100000, 999999);
   

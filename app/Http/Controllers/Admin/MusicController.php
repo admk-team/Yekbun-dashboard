@@ -96,33 +96,6 @@ class MusicController extends Controller
         $music->name = $request->title;
         $music->category_id = $request->category_id;
         $music->audio = $request->audio_paths ?? [];
-
-
-    //     $audios = collect([]);
-        
-    //     if($request->hasFile('audio')){
-    //         // $oldaudio[] = $music->audio;
-    //     foreach($request->file('audio') as $value){
-    //         if(isset($music->audio)){
-    //             $image_path  = public_path('storage/'.$music->audio);
-    //             if(file_exists($image_path)){
-    //                 unlink($image_path);
-    //             }
-    //             $path = $value->store('/images/music' , 'public');
-    //         //    $newaudio[] =  $audios->push($path);
-    //             $audios->push($path);
-    //                // Combine old and new audio
-    //             //  $updatedImages[] = array_merge($oldaudio, $newaudio);
-    //             //  $music->audio = $updatedImages;
-    //             $music->audio = $audios;
-    //         }
-         
-    //     }
-    // }else{ 
-    //     $arr = $music->audio;
-    //     $music->audio = $arr;
-
-    // }
         
         if($music->update()){
             return redirect()->route('music.index')->with('success', 'Music Has been Updated');
