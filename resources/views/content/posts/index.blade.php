@@ -4,6 +4,22 @@
 
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<style>
+  .comment-box {
+    max-height: 500px;
+  }
+
+  .btn-reply {
+    border: 0 !important;
+    box-shadow: none !important;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .btn-reply:hover {
+    color: #696cff !important;
+  }
+</style>
 @endsection
 
 @section('content')
@@ -14,68 +30,536 @@
 </h4>
 </div>
 <div class="">
-    <a href="{{ route('posts.create') }}">
+    {{-- <a href="{{ route('posts.create') }}">
       <button class="btn btn-primary">Add Post</button>
-    </a>
+    </a>--}}
+    @can('posts.create')
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Add Post</button>
+    @endcan
 </div>
 </div>
-  <!-- Basic Bootstrap Table -->
-  <div class="card">
-    <h5 class="card-header">Posts List</h5>
-    <div class="table-responsive text-nowrap">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Image</th>
-            <th>Title</th>
-            <th>Content</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody class="table-border-bottom-0">
-          @forelse($posts as $post)
-          <tr>
-            <td>
-              <img style="width: 50px; height: 60px;" src="{{$post->image? url('storage/' . $post->image): 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAREAAAC4CAMAAADzLiguAAAANlBMVEXp7vG6vsHs8fS2ur3c4eTU2dzm6u3P1Ne4vL/u8/a4vL67v8G0ubzDx8rY3eDEyMvh5unKz9Izr04MAAADb0lEQVR4nO2c63KrIBRGFY1CY4x5/5c93nKiICZGGOvuWj86adowYc0HWxgxSQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOC3oiJwdJ/2oJr6Epy6Sc4qxeTXKtNPfoYfP9NXDj//f0xfv97oX2X6cU4l5pGl6TWNgdbF0b37AnPXUWwMVEd37wvqLKKQNnzm6A5uxcRMSEuWH93DrTRV/8XbaVBnQdFj9u4nm13Vpc+ILk3wy5FCn3LYqHL43hG+9ti0PqmRCNGO2HRMVJlGNqIx8mpakpEQyzRBRlSSd+u0vT0RY8Tkt6rq1mnXcl9fpBjp130DOt2Vk8HI9exG1G16VV81u5qWkBF7Ibxn6SrDSF5ZC7UdqxIRRoyzcZR9P25EGCnsiLRLwK87JMGIqt3NkjdL15VdQxFGSkfIm+v7Irt7jUmovm0f3B3o1Q7pVHuViMjIZeOo6aYdffP8hwQjSePuQq+U33Ee9ikRYcQ4tSar/Z996vMoEWHkue31wTSiJpV6WYkII4myjFS5rz/FdIAtKpFhxJpJqod3Xp3POEtKJFTf7vdGv2KSeYU4F7cLSoRkJFHJvRqcZDr3CnFrkntdIsVIW3CK8tam/ZEbb1+ckrSUEjlG2jeNUsbvw10PjimZf0KSkfVPLAyZxYHzV4woT0LcgSOk1rylWLu7YpaSv5KR9ftvpin5G0ZWhoyjRKIRU1tvF9XbO5JeSgQaMXU1nyrfJmSmRJ6RVkia3iZ/+CAhaVdcRiXijPRCpoPAex3iSYm06qvq+Q7ZZ0NmVDIxIiYjTyGdkv5vG4SINGIm9/32Kfl4yAg1YuppIlolWxIi0Yip7R2ybTdGizNiC9mMFlZr1O6zA8Iysjsh0oy0ZXf36SNRRsxlU1WRb8RcQpw/EmSkuw4JcGJPkJE6wJBJJVXfxXuMdho5d0YwkmDEBSM2GLGJboRaYxs5d0YSjNgZeVRBjoNXYowkTR6GsWkBRgI3jRG7aYzYTWPEbvqkRqI97sCc1MiwaaYfSRGa/JzPH3k+oyYNciEyZ2j4dE8Ac49vhmXHYdCjyOM+68p3QusXY8owm6uL6LPNqz0RlWTXozv3Haq5R5hXW66XMyakxwRb400p/IcNAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4FD+AZS0NBe99dfKAAAAAElFTkSuQmCC' }}">
-            </td>
-            <td>{{ $post->title }}</td>
-            <td>
-              @if (strlen($post->content) > 100)
-                {{ substr($post->content, 0, 97) }}...
-              @else
-                {{ $post->content }}
-              @endif
-            </td>
-            <td>
-              @if ($post->status)
-                <span class="badge bg-label-primary me-1">Active</span>
-              @else
-                <span class="badge bg-label-danger me-1">Disabled</span>
-              @endif
-            </td>
-            <td>
-              <div class="dropdown">
-                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{{ route('posts.edit', $post->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                  <form action="{{ route('posts.destroy', $post->id) }}" method="post">
-                    @method('DELETE')
-                    @csrf
-                    <button type="submit" class="dropdown-item"><i class="bx bx-trash me-1"></i> Delete</button>
-                  </form>
-                </div>
-              </div>
-            </td>
-          </tr>
-          @empty
-          <tr>
-            <td class="text-center" colspan="5"><b>No posts found.<b></td>
-          </tr>
-          @endforelse
-        </tbody>
-      </table>
+
+<div class="row g-4 mb-4">
+  <div class="col-sm-6 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span>Total Posts</span>
+            <div class="d-flex align-items-end mt-2">
+              <h4 class="mb-0 me-2">{{ $totalPosts }}</h4>
+              <small class="text-success">(+29%)</small>
+            </div>
+            <small>Total Posts</small>
+          </div>
+          <span class="badge bg-label-primary rounded p-2">
+            <i class="bx bx-user bx-sm"></i>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
-  <!--/ Basic Bootstrap Table -->
+  <div class="col-sm-6 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span>User Post Total</span>
+            <div class="d-flex align-items-end mt-2">
+              <h4 class="mb-0 me-2">{{ $totalUserPosts }}</h4>
+              <small class="text-success">(+18%)</small>
+            </div>
+            <small>Last week analytics </small>
+          </div>
+          <span class="badge bg-label-danger rounded p-2">
+            <i class="bx bx-user-plus bx-sm"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span>Admin Post Total</span>
+            <div class="d-flex align-items-end mt-2">
+              <h4 class="mb-0 me-2">{{ $totalAdminPosts }}</h4>
+              <small class="text-danger">(-14%)</small>
+            </div>
+            <small>Last week analytics</small>
+          </div>
+          <span class="badge bg-label-success rounded p-2">
+            <i class="bx bx-group bx-sm"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span>Removed Total</span>
+            <div class="d-flex align-items-end mt-2">
+              <h4 class="mb-0 me-2">237</h4>
+              <small class="text-success">(+42%)</small>
+            </div>
+            <small>Last week analytics</small>
+          </div>
+          <span class="badge bg-label-warning rounded p-2">
+            <i class="bx bx-user-voice bx-sm"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="row">
+    <div class="d-none d-md-block col-md-3">
+      <div class="card">
+        <div class="card-body p-0 border-none">
+          <div class="list-group" role="tablist">
+            <a class="list-group-item list-group-item-action" href="?show=all">
+              All Feeds<br>
+              <small class="text-muted">All User Feeds here</small>
+            </a>
+            <a class="list-group-item list-group-item-action" href="?show=fanpage">
+              Fanpage Feeds<br>
+              <small class="text-muted">All Fan Feeds here</small>
+            </a>
+            <a class="list-group-item list-group-item-action" href="?show=reported">
+              Reported Feeds<br>
+              <small class="text-muted">All reported Feeds</small>
+            </a>
+            <a class="list-group-item list-group-item-action" href="?show=admin">
+              Admin Feeds<br>
+              <small class="text-muted">All Admin Feeds</small>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      @forelse($posts as $post)
+      @php
+      $reportedComments = $post->comments()->whereExists(function ($query) {
+        $query->select(DB::raw(1))
+              ->from('reports')
+              ->whereColumn('reports.reported_comment_id', 'comments.id')
+              ->where('status', 0);
+      })->get()
+      @endphp
+      <!-- Start: Post -->
+      <div x-data="{ showComments:false, showReportedComments: false }">
+        <div class="card h-100 mb-4">
+          <div x-show="!showComments && !showReportedComments">
+            <div class="card-header flex-grow-0">
+              <div class="d-flex">
+                <div class="avatar flex-shrink-0 me-3">
+                  <img src="{{ asset('storage/' . ($post->user && $post->user->image? $post->user->image: '../assets/img/avatars/20.png'))  }}" alt="User" class="rounded-circle">
+                </div>
+                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-1">
+                  <div class="me-2">
+                    <h5 class="mb-0">{{ $post->user? $post->user->name: 'Admin' }}</h5>
+                    <small class="text-muted">{{ $post->created_at->format('d M Y') }} at {{ $post->created_at->format('h:i A') }}</small>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-center">
+                    @if ($post->reports()->where('status', 0)->get()->count() > 0)
+                      <i class='bx bxs-flag-alt text-danger me-4'></i>
+                    @endif
+                    @if ($reportedComments->count() > 0)
+                    <button @click="showReportedComments = !showReportedComments" class="btn me-3 btn-danger btn-xs">Reported Comments ({{ $reportedComments->count() }})</button>
+                    @endif
+                    <div class="dropup d-none d-sm-block">
+                      <button class="btn p-0" type="button" id="sharedList" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="bx bx-dots-vertical"></i>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sharedList" style="">
+                        <form action="{{ route('posts.destroy', $post->id) }}" method="post">
+                          @method('DELETE')
+                          @csrf
+                          <button type="submit" class="dropdown-item">
+                            Remove Feed<br>
+                            <small class="text-muted">Feed removed only</small>
+                          </button>
+                        </form>
+                        <form action="{{ $post->user? route('posts.destroyAndFlagUser', ['id' => $post->id, 'user_id' => $post->user->id]): '' }}" method="post">
+                          @method('DELETE')
+                          @csrf
+                    
+                          <button type="{{ $post->user? 'submit': 'button' }}" class="dropdown-item">
+                            Remove - Flag User<br>
+                            <small class="text-muted">Remove Feed - Flag User</small>
+                          </button>
+                        </form>
+                        <form action="{{ $post->user? route('posts.destroyAndBlockUser', ['id' => $post->id, 'user_id' => $post->user->id]): '' }}" method="post">
+                          @method('DELETE')
+                          @csrf
+                          <button type="{{ $post->user? 'submit': 'button' }}" class="dropdown-item">
+                            Remove Block<br>
+                            <small class="text-muted">Remove Feed - Block User</small>
+                          </button>
+                        </form>
+                        <form action="{{ $post->user? route('posts.destroyAndRemoveUser', $post->user->id): '' }}" method="post">
+                          @method('DELETE')
+                          @csrf
+                          <button type="{{ $post->user? 'submit': 'button' }}" class="dropdown-item">
+                            Remove User<br>
+                            <small class="text-muted">Remove Account - IMEI</small>
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            @if ($post->content)
+              <div class="post-text px-4 mb-2">{{ $post->content }}</div>
+            @endif
+            <div class="post-media position-relative">
+              @if ($post->image)
+                <div class="image-wrap overflow-hidden d-flex align-items-center" style="height: 360px;">
+                  <img class="w-100" src="{{ asset('storage/'.$post->image) }}" alt="Card image cap">
+                </div>
+              @endif
+              <div class="post-actions card-actions d-flex align-items-center position-absolute gap-2" style="right:16px; bottom: -21px;">
+                <button @click="showComments = ! showComments" type="button" class="btn rounded-pill btn-icon btn-label-primary btn-lg shadow">
+                    <span class="tf-icons bx bx-message"></span>
+                </button>
+                <button type="button" class="btn rounded-pill btn-icon btn-label-warning btn-lg shadow">
+                    <span class="tf-icons bx bx-share"></span>
+                </button>
+                <button type="button" class="btn rounded-pill btn-icon btn-label-danger btn-lg shadow">
+                    <span class="tf-icons bx bx-heart"></span>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="d-flex align-item-center justify-content-between">
+                <ul class="list-unstyled m-0 d-flex align-items-center avatar-group">
+                  <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar pull-up" aria-label="Vinnie Mostowy" data-bs-original-title="Vinnie Mostowy">
+                    <img class="rounded-circle" src="http://127.0.0.1:8080/assets/img/avatars/5.png" alt="Avatar">
+                  </li>
+                  <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar pull-up" aria-label="Allen Rieske" data-bs-original-title="Allen Rieske">
+                    <img class="rounded-circle" src="http://127.0.0.1:8080/assets/img/avatars/12.png" alt="Avatar">
+                  </li>
+                  <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar pull-up" aria-label="Julee Rossignol" data-bs-original-title="Julee Rossignol">
+                    <img class="rounded-circle" src="http://127.0.0.1:8080/assets/img/avatars/6.png" alt="Avatar">
+                  </li>
+                  <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar pull-up" aria-label="Darcey Nooner" data-bs-original-title="Darcey Nooner">
+                    <img class="rounded-circle" src="http://127.0.0.1:8080/assets/img/avatars/10.png" alt="Avatar">
+                  </li>
+                </ul>
+                <div class="card-actions d-flex align-items-center">
+                  <a href="javascript:;" class="text-muted me-3"><i class="bx bx-heart me-1"></i> 236</a>
+                  <a @click="showComments = ! showComments" href="javascript:;" class="text-muted me-3"><i class="bx bx-message me-1"></i> 12</a>
+                  <a href="javascript:;" class="text-muted"><i class="bx bx-share me-1"></i> 5</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div x-show="showComments">
+            <div class="card-header flex-grow-0 border-bottom">
+              <div class="d-flex">
+                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-1">
+                  <div class="me-2">
+                    <h5 class="mb-0">Comments ({{ $post->comments->count() }})</h5>
+                  </div>
+                  <div class="dropup d-none d-sm-block">
+                    <button class="btn p-0" type="button" @click="showComments = false">
+                      <i class="tf-icons bx bx-x"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body comment-box py-3" style="overflow: hidden; overflow-y:auto;">
+              @forelse($post->comments()->where('parent_id', null)->get() as $comment)
+              <div class="comment {{ !$loop->last? 'border-bottom mb-3': '' }}">
+                <div class="d-flex">
+                  <div>
+                    <div class="avatar flex-shrink-0 me-3">
+                      <img src="{{ asset('storage/' . ($comment->user && $comment->user->image? $comment->user->image: '../assets/img/avatars/20.png'))  }}" class="rounded-circle">
+                    </div>
+                  </div>
+                  <div class="flex-grow-1">
+                    <div class="pb-2 {{ $comment->subComments->count() > 0? 'border-bottom mb-3': '' }}">
+                      <div class="mb-2 d-flex align-items-center justify-content-between">
+                        <div>
+                          <p class="mb-0 text-dark">{{ $comment->user? $comment->user->name: '' }}</p>
+                          <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
+                        </div>
+                        <div class="d-flex align-items-center">
+                          @if ($comment->reports()->where('status', 0)->get()->count() > 0)
+                            <i class='bx bxs-flag-alt text-danger me-4'></i>
+                          @endif
+                          <div class="dropdown d-none d-sm-block">
+                            <button class="btn p-0" type="button" id="sharedList" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="bx bx-dots-vertical"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sharedList" style="">
+                              <form action="{{ route('posts.destroy', $post->id) }}" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="dropdown-item">
+                                  Remove Comment<br>
+                                  <small class="text-muted">Comment removed only</small>
+                                </button>
+                              </form>
+                              <form action="{{ $post->user? route('posts.destroyAndFlagUser', ['id' => $post->id, 'user_id' => $post->user->id]): '' }}" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <button type="{{ $post->user? 'submit': 'button' }}" class="dropdown-item">
+                                  Remove - Flag User<br>
+                                  <small class="text-muted">Remove Comment - Flag User</small>
+                                </button>
+                              </form>
+                              <form action="{{ $post->user? route('posts.destroyAndBlockUser', ['id' => $post->id, 'user_id' => $post->user->id]): '' }}" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <button type="{{ $post->user? 'submit': 'button' }}" class="dropdown-item">
+                                  Remove Block<br>
+                                  <small class="text-muted">Remove Comment - Block User</small>
+                                </button>
+                              </form>
+                              <form action="{{ $post->user? route('posts.destroyAndRemoveUser', $post->user->id): '' }}" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <button type="{{ $post->user? 'submit': 'button' }}" class="dropdown-item">
+                                  Remove User<br>
+                                  <small class="text-muted">Remove Account - IMEI</small>
+                                </button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="content mb-2">
+                      {{ $comment->content }}
+                      </div>
+                      <div class="actions d-flex align-items-center gap-2">
+                        <button type="button" class="btn rounded-pill btn-icon btn-label-primary btn-sm">
+                          <span class="tf-icons bx bx-like"></span>
+                        </button>
+                        <button type="button" class="btn p-0 btn-reply">Reply</button>
+                      </div>
+                    </div>
+                    <div class="sub-comments">
+                      @foreach($comment->subComments as $subComment)
+                      <div class="sub-comment {{ !$loop->last? 'border-bottom pb-2 mb-3': '' }}">
+                        <div class="d-flex">
+                          <div>
+                            <div class="avatar flex-shrink-0 me-3">
+                              <img src="{{ asset('storage/' . ($subComment->user && $subComment->user->image? $subComment->user->image: '../assets/img/avatars/20.png'))  }}" class="rounded-circle">
+                            </div>
+                          </div>
+                          <div class="flex-grow-1">
+                            <div class="mb-2 d-flex align-items-center justify-content-between">
+                              <div>
+                                <p class="mb-0 text-dark">{{ $subComment->user? $subComment->user->name: '' }}</p>
+                                <small class="text-muted">{{ $subComment->created_at->diffForHumans() }}</small>
+                              </div>
+                              <div class="d-flex align-items-center">
+                                @if ($subComment->reports()->where('status', 0)->get()->count() > 0)
+                                  <i class='bx bxs-flag-alt text-danger me-4'></i>
+                                @endif
+                                <div class="dropdown d-none d-sm-block">
+                                  <button class="btn p-0" type="button" id="sharedList" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bx bx-dots-vertical"></i>
+                                  </button>
+                                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sharedList" style="">
+                                    <form action="{{ route('posts.destroy', $post->id) }}" method="post">
+                                      @method('DELETE')
+                                      @csrf
+                                      <button type="submit" class="dropdown-item">
+                                        Remove Comment<br>
+                                        <small class="text-muted">Comment removed only</small>
+                                      </button>
+                                    </form>
+                                    <form action="{{ $post->user? route('posts.destroyAndFlagUser', ['id' => $post->id, 'user_id' => $post->user->id]): '' }}" method="post">
+                                      @method('DELETE')
+                                      @csrf
+                                      <button type="{{ $post->user? 'submit': 'button' }}" class="dropdown-item">
+                                        Remove - Flag User<br>
+                                        <small class="text-muted">Remove Comment - Flag User</small>
+                                      </button>
+                                    </form>
+                                    <form action="{{ $post->user? route('posts.destroyAndBlockUser', ['id' => $post->id, 'user_id' => $post->user->id]): '' }}" method="post">
+                                      @method('DELETE')
+                                      @csrf
+                                      <button type="{{ $post->user? 'submit': 'button' }}" class="dropdown-item">
+                                        Remove Block<br>
+                                        <small class="text-muted">Remove Comment - Block User</small>
+                                      </button>
+                                    </form>
+                                    <form action="{{ $post->user? route('posts.destroyAndRemoveUser', $post->user->id): '' }}" method="post">
+                                      @method('DELETE')
+                                      @csrf
+                                      <button type="{{ $post->user? 'submit': 'button' }}" class="dropdown-item">
+                                        Remove User<br>
+                                        <small class="text-muted">Remove Account - IMEI</small>
+                                      </button>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="content mb-2">
+                            {{ $subComment->content }}
+                            </div>
+                            <div class="actions d-flex align-items-center gap-2">
+                              <button type="button" class="btn rounded-pill btn-icon btn-label-primary btn-sm">
+                                <span class="tf-icons bx bx-like"></span>
+                              </button>
+                              <button type="button" class="btn p-0 btn-reply">Reply</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      @endforeach
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @empty
+              <p class="text-center m-0">No comments yet.</p>
+              @endforelse
+            </div>
+            <div class="card-footer">
+              <div class="comment-editor border rounded">
+                <textarea rows="5" placeholder="Write a comment..." class="form-control w-100 d-block border-0 p-2 shadow-none"></textarea>
+                <div class="footer d-flex align-items-center justify-content-between p-2">
+                  <div class="avatar flex-shrink-0 me-3">
+                    <img src="{{ asset('/assets/img/avatars/20.png')  }}" class="rounded-circle">
+                  </div>
+                  <div class="actions d-flex align-items-center gap-2">
+                    <i class='bx bx-camera' @click="$refs.commentAttachmentInput.click()">
+                      <input x-ref="commentAttachmentInput" type="file" style="visibility:hidden; height: 0; width: 0;">
+                    </i>
+                    <button class="btn btn-primary btn-sm">Post Comment</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div x-show="showReportedComments">
+            <div class="card-header flex-grow-0 border-bottom">
+              <div class="d-flex">
+                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-1">
+                  <div class="me-2">
+                    <h5 class="mb-0">Reported Comments ({{ $reportedComments->count() }})</h5>
+                  </div>
+                  <div class="dropup d-none d-sm-block">
+                    <button class="btn p-0" type="button" @click="showReportedComments = false">
+                      <i class="tf-icons bx bx-x"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body comment-box py-3" style="overflow: hidden; overflow-y:auto;">
+              @forelse($reportedComments as $comment)
+              <div class="comment {{ !$loop->last? 'border-bottom mb-3': '' }}">
+                <div class="d-flex">
+                  <div>
+                    <div class="avatar flex-shrink-0 me-3">
+                      <img src="{{ asset('storage/' . ($comment->user && $comment->user->image? $comment->user->image: '../assets/img/avatars/20.png'))  }}" class="rounded-circle">
+                    </div>
+                  </div>
+                  <div class="flex-grow-1">
+                    <div class="pb-2 {{ $comment->subComments->count() > 0? 'border-bottom mb-3': '' }}">
+                      <div class="mb-2 d-flex align-items-center justify-content-between">
+                        <div>
+                          <p class="mb-0 text-dark">{{ $comment->user? $comment->user->name: '' }}</p>
+                          <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
+                        </div>
+                        <div class="d-flex align-items-center">
+                          @if ($comment->reports()->where('status', 0)->get()->count() > 0)
+                            <i class='bx bxs-flag-alt text-danger me-4'></i>
+                          @endif
+                          <div class="dropdown d-none d-sm-block">
+                            <button class="btn p-0" type="button" id="sharedList" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="bx bx-dots-vertical"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sharedList" style="">
+                              <form action="{{ route('posts.destroy', $post->id) }}" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="dropdown-item">
+                                  Remove Comment<br>
+                                  <small class="text-muted">Comment removed only</small>
+                                </button>
+                              </form>
+                              <form action="{{ $post->user? route('posts.destroyAndFlagUser', ['id' => $post->id, 'user_id' => $post->user->id]): '' }}" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <button type="{{ $post->user? 'submit': 'button' }}" class="dropdown-item">
+                                  Remove - Flag User<br>
+                                  <small class="text-muted">Remove Comment - Flag User</small>
+                                </button>
+                              </form>
+                              <form action="{{ $post->user? route('posts.destroyAndBlockUser', ['id' => $post->id, 'user_id' => $post->user->id]): '' }}" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <button type="{{ $post->user? 'submit': 'button' }}" class="dropdown-item">
+                                  Remove Block<br>
+                                  <small class="text-muted">Remove Comment - Block User</small>
+                                </button>
+                              </form>
+                              <form action="{{ $post->user? route('posts.destroyAndRemoveUser', $post->user->id): '' }}" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <button type="{{ $post->user? 'submit': 'button' }}" class="dropdown-item">
+                                  Remove User<br>
+                                  <small class="text-muted">Remove Account - IMEI</small>
+                                </button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="content mb-2">
+                      {{ $comment->content }}
+                      </div>
+                      <div class="actions d-flex align-items-center gap-2">
+                        <button type="button" class="btn rounded-pill btn-icon btn-label-primary btn-sm">
+                          <span class="tf-icons bx bx-like"></span>
+                        </button>
+                        <button type="button" class="btn p-0 btn-reply">Reply</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @empty
+              <p class="text-center m-0">No reported comments found.</p>
+              @endforelse
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End: Post -->
+      @empty
+      <p class="text-center"><b>No posts found.</b></p>
+      @endforelse
+    </div>
+    <div class="d-none d-md-block col-md-3"></div>
+  </div>
+
+  <x-modal
+    id="createModal"
+    title="Add Post" 
+    saveBtnText="Create"
+    saveBtnType="submit"
+    saveBtnForm="createForm"
+    :show="old('showCreateFormModal')? true: false"
+  >
+    @include('content.posts.includes.create_form')
+  </x-modal>
 @endsection

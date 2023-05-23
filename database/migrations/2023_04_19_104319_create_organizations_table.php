@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string("paypal_account")->nullable()->default(null);
             $table->string("address")->nullable()->default(null);
             $table->string("logo")->nullable()->default(null);
+            $table->tinyInteger("status")->default(1);
             $table->timestamps();
         });
     }

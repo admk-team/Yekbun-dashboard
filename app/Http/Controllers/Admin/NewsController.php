@@ -16,8 +16,9 @@ class NewsController extends Controller
      */
     public function index()
     {
+        $news_category  = NewsCategory::get();
           $news  = News::with('news_category')->get();
-        return view('content.news.index' , compact('news'));
+        return view('content.news.index' , compact('news' , 'news_category'));
     }
 
     /**
@@ -27,7 +28,6 @@ class NewsController extends Controller
      */
     public function create()
     {
-        $news_category  = NewsCategory::get();
         return view('content.news.create'  , compact('news_category'));
     }
 
@@ -50,6 +50,7 @@ class NewsController extends Controller
       $news->title = $request->title;
       $news->description = $request->description;
       $news->category_id = $request->category_id;
+      $news->status = (int) $request->status;
       
       if($request->hasFile('image')){
         $path  = $request->file('image')->store('/images/news/' , 'public');

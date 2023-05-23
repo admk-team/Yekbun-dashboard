@@ -44,32 +44,22 @@ $configData = Helper::appClasses();
       <div class="col-lg-6 col-md-12 col-6 mb-4">
         <div class="card">
           <div class="card-body pb-0">
-            <span class="d-block fw-semibold mb-1">Order</span>
-            <h3 class="card-title mb-1">276k</h3>
+           <div class="m-auto text-center">
+            <span class="badge bg-label-primary p-2"><i class='bx bx-male' style="font-size:70px;"></i></span>
+           </div>
+            <span class="d-block fw-semibold mb-1 text-center mt-3">Male Account</span>
+            <h3 class="card-title mb-1 text-center">{{ $male_account ?? '' }}</h3>
           </div>
-          <div id="orderChart" class="mb-3"></div>
         </div>
       </div>
       <div class="col-lg-6 col-md-12 col-6 mb-4">
         <div class="card">
-          <div class="card-body">
-            <div class="card-title d-flex align-items-start justify-content-between">
-              <div class="avatar flex-shrink-0">
-                <img src="{{asset('assets/img/icons/unicons/wallet-info.png')}}" alt="Credit Card" class="rounded">
-              </div>
-              <div class="dropdown">
-                <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="bx bx-dots-vertical-rounded"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                  <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                  <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                </div>
-              </div>
-            </div>
-            <span>Sales</span>
-            <h3 class="card-title text-nowrap mb-1">$4,679</h3>
-            <small class="text-success fw-semibold"><i class='bx bx-up-arrow-alt'></i> +28.42%</small>
+          <div class="card-body pb-0">
+            <div class="m-auto text-center">
+              <span class="badge bg-label-info p-2"><i class='bx bx-female' style="font-size:70px;"></i></span>
+             </div>
+            <span class="d-block fw-semibold mb-1 text-center mt-3">Female Account</span>
+            <h3 class="card-title mb-1 text-center">{{ $female_account ?? '' }}</h3>
           </div>
         </div>
       </div>
@@ -128,35 +118,26 @@ $configData = Helper::appClasses();
   <!--/ Total Revenue -->
   <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
     <div class="row">
-      <div class="col-6 mb-4">
+      <div class="col-lg-6 col-md-12 col-6 mb-4">
         <div class="card">
-          <div class="card-body">
-            <div class="card-title d-flex align-items-start justify-content-between">
-              <div class="avatar flex-shrink-0">
-                <img src="{{asset('assets/img/icons/unicons/paypal.png')}}" alt="Credit Card" class="rounded">
-              </div>
-              <div class="dropdown">
-                <button class="btn p-0" type="button" id="cardOpt4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="bx bx-dots-vertical-rounded"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
-                  <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                  <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                </div>
-              </div>
-            </div>
-            <span class="d-block mb-1">Payments</span>
-            <h3 class="card-title text-nowrap mb-2">$2,456</h3>
-            <small class="text-danger fw-semibold"><i class='bx bx-down-arrow-alt'></i> -14.82%</small>
+          <div class="card-body pb-0">
+            <div class="m-auto text-center">
+              <span class="badge bg-label-info p-2"><i class='bx bx-globe' style="font-size:70px;"></i></span>
+             </div>
+            <span class="d-block fw-semibold mb-1 text-center mt-3">Total Country</span>
+            <h3 class="card-title mb-1 text-center">{{ $country ?? '' }}</h3>
           </div>
         </div>
       </div>
-      <div class="col-6 mb-4">
+      
+      <div class="col-lg-6 col-md-12 col-6 mb-4">
         <div class="card">
-          <div class="card-body pb-2">
-            <span class="d-block fw-semibold mb-1">Revenue</span>
-            <h3 class="card-title mb-1">425k</h3>
-            <div id="revenueChart"></div>
+          <div class="card-body pb-0">
+            <div class="m-auto text-center">
+              <span class="badge bg-label-primary p-2"><i class='bx bx-music' style="font-size:70px;"></i></span>
+             </div>
+            <span class="d-block fw-semibold mb-1 text-center mt-3">Music Uploaded</span>
+            <h3 class="card-title mb-1 text-center">{{ $music ?? '' }}</h3>
           </div>
         </div>
       </div>
@@ -382,7 +363,7 @@ $configData = Helper::appClasses();
                 <h6 class="mb-0">Refund</h6>
               </div>
               <div class="user-progress d-flex align-items-center gap-1">
-                <h6 class="mb-0">+637.91</h6> <span class="text-muted">USD</span>
+                <h6 class="mb-0">+637.70</h6> <span class="text-muted">USD</span>
               </div>
             </div>
           </li>

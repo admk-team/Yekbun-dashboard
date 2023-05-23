@@ -18,8 +18,17 @@ class StandardUserController extends Controller
      */
     public function index()
     {
-        $users = User::where("level", 0)->orderBy("updated_at", "DESC")->get();
-        return view("content.users.standard.index", compact("users"));
+        $view = 'male';
+        if (request()->view) {
+            $view = request()->view;
+        }
+
+        if ($view === 'blocked')
+            $users = User::where("level", 0)->where('is_admin_user', false)->where('status', 0)->orderBy("updated_at", "DESC")->get();
+        else
+            $users = User::where("level", 0)->where('is_admin_user', false)->where('gender', $view)->orderBy("updated_at", "DESC")->get();
+
+        return view("content.users.standard.index", compact("users", "view"));
     }
 
     /**
@@ -120,5 +129,46 @@ class StandardUserController extends Controller
         $user->delete();
 
         return back()->with("success", "User successfully deleted.");
+    }
+
+    public function block(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->status = 0;
+        $user->block_for_days = $request->block_for_days;
+        $user->save();
+
+        if ($request->block_for_days)
+            return back()->with("success", "User blocked for {$request->block_for_days} days.");
+        else
+            return back()->with("success", "User blocked.");
+    }
+
+    public function warn(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->is_warned = 1;
+        $user->warning_cause = $request->warning_cause;
+        $user->save();
+
+        return back()->with("success", "User warned.");
+    }
+
+    public function upgrade(Request $request, $id)
+    {
+        if ($request->password !== '1234') {
+            return back()->with("error", "Wrong password!");
+        }
+        $user = User::find($id);
+        $user->level = (int) $request->level;
+        $user->save();
+
+        $levels = [
+            0 => 'Standard',
+            1 => 'Premium',
+            2 => 'VIP'
+        ];
+
+        return back()->with("success", "User upgraded to {$levels[$request->level]}.");
     }
 }

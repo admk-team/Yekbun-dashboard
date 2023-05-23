@@ -14,15 +14,96 @@
 </h4>
 </div>
 <div class="">
+  @can('media.create')
     <a href="{{ route('media.create') }}">
 <button class="btn btn-primary">Add Media</button>
 </a>
+@endcan
+@can('media.create')
 <a href="{{ route('media-category.index') }}">
 <button class="btn btn-primary">Category</button></a>
+@endcan
 </div>
 </div>
 
-
+<div class="row g-4 mb-4">
+  <div class="col-sm-6 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span>New Reports</span>
+            <div class="d-flex align-items-end mt-2">
+              <h4 class="mb-0 me-2">21,459</h4>
+              <small class="text-success">(+29%)</small>
+            </div>
+            <small>Last week analytics</small>
+          </div>
+          <span class="badge bg-label-primary rounded p-2">
+            <i class="bx bx-user bx-sm"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span>Solved Reports</span>
+            <div class="d-flex align-items-end mt-2">
+              <h4 class="mb-0 me-2">4,567</h4>
+              <small class="text-success">(+18%)</small>
+            </div>
+            <small>Last week analytics </small>
+          </div>
+          <span class="badge bg-label-danger rounded p-2">
+            <i class="bx bx-user-plus bx-sm"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span>Awaiting Reports</span>
+            <div class="d-flex align-items-end mt-2">
+              <h4 class="mb-0 me-2">19,860</h4>
+              <small class="text-danger">(-14%)</small>
+            </div>
+            <small>Last week analytics</small>
+          </div>
+          <span class="badge bg-label-success rounded p-2">
+            <i class="bx bx-group bx-sm"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span>Total Reports</span>
+            <div class="d-flex align-items-end mt-2">
+              <h4 class="mb-0 me-2">237</h4>
+              <small class="text-success">(+42%)</small>
+            </div>
+            <small>Last week analytics</small>
+          </div>
+          <span class="badge bg-label-warning rounded p-2">
+            <i class="bx bx-user-voice bx-sm"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
    <!-- Basic Bootstrap Table -->
   <div class="card">
@@ -89,15 +170,19 @@
                   <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
                     <ul class="nav flex-column">
                       <li class="nav-item">
+                        @can('media.write')
                         <a href="{{ route('media.edit',$medias->id) }}" class="nav-link">
                           <i class="nav-link-icon pe-7s-chat"> </i><span>Edit</span>
                         </a>
+                        @endcan
                       </li>
                       <li class="nav-item">
+                        @can('media.delete')
                         <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);"
                           data-id="{{ route('media.destroy',$medias->id) }}">
                           <i class="nav-link-icon pe-7s-wallet"> </i><span>Delete</span>
                         </a>
+                        @endcan
                       </li>
                     </ul>
                   </div>

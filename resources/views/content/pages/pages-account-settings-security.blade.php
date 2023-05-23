@@ -35,19 +35,21 @@
 </h4>
 
 <div class="row">
-  <div class="col-md-12">
+  @include('content.admin_profile.sidebar')
+  <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
     <ul class="nav nav-pills flex-column flex-md-row mb-3">
-      <li class="nav-item"><a class="nav-link" href="{{url('pages/account-settings-account')}}"><i class="bx bx-user me-1"></i> Account</a></li>
-      <li class="nav-item"><a class="nav-link active" href="javascript:void(0);"><i class="bx bx-lock-alt me-1"></i> Security</a></li>
-      <li class="nav-item"><a class="nav-link" href="{{url('pages/account-settings-billing')}}"><i class="bx bx-detail me-1"></i> Billing & Plans</a></li>
-      <li class="nav-item"><a class="nav-link" href="{{url('pages/account-settings-notifications')}}"><i class="bx bx-bell me-1"></i> Notifications</a></li>
-      <li class="nav-item"><a class="nav-link" href="{{url('pages/account-settings-connections')}}"><i class="bx bx-link-alt me-1"></i> Connections</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ route('admin_profile.account') }}"><i class="bx bx-user me-1"></i> Account</a></li>
+      <li class="nav-item"><a class="nav-link active" href="{{ route('admin_profile.security') }}"><i class="bx bx-lock-alt me-1"></i> Security</a></li>
+      {{-- <li class="nav-item"><a class="nav-link" href="{{route('admin_profile.billing')}}"><i class="bx bx-detail me-1"></i> Billing & Plans</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{route('admin_profile.notification')}}"><i class="bx bx-bell me-1"></i> Notifications</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{route('admin_profile.connection')}}"><i class="bx bx-link-alt me-1"></i> Connections</a></li> --}}
     </ul>
     <!-- Change Password -->
     <div class="card mb-4">
       <h5 class="card-header">Change Password</h5>
       <div class="card-body">
-        <form id="formAccountSettings" method="POST" onsubmit="return false">
+        <form id="" method="POST" action="{{ route('admin_change_password') }}">
+          @csrf
           <div class="row">
             <div class="mb-3 col-md-6 form-password-toggle">
               <label class="form-label" for="currentPassword">Current Password</label>
@@ -101,7 +103,14 @@
         <p class="w-75">Two-factor authentication adds an additional layer of security to your account by requiring more than just a password to log in.
           <a href="javascript:void(0);">Learn more.</a>
         </p>
-        <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#enableOTP">Enable two-factor authentication</button>
+        <form action="{{ route('admin.enable.2fa') }}">
+        @if(auth()->user()->enable_2fa) 
+          <button class="btn btn-danger mt-2" name="disable" value="0">Disable two-factor authentication</button>
+          @else
+          <button class="btn btn-primary mt-2" name="enable" value="1">Enable two-factor authentication</button>
+          @endif
+        </form>
+        
       </div>
     </div>
     <!-- Modal -->
@@ -111,7 +120,7 @@
     <!--/ Two-steps verification -->
 
     <!-- Create an API key -->
-    <div class="card mb-4">
+    {{-- <div class="card mb-4">
       <h5 class="card-header">Create an API key</h5>
       <div class="row">
         <div class="col-md-5 order-md-0 order-1">
@@ -147,11 +156,11 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
     <!--/ Create an API key -->
 
     <!-- API Key List & Access -->
-    <div class="card mb-4">
+    {{-- <div class="card mb-4">
       <h5 class="card-header">API Key List & Access</h5>
       <div class="card-body">
         <p>An API key is a simple encrypted string that identifies an application without any principal. They are useful for accessing public data anonymously, and are used to associate API requests with your project for quota and billing.</p>
@@ -214,11 +223,11 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
     <!--/ API Key List & Access -->
 
     <!-- Recent Devices -->
-    <div class="card mb-4">
+    {{-- <div class="card mb-4">
       <h5 class="card-header">Recent Devices</h5>
       <div class="table-responsive">
         <table class="table border-top">
@@ -270,7 +279,7 @@
           </tbody>
         </table>
       </div>
-    </div>
+    </div> --}}
     <!--/ Recent Devices -->
 
   </div>

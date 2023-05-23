@@ -18,8 +18,17 @@ class DiamondUserController extends Controller
      */
     public function index()
     {
-        $users = User::where("level", 2)->orderBy("updated_at", "DESC")->get();
-        return view("content.users.diamond.index", compact("users"));
+        $view = 'male';
+        if (request()->view) {
+            $view = request()->view;
+        }
+
+        if ($view === 'blocked')
+            $users = User::where("level", 2)->where('is_admin_user', false)->where('status', 0)->orderBy("updated_at", "DESC")->get();
+        else
+            $users = User::where("level", 2)->where('is_admin_user', false)->where('gender', $view)->orderBy("updated_at", "DESC")->get();
+
+        return view("content.users.diamond.index", compact("users", "view"));
     }
 
     /**

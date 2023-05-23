@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Boxicons - Icons')
+@section('title', 'Fanpage - Manage')
 
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
@@ -10,125 +10,163 @@
 <div class="d-flex justify-content-between">
   <div>
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Bazar /</span> All Bazar
+    <span class="text-muted fw-light">Fan Page /</span> Manage
 </h4>
 </div>
-<div class="">
+<!-- <div class="">
     <a href="{{ route('fanpage.create') }}">
-<button class="btn btn-primary">Add FanPage</button>
-</a>
+    <button class="btn btn-primary">Add FanPage</button>
+  </a>
+</div> -->
 </div>
+
+<div class="row g-4 mb-4">
+  <div class="col-sm-6 col-xl-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span>Total Request</span>
+            <div class="d-flex align-items-end mt-2">
+              <h4 class="mb-0 me-2">21,459</h4>
+              <small class="text-success">(+29%)</small>
+            </div>
+            <small>Total Request</small>
+          </div>
+          <span class="badge bg-label-primary rounded p-2">
+            <i class="bx bx-user bx-sm"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-xl-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span>Total Fanpage</span>
+            <div class="d-flex align-items-end mt-2">
+              <h4 class="mb-0 me-2">4,567</h4>
+              <small class="text-success">(+18%)</small>
+            </div>
+            <small>Last week analytics </small>
+          </div>
+          <span class="badge bg-label-danger rounded p-2">
+            <i class="bx bx-user-plus bx-sm"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-xl-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span>Blocked Total</span>
+            <div class="d-flex align-items-end mt-2">
+              <h4 class="mb-0 me-2">19,860</h4>
+              <small class="text-danger">(-14%)</small>
+            </div>
+            <small>Last week analytics</small>
+          </div>
+          <span class="badge bg-label-success rounded p-2">
+            <i class="bx bx-group bx-sm"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-  <!-- Basic Bootstrap Table -->
-  <div class="card">
-    <h5 class="card-header">Table Basic</h5>
+
+<!-- Basic Bootstrap Table -->
+<div class="card">
+    <h5 class="card-header">Fan Pages</h5>
     <div class="table-responsive text-nowrap">
       <table class="table">
         <thead>
           <tr>
             <th>Id</th>
-            <th>User Name</th>
+            <th>Category</th>
+            <th>Username</th>
             <th>FanPage Name</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
-            @foreach($fanpage as $page)
+          @forelse($fanpage as $page)
           <tr>
-            <td>{{ $loop->iteration }}</td>
+            <td>{{ $page->id }}</td>
+            <th></th>
             <td>{{ $page->user_name ?? '' }}</td>
             <td>{{ $page->fanpage_name ?? '' }}</td>
-      
             <td>
-                <div class="dropdown d-inline-block show">
-                  @php
-                  if($page->status==0){
-                  $btn='secondary';
-                  }elseif ($page->status==1) {
-                    $btn='success';
-                  }elseif ($page->status==2) {
-                    $btn='danger';
-                  }elseif ($page->status==3) {
-                    $btn='danger';
-                  }
-                  @endphp
-                  <button type="button" aria-haspopup="true" aria-expanded="true" data-bs-toggle="dropdown"
-                    class="mb-2 mr-2 dropdown-toggle btn btn-{{ $btn }}">
-                    @if ($page->status==0)
-                    Pending
-                    @elseif($page->status==1)
-                    Active
-                    @elseif($page->status==2)
-                    Dective
-                    @elseif($page->status==3)
-                    Block
-                    @endif
-                  </button>
-                  <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu"
-                    x-placement="top-start"
-                    style="position: absolute; transform: translate3d(0px, -362px, 0px); top: 0px; left: 0px; will-change: transform;min-width: 9rem;">
-                    <ul class="nav flex-column">
-                      <li class="nav-item">
-                        <a href="{{ route('fanpage-status',['id'=>$page->id,'status'=>0]) }}"
-                          class="nav-link">Pending
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="{{ route('fanpage-status',['id'=>$page->id,'status'=>1]) }}"
-                          class="nav-link">Active
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="{{ route('fanpage-status',['id'=>$page->id,'status'=>2]) }}"
-                          class="nav-link">DeActive
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="{{ route('fanpage-status',['id'=>$page->id,'status'=>3]) }}"
-                          class="nav-link">Block</a>
-                      </li>
-                    </ul>
-                  </div>
+              @if ((int) $page->status === 0)
+                <span class="badge bg-label-primary me-1">Pending</span>
+              @elseif ((int) $page->status === 1)
+                <span class="badge bg-label-success me-1">Accepted</span>
+              @elseif ((int) $page->status === 2)
+                <span class="badge bg-label-warning me-1">Rejected</span>
+              @else
+                <span class="badge bg-label-danger me-1">Blocked</span>
+              @endif
+            </td>
+            <td>
+              <a href="{{ route('fanpage-status', ['id' => $page->id, 'status' => 1]) }}" class="btn badge badge-center bg-label-secondary ms-1" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Accept"><i class="bx bx-check"></i></a>
+              @can('fanpage.write')
+              <button class="btn badge badge-center bg-label-danger ms-1" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Block" onclick="$('#warningModal{{ $page->id }}').modal('show')"><i class="bx bx-block"></i></button>
+              @endcan
+              <x-modal
+                title="Block Page"
+                id="warningModal{{ $page->id }}"
+                onSaveBtnClick="window.location.href = '{{ route('fanpage-status', ['id' => $page->id, 'status' => 3]) }}'"
+                saveBtnText="Block"
+                saveBtnClass="btn btn-danger"
+                closeBtnText="Cancel"
+              >
+                Are you sure want to block this page?
+              </x-modal>
+              <!-- <div class="dropdown d-inline-block">
+                <button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown"
+                  class="mb-2 mr-2 dropdown-toggle btn btn-light">Action
+                </button>
+                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
+                  <ul class="nav flex-column">
+                    <li class="nav-item">
+                      <a href="{{ route('fanpage.edit',$page->id) }}" class="nav-link">
+                        <i class="nav-link-icon pe-7s-chat"> </i><span>Edit</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);"
+                        data-id="{{ route('fanpage.destroy',$page->id) }}">
+                        <i class="nav-link-icon pe-7s-wallet"> </i><span>Delete</span>
+                      </a>
+                    </li>
+                  </ul>
                 </div>
-              </td>
-              <td>
-                <div class="dropdown d-inline-block">
-                  <button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown"
-                    class="mb-2 mr-2 dropdown-toggle btn btn-light">Action
-                  </button>
-                  <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
-                    <ul class="nav flex-column">
-                      <li class="nav-item">
-                        <a href="{{ route('fanpage.edit',$page->id) }}" class="nav-link">
-                          <i class="nav-link-icon pe-7s-chat"> </i><span>Edit</span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);"
-                          data-id="{{ route('fanpage.destroy',$page->id) }}">
-                          <i class="nav-link-icon pe-7s-wallet"> </i><span>Delete</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </td>
+              </div> -->
+            </td>
           </tr>
-          @endforeach
-     
-      
+          @empty
+          <tr>
+            <td class="text-center" colspan="8"><b>No requests found.<b></td>
+          </tr>
+          @endforelse
         </tbody>
       </table>
     </div>
   </div>
   <!--/ Basic Bootstrap Table -->
+
   <div class="modal fade deleted-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   style="padding-right: 17px;" aria-modal="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Delete Banner</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Delete Fan page</h5>
         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>

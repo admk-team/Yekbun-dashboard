@@ -24,8 +24,8 @@ class UpdatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            "title" => "",
-            "content" => "",
+            "title" => "nullable",
+            "content" => "nullable",
             "image" => "nullable|image",
             "status" => "nullable|integer",
         ];

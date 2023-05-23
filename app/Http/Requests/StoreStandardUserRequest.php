@@ -25,7 +25,7 @@ class StoreStandardUserRequest extends FormRequest
     {
         return [
             "name" => "required",
-            "email" => "required|email",
+            "email" => "required|email|unique:users,email",
             "password" => "required|confirmed",
             "image" => "nullable|image",
             "status" => "nullable|integer",

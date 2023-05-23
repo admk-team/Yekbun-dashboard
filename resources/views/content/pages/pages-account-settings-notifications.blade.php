@@ -16,13 +16,14 @@
 </h4>
 
 <div class="row">
-  <div class="col-md-12">
+  @include('content.admin_profile.sidebar')
+  <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
     <ul class="nav nav-pills flex-column flex-md-row mb-3">
-      <li class="nav-item"><a class="nav-link" href="{{url('pages/account-settings-account')}}"><i class="bx bx-user me-1"></i> Account</a></li>
-      <li class="nav-item"><a class="nav-link" href="{{url('pages/account-settings-security')}}"><i class="bx bx-lock-alt me-1"></i> Security</a></li>
-      <li class="nav-item"><a class="nav-link" href="{{url('pages/account-settings-billing')}}"><i class="bx bx-detail me-1"></i> Billing & Plans</a></li>
-      <li class="nav-item"><a class="nav-link active" href="javascript:void(0);"><i class="bx bx-bell me-1"></i> Notifications</a></li>
-      <li class="nav-item"><a class="nav-link" href="{{url('pages/account-settings-connections')}}"><i class="bx bx-link-alt me-1"></i> Connections</a></li>
+      <li class="nav-item"><a class="nav-link " href="javascript:void(0);"><i class="bx bx-user me-1"></i>Account</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ route('admin_profile.security') }}"><i class="bx bx-lock-alt me-1"></i>Security</a></li>
+      {{-- <li class="nav-item"><a class="nav-link " href="{{ route('admin_profile.billing') }}"><i class="bx bx-detail me-1"></i>Billing &amp; Plans</a></li>
+      <li class="nav-item"><a class="nav-link active" href="{{ route('admin_profile.notification') }}"><i class="bx bx-bell me-1"></i>Notifications</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ route('admin_profile.connection') }}"><i class="bx bx-link-alt me-1"></i>Connections</a></li> --}}
     </ul>
     <div class="card">
       <!-- Notifications -->

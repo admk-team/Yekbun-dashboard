@@ -23,13 +23,13 @@
 <div class="nav-align-left mb-4">
   <ul class="nav nav-pills me-3" role="tablist">
     <li class="nav-item" role="presentation">
-      <a type="button" class="nav-link {{ $status === 0? 'active': '' }}" href="?status=pending"  aria-controls="awaitingFlaggedUsersTab" aria-selected="true">Pending</a>
+      <a type="button" class="nav-link {{ (int) $status === 0? 'active': '' }}" href="?status=pending"  aria-controls="awaitingFlaggedUsersTab" aria-selected="true">Pending</a>
     </li>
     <li class="nav-item" role="presentation">
-      <a type="button" class="nav-link {{ $status === 1? 'active': '' }}" href="?status=resolved"  aria-controls="solovedFlaggedUsersTab" aria-selected="false" tabindex="-1">Resolved</a>
+      <a type="button" class="nav-link {{ (int) $status === 1? 'active': '' }}" href="?status=resolved"  aria-controls="solovedFlaggedUsersTab" aria-selected="false" tabindex="-1">Resolved</a>
     </li>
     <li class="nav-item" role="presentation">
-      <a type="button" class="nav-link {{ $status === 2? 'active': '' }}" href="?status=dismissed"  aria-controls="dismissedFlaggedUsersTab" aria-selected="true">Dismissed</a>
+      <a type="button" class="nav-link {{ (int) $status === 2? 'active': '' }}" href="?status=dismissed"  aria-controls="dismissedFlaggedUsersTab" aria-selected="true">Dismissed</a>
     </li>
   </ul>
   <div class="tab-content p-0">
@@ -49,15 +49,15 @@
           <tbody class="table-border-bottom-0">
             @forelse($flaggedUsers as $flagged)
             <tr>
-              <td>{{ $flagged->user->name }}</td>
+              <td>{{ $flagged->user? $flagged->user->name: '' }}</td>
               <td>{{ $flagged->reason }}</td>
               <td>{{ $flagged->created_at->format('F jS, Y') }}</td>
               <td>
-                @if($flagged->status === 0)
+                @if((int) $flagged->status == 0)
                   <span class="badge bg-label-warning me-1">Pending</span>
-                @elseif($flagged->status === 1)
+                @elseif((int) $flagged->status == 1)
                   <span class="badge bg-label-success me-1">Resolved</span>
-                @elseif($flagged->status === 2)
+                @elseif((int) $flagged->status == 2)
                   <span class="badge bg-label-danger me-1">Dismissed</span>
                 @endif
               </td>
@@ -65,9 +65,11 @@
               <div class="dropdown">
                   <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                   <div class="dropdown-menu">
+                    @can('report.write')
                     <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#changeStatusModal">
                       Change status to
                     </button>
+                    @endcan
                   </div>
                 </div>
                 <!-- Modal -->
@@ -83,19 +85,19 @@
                         </div>
                         <div class="modal-body">
                           <div class="form-check mt-3">
-                            <input name="status" class="form-check-input" type="radio" value="0" id="pending" {{ $flagged->status === 0? 'checked': '' }}>
+                            <input name="status" class="form-check-input" type="radio" value="0" id="pending" {{ (int) $flagged->status === 0? 'checked': '' }}>
                             <label class="form-check-label" for="pending">
                               Pending
                             </label>
                           </div>
                           <div class="form-check mt-3">
-                            <input name="status" class="form-check-input" type="radio" value="1" id="resolved" {{ $flagged->status === 1? 'checked': '' }}>
+                            <input name="status" class="form-check-input" type="radio" value="1" id="resolved" {{ (int) $flagged->status === 1? 'checked': '' }}>
                             <label class="form-check-label" for="resolved">
                               Resolved
                             </label>
                           </div>
                           <div class="form-check mt-3">
-                            <input name="status" class="form-check-input" type="radio" value="2" id="dismissed" {{ $flagged->status === 2? 'checked': '' }}>
+                            <input name="status" class="form-check-input" type="radio" value="2" id="dismissed" {{ (int) $flagged->status === 2? 'checked': '' }}>
                             <label class="form-check-label" for="dismissed">
                               Dismissed
                             </label>

@@ -1,4 +1,4 @@
-<?php
+s<?php
 
 namespace App\Http\Controllers\Admin;
 
@@ -16,8 +16,9 @@ class VotingController extends Controller
      */
     public function index()
     {
-         $votes = Voting::with('voting_category')->get();
-        return view('content.voting.index' , compact('votes'));
+          $votes = Voting::with('voting_category')->get();
+        $vote_category = VotingCategory::get();
+        return view('content.voting.index' , compact('votes' , 'vote_category'));
     }
 
     /**
@@ -28,7 +29,6 @@ class VotingController extends Controller
     public function create()
     {
         
-        $vote_category = VotingCategory::get();
         return view('content.voting.create' , compact('vote_category'));
     }
 
@@ -47,10 +47,18 @@ class VotingController extends Controller
             'description' => 'required'
           ]); 
 
+          $options = [];
+          if ($request->{'group-a'}) {
+            $options = array_map(function ($option) {
+                return ["title" => $option['option']];
+            }, $request->{'group-a'});
+          }
+
           $vote = new Voting();
           $vote->name = $request->name;
           $vote->category_id = $request->category_id;
           $vote->description = $request->description;
+          $vote->options = $options;
 
           if($request->hasFile('image')){
             $path = $request->file('image')->store('/images/voting/' , 'public');
@@ -83,9 +91,9 @@ class VotingController extends Controller
      */
     public function edit($id)
     {
-        $vote_category = VotingCategory::get();
-        $vote = Voting::find($id);
-        return view('content.voting.edit', compact('vote_category', 'vote'));
+
+        // $vote = Voting::find($id);
+        // return view('content.voting.index', compact('vote'));
 
     }
 
@@ -102,6 +110,14 @@ class VotingController extends Controller
         $vote->name = $request->name;
         $vote->category_id = $request->category_id;
         $vote->description = $request->description;
+
+        $options = $vote->options;
+        if ($request->{'group-a'}) {
+            $options = array_map(function ($option) {
+                return ["title" => $option['option']];
+            }, $request->{'group-a'});
+        }
+        $vote->options = $options;
 
         if($request->hasFile('image'))
         {

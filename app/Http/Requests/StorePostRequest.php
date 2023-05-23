@@ -24,7 +24,7 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            "title" => "required",
+            "title" => "nullable",
             "content" => "nullable|string",
             "image" => "nullable|image",
             "status" => "nullable|integer",
