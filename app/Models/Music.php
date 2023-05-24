@@ -17,12 +17,12 @@ class Music extends Model
       'audio',
       
     ];
-    protected $casts = [
-        'audio' => 'array'
-     ];
-     protected $attributes = [
-        'audio' => '[]'
-     ];
+    // protected $casts = [
+    //     'audio' => 'array'
+    //  ];
+    //  protected $attributes = [
+    //     'audio' => '[]'
+    //  ];
 
     public function getActivitylogOptions(): LogOptions
     {

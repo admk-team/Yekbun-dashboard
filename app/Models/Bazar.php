@@ -19,21 +19,21 @@ class Bazar extends Model
         'status',
         'warranty'
     ];
-    
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults();
     }
     
-    public function getImageAttribute($value)
-    {
-        return json_decode($value);
-    }
+    // public function getImageAttribute($value)
+    // {
+    //     return json_decode($value);
+    // }
 
-    public function setImageAttribute($value)
-    {
-        $this->attributes['image'] = json_encode($value);
-    }
+    // public function setImageAttribute($value)
+    // {
+    //     $this->attributes['image'] = json_encode($value);
+    // }
     public function bazar_category(){
         
         return $this->belongsTo(BazarCategory::class ,'category_id');

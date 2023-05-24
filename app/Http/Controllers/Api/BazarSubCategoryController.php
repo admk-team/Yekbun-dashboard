@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\BazarCategory;
+use App\Models\SubCategoryBazar;
 
-class BazarCategoryController extends Controller
+class BazarSubCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,7 @@ class BazarCategoryController extends Controller
      */
     public function index()
     {
-        $bazar_category = BazarCategory::with('bazarsubcategory')->first();
-        return response()->json(['Bazar Category' =>$bazar_category] , 200);
-
+        //
     }
 
     /**
@@ -39,18 +37,21 @@ class BazarCategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-           
-          ]);
+            'category_id' => 'required',
+            'name'=> 'required'
+        ]);
 
-        $bazar = BazarCategory::create([
-               'name' => $request->name,
-           ]);
-          return response()->json([
-           "success" => true,
-           "message" => "Bazar Category successfully created.",
-           "data" => $bazar
-       ], 200);
+        $model = new SubCategoryBazar();
+        $model->category_id = $request->category_id;
+        $model->name = $request->name;
+        $model->city = $request->city;
+        $model->state = $request->state;
+        
+        if($model->save()){
+            return response()->json(["success" => true, "message" => "SubCategory has been successfully created"]);
+        }else{
+            return response()->json(["success" => false, "message" => "Failed to create Subcategroy"]);
+        }
     }
 
     /**
@@ -84,13 +85,7 @@ class BazarCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $bazar = BazarCategory::findorFail($id);
-        $bazar->name = $request->name ?? $bazar->name;
-        if($bazar->update()){
-           return response()->json('Bazar Category Updated Successfully' , 200);
-        }else{
-           return response()->json('Failed to updated bazar category' , 400);
-        }
+        //
     }
 
     /**
@@ -101,11 +96,6 @@ class BazarCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $bazar = BazarCategory::findorFail($id);
-        if($bazar->delete($bazar->id)){
-          return response()->json('Baazar Category Deleted Successfully' ,200);
-        }else{
-           return response()->json('Failed to delete bazar category' , 400);
-        }
+        //
     }
 }

@@ -36,6 +36,8 @@ use App\Http\Controllers\Api\UploadVideoController;
 use App\Http\Controllers\Api\UploadMovieCategoryController;
 use App\Http\Controllers\Api\UploadMovieController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BazarSubCategoryController;
+use App\Http\Controllers\Api\TwoFactorController;
 
 
 /*
@@ -96,6 +98,7 @@ Route::resource('media' , MediaController::class)->only(['index', 'store', 'show
 Route::resource('history-category' , HistoryCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
 Route::resource('history' , HistoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
 Route::resource('bazar-category' , BazarCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+Route::resource('bazar-subcategory' , BazarSubCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
 
 Route::resource('bazar' , BazarController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
 
@@ -113,3 +116,7 @@ Route::post('forgot-password', [AuthController::class , 'forgot_password']);
 
  Route::post('change-password', [AuthController::class , 'change_password']);
  Route::get('/reset/password/{token}', [AuthController::class , 'reset'])->name('password.reset');
+
+ Route::post('2fa', [TwoFactorController::class, 'store'])->name('2fa.post');
+Route::get('2fa/reset/{id}/{email}', [TwoFactorController::class, 'resend'])->name('2fa.resend');
+
