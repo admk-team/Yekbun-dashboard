@@ -43,17 +43,17 @@ class AuthController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        $images = $request->image;
-        if($request->file('image')){
-            $path = $request->file('image')->store('/images/user/','public');
-            $images = $path;
-        }
+        // $images = $request->image;
+        // if($request->file('image')){
+        //     $path = $request->file('image')->store('/images/user/','public');
+        //     $images = $path;
+        // }
 
         $user = User::create([
             'username' => $validatedData['username'],
             'fname' => $validatedData['fname'],
             'lname' => $validatedData['lname'],
-            'image' => $images,
+            'image' => $validatedData['image'],
             'name' => $validatedData['fname'].''.$validatedData['lname'],
             'gender' => $validatedData['gender'],
             'dob' => $validatedData['dob'],
