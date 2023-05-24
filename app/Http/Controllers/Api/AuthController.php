@@ -51,13 +51,13 @@ class AuthController extends Controller
 
         $user = User::create([
             'username' => $validatedData['username'],
-            'fname' => $validatedData['fname'],
-            'lname' => $validatedData['lname'],
+            'fname' => $validatedData['firstName'],
+            'lname' => $validatedData['lastName'],
             'image' => $validatedData['image'],
-            'name' => $validatedData['fname'].''.$validatedData['lname'],
+            'name' => $validatedData['firstName'].''.$validatedData['lastName'],
             'gender' => $validatedData['gender'],
             'dob' => $validatedData['dob'],
-            'address' => $validatedData['address'],
+            'address' => $validatedData['location'],
             'province'=> $validatedData['province'],
             'city' => $validatedData['city'],
             'email' => $validatedData['email'],
