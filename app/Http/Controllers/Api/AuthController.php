@@ -68,7 +68,7 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true  ,
-            'Message'=> 'You have successfully register.'
+            'message'=> 'You have successfully register.'
         ], 200);
 
         // if($user->id){
