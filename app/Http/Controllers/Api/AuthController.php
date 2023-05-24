@@ -43,6 +43,14 @@ class AuthController extends Controller
             'password' => 'required|min:6',
         ]);
 
+        $userExist = User::where('email', $request->email)->get();
+
+        if($userExist)
+            return response()->json([
+                'success' => false,
+                'message' => 'Email is already taken.'
+            ]);
+
         $user = User::create([
             'username' => $validatedData['username'],
             'fname' => $validatedData['firstName'],
