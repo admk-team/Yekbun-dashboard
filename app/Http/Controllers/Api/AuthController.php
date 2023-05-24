@@ -23,10 +23,10 @@ class AuthController extends Controller
             $user = Auth::user();
 
             $token = explode('|', $user->createToken('Yekhbun')->plainTextToken)[1];
-            
+
             return response()->json(['success' => true, 'token' => $token], 200);
         } else {
-            return response()->json(['success' => false, 'error' => 'Unauthorized'], 401);
+            return response()->json(['success' => false, 'error' => 'Email or password is invalid.'], 401);
         }
     }
     public function signup(Request $request)
