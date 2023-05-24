@@ -45,10 +45,10 @@ class AuthController extends Controller
 
         $user = User::create([
             'username' => $validatedData['username'],
-            'fname' => $validatedData['fname'],
-            'lname' => $validatedData['lname'],
+            'fname' => $validatedData['firstName'],
+            'lname' => $validatedData['lastName'],
             'image' => $validatedData['image'],
-            'name' => $validatedData['fname'].''.$validatedData['lname'],
+            'name' => $validatedData['firstName'].''.$validatedData['lastName'],
             'gender' => $validatedData['gender'],
             'dob' => $validatedData['dob'],
             'address' => $validatedData['location'],
@@ -57,7 +57,11 @@ class AuthController extends Controller
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
         ]);
-        return response()->json(['success' => true  , 'Message'=> 'You have successfully register.'], 200);
+
+        return response()->json([
+            'success' => true  ,
+            'Message'=> 'You have successfully register.'
+        ], 200);
 
         // if($user->id){
         //     $code = rand(1000, 9999);
@@ -130,6 +134,4 @@ class AuthController extends Controller
     //         return response()->json(['message' => 'Unable to reset password'], 400);
     //     }
     // }
-
 }
- 
