@@ -40,29 +40,23 @@ class AuthController extends Controller
         // }
         $validatedData = $request->validate([
             'username' => 'required|max:100',
-            'fname' => 'required|max:100',
-            'lname' => 'required|max:100',
+            'firstName' => 'required|max:100',
+            'lastName' => 'required|max:100',
             'image' => 'required',
             'gender' => 'required',
             'dob'=> 'required',
-            'address' => 'required|max:255',
+            'location' => 'required|max:255',
             'province' => 'required|max:255',
             'city' => 'required|max:255',
-            'email' => 'required|email|unique:users|max:255',
+            'email' => 'required',
             'password' => 'required|min:6',
         ]);
-
-        $images = $request->image;
-        if($request->file('image')){
-            $path = $request->file('image')->store('/images/user/','public');
-            $images = $path;
-        }
 
         $user = User::create([
             'username' => $validatedData['username'],
             'fname' => $validatedData['fname'],
             'lname' => $validatedData['lname'],
-            'image' => $images,
+            'image' => $validatedData['image'],
             'name' => $validatedData['fname'].''.$validatedData['lname'],
             'gender' => $validatedData['gender'],
             'dob' => $validatedData['dob'],
@@ -72,30 +66,30 @@ class AuthController extends Controller
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
         ]);
-      
-        if($user->id){
-            $code = rand(1000, 9999);
-            UserCode::updateOrCreate(
-                [ 'user_id' =>$user->id],
-                [ 'code' => $code]
-            );
-        
-            try {
-                $details = [
-                    'title' => 'Mail from Yekbun.com',
-                    'code' => $code
-                ];
-                
-                Mail::to($validatedData['email'])->send(new SendCodeMail($details));
+        return response()->json(['success' => true  , 'Message'=> 'You have successfully register.'], 200);
 
-                return response()->json(["message"=>"Verfication Code sent to your email",'user_id' => $user->id , $user->email], 201);
-            } catch (Exception $e) {
-                info("Error: ". $e->getMessage());
-            }
-        }
+        // if($user->id){
+        //     $code = rand(1000, 9999);
+        //     UserCode::updateOrCreate(
+        //         [ 'user_id' =>$user->id],
+        //         [ 'code' => $code]
+        //     );
+        
+        //     try {
+        //         $details = [
+        //             'title' => 'Mail from Yekbun.com',
+        //             'code' => $code
+        //         ];
+                
+        //         Mail::to($validatedData['email'])->send(new SendCodeMail($details));
+
+        //         return response()->json(["message"=>"Verfication Code sent to your email",'user_id' => $user->id , "Email" => $user->email], 201);
+        //     } catch (Exception $e) {
+        //         info("Error: ". $e->getMessage());
+        //     }
+        // }
 
         // $token = $user->createToken('Yekhbun')->accessToken;
-        return response()->json(['errors' => 'something missing'], 422);
     }
 
 

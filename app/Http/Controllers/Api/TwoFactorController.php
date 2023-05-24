@@ -6,6 +6,7 @@ use session;
 use App\Models\UserCode;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class TwoFactorController extends Controller
 {
@@ -51,6 +52,7 @@ class TwoFactorController extends Controller
                     ];
                     
                     Mail::to($email)->send(new SendCodeMail($details));
+                    return response()->json(['success' => true , "message" =>"We sent vertifaction code to your provided email address"]);
             
                 } catch (Exception $e) {
                     info("Error: ". $e->getMessage());
