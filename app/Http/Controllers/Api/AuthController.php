@@ -21,10 +21,12 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            $token = $user->createToken('Yekhbun')->accessToken;
-            return response()->json(['token' => $token], 200);
+
+            $token = explode('|', $user->createToken('Yekhbun')->plainTextToken)[1];
+            
+            return response()->json(['success' => true, 'token' => $token], 200);
         } else {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['success' => false, 'error' => 'Unauthorized'], 401);
         }
     }
     public function signup(Request $request)
