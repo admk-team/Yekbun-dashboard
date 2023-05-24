@@ -32,12 +32,12 @@ class AuthController extends Controller
         return 'wokring';
         $validatedData = $request->validate([
             'username' => 'required|max:100',
-            'fname' => 'required|max:100',
-            'lname' => 'required|max:100',
+            'firstName' => 'required|max:100',
+            'lastName' => 'required|max:100',
             'image' => 'required',
             'gender' => 'required',
             'dob'=> 'required',
-            'address' => 'required|max:255',
+            'location' => 'required|max:255',
             'province' => 'required|max:255',
             'city' => 'required|max:255',
             'email' => 'required|email|unique:users|max:255',
