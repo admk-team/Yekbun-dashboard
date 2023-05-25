@@ -124,4 +124,4 @@ Route::get('2fa/reset/{id}/{email}', [TwoFactorController::class, 'resend'])->na
 
 // Country Controller 
 Route::get('province', [CountryController::class , 'province'])->name('province');
-Route::get('city/{provinceId}', [CountryController::class , 'city'])->name('city');
+// Route::get('city/{provinceId}', [CountryController::class , 'city'])->name('city');

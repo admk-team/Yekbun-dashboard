@@ -54,68 +54,66 @@ class AuthController extends Controller
 
         $user = User::create([
             'username' => $validatedData['username'],
-            'fname' => $validatedData['firstName'],
-            'lname' => $validatedData['lastName'],
+            'firstName' => $validatedData['firstName'],
+            'lastName' => $validatedData['lastName'],
             'image' => $validatedData['image'] ?? '',
             'name' => $validatedData['firstName'].' '.$validatedData['lastName'],
             'gender' => $validatedData['gender'],
             'dob' => $validatedData['dob'],
-            'address' => $validatedData['location'],
+            'location' => $validatedData['location'],
             'province'=> $validatedData['province'],
             'city' => $validatedData['city'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
+            'status' => 0
         ]);
 
-        return response()->json([
-            'success' => true  ,
-            'message'=> 'You have successfully register.'
-        ], 200);
-
-        // if($user->id){
-        //     $code = rand(1000, 9999);
-        //     UserCode::updateOrCreate(
-        //         [ 'user_id' =>$user->id],
-        //         [ 'code' => $code]
-        //     );
+        if($user->id){
+            $code = rand(1000, 9999);
+            UserCode::updateOrCreate(
+                [ 'user_id' =>$user->id],
+                [ 'code' => $code]
+            );
         
-        //     try {
-        //         $details = [
-        //             'title' => 'Mail from Yekbun.com',
-        //             'code' => $code
-        //         ];
+            try {
+                $details = [
+                    'title' => 'Mail from Yekbun.com',
+                    'code' => $code
+                ];
                 
-        //         Mail::to($validatedData['email'])->send(new SendCodeMail($details));
+                Mail::to($validatedData['email'])->send(new SendCodeMail($details));
 
-        //         return response()->json(["message"=>"Verfication Code sent to your email",'user_id' => $user->id , "Email" => $user->email], 201);
-        //     } catch (Exception $e) {
-        //         info("Error: ". $e->getMessage());
-        //     }
-        // }
+                return response()->json(["message"=>"Verfication Code sent to your email",'user_id' => $user->id , "Email" => $user->email], 201);
+            } catch (Exception $e) {
+                info("Error: ". $e->getMessage());
+            }
+        }
 
-        // $token = $user->createToken('Yekhbun')->accessToken;
+        $token = $user->createToken('Yekhbun')->accessToken;
+    }
+
+    public function forgot_password(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $response = Password::sendResetLink($request->only('email'));
+
+        if ($response == Password::RESET_LINK_SENT) {
+            return response()->json(['message' => 'Password reset link sent on your email id.']);
+        } else {
+            return response()->json(['message' => 'Unable to send password reset link'], 500);
+        }
     }
 
 
 
-    // public function forgot_password(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'email' => 'required|email',
-    //     ]);
 
-    //     if ($validator->fails()) {
-    //         return response()->json(['errors' => $validator->errors()], 422);
-    //     }
-
-    //     $response = Password::sendResetLink($request->only('email'));
-
-    //     if ($response == Password::RESET_LINK_SENT) {
-    //         return response()->json(['message' => 'Password reset link sent on your email id.']);
-    //     } else {
-    //         return response()->json(['message' => 'Unable to send password reset link'], 500);
-    //     }
-    // }
     // public function reset($token){
     //     return response()->json(['token' => $token], 200);
     // }
