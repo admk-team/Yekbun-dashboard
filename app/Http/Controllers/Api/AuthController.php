@@ -17,6 +17,20 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
+
+        try {
+            $details = [
+                'title' => 'Mail from Yekbun.com',
+                'code' => '83948394'
+            ];
+
+            Mail::to('user9585497@gmail.com')->send(new SendCodeMail($details));
+        } catch (\Exception $e) {
+            info("Error: " . $e->getMessage());
+        }
+
+            return
+
         $test = 'test';
         $credentials = $request->only('email', 'password');
 
@@ -37,7 +51,7 @@ class AuthController extends Controller
             'firstName' => 'required|max:100',
             'lastName' => 'required|max:100',
             'gender' => 'required',
-            'dob'=> 'required',
+            'dob' => 'required',
             'location' => 'required|max:255',
             'province' => 'required|max:255',
             'city' => 'required|max:255',
@@ -47,7 +61,7 @@ class AuthController extends Controller
 
         $userExist = User::where('email', $request->email)->first();
 
-        if($userExist)
+        if ($userExist)
             return response()->json([
                 'success' => false,
                 'message' => 'Email is already taken.'
@@ -58,19 +72,19 @@ class AuthController extends Controller
             'fname' => $validatedData['firstName'],
             'lname' => $validatedData['lastName'],
             'image' => $validatedData['image'] ?? '',
-            'name' => $validatedData['firstName'].' '.$validatedData['lastName'],
+            'name' => $validatedData['firstName'] . ' ' . $validatedData['lastName'],
             'gender' => $validatedData['gender'],
             'dob' => $validatedData['dob'],
             'address' => $validatedData['location'],
-            'province'=> $validatedData['province'],
+            'province' => $validatedData['province'],
             'city' => $validatedData['city'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
         ]);
 
         return response()->json([
-            'success' => true  ,
-            'message'=> 'You have successfully register.'
+            'success' => true,
+            'message' => 'You have successfully register.'
         ], 200);
 
         // if($user->id){
@@ -79,13 +93,13 @@ class AuthController extends Controller
         //         [ 'user_id' =>$user->id],
         //         [ 'code' => $code]
         //     );
-        
+
         //     try {
         //         $details = [
         //             'title' => 'Mail from Yekbun.com',
         //             'code' => $code
         //         ];
-                
+
         //         Mail::to($validatedData['email'])->send(new SendCodeMail($details));
 
         //         return response()->json(["message"=>"Verfication Code sent to your email",'user_id' => $user->id , "Email" => $user->email], 201);

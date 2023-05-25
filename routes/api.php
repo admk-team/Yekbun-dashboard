@@ -110,7 +110,7 @@ Route::resource('movie' , UploadMovieController::class)->only(['index', 'store',
 
 
 // User 
-Route::post('/login', [AuthController::class, 'login']);
+Route::get('/login', [AuthController::class, 'login']);
 Route::post('/signup', [AuthController::class, 'signup']);
 
 Route::post('forgot-password', [AuthController::class , 'forgot_password']);
