@@ -14,7 +14,6 @@ class TwoFactorController extends Controller
 
     public function store(Request $request)
     {
-        return 'aaa';
         $request->validate([
             'code' => 'required',
             'user_id' => 'required',
