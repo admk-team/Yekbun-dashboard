@@ -11,10 +11,15 @@ class CountryController extends Controller
 {
     public function province(){
         $province = Region::orderBy('id' , 'desc')->get();
+
+        for($i=0; $i<sizeof($province); $i++){
+            $province[$i]->cities = $province[$i]->cities;
+        }
+
         if(isset($province)){
-            return response()->json(['success' => true, "Message" => $province]);
+            return response()->json(['success' => true, "data" => $province]);
         }else{
-            return response()->json(['error' => false , "Message" => "No Province Available"]);
+            return response()->json(['error' => false , "data" => "No Province Available"]);
         }
     }
 
@@ -22,9 +27,9 @@ class CountryController extends Controller
 
         $city = City::where('region_id'  , $provinceId)->get();
         if(isset($city)){
-            return response()->json(['success' => true, "Message" =>$city]);
+            return response()->json(['success' => true, "data" =>$city]);
         }else{
-            return response()->json(['error'=>false , "Message" => "No City Available for that Province"]);
+            return response()->json(['error'=>false , "data" => "No City Available for that Province"]);
         }
     }
 }
