@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use session;
+use App\Models\User;
 use App\Models\UserCode;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
