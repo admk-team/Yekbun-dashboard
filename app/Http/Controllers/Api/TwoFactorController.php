@@ -31,7 +31,7 @@ class TwoFactorController extends Controller
                 'user_id' => $request->user_id
             ]);
 
-            $user = User::find('id', $request->user_id)->first();
+            $user = User::find($request->user_id);
             $user->status = 1;
             $user->save();
             return response()->json(['success' => true, 'message' => "Your account is successfully verfied"]);
