@@ -26,7 +26,7 @@ class AuthController extends Controller
 
             return response()->json(['success' => true, 'token' => $token], 200);
         } else {
-            return response()->json(['success' => false, 'message' => 'Email or password is invalid.']);
+            return response()->json(['success' => false, 'message' => 'Email or password is incorrect.']);
         }
     }
     public function signup(Request $request)
