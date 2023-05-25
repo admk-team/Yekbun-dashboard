@@ -21,28 +21,20 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            $token = $user->createToken('Yekhbun')->accessToken;
-            return response()->json(['token' => $token], 200);
+
+            $token = explode('|', $user->createToken('Yekhbun')->plainTextToken)[1];
+
+            return response()->json(['success' => true, 'token' => $token], 200);
         } else {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['success' => false, 'error' => 'Email or password is invalid.'], 401);
         }
     }
     public function signup(Request $request)
     {
-        // if($request->has('email')){
-        //     $request->validate([
-        //         'email' => 'required|email|unique:users|max:255',
-        //     ]);
-
-        //     // session()->put('email', $request->email);
-        //     return session()->all();
-            
-        // }
         $validatedData = $request->validate([
             'username' => 'required|max:100',
             'firstName' => 'required|max:100',
             'lastName' => 'required|max:100',
-            'image' => 'required',
             'gender' => 'required',
             'dob'=> 'required',
             'location' => 'required|max:255',
@@ -52,21 +44,33 @@ class AuthController extends Controller
             'password' => 'required|min:6',
         ]);
 
+        $userExist = User::where('email', $request->email)->first();
+
+        if($userExist)
+            return response()->json([
+                'success' => false,
+                'message' => 'Email is already taken.'
+            ]);
+
         $user = User::create([
             'username' => $validatedData['username'],
-            'fname' => $validatedData['fname'],
-            'lname' => $validatedData['lname'],
-            'image' => $validatedData['image'],
-            'name' => $validatedData['fname'].''.$validatedData['lname'],
+            'fname' => $validatedData['firstName'],
+            'lname' => $validatedData['lastName'],
+            'image' => $validatedData['image'] ?? '',
+            'name' => $validatedData['firstName'].' '.$validatedData['lastName'],
             'gender' => $validatedData['gender'],
             'dob' => $validatedData['dob'],
-            'address' => $validatedData['address'],
+            'address' => $validatedData['location'],
             'province'=> $validatedData['province'],
             'city' => $validatedData['city'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
         ]);
-        return response()->json(['success' => true  , 'Message'=> 'You have successfully register.'], 200);
+
+        return response()->json([
+            'success' => true  ,
+            'message'=> 'You have successfully register.'
+        ], 200);
 
         // if($user->id){
         //     $code = rand(1000, 9999);
@@ -139,6 +143,4 @@ class AuthController extends Controller
     //         return response()->json(['message' => 'Unable to reset password'], 400);
     //     }
     // }
-
 }
- 
