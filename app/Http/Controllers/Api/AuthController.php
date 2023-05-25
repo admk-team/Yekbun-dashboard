@@ -87,8 +87,6 @@ class AuthController extends Controller
                 info("Error: ". $e->getMessage());
             }
         }
-
-        $token = $user->createToken('Yekhbun')->accessToken;
     }
 
     public function forgot_password(Request $request)
