@@ -29,7 +29,11 @@ class TwoFactorController extends Controller
                 'code'=> $request->code,
                 'user_id'=> $request->user_id
             ]);
-            return response()->json(['success' => true]);
+
+            $user = User::find('id' , $request->user_id)->first();
+            $user->status = 1;
+            $user->save();
+            return response()->json(['success' => true , 'message' => "Your account is successfully verfied"]);
         }
   
         return response()->json(['error'=> false , 'message'=>"You enter wrong code"]);

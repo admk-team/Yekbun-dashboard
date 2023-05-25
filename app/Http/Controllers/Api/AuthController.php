@@ -26,7 +26,7 @@ class AuthController extends Controller
 
             return response()->json(['success' => true, 'token' => $token], 200);
         } else {
-            return response()->json(['success' => false, 'error' => 'Email or password is invalid.'], 401);
+            return response()->json(['success' => false, 'message' => 'Email or password is incorrect.']);
         }
     }
     public function signup(Request $request)
@@ -36,7 +36,7 @@ class AuthController extends Controller
             'firstName' => 'required|max:100',
             'lastName' => 'required|max:100',
             'gender' => 'required',
-            'dob'=> 'required',
+            'dob' => 'required',
             'location' => 'required|max:255',
             'province' => 'required|max:255',
             'city' => 'required|max:255',
@@ -46,7 +46,7 @@ class AuthController extends Controller
 
         $userExist = User::where('email', $request->email)->first();
 
-        if($userExist)
+        if ($userExist)
             return response()->json([
                 'success' => false,
                 'message' => 'Email is already taken.'
@@ -57,7 +57,7 @@ class AuthController extends Controller
             'firstName' => $validatedData['firstName'],
             'lastName' => $validatedData['lastName'],
             'image' => $validatedData['image'] ?? '',
-            'name' => $validatedData['firstName'].' '.$validatedData['lastName'],
+            'name' => $validatedData['firstName'] . ' ' . $validatedData['lastName'],
             'gender' => $validatedData['gender'],
             'dob' => $validatedData['dob'],
             'location' => $validatedData['location'],
@@ -74,8 +74,7 @@ class AuthController extends Controller
                 [ 'user_id' =>$user->id],
                 [ 'code' => $code]
             );
-        
-            try {
+         try{
                 $details = [
                     'title' => 'Mail from Yekbun.com',
                     'code' => $code
@@ -83,7 +82,7 @@ class AuthController extends Controller
                 
                 Mail::to($validatedData['email'])->send(new SendCodeMail($details));
 
-                return response()->json(["message"=>"Verfication Code sent to your email",'user_id' => $user->id , "Email" => $user->email], 201);
+                return response()->json(['success' => true , "message"=>"Verfication Code sent to your email",'user_id' => $user->id , "email" => $user->email], 201);
             } catch (Exception $e) {
                 info("Error: ". $e->getMessage());
             }
