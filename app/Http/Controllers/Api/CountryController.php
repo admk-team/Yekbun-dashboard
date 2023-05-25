@@ -23,13 +23,13 @@ class CountryController extends Controller
         }
     }
 
-    public function city($provinceId){
+    // public function city($provinceId){
 
-        $city = City::where('region_id'  , $provinceId)->get();
-        if(isset($city)){
-            return response()->json(['success' => true, "data" =>$city]);
-        }else{
-            return response()->json(['error'=>false , "data" => "No City Available for that Province"]);
-        }
-    }
+    //     $city = City::where('region_id'  , $provinceId)->get();
+    //     if(isset($city)){
+    //         return response()->json(['success' => true, "data" =>$city]);
+    //     }else{
+    //         return response()->json(['error'=>false , "data" => "No City Available for that Province"]);
+    //     }
+    // }
 }
