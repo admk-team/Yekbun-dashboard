@@ -17,21 +17,6 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-
-        try {
-            $details = [
-                'title' => 'Mail from Yekbun.com',
-                'code' => '83948394'
-            ];
-
-            Mail::to('user9585497@gmail.com')->send(new SendCodeMail($details));
-        } catch (\Exception $e) {
-            info("Error: " . $e->getMessage());
-        }
-
-            return
-
-        $test = 'test';
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
@@ -82,33 +67,26 @@ class AuthController extends Controller
             'password' => bcrypt($validatedData['password']),
         ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'You have successfully register.'
-        ], 200);
+        if ($user->id) {
+            $code = rand(1000, 9999);
+            UserCode::updateOrCreate(
+                ['user_id' => $user->id],
+                ['code' => $code]
+            );
 
-        // if($user->id){
-        //     $code = rand(1000, 9999);
-        //     UserCode::updateOrCreate(
-        //         [ 'user_id' =>$user->id],
-        //         [ 'code' => $code]
-        //     );
+            try {
+                $details = [
+                    'title' => 'Mail from Yekbun.com',
+                    'code' => $code
+                ];
 
-        //     try {
-        //         $details = [
-        //             'title' => 'Mail from Yekbun.com',
-        //             'code' => $code
-        //         ];
+                Mail::to($validatedData['email'])->send(new SendCodeMail($details));
 
-        //         Mail::to($validatedData['email'])->send(new SendCodeMail($details));
-
-        //         return response()->json(["message"=>"Verfication Code sent to your email",'user_id' => $user->id , "Email" => $user->email], 201);
-        //     } catch (Exception $e) {
-        //         info("Error: ". $e->getMessage());
-        //     }
-        // }
-
-        // $token = $user->createToken('Yekhbun')->accessToken;
+                return response()->json(["message" => "Verfication Code sent to your email", 'user_id' => $user->id, "Email" => $user->email], 201);
+            } catch (Exception $e) {
+                info("Error: " . $e->getMessage());
+            }
+        }
     }
 
 

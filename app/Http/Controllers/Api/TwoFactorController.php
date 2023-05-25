@@ -29,6 +29,7 @@ class TwoFactorController extends Controller
                 'code'=> $request->code,
                 'user_id'=> $request->user_id
             ]);
+            
             return response()->json(['success' => true]);
         }
   
