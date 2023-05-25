@@ -38,6 +38,7 @@ use App\Http\Controllers\Api\UploadMovieController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BazarSubCategoryController;
 use App\Http\Controllers\Api\TwoFactorController;
+use App\Http\Controllers\Api\CountryController;
 
 
 /*
@@ -120,3 +121,7 @@ Route::post('forgot-password', [AuthController::class , 'forgot_password']);
  Route::post('2fa', [TwoFactorController::class, 'store'])->name('2fa.post');
 Route::get('2fa/reset/{id}/{email}', [TwoFactorController::class, 'resend'])->name('2fa.resend');
 
+
+// Country Controller 
+Route::get('province', [CountryController::class , 'province'])->name('province');
+Route::get('city/{provinceId}', [CountryController::class , 'city'])->name('city');
