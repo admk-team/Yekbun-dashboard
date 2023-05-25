@@ -22,6 +22,9 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
+            if ($user->status == 0)
+                return response()->json(['success' => false, 'message' => 'Your email is not verified.']);
+
             $token = explode('|', $user->createToken('Yekhbun')->plainTextToken)[1];
 
             return response()->json(['success' => true, 'token' => $token], 200);
@@ -61,30 +64,30 @@ class AuthController extends Controller
             'gender' => $validatedData['gender'],
             'dob' => $validatedData['dob'],
             'location' => $validatedData['location'],
-            'province'=> $validatedData['province'],
+            'province' => $validatedData['province'],
             'city' => $validatedData['city'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
             'status' => 0
         ]);
 
-        if($user->id){
+        if ($user->id) {
             $code = rand(1000, 9999);
             UserCode::updateOrCreate(
-                [ 'user_id' =>$user->id],
-                [ 'code' => $code]
+                ['user_id' => $user->id],
+                ['code' => $code]
             );
-         try{
+            try {
                 $details = [
                     'title' => 'Mail from Yekbun.com',
                     'code' => $code
                 ];
-                
+
                 Mail::to($validatedData['email'])->send(new SendCodeMail($details));
 
-                return response()->json(['success' => true , "message"=>"Verfication Code sent to your email", 'data' => $user->id], 201);
+                return response()->json(['success' => true, "message" => "Verfication Code sent to your email", 'data' => $user->id], 201);
             } catch (Exception $e) {
-                info("Error: ". $e->getMessage());
+                info("Error: " . $e->getMessage());
             }
         }
     }
