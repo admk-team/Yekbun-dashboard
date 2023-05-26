@@ -49,6 +49,11 @@ class TwoFactorController extends Controller
 
     public function resend(Request $request)
     {
+        $user = User::find($request->id);
+
+        if ($user == '')
+            return response()->json(['success' => false, "message" => "User not found."]);
+
         $code = rand(1000, 9999);
 
         UserCode::updateOrCreate(
