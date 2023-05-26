@@ -175,7 +175,6 @@ class AuthController extends Controller
       $user = ResetUserPassword::where('user_id', $request->user_id)->first();
       
       $code = rand(1000, 9999);
-      $password_token = Str::random(50);
 
       try {
 
@@ -187,10 +186,9 @@ class AuthController extends Controller
           Mail::to($user->email)->send(new SendCodeMail($details));
 
           $user->code = $code;
-          $user->password_token = $password_token;
           $user->save();
 
-          return response()->json(['success' => true, "message" => "A verification email has been resent to your email.", 'data' => $password_token]);
+          return response()->json(['success' => true, "message" => "A verification email has been resent to your email."]);
       } catch (Exception $e) {
           info("Error: " . $e->getMessage());
       }
