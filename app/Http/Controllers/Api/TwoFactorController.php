@@ -63,7 +63,8 @@ class TwoFactorController extends Controller
             ];
 
             Mail::to($email)->send(new SendCodeMail($details));
-            return response()->json(['success' => true, "message" => "We sent vertifaction code to your provided email address"]);
+            
+            return response()->json(['success' => true, "message" => "Email successfully resent."]);
         } catch (Exception $e) {
             info("Error: " . $e->getMessage());
         }
