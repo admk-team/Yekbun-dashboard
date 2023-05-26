@@ -145,7 +145,6 @@ class AuthController extends Controller
   
   public function reset(Request $request)
   {
-    return $request;
     $request->validate([
         'code' => 'required',
     ]);
