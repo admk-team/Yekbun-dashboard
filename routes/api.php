@@ -118,6 +118,7 @@ Route::post('forgot-password', [AuthController::class , 'forgot_password']);
  Route::post('change-password', [AuthController::class , 'change_password']);
  Route::post('/reset/password', [AuthController::class , 'reset'])->name('password.reset');
  Route::post('/reset', [AuthController::class , 'resetpassword'])->name('reset.complete');
+ Route::post('/reset/resend', [AuthController::class , 'reset_resend'])->name('reset.resend');
 
  Route::post('2fa', [TwoFactorController::class, 'store'])->name('2fa.post');
 Route::get('2fa/reset/{id}/{email}', [TwoFactorController::class, 'resend'])->name('2fa.resend');

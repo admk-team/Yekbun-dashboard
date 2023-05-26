@@ -169,6 +169,32 @@ class AuthController extends Controller
 
   }
 
+  public function reset_resend(Request $request)
+  {
+      $user = ResetUserPassword::where('user_id', $request->user_id)->first();
+      
+      $code = rand(1000, 9999);
+      $password_token = Str::random(50);
+
+      try {
+
+          $details = [
+              'title' => 'Mail from Yekbun.com',
+              'code' => $code
+          ];
+
+          Mail::to($email)->send(new SendCodeMail($details));
+
+          $user->code = $code;
+          $user->password_token = $password_token;
+          $user->save();
+
+          return response()->json(['success' => true, "message" => "A verification email has been resent to your email.", 'data' => $password_token]);
+      } catch (Exception $e) {
+          info("Error: " . $e->getMessage());
+      }
+  }
+}
 
 
   // public function reset(Request $request)
