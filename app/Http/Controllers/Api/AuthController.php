@@ -183,7 +183,7 @@ class AuthController extends Controller
               'code' => $code
           ];
 
-          Mail::to($email)->send(new SendCodeMail($details));
+          Mail::to($user->email)->send(new SendCodeMail($details));
 
           $user->code = $code;
           $user->password_token = $password_token;
