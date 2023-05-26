@@ -46,12 +46,12 @@ class TwoFactorController extends Controller
     }
   }
 
-    public function resend($id, $email)
+    public function resend($request)
     {
         $code = rand(1000, 9999);
 
         UserCode::updateOrCreate(
-            ['user_id' => $id],
+            ['user_id' => $request->id],
             ['code' => $code]
         );
 
@@ -62,8 +62,8 @@ class TwoFactorController extends Controller
                 'code' => $code
             ];
 
-            Mail::to($email)->send(new SendCodeMail($details));
-            
+            Mail::to($request->email)->send(new SendCodeMail($details));
+
             return response()->json(['success' => true, "message" => "Email successfully resent."]);
         } catch (Exception $e) {
             info("Error: " . $e->getMessage());

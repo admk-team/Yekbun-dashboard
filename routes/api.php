@@ -84,45 +84,45 @@ Route::prefix("/users")->name("users.")->group(function () {
 });
 
 // News 
-Route::resource('news' , NewsController::class)->only(['index', 'store', 'show', 'update' ,'destroy']);
-Route::resource('news-category' , NewsCategoryController::class)->only(['index', 'store', 'update' , 'show', 'destroy']);
-Route::resource('music-category' , MusicCategoryController::class)->only(['index', 'store', 'show', 'update' , 'destroy']);
-Route::resource('music' , MusicController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
-Route::resource('artist' , ArtistController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
-Route::resource('video-clip' , UploadVideoClipController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
-Route::resource('fan-page' , FanPageController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
-Route::resource('manage-fanpage' , ManageFanPageController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
-Route::resource('voting' , VotingController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
-Route::resource('voting-category' , VotingCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
-Route::resource('media-category' , MediaCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
-Route::resource('media' , MediaController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
-Route::resource('history-category' , HistoryCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
-Route::resource('history' , HistoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
-Route::resource('bazar-category' , BazarCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
-Route::resource('bazar-subcategory' , BazarSubCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+Route::resource('news', NewsController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
+Route::resource('news-category', NewsCategoryController::class)->only(['index', 'store', 'update', 'show', 'destroy']);
+Route::resource('music-category', MusicCategoryController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
+Route::resource('music', MusicController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
+Route::resource('artist', ArtistController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
+Route::resource('video-clip', UploadVideoClipController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
+Route::resource('fan-page', FanPageController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
+Route::resource('manage-fanpage', ManageFanPageController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
+Route::resource('voting', VotingController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
+Route::resource('voting-category', VotingCategoryController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
+Route::resource('media-category', MediaCategoryController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
+Route::resource('media', MediaController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
+Route::resource('history-category', HistoryCategoryController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
+Route::resource('history', HistoryController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
+Route::resource('bazar-category', BazarCategoryController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
+Route::resource('bazar-subcategory', BazarSubCategoryController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
 
-Route::resource('bazar' , BazarController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+Route::resource('bazar', BazarController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
 
-Route::resource('video-category' , UploadVideoCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
-Route::resource('video' , UploadVideoController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
-Route::resource('movie-category' , UploadMovieCategoryController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
-Route::resource('movie' , UploadMovieController::class)->only(['index', 'store', 'show', 'destroy' ,'update']);
+Route::resource('video-category', UploadVideoCategoryController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
+Route::resource('video', UploadVideoController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
+Route::resource('movie-category', UploadMovieCategoryController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
+Route::resource('movie', UploadMovieController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
 
 
 // User 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/signup', [AuthController::class, 'signup']);
 
-Route::post('forgot-password', [AuthController::class , 'forgot_password']);
+Route::post('forgot-password', [AuthController::class, 'forgot_password']);
 
- Route::post('change-password', [AuthController::class , 'change_password']);
- Route::post('/reset/password', [AuthController::class , 'reset'])->name('password.reset');
- Route::post('/reset', [AuthController::class , 'resetpassword'])->name('reset.complete');
- Route::post('/reset/resend', [AuthController::class , 'reset_resend'])->name('reset.resend');
+Route::post('change-password', [AuthController::class, 'change_password']);
+Route::post('/reset/password', [AuthController::class, 'reset'])->name('password.reset');
+Route::post('/reset', [AuthController::class, 'resetpassword'])->name('reset.complete');
+Route::post('/reset/resend', [AuthController::class, 'reset_resend'])->name('reset.resend');
 
- Route::post('2fa', [TwoFactorController::class, 'store'])->name('2fa.post');
-Route::get('2fa/reset/{id}/{email}', [TwoFactorController::class, 'resend'])->name('2fa.resend');
+Route::post('2fa', [TwoFactorController::class, 'store'])->name('2fa.post');
+Route::post('2fa/reset', [TwoFactorController::class, 'resend'])->name('2fa.resend');
 
 
 // Country Controller 
-Route::get('province', [CountryController::class , 'province'])->name('province');
+Route::get('province', [CountryController::class, 'province'])->name('province');
