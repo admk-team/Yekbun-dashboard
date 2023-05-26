@@ -135,10 +135,7 @@ class AuthController extends Controller
         if($user == '')
         return response()->json(['success' =>false , 'message' => 'User Not found.']);
     
-        if(!password_verify($request->password, $user->password))
-        return response()->json(['success'=>false , 'message' =>'Current password is incorrect.']);
-    
-        $user->password = bcrypt($request->new_password);
+        $user->password = bcrypt($request->password);
         $user->save();
         return response()->json(['success'=>true , 'message' =>'Your password has been reset successfully.']);
     
