@@ -160,11 +160,11 @@ class AuthController extends Controller
                 $user->save();
                 return response()->json(['success' => true , 'data' => ['token' => $password_token , 'user_id' => $user->user_id ]]);
             }else{
-                return response()->json(['error' => false]);
+                return response()->json(['success' => false , 'message' => 'OTP code is incorrect.' ]);
             }
         }
     else{
-        return response()->json(['error' => false , 'message' => 'User not found ']); 
+        return response()->json(['success' => false , 'message' => 'User not found.']); 
     }
 
   }
