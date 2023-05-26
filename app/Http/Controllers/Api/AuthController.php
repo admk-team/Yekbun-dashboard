@@ -34,6 +34,7 @@ class AuthController extends Controller
       return response()->json(['success' => false, 'message' => 'Email or password is incorrect.']);
     }
   }
+  
   public function signup(Request $request)
   {
     $validatedData = $request->validate([
@@ -194,7 +195,6 @@ class AuthController extends Controller
           info("Error: " . $e->getMessage());
       }
   }
-}
 
 
   // public function reset(Request $request)
