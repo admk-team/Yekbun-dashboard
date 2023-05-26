@@ -173,8 +173,6 @@ class AuthController extends Controller
   public function reset_resend(Request $request)
   {
       $user = ResetUserPassword::where('user_id', $request->user_id)->first();
-
-      return $user;
       
       $code = rand(1000, 9999);
       $password_token = Str::random(50);
