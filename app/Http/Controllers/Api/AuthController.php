@@ -29,7 +29,7 @@ class AuthController extends Controller
 
             $token = explode('|', $user->createToken('Yekhbun')->plainTextToken)[1];
 
-      return response()->json(['success' => true, 'token' => $token], 200);
+      return response()->json(['success' => true, 'data' => ['user' => $user, 'token' => $token]], 200);
     } else {
       return response()->json(['success' => false, 'message' => 'Email or password is incorrect.']);
     }
