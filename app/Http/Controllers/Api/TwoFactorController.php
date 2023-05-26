@@ -46,7 +46,7 @@ class TwoFactorController extends Controller
     }
   }
 
-    public function resend($request)
+    public function resend(Request $request)
     {
         $code = rand(1000, 9999);
 
