@@ -117,7 +117,7 @@ class AuthController extends Controller
               'code' => $code,
             ];
             Mail::to($user->email)->send(new SendCodeMail($details));
-            return response()->json(['success' => true,'message' => 'Verfication Code sent to your email', 'data' => ['user_id'=>$user->id ,'email' => $user->email , 'token' => $token ]],201);
+            return response()->json(['success' => true,'message' => 'A verification code has been sent to your email.', 'data' => ['user_id'=>$user->id ,'email' => $user->email , 'token' => $token ]],201);
           } catch (Exception $e) {
             info('Error: ' . $e->getMessage());
           }
