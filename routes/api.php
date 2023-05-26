@@ -116,7 +116,8 @@ Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('forgot-password', [AuthController::class , 'forgot_password']);
 
  Route::post('change-password', [AuthController::class , 'change_password']);
- Route::get('/reset/password/{token}', [AuthController::class , 'reset'])->name('password.reset');
+ Route::post('/reset/password', [AuthController::class , 'reset'])->name('password.reset');
+ Route::post('/reset', [AuthController::class , 'resetpassword'])->name('reset.complete');
 
  Route::post('2fa', [TwoFactorController::class, 'store'])->name('2fa.post');
 Route::get('2fa/reset/{id}/{email}', [TwoFactorController::class, 'resend'])->name('2fa.resend');
@@ -124,4 +125,3 @@ Route::get('2fa/reset/{id}/{email}', [TwoFactorController::class, 'resend'])->na
 
 // Country Controller 
 Route::get('province', [CountryController::class , 'province'])->name('province');
-// Route::get('city/{provinceId}', [CountryController::class , 'city'])->name('city');

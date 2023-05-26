@@ -24,6 +24,11 @@ class TwoFactorController extends Controller
             ->where('updated_at', '>=', now()->subMinutes(15))
             ->first();
 
+    if (isset($find)) {
+      $find->update([
+        'code' => $request->code,
+        'user_id' => $request->user_id,
+      ]);
 
         if (isset($find)) {
             $find->update([
@@ -39,6 +44,7 @@ class TwoFactorController extends Controller
 
         return response()->json(['success' => false, 'message' => "You entered an invalid code."]);
     }
+  }
 
     public function resend($id, $email)
     {
