@@ -188,7 +188,7 @@ class AuthController extends Controller
           $user->code = $code;
           $user->save();
 
-          return response()->json(['success' => true, "message" => "A verification email has been resent to your email."]);
+          return response()->json(['success' => true, "message" => "Email successfully resent."]);
       } catch (Exception $e) {
           info("Error: " . $e->getMessage());
       }
