@@ -51,6 +51,8 @@ class TwoFactorController extends Controller
     {
         $user = User::find($request->id);
 
+        return $user;
+
         if ($user == '')
             return response()->json(['success' => false, "message" => "User not found."]);
 
