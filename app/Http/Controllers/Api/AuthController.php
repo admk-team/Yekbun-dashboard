@@ -137,7 +137,7 @@ class AuthController extends Controller
     
         $user->password = bcrypt($request->password);
         $user->save();
-        return response()->json(['success'=>true , 'message' =>'Your password has been reset successfully.']);
+        return response()->json(['success'=>true , 'message' =>'Your password has been changed.']);
     
       }
   
