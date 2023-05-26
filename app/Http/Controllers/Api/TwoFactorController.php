@@ -42,9 +42,9 @@ class TwoFactorController extends Controller
             $user->save();
             return response()->json(['success' => true, 'message' => "Your account is successfully verfied.", "data" => $user]);
         }
-
-        return response()->json(['success' => false, 'message' => "You entered an invalid code."]);
     }
+    
+    return response()->json(['success' => false, 'message' => "You entered an invalid code."]);
   }
 
     public function resend(Request $request)
