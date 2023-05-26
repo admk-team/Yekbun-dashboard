@@ -6,21 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Region;
 use App\Models\City;
+use App\Models\Country;
 
 class CountryController extends Controller
 {
     public function province(){
-        $province = Region::orderBy('id' , 'desc')->get();
+        $provinces = Country::where('name', 'Kurdistan')->first()->regions;
 
-        for($i=0; $i<sizeof($province); $i++){
-            $province[$i]->cities = $province[$i]->cities;
+        for($i=0; $i<sizeof($provinces); $i++){
+            $provinces[$i]->cities = $provinces[$i]->cities;
         }
 
-        if(isset($province)){
-            return response()->json(['success' => true, "data" => $province]);
-        }else{
-            return response()->json(['error' => false , "data" => "No Province Available"]);
-        }
+        return response()->json(['success' => true, "data" => $provinces]);
     }
 
     // public function city($provinceId){
