@@ -103,7 +103,7 @@ class AuthController extends Controller
     
         $user = User::where('email', '=', $request->email)->first();
         if(!$user){
-            return response()->json(['success' => false, 'message' => 'User not found.']);
+            return response()->json(['success' => false, 'message' => 'No user found with the email.']);
         }
     
         // Generate Random Code
