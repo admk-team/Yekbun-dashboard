@@ -8,6 +8,7 @@ use App\Models\UserCode;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\SendCodeMail;
 
 class TwoFactorController extends Controller
 {
