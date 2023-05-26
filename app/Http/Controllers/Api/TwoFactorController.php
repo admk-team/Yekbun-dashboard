@@ -51,8 +51,6 @@ class TwoFactorController extends Controller
     {
         $user = User::find($request->id);
 
-        return $user;
-
         if ($user == '')
             return response()->json(['success' => false, "message" => "User not found."]);
 
@@ -70,7 +68,7 @@ class TwoFactorController extends Controller
                 'code' => $code
             ];
 
-            Mail::to($request->email)->send(new SendCodeMail($details));
+            Mail::to($user->email)->send(new SendCodeMail($details));
 
             return response()->json(['success' => true, "message" => "Email successfully resent."]);
         } catch (Exception $e) {
