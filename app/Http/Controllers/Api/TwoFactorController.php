@@ -49,7 +49,6 @@ class TwoFactorController extends Controller
 
     public function resend(Request $request)
     {
-        return $request->id;
         $user = User::find($request->id);
 
         if ($user == '')
