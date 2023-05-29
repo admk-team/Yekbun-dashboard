@@ -15,9 +15,10 @@ class PolicyAndTermsController extends Controller
      */
     public function index()
     {
-        $privacy = Setting::firstorCreate(['name' => 'privacy_policy']);
+         $privacy = Setting::firstorCreate(['name' => 'privacy_policy']);
+        $decode =   json_decode($privacy->description);
         $disclaimer = Setting::firstorCreate(['name' => 'disclaimer']);
-        return  view('content.policy_and_terms.index' , compact('privacy' , 'disclaimer'));
+        return  view('content.policy_and_terms.index' , compact('decode' , 'disclaimer'));
     }
 
     /**
@@ -52,9 +53,22 @@ class PolicyAndTermsController extends Controller
         }
       
         if($request->has('privacy')){
-        
+            $data =[];
+            $titles = $request->policy_title;
+            $descriptions  = $request->policy_text;
+
+            for($i=0; $i<count($titles); $i++){
+
+                $pair =[
+                    "title" => $titles[$i],
+                    "description" => $descriptions[$i]
+                ];
+                    // Add the pair to the data array
+            $data[] = $pair;
+            }
+
             $setting = Setting::firstorCreate(['name'=>$request->privacy]);
-            $setting->description = $request->policy_text;
+            $setting->description = json_encode($data);
 
         }else{
 

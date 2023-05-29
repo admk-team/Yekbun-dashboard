@@ -39,6 +39,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BazarSubCategoryController;
 use App\Http\Controllers\Api\TwoFactorController;
 use App\Http\Controllers\Api\CountryController;
+use App\Http\Controllers\Api\PrivacyAndPolicyController;
 
 
 /*
@@ -125,4 +126,8 @@ Route::post('2fa/reset', [TwoFactorController::class, 'resend'])->name('2fa.rese
 
 
 // Country Controller 
-Route::get('province', [CountryController::class, 'province'])->name('province');
+Route::get('province', [CountryController::class , 'province'])->name('province');
+
+// Privacy and Policy
+
+Route::get('privacy', [PrivacyAndPolicyController::class , 'privacy'])->name('privacy');
