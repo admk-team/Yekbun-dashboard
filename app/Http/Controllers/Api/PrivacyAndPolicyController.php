@@ -11,7 +11,7 @@ class PrivacyAndPolicyController extends Controller
     public function privacy(){
 
         $policy  = Setting::where('name' , 'privacy_policy')->first();
-        $description = $policy->description;
+        $description = json_decode($policy->description);
         return response()->json([ 'success' => true ,  'data' => $description]);
     }
 

@@ -98,6 +98,7 @@
 
                     <div class="URL">
                         <div class="URL-body mb-4">
+                            @if ($decode != '')
                             @foreach($decode as $value)
                             <div class="row mb-3">
                                 <div class="col-5 pl-1 pr-1">
@@ -113,6 +114,7 @@
                                 </div>
                             </div>
                             @endforeach
+                            @endif
                         </div>
                         <div class="text-center">
                             <button type="button" class="btn btn-warning add-timeslot-btn" onclick="AddURL(event)" data-day-num="0">Add Field</button>
