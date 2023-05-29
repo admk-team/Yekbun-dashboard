@@ -137,6 +137,9 @@ class AuthController extends Controller
     
         $user->password = bcrypt($request->password);
         $user->save();
+
+        ResetUserPassword::where('user_id', $request->user_id)->delete();
+
         return response()->json(['success'=>true , 'message' =>'Your password has been changed.']);
     
       }
