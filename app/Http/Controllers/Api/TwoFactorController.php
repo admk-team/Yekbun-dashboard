@@ -8,6 +8,7 @@ use App\Models\UserCode;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\SendCodeMail;
 
 class TwoFactorController extends Controller
 {
@@ -39,19 +40,24 @@ class TwoFactorController extends Controller
             $user = User::find($request->user_id);
             $user->status = 1;
             $user->save();
-            return response()->json(['success' => true, 'message' => "Your account is successfully verfied."]);
+            return response()->json(['success' => true, 'message' => "Your account is successfully verfied.", "data" => $user]);
         }
-
-        return response()->json(['error' => false, 'message' => "You entered an invalid code."]);
     }
+    
+    return response()->json(['success' => false, 'message' => "You entered an invalid code."]);
   }
 
-    public function resend($id, $email)
+    public function resend(Request $request)
     {
+        $user = User::find($request->id);
+
+        if ($user == '')
+            return response()->json(['success' => false, "message" => "User not found."]);
+
         $code = rand(1000, 9999);
 
         UserCode::updateOrCreate(
-            ['user_id' => $id],
+            ['user_id' => $request->id],
             ['code' => $code]
         );
 
@@ -62,8 +68,9 @@ class TwoFactorController extends Controller
                 'code' => $code
             ];
 
-            Mail::to($email)->send(new SendCodeMail($details));
-            return response()->json(['success' => true, "message" => "We sent vertifaction code to your provided email address"]);
+            Mail::to($user->email)->send(new SendCodeMail($details));
+
+            return response()->json(['success' => true, "message" => "Email successfully resent."]);
         } catch (Exception $e) {
             info("Error: " . $e->getMessage());
         }

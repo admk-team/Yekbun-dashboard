@@ -29,11 +29,12 @@ class AuthController extends Controller
 
             $token = explode('|', $user->createToken('Yekhbun')->plainTextToken)[1];
 
-      return response()->json(['success' => true, 'token' => $token], 200);
+      return response()->json(['success' => true, 'data' => ['user' => $user, 'token' => $token]], 200);
     } else {
       return response()->json(['success' => false, 'message' => 'Email or password is incorrect.']);
     }
   }
+  
   public function signup(Request $request)
   {
     $validatedData = $request->validate([
@@ -103,7 +104,7 @@ class AuthController extends Controller
     
         $user = User::where('email', '=', $request->email)->first();
         if(!$user){
-            return response()->json(['error' => 'User not found']);
+            return response()->json(['success' => false, 'message' => 'No user found with the email.']);
         }
     
         // Generate Random Code
@@ -117,13 +118,21 @@ class AuthController extends Controller
               'code' => $code,
             ];
             Mail::to($user->email)->send(new SendCodeMail($details));
-            return response()->json(['success' => true,'message' => 'Verfication Code sent to your email', 'data' => ['user_id'=>$user->id ,'email' => $user->email , 'token' => $token ]],201);
+            return response()->json(['success' => true,'message' => 'A verification email has been sent to '.$user->email.'!', 'data' => ['user_id'=>$user->id ,'email' => $user->email , 'token' => $token ]],201);
           } catch (Exception $e) {
             info('Error: ' . $e->getMessage());
           }
+  
+        $user = User::find($request->user_id);
+        if($user == '')
+        return response()->json(['success' =>false , 'message' => 'User Not found.']);
     
-    }
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return response()->json(['success'=>true , 'message' =>'Your password has been changed.']);
     
+      }
+  
   public function reset(Request $request)
   {
     $request->validate([
@@ -141,11 +150,11 @@ class AuthController extends Controller
                 $user->save();
                 return response()->json(['success' => true , 'data' => ['token' => $password_token , 'user_id' => $user->user_id ]]);
             }else{
-                return response()->json(['error' => false]);
+                return response()->json(['success' => false , 'message' => 'OTP code is incorrect.' ]);
             }
         }
     else{
-        return response()->json(['error' => false , 'message' => 'User not found ']); 
+        return response()->json(['success' => false , 'message' => 'User not found.']); 
     }
 
   }
