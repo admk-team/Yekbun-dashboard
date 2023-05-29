@@ -122,7 +122,15 @@ class AuthController extends Controller
           } catch (Exception $e) {
             info('Error: ' . $e->getMessage());
           }
+    
+    }
+
   
+    public function resetpassword(Request $request){
+        $user  = ResetUserPassword::where('user_id', $request->user_id)->first();
+        if($user->password_token != $request->token)
+             return response()->json(['success' =>false , 'message' => 'Something went wrong']);
+    
         $user = User::find($request->user_id);
         if($user == '')
         return response()->json(['success' =>false , 'message' => 'User Not found.']);
@@ -161,23 +169,79 @@ class AuthController extends Controller
     }
 
   }
-   
-  public function resetpassword(Request $request){
-    $user  = ResetUserPassword::where('user_id', $request->user_id)->first();
-    if($user->password_token != $request->token)
-         return response()->json(['success' =>false , 'message' => 'Something went wrong']);
 
-    $user = User::find($request->user_id);
-    if($user == '')
-    return response()->json(['success' =>false , 'message' => 'User Not found.']);
+  public function reset_resend(Request $request)
+  {
+      $user = ResetUserPassword::where('user_id', $request->user_id)->first();
+      
+      $code = rand(1000, 9999);
 
-    $user->password = bcrypt($request->password);
-    $user->save();
+      try {
 
-    ResetUserPassword::where('user_id', $request->user_id)->delete();
+          $details = [
+              'title' => 'Mail from Yekbun.com',
+              'code' => $code
+          ];
 
-    return response()->json(['success'=>true , 'message' =>'Your password has been changed.']);
+          Mail::to($user->email)->send(new SendCodeMail($details));
 
+          $user->code = $code;
+          $user->save();
+
+          return response()->json(['success' => true, "message" => "Email successfully resent."]);
+      } catch (Exception $e) {
+          info("Error: " . $e->getMessage());
+      }
   }
 
+
+  // public function reset(Request $request)
+  // {
+  //     $request->validate([
+  //         'email' => 'required|email',
+  //         'password' => 'required|string|confirmed|min:8',
+  //         'token' => 'required|string',
+  //     ]);
+
+  //     $response = Password::reset($request->only('email', 'password', 'password_confirmation', 'token'), function ($user, $password) {
+  //         $user->forceFill([
+  //             'password' => bcrypt($password),
+  //             'remember_token' => Str::random(60),
+  //         ])->save();
+
+  //         event(new PasswordReset($user));
+  //     });
+
+  //     if ($response === Password::PASSWORD_RESET) {
+  //         return response()->json(['message' => 'Password reset successful'], 200);
+  //     } else {
+  //         return response()->json(['message' => 'Unable to reset password'], 400);
+  //     }
+  // }
 }
+
+
+
+
+
+
+
+
+
+
+
+//   $validator = Validator::make($request->all(), [
+    //       'email' => 'required|email',
+    //   ]);
+
+    //   if ($validator->fails()) {
+    //       return response()->json(['errors' => $validator->errors()], 422);
+    //   }
+
+    //   $response = Password::sendResetLink($request->only('email'));
+
+    //   if ($response == Password::RESET_LINK_SENT) {
+    //       return response()->json(['message' => 'Password reset link sent on your email id',"email" => $request->email]);
+    //   } else {
+    //       return response()->json(['message' => 'Unable to send password reset link'], 500);
+    //   }
