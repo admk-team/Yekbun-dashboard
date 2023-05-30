@@ -422,6 +422,11 @@
           "slug": "language"
         },
         {
+          "url":"/translation",
+          "name":"Translation",
+          "slug":"translation"
+        },
+        {
           "url": "/main-page-setting",
           "name": "Main Page Setting",
           "slug": "main-page-setting"

@@ -71,6 +71,7 @@ use App\Http\Controllers\Admin\ChatSettingController;
 use App\Http\Controllers\Admin\Settings\TeamMemberController;
 use App\Http\Controllers\Admin\AnalyticsController;
 use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\TranslationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -500,6 +501,10 @@ Route::get('/fanpage-status/{id}/{status}' , [FanPageController::class, 'status'
 // Language 
 Route::resource('/language' , LanguageController::class);
 
+// Translation 
+Route::get('/translation' , [TranslationController::class , 'getText'])->name('translation.getText');
+Route::get('/translate/{id}' , [TranslationController::class , 'translate'])->name('translation.translate');
+Route::post('/language-transalate/{id?}' , [TranslationController::class , 'translateLanguage'])->name('translation.translateLanguage');
 // Report Page
 
 Route::get('/user-report' , $controller_path . '\report\Report@user_report')->name('user-report');

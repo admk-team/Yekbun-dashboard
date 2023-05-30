@@ -12,6 +12,7 @@ class AnalyticsController extends Controller
 {
   public function index()
   {
+  //  dd(\Helper::translate("welcome to world" , 1));
     $male_account = User::where('gender', '=', 'male')->count();
     $female_account = User::where('gender', '=', 'female')->count();
     $music = Music::count(); 

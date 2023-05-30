@@ -3,6 +3,8 @@
 namespace App\Helpers;
 
 use Config;
+use App\Models\Text;
+use App\Models\Translation;
 use Illuminate\Support\Str;
 
 class Helpers
@@ -182,4 +184,18 @@ class Helpers
       }
     }
   }
+
+  public static function translate($txt , $language_id){
+    
+    $text = Text::where('text' , $txt)->first();
+    if(!$text){
+      Text::create([
+        'text' => $txt
+      ]);
+      return $txt;
+    }
+    $translation = Translation::where('text_id' , $text->id)->where('language_id' , $language_id)->first();
+    return $translation->translation ;
+  }
+
 }
