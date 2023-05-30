@@ -124,7 +124,6 @@ class AuthController extends Controller
           }
     
     }
-
   
     public function resetpassword(Request $request){
         $user  = ResetUserPassword::where('user_id', $request->user_id)->first();
