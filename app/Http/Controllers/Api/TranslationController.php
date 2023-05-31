@@ -17,6 +17,7 @@ class TranslationController extends Controller
             $data = [];
             $data['id'] = $item->id;
             $data['title'] = $item->title;
+            $data['icon'] = url('/assets/img/' . $item->icon . '.png');
 
             return $data;
         });
