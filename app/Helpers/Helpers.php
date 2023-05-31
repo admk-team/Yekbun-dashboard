@@ -193,7 +193,7 @@ class Helpers
         'text' => $txt
       ]);
       return $txt;
-    }
+    } 
     $translation = Translation::where('text_id' , $text->id)->where('language_id' , $language_id)->first();
     return $translation->translation ;
   }

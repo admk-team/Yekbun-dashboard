@@ -55,4 +55,5 @@ class TranslationController extends Controller
         $translation->save();
         return back()->with('success' , 'Translation successfully saved.');
     }
+
 }
