@@ -133,4 +133,7 @@ Route::get('province', [CountryController::class , 'province'])->name('province'
 Route::get('privacy', [PrivacyAndPolicyController::class , 'privacy'])->name('privacy');
 
 // Translation
-Route::get('/translate/{id}', [TranslationController::class, 'translate'])->name('api.translate');
+Route::prefix('/translate')->name('api.translate.')->group(function () {
+    Route::get('/languages', [TranslationController::class, 'fetch_languages'])->name('languages');
+    Route::get('/{id}', [TranslationController::class, 'translate'])->name('translate');
+});
