@@ -18,18 +18,14 @@ class TranslationController extends Controller
             $query->where(function ($subQuery) use ($id, $default_id) {
                 $subQuery->where('language_id', $id)
                     ->orWhere('language_id', $default_id);
-            });
-        }])
-            ->whereHas('translations', function ($query) use ($id, $default_id) {
+            });   
+        }])->whereHas('translations', function ($query) use ($id, $default_id) {
                 $query->where(function ($subQuery) use ($id, $default_id) {
                     $subQuery->where('language_id', $id)
                         ->orWhere('language_id', $default_id);
                 });
-            })
-            ->get();
-
+            }) ->get();
         $data = [];
-
         foreach ($translations as $translation) {
             foreach ($translation->translations as $lang_translation) {
                 if (Translation::find($lang_translation->id)->language->id == $id) {
@@ -37,11 +33,9 @@ class TranslationController extends Controller
 
                     continue;
                 }
-
                 $data[$translation->text]['default'] = $lang_translation->translation;
             }
         }
-
         return $data;
     }
 }
