@@ -72,6 +72,7 @@ use App\Http\Controllers\Admin\Settings\TeamMemberController;
 use App\Http\Controllers\Admin\AnalyticsController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\TranslationController;
+use App\Http\Controllers\Admin\TextController;
 
 /*
 |--------------------------------------------------------------------------
@@ -505,6 +506,7 @@ Route::resource('/language' , LanguageController::class);
 Route::get('/translation' , [TranslationController::class , 'getText'])->name('translation.getText');
 Route::get('/translate/{id}' , [TranslationController::class , 'translate'])->name('translation.translate');
 Route::post('/language-transalate/{id?}' , [TranslationController::class , 'translateLanguage'])->name('translation.translateLanguage');
+Route::resource('/text', TextController::class);
 // Report Page
 
 Route::get('/user-report' , $controller_path . '\report\Report@user_report')->name('user-report');

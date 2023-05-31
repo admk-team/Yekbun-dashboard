@@ -33,9 +33,7 @@
   <div class="card">
     <div class="card-header d-flex align-items-center justify-content-between">
         <h5 class="m-0">Text</h5>
-        @can('voting.create')
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createvotingModal"><i class="bx bx-plus me-0 me-sm-1"></i> Add Vote</button>
-        @endcan
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTextModal"><i class="bx bx-plus me-0 me-sm-1"></i> Add Text</button>
     </div>
     <div class="table-responsive text-nowrap">
       <table class="table">
@@ -60,7 +58,7 @@
         </tr>
         @empty
         <tr>
-            <td class="text-center" colspan="8"><b>No Voting found.<b></td>
+            <td class="text-center" colspan="8"><b>No Text Found.<b></td>
         </tr>
         @endforelse
         </tbody>
@@ -98,16 +96,17 @@
 </script>
 
 {{-- Create Vote model --}}
-{{-- <x-modal 
-id="createvotingModal" 
-title="Create Vote"
+ <x-modal 
+id="createTextModal" 
+title="Create Text"
 saveBtnText="Create" 
 saveBtnType="submit"
 saveBtnForm="createForm" 
-size="lg">
- @include('content.include.voting.createForm')
-</x-modal> --}}
-
+size="sm">
+ @include('content.include.text.createForm')
+</x-modal> 
+@endsection
+{{-- 
 
 <script src="{{asset('assets/vendor/libs/quill/katex.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/quill/quill.js')}}"></script>
@@ -261,4 +260,4 @@ $(function () {
   }
 });
 </script>
-@endsection
+@endsection --}}
