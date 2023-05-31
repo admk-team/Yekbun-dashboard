@@ -13,4 +13,9 @@ class Text extends Model
         'language_id',
         'language_code',
     ];
+
+    public function translations ()
+    {
+        return $this->hasMany(Translation::class, 'text_id');
+    }
 }

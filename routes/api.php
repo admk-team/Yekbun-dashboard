@@ -40,6 +40,7 @@ use App\Http\Controllers\Api\BazarSubCategoryController;
 use App\Http\Controllers\Api\TwoFactorController;
 use App\Http\Controllers\Api\CountryController;
 use App\Http\Controllers\Api\PrivacyAndPolicyController;
+use App\Http\Controllers\Api\TranslationController;
 
 
 /*
@@ -129,5 +130,7 @@ Route::post('2fa/reset', [TwoFactorController::class, 'resend'])->name('2fa.rese
 Route::get('province', [CountryController::class , 'province'])->name('province');
 
 // Privacy and Policy
-
 Route::get('privacy', [PrivacyAndPolicyController::class , 'privacy'])->name('privacy');
+
+// Translation
+Route::get('/translate/{id}', [TranslationController::class, 'translate'])->name('api.translate');

@@ -15,4 +15,9 @@ class Language extends Model
     {
         return LogOptions::defaults();
     }
+
+    public function translations ()
+    {
+        return $this->hasMany(Translation::class, 'language_id');
+    }
 }

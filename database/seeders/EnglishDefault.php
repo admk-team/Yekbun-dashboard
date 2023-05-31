@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\Language;
 use Carbon\Carbon;
 
 class EnglishDefault extends Seeder
@@ -16,9 +17,13 @@ class EnglishDefault extends Seeder
      */
     public function run()
     {
+        $language_exist = Language::where('title', 'English')->first();
+
+        if ($language_exist != '') return;
+
         DB::table('languages')->insert([
             'title' => 'English',
-            'icon' => 'EN',
+            'icon' => 'US',
             'created_at' => now(),
             'updated_at' => now()
         ]);

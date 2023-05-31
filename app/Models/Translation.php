@@ -14,4 +14,14 @@ class Translation extends Model
         'language_id',
         'language_code',
     ];
+
+    public function language ()
+    {
+        return $this->belongsTo(Language::class, 'language_id');
+    }
+
+    public function text ()
+    {
+        return $this->belongsTo(Text::class, 'text_id');
+    }
 }
