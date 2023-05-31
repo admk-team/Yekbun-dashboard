@@ -30,83 +30,62 @@
 @section('content')
 
 <!-- Basic Bootstrap Table -->
-  <div class="card">
+<div class="card">
     <div class="card-header d-flex align-items-center justify-content-between">
         <h5 class="m-0">Text</h5>
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTextModal"><i class="bx bx-plus me-0 me-sm-1"></i> Add Text</button>
     </div>
     <div class="table-responsive text-nowrap">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Text</th> 
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody class="table-border-bottom-0">
-        @forelse($texts as $text)
-        <tr>
-          <td>{{ $loop->iteration }}</td>
-            <td>{{ $text->text ?? '' }}</td>
-            <td> 
-               <form action="{{ route('translation.translate',$text->id) }}"  id="delete_form">
-              @csrf
-              <button type="submit" class="btn btn-warning btn-sm">Translate</button>
-          </form>
-        </td>
-        </tr>
-        @empty
-        <tr>
-            <td class="text-center" colspan="8"><b>No Text Found.<b></td>
-        </tr>
-        @endforelse
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <!--/ Basic Bootstrap Table -->
-
-<div class="modal fade deleted-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="padding-right: 17px;" aria-modal="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Delete Banner</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p class="mb-0">Are you Sure to delete this!</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              
-            </div>
-        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Text</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                @forelse($texts as $text)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $text->text ?? '' }}</td>
+                    <td>
+                      <div class="d-flex justify-content-start align-items-center">
+                        <form action="{{ route('translation.translate',$text->id) }}" id="delete_form">
+                            @csrf
+                            <button type="submit" class="btn btn-warning btn-sm">Translate</button>
+                        </form>
+                        
+                          <span data-bs-toggle="modal" data-bs-target="#edittextModal{{ $text->id }}">
+                              <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button>
+                          </span>
+                          <form action="{{ route('text.destroy', $text->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
+                              @method('DELETE')
+                              @csrf
+                              <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                          </form>
+                      </div>
+                      <x-modal id="edittextModal{{$text->id}}" title="Update Text" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{$text->id}}" size="md">
+                          @include('content.include.text.editForm')
+                      </x-modal>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td class="text-center" colspan="8"><b>No Text Found.<b></td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
 </div>
-<script>
-    function delete_service(el) {
-        let link = $(el).data('id');
-        $('.deleted-modal').modal('show');
-        $('#delete_form').attr('action', link);
-    }
-
-</script>
+<!--/ Basic Bootstrap Table -->
 
 {{-- Create Vote model --}}
- <x-modal 
-id="createTextModal" 
-title="Create Text"
-saveBtnText="Create" 
-saveBtnType="submit"
-saveBtnForm="createForm" 
-size="sm">
- @include('content.include.text.createForm')
-</x-modal> 
-@endsection
-{{-- 
+<x-modal id="createTextModal" title="Create Text" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm" size="sm">
+    @include('content.include.text.createForm')
+</x-modal>
+
 
 <script src="{{asset('assets/vendor/libs/quill/katex.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/quill/quill.js')}}"></script>
@@ -183,81 +162,83 @@ size="sm">
 
 @section('page-script')
 <script>
-  function confirmAction(event, callback) {
-    event.preventDefault();
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "Are you sure you want to delete this?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      customClass: {
-        confirmButton: 'btn btn-danger me-3',
-        cancelButton: 'btn btn-label-secondary'
-      },
-      buttonsStyling: false
-    }).then(function (result) {
-      if (result.value) {
-        callback();
-      }
-    });
-  }
+    function confirmAction(event, callback) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?'
+            , text: "Are you sure you want to delete this?"
+            , icon: 'warning'
+            , showCancelButton: true
+            , confirmButtonText: 'Yes, delete it!'
+            , customClass: {
+                confirmButton: 'btn btn-danger me-3'
+                , cancelButton: 'btn btn-label-secondary'
+            }
+            , buttonsStyling: false
+        }).then(function(result) {
+            if (result.value) {
+                callback();
+            }
+        });
+    }
+
 </script>
 
 <script>
-// bootstrap-maxlength & repeater (jquery)
-$(function () {
-  //var maxlengthInput = $('.bootstrap-maxlength-example'),
-    var formRepeater = $('.form-repeater');
+    // bootstrap-maxlength & repeater (jquery)
+    $(function() {
+        //var maxlengthInput = $('.bootstrap-maxlength-example'),
+        var formRepeater = $('.form-repeater');
 
-  // Bootstrap Max Length
-  // --------------------------------------------------------------------
-//   if (maxlengthInput.length) {
-//     maxlengthInput.each(function () {
-//       $(this).maxlength({
-//         warningClass: 'label label-success bg-success text-white',
-//         limitReachedClass: 'label label-danger',
-//         separator: ' out of ',
-//         preText: 'You typed ',
-//         postText: ' chars available.',
-//         validate: true,
-//         threshold: +this.getAttribute('maxlength')
-//       });
-//     });
-//   }
+        // Bootstrap Max Length
+        // --------------------------------------------------------------------
+        if (maxlengthInput.length) {
+            maxlengthInput.each(function() {
+                $(this).maxlength({
+                    warningClass: 'label label-success bg-success text-white'
+                    , limitReachedClass: 'label label-danger'
+                    , separator: ' out of '
+                    , preText: 'You typed '
+                    , postText: ' chars available.'
+                    , validate: true
+                    , threshold: +this.getAttribute('maxlength')
+                });
+            });
+        }
 
-  // Form Repeater
-  // ! Using jQuery each loop to add dynamic id and class for inputs. You may need to improve it based on form fields.
-  // -----------------------------------------------------------------------------------------------------------------
+        // Form Repeater
+        // ! Using jQuery each loop to add dynamic id and class for inputs. You may need to improve it based on form fields.
+        // -----------------------------------------------------------------------------------------------------------------
 
-  if (formRepeater.length) {
-    var row = 2;
-    var col = 1;
-    formRepeater.on('submit', function (e) {
-      e.preventDefault();
+        if (formRepeater.length) {
+            var row = 2;
+            var col = 1;
+            formRepeater.on('submit', function(e) {
+                e.preventDefault();
+            });
+            formRepeater.repeater({
+                // initEmpty: true,
+                show: function() {
+                    var fromControl = $(this).find('.form-control, .form-select');
+                    var formLabel = $(this).find('.form-label');
+
+                    fromControl.each(function(i) {
+                        var id = 'form-repeater-' + row + '-' + col;
+                        $(fromControl[i]).attr('id', id);
+                        $(formLabel[i]).attr('for', id);
+                        col++;
+                    });
+
+                    row++;
+
+                    $(this).slideDown();
+                }
+                , hide: function(e) {
+                    $(this).slideUp(e);
+                }
+            });
+        }
     });
-    formRepeater.repeater({
-        // initEmpty: true,
-      show: function () {
-        var fromControl = $(this).find('.form-control, .form-select');
-        var formLabel = $(this).find('.form-label');
 
-        fromControl.each(function (i) {
-          var id = 'form-repeater-' + row + '-' + col;
-          $(fromControl[i]).attr('id', id);
-          $(formLabel[i]).attr('for', id);
-          col++;
-        });
-
-        row++;
-
-        $(this).slideDown();
-      },
-      hide: function (e) {
-        $(this).slideUp(e);
-      }
-    });
-  }
-});
 </script>
-@endsection --}}
+@endsection

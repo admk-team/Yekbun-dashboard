@@ -80,7 +80,13 @@ class TextController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $text = Text::find($id);
+        $text->text= $request->text;
+        if($text->update()){
+            return back()->with('success' , 'Text has been updated successfully.');
+        }else{
+            return back()->with('error' , 'Text has not been updated.');
+        }   
     }
 
     /**
@@ -91,6 +97,11 @@ class TextController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $text  = Text::find($id);
+        if($text->delete($text->id)){
+            return back()->with('success' , 'Text has been deleted successfully.');
+        }else{
+            return back()->with('error' , 'Text has not been deleted.');
+        }
     }
 }
