@@ -135,5 +135,5 @@ Route::get('privacy', [PrivacyAndPolicyController::class , 'privacy'])->name('pr
 // Translation
 Route::prefix('/translate')->name('api.translate.')->group(function () {
     Route::get('/languages', [TranslationController::class, 'fetch_languages'])->name('languages');
-    Route::get('/text/{id}', [TranslationController::class, 'translate'])->name('translate');
+    Route::get('/{id}', [TranslationController::class, 'translate'])->name('translate');
 });
