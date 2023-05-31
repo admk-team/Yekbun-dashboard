@@ -7,9 +7,23 @@ use Illuminate\Http\Request;
 use App\Models\Language;
 use App\Models\Translation;
 use App\Models\Text;
+use Illuminate\Support\Facades\Lang;
 
 class TranslationController extends Controller
 {
+    public function fetch_languages ()
+    {
+        $languages = Language::all()->map(function ($item) {
+            $data = [];
+            $data['id'] = $item->id;
+            $data['title'] = $item->title;
+
+            return $data;
+        });
+
+        return response()->json(['success' => true, 'data' => json_decode($languages)]);
+    }
+
     public function translate($id)
     {
         $default_id = Language::where('title', 'English')->first()->id;
@@ -42,6 +56,6 @@ class TranslationController extends Controller
             }
         }
 
-        return $data;
+        return response()->json(['success' => true, 'data' => $data]);
     }
 }
