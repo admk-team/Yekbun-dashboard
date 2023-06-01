@@ -49,13 +49,12 @@
         <tr>
           <td>{{ $loop->iteration }}</td>
             <td>{{ $language->title ?? '' }}</td>
-            <form action="{{ route('translation.translateLanguage',$language->translation_id) }}" method="post">
+            <form action="{{ route('translation.translateLanguage',$language->translation_id) }}" method="post" id="translation-form">
                 @csrf
                 <input type ="hidden" name="text_id" value="{{ $texts->id }}" />
                 <input type ="hidden" name="language_id" value="{{ $language->id }}" />
-            <td><textarea class="form-control" name="translation_text">{{ $language->translation ?? '' }}</textarea></td>
+            <td><textarea class="form-control translation-value" name="translation_text" data-id="{{$language->translation_id}}" data-lang-id="{{$language->id}}" data-text-id="{{$texts->id}}">{{ $language->translation ?? '' }}</textarea></td>
             <td>
-            <button class="btn btn-primary btn-sm" type="submit">save</button>
             </td>
         </form>
         </tr>
@@ -66,6 +65,7 @@
         @endforelse
         </tbody>
       </table>
+      <button class="btn btn-primary btn-sm mx-2 mb-3" type="submit" id="submit-btn">save</button>
     </div>
   </div>
   <!--/ Basic Bootstrap Table -->
@@ -89,7 +89,11 @@
         </div>
     </div>
 </div>
+
 <script>
+  function test () {
+    document.getElementById('d1').open = !document.getElementById('d1').open;
+  }
     function delete_service(el) {
         let link = $(el).data('id');
         $('.deleted-modal').modal('show');
@@ -112,6 +116,7 @@ size="lg">
 
 <script src="{{asset('assets/vendor/libs/quill/katex.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/quill/quill.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
     (function() {
         // Full Toolbar
@@ -261,5 +266,53 @@ $(function () {
     });
   }
 });
+</script>
+<script>
+  $("#submit-btn").on("click", (event) => {
+    $("#submit-btn").html('Loading...');
+
+    event.preventDefault();
+
+    let translations = $(".translation-value");
+
+    let data = [];
+
+    for (let i=0; i<translations.length; i++) {
+      let dataHolder = {};
+
+      dataHolder.id = $(translations[i]).data('id');
+      dataHolder.language_id = $(translations[i]).data('lang-id');
+      dataHolder.text_id = $(translations[i]).data('text-id');
+      dataHolder.value = $(translations[i]).val();
+
+      data.push(dataHolder);
+    }
+
+    console.log(data);
+
+    saveTranslation(data);
+  })
+
+  const saveTranslation = async (data) => {
+    let config = {
+      "headers": {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      }
+    }
+
+    await axios.post('{{url("/language-transalate")}}', {data})
+
+    .then(res => {
+      if (res.data.success)
+        alert(res.data.message);
+    })
+
+    .catch(error => {
+      console.log(error);
+    })
+
+    $("#submit-btn").html('Save');
+  }
 </script>
 @endsection
