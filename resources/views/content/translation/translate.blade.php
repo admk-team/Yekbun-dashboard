@@ -1,6 +1,15 @@
 @extends('layouts/layoutMaster')
 
 @section('title', 'Boxicons - Icons')
+<style>
+  .toast-container {
+      background-color: green;
+      color: white;
+  }
+  .toast-title {
+      font-weight: bold;
+  }
+</style>
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/bs-stepper/bs-stepper.css')}}" />
@@ -45,7 +54,6 @@
             <th>#</th>
             <th>Language</th> 
             <th>Translation</th>
-            <th>Action</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
