@@ -20,6 +20,7 @@
 @section('vendor-script')
 <script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/select2/select2.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/jquery-repeater/jquery-repeater.js')}}"></script>
 @endsection
 
 @section('content')
@@ -123,7 +124,7 @@
     saveBtnText="Create"
     saveBtnType="submit"
     saveBtnForm="createForm"
-    size="sm"
+    size="md"
     :show="old('showCreateFormModal')? true: false"
   >
     @include('content.settings.cities.includes.create_form')
@@ -131,6 +132,7 @@
 @endsection
 
 @section('page-script')
+@parent
 <script>
   function confirmAction(event, callback) {
     event.preventDefault();

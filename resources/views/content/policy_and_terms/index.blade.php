@@ -77,9 +77,6 @@
                 <li class="nav-item">
                     <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#disclaimer" aria-controls="disclaimer" aria-selected="false"><i class='bx bx-file'></i>&nbsp;Disclaimer</button>
                 </li>
-                <li class="nav-item">
-                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#news" aria-controls="news" aria-selected="false"><i class='bx bx-news'></i>&nbsp;News</button>
-                </li>
             </ul>
         </div>
         <div class="tab-content">
@@ -134,57 +131,6 @@
                     @enderror
                     <button type="submit" class="btn btn-primary mt-2">Save</button>
                 </form>
-            </div>
-            <div class="tab-pane fade" id="news" role="tabpanel">
-                <div class="row">
-                    <div class="col-md-2">
-                        <label for="label" class="form-label">Credit Card Type</label>
-                    </div>
-                    <div class="col-md-4">
-                        <select class="form-select">
-                            <option selected>Choose Credit Card</option>
-                            <option>American Express</option>
-                            <option>Master Card</option>
-                            <option>Visa Card</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-md-2">
-                        <label for="label" class="form-label">Expiration</label>
-                    </div>
-                    <div class="col-md-4">
-                        <select class="form-select">
-                            <option selected>Date Month</option>
-                            <option>01- Jan</option>
-                            <option>02- Feb</option>
-                            <option>03- March</option>
-                            <option>04- April</option>
-                            <option>05- May</option>
-                            <option>06- June</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <select class="form-select">
-                            <option selected>Year</option>
-                            <option>2007</option>
-                            <option>2008</option>
-                            <option>2009</option>
-                            <option>2010</option>
-                            <option>2011</option>
-                            <option>2012</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row mt-2">
-                    <div class="col-md-2">
-                        <label for="label" class="form-label">Credit Card Number</label>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="text" class="form-control" />
-                    </div>
-                </div>
             </div>
         </div>
     </div>

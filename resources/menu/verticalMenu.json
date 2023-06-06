@@ -417,14 +417,19 @@
       "slug": "setting",
       "submenu": [
         {
-          "url": "/language",
           "name": "Language",
-          "slug": "language"
-        },
-        {
-          "url":"/translation",
-          "name":"Translation",
-          "slug":"translation"
+          "submenu": [
+            {
+              "url": "/language",
+              "name": "Language",
+              "slug": "language"
+            },
+            {
+              "url":"/translation",
+              "name":"Translation",
+              "slug":"translation"
+            }
+          ]
         },
         {
           "url": "/main-page-setting",
