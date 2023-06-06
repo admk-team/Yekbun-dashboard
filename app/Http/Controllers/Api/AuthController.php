@@ -24,17 +24,17 @@ class AuthController extends Controller
     if (Auth::attempt($credentials)) {
       $user = Auth::user();
 
-            if ($user->status == 0)
-                return response()->json(['success' => false, 'message' => 'Your email is not verified.']);
+      if ($user->status == 0)
+        return response()->json(['success' => false, 'message' => 'Your email is not verified.']);
 
-            $token = explode('|', $user->createToken('Yekhbun')->plainTextToken)[1];
+      $token = explode('|', $user->createToken('Yekhbun')->plainTextToken)[1];
 
       return response()->json(['success' => true, 'data' => ['user' => $user, 'token' => $token]], 200);
     } else {
       return response()->json(['success' => false, 'message' => 'Email or password is incorrect.']);
     }
   }
-  
+
   public function signup(Request $request)
   {
     $validatedData = $request->validate([
@@ -43,7 +43,6 @@ class AuthController extends Controller
       'lastName' => 'required|max:100',
       'gender' => 'required',
       'dob' => 'required',
-      'location' => 'required|max:255',
       'province' => 'required|max:255',
       'city' => 'required|max:255',
       'email' => 'required',
@@ -59,140 +58,136 @@ class AuthController extends Controller
       ]);
     }
 
-        $user = User::create([
-            'username' => $validatedData['username'],
-            'firstName' => $validatedData['firstName'],
-            'lastName' => $validatedData['lastName'],
-            'image' => $validatedData['image'] ?? '',
-            'name' => $validatedData['firstName'] . ' ' . $validatedData['lastName'],
-            'gender' => $validatedData['gender'],
-            'dob' => $validatedData['dob'],
-            'country' => $validatedData['country'],
-            'location' => $validatedData['location'],
-            'province' => $validatedData['province'],
-            'province_city' => $validatedData['province_city'],
-            'city' => $validatedData['city'],
-            'email' => $validatedData['email'],
-            'password' => bcrypt($validatedData['password']),
-            'status' => 0
-        ]);
+    $user = User::create([
+      'username' => $validatedData['username'],
+      'firstName' => $validatedData['firstName'],
+      'lastName' => $validatedData['lastName'],
+      'image' => $validatedData['image'] ?? '',
+      'name' => $validatedData['firstName'] . ' ' . $validatedData['lastName'],
+      'gender' => $validatedData['gender'],
+      'dob' => $validatedData['dob'],
+      'country' => $validatedData['country'],
+      'province' => $validatedData['province'],
+      'province_city' => $validatedData['province_city'],
+      'city' => $validatedData['city'],
+      'email' => $validatedData['email'],
+      'password' => bcrypt($validatedData['password']),
+      'status' => 0
+    ]);
 
-        if ($user->id) {
-            $code = rand(1000, 9999);
-            UserCode::updateOrCreate(
-                ['user_id' => $user->id],
-                ['code' => $code]
-            );
-            try {
-                $details = [
-                    'title' => 'Mail from Yekbun.com',
-                    'code' => $code
-                ];
+    if ($user->id) {
+      $code = rand(1000, 9999);
+      UserCode::updateOrCreate(
+        ['user_id' => $user->id],
+        ['code' => $code]
+      );
+      try {
+        $details = [
+          'title' => 'Mail from Yekbun.com',
+          'code' => $code
+        ];
 
-                Mail::to($validatedData['email'])->send(new SendCodeMail($details));
+        Mail::to($validatedData['email'])->send(new SendCodeMail($details));
 
-                return response()->json(['success' => true, "message" => "Verfication Code sent to your email", 'data' => $user->id], 201);
-            } catch (Exception $e) {
-                info("Error: " . $e->getMessage());
-            }
-        }
-    }
-
-    public function forgot_password(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-        ]);
-    
-        $user = User::where('email', '=', $request->email)->first();
-        if(!$user){
-            return response()->json(['success' => false, 'message' => 'No user found with the email.']);
-        }
-    
-        // Generate Random Code
-    
-        $code = rand(1000, 9999);
-        $token  = Str::random(20);
-        ResetUserPassword::updateorCreate(['user_id' => $user->id, 'email' => $user->email ] , ['code' => $code,'user_id' => $user->id,'token' => $token,'email' => $user->email ]);
-        try {
-            $details = [
-              'title' => 'Mail from Yekbun.com',
-              'code' => $code,
-            ];
-            Mail::to($user->email)->send(new SendCodeMail($details));
-            return response()->json(['success' => true,'message' => 'A verification email has been sent to '.$user->email.'!', 'data' => ['user_id'=>$user->id ,'email' => $user->email , 'token' => $token ]],201);
-          } catch (Exception $e) {
-            info('Error: ' . $e->getMessage());
-          }
-    
-    }
-  
-    public function resetpassword(Request $request){
-        $user  = ResetUserPassword::where('user_id', $request->user_id)->first();
-        if($user->password_token != $request->token)
-             return response()->json(['success' =>false , 'message' => 'Something went wrong']);
-    
-        $user = User::find($request->user_id);
-        if($user == '')
-        return response()->json(['success' =>false , 'message' => 'User Not found.']);
-    
-        $user->password = bcrypt($request->password);
-        $user->save();
-
-        ResetUserPassword::where('user_id', $request->user_id)->delete();
-
-        return response()->json(['success'=>true , 'message' =>'Your password has been changed.']);
-    
+        return response()->json(['success' => true, "message" => "Verfication Code sent to your email", 'data' => $user->id], 201);
+      } catch (Exception $e) {
+        info("Error: " . $e->getMessage());
       }
-  
+    }
+  }
+
+  public function forgot_password(Request $request)
+  {
+    $request->validate([
+      'email' => 'required|email',
+    ]);
+
+    $user = User::where('email', '=', $request->email)->first();
+    if (!$user) {
+      return response()->json(['success' => false, 'message' => 'No user found with the email.']);
+    }
+
+    // Generate Random Code
+
+    $code = rand(1000, 9999);
+    $token  = Str::random(20);
+    ResetUserPassword::updateorCreate(['user_id' => $user->id, 'email' => $user->email], ['code' => $code, 'user_id' => $user->id, 'token' => $token, 'email' => $user->email]);
+    try {
+      $details = [
+        'title' => 'Mail from Yekbun.com',
+        'code' => $code,
+      ];
+      Mail::to($user->email)->send(new SendCodeMail($details));
+      return response()->json(['success' => true, 'message' => 'A verification email has been sent to ' . $user->email . '!', 'data' => ['user_id' => $user->id, 'email' => $user->email, 'token' => $token]], 201);
+    } catch (Exception $e) {
+      info('Error: ' . $e->getMessage());
+    }
+  }
+
+  public function resetpassword(Request $request)
+  {
+    $user  = ResetUserPassword::where('user_id', $request->user_id)->first();
+    if ($user->password_token != $request->token)
+      return response()->json(['success' => false, 'message' => 'Something went wrong']);
+
+    $user = User::find($request->user_id);
+    if ($user == '')
+      return response()->json(['success' => false, 'message' => 'User Not found.']);
+
+    $user->password = bcrypt($request->password);
+    $user->save();
+
+    ResetUserPassword::where('user_id', $request->user_id)->delete();
+
+    return response()->json(['success' => true, 'message' => 'Your password has been changed.']);
+  }
+
   public function reset(Request $request)
   {
     $request->validate([
-        'code' => 'required',
+      'code' => 'required',
     ]);
 
     $user = ResetUserPassword::where('user_id', $request->user_id)->first();
-   if($user !== ""){
-    if($request->token != $user->token)
-        return response()->json(['success' => false , 'message' => 'Something went wrong.' ]);
+    if ($user !== "") {
+      if ($request->token != $user->token)
+        return response()->json(['success' => false, 'message' => 'Something went wrong.']);
 
-            if($user->code == $request->code){
-                $password_token = Str::random(50);
-                $user->password_token = $password_token;
-                $user->save();
-                return response()->json(['success' => true , 'data' => ['token' => $password_token , 'user_id' => $user->user_id ]]);
-            }else{
-                return response()->json(['success' => false , 'message' => 'OTP code is incorrect.' ]);
-            }
-        }
-    else{
-        return response()->json(['success' => false , 'message' => 'User not found.']); 
+      if ($user->code == $request->code) {
+        $password_token = Str::random(50);
+        $user->password_token = $password_token;
+        $user->save();
+        return response()->json(['success' => true, 'data' => ['token' => $password_token, 'user_id' => $user->user_id]]);
+      } else {
+        return response()->json(['success' => false, 'message' => 'OTP code is incorrect.']);
+      }
+    } else {
+      return response()->json(['success' => false, 'message' => 'User not found.']);
     }
-
   }
 
   public function reset_resend(Request $request)
   {
-      $user = ResetUserPassword::where('user_id', $request->user_id)->first();
-      
-      $code = rand(1000, 9999);
+    $user = ResetUserPassword::where('user_id', $request->user_id)->first();
 
-      try {
+    $code = rand(1000, 9999);
 
-          $details = [
-              'title' => 'Mail from Yekbun.com',
-              'code' => $code
-          ];
+    try {
 
-          Mail::to($user->email)->send(new SendCodeMail($details));
+      $details = [
+        'title' => 'Mail from Yekbun.com',
+        'code' => $code
+      ];
 
-          $user->code = $code;
-          $user->save();
+      Mail::to($user->email)->send(new SendCodeMail($details));
 
-          return response()->json(['success' => true, "message" => "Email successfully resent."]);
-      } catch (Exception $e) {
-          info("Error: " . $e->getMessage());
-      }
+      $user->code = $code;
+      $user->save();
+
+      return response()->json(['success' => true, "message" => "Email successfully resent."]);
+    } catch (Exception $e) {
+      info("Error: " . $e->getMessage());
+    }
   }
 
 
