@@ -32,7 +32,7 @@
         </h4>
     </div>
     <div>
-        <button class="btn btn-primary" data-bs-target="#addnewtab" data-bs-toggle="modal">Add New Tab</button>
+        <button class="btn btn-primary" data-bs-target="#addnewtab" data-bs-toggle="modal">Add New</button>
     </div>
 </div>
 
@@ -40,98 +40,61 @@
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel3">Add Tab</h4>
+                <h4 class="modal-title" id="exampleModalLabel3">Add New Privacy Policy and Terms</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <form id="createForm" method="POST" action="">
+                    <form id="createForm" method="POST" action="{{ route('policy_and_terms.store') }}">
                         @csrf
                         <div class="col mb-3">
-                            <label for="nameLarge" class="form-label">Tab Name</label>
-                            <input type="text" id="nameLarge" class="form-control" placeholder="Add Tab Name Here" name="">
+                            <label for="nameLarge" class="form-label">Section Name</label>
+                            <input type="text" id="nameLarge" class="form-control" placeholder="Add Tab Name Here" name="name">
                         </div>
-                        <div class="col mb-3">
-                            <label for="nameLarge" class="form-label">Tab Icon</label>
-                            <input type="text" id="nameLarge" class="form-control" placeholder="Add Tab Icon" name="">
-                        </div>
-                    </form>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
                 <button class="btn btn-primary">Save</button>
             </div>
+        </form>
         </div>
     </div>
 </div>
 
 <div class="row">
-    <h6 class="text-muted">Privacy and Terms</h6>
+    <h6 class="text-muted">Privacy Policy and Terms</h6>
     <div class="nav-align-left mb-4">
         <div class="col-md-2">
             <ul class="nav nav-pills me-3" role="tablist">
-                <li class="nav-item">
-                    <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#privacy" aria-controls="privacy" aria-selected="true"><i class='bx bx-file'></i>&nbsp;Privacy Policy</button>
-                </li>
-                <li class="nav-item">
-                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#disclaimer" aria-controls="disclaimer" aria-selected="false"><i class='bx bx-file'></i>&nbsp;Disclaimer</button>
-                </li>
+                @foreach($data as $section)
+                    <li class="nav-item">
+                        <button type="button" class="nav-link {{ $loop->iteration == 1 && !old('tab') ? 'active' : ''  }} {{ old('tab') === "tab{$section->id}"  ? 'active' : '' }}" role="tab" data-bs-toggle="tab" data-bs-target="#tab{{ $section->id }}" aria-controls="tab{{ $section->id }}" aria-selected="true"><i class='bx bx-file'></i>{{ $section->name }}</button>
+                    </li>
+                    @section('tab-content')
+                        @parent
+                        <div class="tab-pane fade show {{ $loop->first && !old('tab') ? 'active' : '' }} {{ old('tab') === "tab{$section->id}"  ? 'active' : '' }}" id="tab{{ $section->id }}" role="tabpanel">
+                            <form action="{{ route('policy_and_terms.saveFileds') }}" method="POST">
+                                @csrf
+                                <input type ="hidden" name ="tab" value=" tab{{ $section->id }} " />
+                                <input type ="hidden" name="id" value="{{ $section->id }}" />
+                                <div class="mb-3">
+                                    <label>Privacy Policy</label>
+                                    <textarea class="form-control" name="privacy_policy">{{ $section->privacy_policy }}</textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Disclaimer</label>
+                                    <textarea class="form-control" name="disclaimer">{{ $section->disclaimer }}</textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">submit</button>
+                            </form>
+                        </div>
+                    @endsection
+                @endforeach
             </ul>
         </div>
         <div class="tab-content">
-            <div class="tab-pane fade show active" id="privacy" role="tabpanel">
-                <form action="{{ route('policy_and_terms.store') }}" method="POST">
-                    @csrf
-                     <input type = "hidden" name="privacy" value="privacy_policy"/>  
-                       {{-- <label class="form-label" for="inputDescription">Description</label>
-                        <textarea id="inputDescription" name="policy_text" class="form-control" placeholder="Event Description" rows="6" value={{ $privacy->description ?? '' }}>
-                    {{ old('description') }}
-                    </textarea>
-                    @error('policy')
-                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
-                    <button type="submit" class="btn btn-primary mt-2">Save</button> --}}
-
-                    <div class="URL">
-                        <div class="URL-body mb-4">
-                            @if ($decode != '')
-                            @foreach($decode as $value)
-                            <div class="row mb-3">
-                                <div class="col-5 pl-1 pr-1">
-                                    <label>Add Question</label>
-                                    <input type="text" class="form-control" name="policy_title[]" value="{{ $value->title }}">
-                                </div>
-                                <div class="col-6 pl-1 pr-1">
-                                    <label>Add Answer</label>
-                                    <textarea type="text" class="form-control" name="policy_text[]" rows="6">{{ $value->description }} </textarea>
-                                </div>
-                                <div class="col-1 pl-1 pr-1 d-flex align-items-center justify-content-center">
-                                    <button type="button" class="btn btn-danger" onclick="deleteURL(event)">X</button>
-                                </div>
-                            </div>
-                            @endforeach
-                            @endif
-                        </div>
-                        <div class="text-center">
-                            <button type="button" class="btn btn-warning add-timeslot-btn" onclick="AddURL(event)" data-day-num="0">Add Field</button>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-            <div class="tab-pane fade" id="disclaimer" role="tabpanel">
-                <form action="{{ route('policy_and_terms.store') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="disclaimer" value="disclaimer" />
-                    <label class="form-label" for="inputDescription">Description</label>
-                    <textarea id="inputDescription" name="disclaimer_text" class="form-control" placeholder="Event Description" rows="6" value={{ $disclaimer->description ?? '' }}>{{ old('description') }}</textarea>
-                    @error('disclaimer')
-                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
-                    <button type="submit" class="btn btn-primary mt-2">Save</button>
-                </form>
-            </div>
+            @yield('tab-content')
         </div>
     </div>
 </div>

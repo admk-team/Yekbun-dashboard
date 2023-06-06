@@ -14,9 +14,18 @@
     <div class="row">
         <div class="col-lg-12 mx-auto">
             <div class="row g-3">
+
+                <div class="col-md-12">
+                    <label class="form-label" for="fullname">Title</label>
+                    <input type="text" name="title" class="form-control" id="audioFile"  />
+                    @error('title')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
                 <div class="col-md-12">
                     <label class="form-label" for="fullname">Icon</label>
-                    <select class="" name="icon"  id="id_select2_example" style="width: 200px;">
+                    {{-- <select class="" name="icon"  id="id_select2_example" style="width: 200px;">
                             <span>Choose a language</span>
                             <option value="AE" data-img_src="{{ asset('assets/img/AE.png') }}">Arabic</option>
                             <option value="GB" data-img_src="{{ asset('assets/img/GB.png') }}">English (GB)</option>
@@ -25,18 +34,14 @@
                             <option value="DE" data-img_src="{{ asset('assets/img/DE.png') }}">Deutsch</option>
                             <option value="IT" data-img_src="{{ asset('assets/img/IT.png') }}">Italian</option>
                             <option value="ES" data-img_src="{{ asset('assets/img/ES.png') }}">Spanish</option>
-                    </select>             
+                    </select>              --}}
+
+                    <input type ="file" class="form-control" name="icon"/>
                     @error('title')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="col-md-12">
-                    <label class="form-label" for="fullname">Title</label>
-                    <input type="text" name="title" class="form-control" id="audioFile"  />
-                    @error('title')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
+              
                 
                    <div class="col-md-12">
                     <label class="form-label" for="fullname">Status</label>

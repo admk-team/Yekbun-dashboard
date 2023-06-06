@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Setting;
+use App\Models\PolicyTerm;
+use Illuminate\Http\Request;
+use App\Models\PolicyAndTerm;
+use App\Http\Controllers\Controller;
 
 class PolicyAndTermsController extends Controller
 {
@@ -15,10 +17,14 @@ class PolicyAndTermsController extends Controller
      */
     public function index()
     {
-         $privacy = Setting::firstorCreate(['name' => 'privacy_policy']);
-        $decode =   json_decode($privacy->description);
-        $disclaimer = Setting::firstorCreate(['name' => 'disclaimer']);
-        return  view('content.policy_and_terms.index' , compact('decode' , 'disclaimer'));
+        // $privacy = Setting::firstorCreate(['name' => 'privacy_policy']);
+        // $decode =   json_decode($privacy->description);
+        // $disclaimer = Setting::firstorCreate(['name' => 'disclaimer']);
+        // $tab = PolicyTerm::get();
+        $data = PolicyAndTerm::all();
+
+        //return  view('content.policy_and_terms.index' , compact('decode' , 'disclaimer' , 'tab'));
+        return  view('content.policy_and_terms.index' , compact('data'));
     }
 
     /**
@@ -39,49 +45,58 @@ class PolicyAndTermsController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        PolicyAndTerm::create([
+            'name' => $request->name
+        ]);
+
+        return back()->with('success', 'New privacy policy and terms section has been created.');
     
-        if($request->has('privacy')){
-            $request->validate([
-                'policy_text' => 'required',
-                'privacy' => 'required'
-            ]);
-        }else{
-            $request->validate([
-                'disclaimer_text' => 'required',
-                'disclaimer' => 'required'
-            ]);
-        }
+        // if($request->has('privacy')){
+        //     $request->validate([
+        //         'policy_text' => 'required',
+        //         'privacy' => 'required'
+        //     ]);
+        // }else{
+        //     $request->validate([
+        //         'disclaimer_text' => 'required',
+        //         'disclaimer' => 'required'
+        //     ]);
+        // }
       
-        if($request->has('privacy')){
-            $data =[];
-            $titles = $request->policy_title;
-            $descriptions  = $request->policy_text;
+        // if($request->has('privacy')){
+        //     $data =[];
+        //     $titles = $request->policy_title;
+        //     $descriptions  = $request->policy_text;
 
-            for($i=0; $i<count($titles); $i++){
+        //     for($i=0; $i<count($titles); $i++){
 
-                $pair =[
-                    "title" => $titles[$i],
-                    "description" => $descriptions[$i]
-                ];
-                    // Add the pair to the data array
-            $data[] = $pair;
-            }
+        //         $pair =[
+        //             "title" => $titles[$i],
+        //             "description" => $descriptions[$i]
+        //         ];
+        //             // Add the pair to the data array
+        //     $data[] = $pair;
+        //     }
 
-            $setting = Setting::firstorCreate(['name'=>$request->privacy]);
-            $setting->description = json_encode($data);
+        //     $setting = Setting::firstorCreate(['name'=>$request->privacy]);
+        //     $setting->description = json_encode($data);
 
-        }else{
+        // }else{
 
-            $setting = Setting::firstorCreate(['name'=>$request->disclaimer]);
-            $setting->description = $request->disclaimer_text;
+        //     $setting = Setting::firstorCreate(['name'=>$request->disclaimer]);
+        //     $setting->description = $request->disclaimer_text;
 
-        }
-        if($setting->save()){
-            return redirect()->route('policy_and_terms.index')->with('success' , 'Policy has been Updated successfully');
-        }else{
-            return redirect()->route('policy_and_terms.index')->with('error' , 'Failed to Updated Policy');
+        // }
+        // if($setting->save()){
+        //     return redirect()->route('policy_and_terms.index')->with('success' , 'Policy has been Updated successfully');
+        // }else{
+        //     return redirect()->route('policy_and_terms.index')->with('error' , 'Failed to Updated Policy');
 
-        }
+        // }
     }
 
     /**
@@ -127,5 +142,21 @@ class PolicyAndTermsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function saveFileds(Request $request){
+        $request->validate([
+            'privacy_policy' => 'required',
+            'disclaimer' => 'required',
+        ]);
+
+        $check = PolicyAndTerm::find($request->id);
+        $check->privacy_policy = $request->privacy_policy;
+        $check->disclaimer = $request->disclaimer;
+        if($check->save()){
+            return back()->with('success' , 'Privacy Policy and term updated successfully.')->withInput(['tab' => $request->tab]);
+        }else{
+            return back()->with('success' , ' Failed to update Privacy Policy and term.')->withInput(['tab' => $request->tab]);
+        }
     }
 }
