@@ -46,8 +46,8 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Icon</th>
                     <th>Language</th>
+                    <th>Icon</th>
                     <th>Progress</th>
                     <th>Actions</th>
                 </tr>
@@ -57,8 +57,10 @@
                 @foreach($languages as $language)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
+                    <td>{{ $language->title ?? '' }}</td>
                     <td>
-                        @switch($language->icon)
+                        <img src="{{ asset('storage/'.$language->icon) }}" width="50" height="50">
+                        {{-- @switch($language->icon)
                         @case('AE')
                         <img src="{{ asset('assets/img/AE.png') }}" class="rounded">
                         @break
@@ -82,10 +84,8 @@
                         @break
                         @default
 
-                        @endswitch
-                        {{ $language->icon  ?? '' }}
+                        @endswitch --}}
                     </td>
-                    <td>{{ $language->title ?? '' }}</td>
                     <td>
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" style="width: {{ rand(0,100) }}%;" aria-valuenow="{{ rand(0,100) }}" aria-valuemin="0" aria-valuemax="100"></div>
