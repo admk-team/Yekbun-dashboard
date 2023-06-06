@@ -404,5 +404,27 @@
                 "label": "Delete"
             }
         ]
+    },
+    {
+        "name": "location",
+        "label": "Location",
+        "children": [
+            {
+                "name": "read",
+                "label": "Read"
+            },
+            {
+                "name": "write",
+                "label": "Write"
+            },
+            {
+                "name": "create",
+                "label": "Create"
+            },
+            {
+                "name": "delete",
+                "label": "Delete"
+            }
+        ]
     }
 ]
