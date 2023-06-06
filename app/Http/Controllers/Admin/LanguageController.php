@@ -44,9 +44,13 @@ class LanguageController extends Controller
         ]);
 
         $language = new Language();
-        $language->icon   = $request->icon;
         $language->title = $request->title;
         $language->status = $request->status;
+
+        if($request->has('icon')){
+            $image_path = $request->file('icon')->store('/images/language/icon','public');
+            $language->icon = $image_path;
+        }
         if($language->save()) {
             return redirect()->route('language.index')->with('success', 'Your language has been created successfully.');
         }else{

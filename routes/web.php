@@ -74,6 +74,7 @@ use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\TextController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -410,6 +411,7 @@ Route::resource("events", EventController::class);
 
 // policy and terms 
 Route::resource('policy_and_terms' , PolicyAndTermsController::class);
+Route::post('saveFileds' , [PolicyAndTermsController::class , 'saveFileds'])->name('policy_and_terms.saveFileds');
 // system logs
 Route::resource('logs' , SystemLogController::class);
 
