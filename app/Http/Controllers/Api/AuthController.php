@@ -59,19 +59,19 @@ class AuthController extends Controller
     }
 
     $user = User::create([
-      'username' => $validatedData['username'],
-      'firstName' => $validatedData['firstName'],
-      'lastName' => $validatedData['lastName'],
-      'image' => $validatedData['image'] ?? '',
-      'name' => $validatedData['firstName'] . ' ' . $validatedData['lastName'],
-      'gender' => $validatedData['gender'],
-      'dob' => $validatedData['dob'],
-      'country' => $validatedData['location'],
-      'province' => $validatedData['province'],
-      'province_city' => $validatedData['originCity'],
-      'city' => $validatedData['city'],
-      'email' => $validatedData['email'],
-      'password' => bcrypt($validatedData['password']),
+      'username' => $request['username'],
+      'firstName' => $request['firstName'],
+      'lastName' => $request['lastName'],
+      'image' => $request['image'] ?? '',
+      'name' => $request['firstName'] . ' ' . $request['lastName'],
+      'gender' => $request['gender'],
+      'dob' => $request['dob'],
+      'country' => $request['location'],
+      'province' => $request['province'],
+      'province_city' => $request['originCity'],
+      'city' => $request['city'],
+      'email' => $request['email'],
+      'password' => bcrypt($request['password']),
       'status' => 0
     ]);
 
@@ -87,7 +87,7 @@ class AuthController extends Controller
           'code' => $code
         ];
 
-        Mail::to($validatedData['email'])->send(new SendCodeMail($details));
+        Mail::to($request['email'])->send(new SendCodeMail($details));
 
         return response()->json(['success' => true, "message" => "Verfication Code sent to your email", 'data' => $user->id], 201);
       } catch (Exception $e) {
