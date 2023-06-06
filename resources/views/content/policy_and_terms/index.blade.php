@@ -40,7 +40,7 @@
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel3">Add New Privacy Policy and Terms</h4>
+                <h4 class="modal-title" id="exampleModalLabel3">Add New Section</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -62,6 +62,7 @@
     </div>
 </div>
 
+@if ($data->count())
 <div class="row">
     <h6 class="text-muted">Privacy Policy and Terms</h6>
     <div class="nav-align-left mb-4">
@@ -80,11 +81,11 @@
                                 <input type ="hidden" name="id" value="{{ $section->id }}" />
                                 <div class="mb-3">
                                     <label>Privacy Policy</label>
-                                    <textarea class="form-control" name="privacy_policy">{{ $section->privacy_policy }}</textarea>
+                                    <textarea class="form-control" name="privacy_policy" rows="6">{{ $section->privacy_policy }}</textarea>
                                 </div>
                                 <div class="mb-3">
                                     <label>Disclaimer</label>
-                                    <textarea class="form-control" name="disclaimer">{{ $section->disclaimer }}</textarea>
+                                    <textarea class="form-control" name="disclaimer" rows="6">{{ $section->disclaimer }}</textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary">submit</button>
                             </form>
@@ -98,6 +99,8 @@
         </div>
     </div>
 </div>
+@endif
+
 @section('page-script')
 <script src="{{asset('assets/vendor/libs/quill/katex.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/quill/quill.js')}}"></script>
