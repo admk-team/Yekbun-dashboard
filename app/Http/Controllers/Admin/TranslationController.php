@@ -8,6 +8,7 @@ use App\Models\Translation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class TranslationController extends Controller
 {
@@ -41,6 +42,7 @@ class TranslationController extends Controller
 
     public function translateLanguage(Request $request, $id = null)
     {
+       
         foreach ($request->data as $item) {
             if ($item['id'] == '' && $item['value'] == '') continue;
 
@@ -48,7 +50,7 @@ class TranslationController extends Controller
                 Translation::create([
                     'translation' => $item['value'],
                     'text_id' => $item['text_id'],
-                    'language_id' => $item['language_id']
+                    'language_id' => $item['language_id'] 
                 ]);
 
                 continue;
@@ -59,19 +61,7 @@ class TranslationController extends Controller
             $translation->save();
         }
 
-        return response()->json(['success' => true, 'message' => 'Translation successfully saved.']);
-        // if($id === null){
-        //      Translation::create([
-        //         'translation' => $request->translation_text,
-        //         'text_id' => $request->text_id,
-        //         'language_id' => $request->language_id
-        //      ]);
-        //      return back()->with('success' , 'Translation successfully saved.');
-        // }
-        //  $translation = Translation::find($id);
-        // $translation->translation = $request->translation_text;
-        // $translation->text_id = $request->text_id;
-        // $translation->language_id = $request->language_id;
-        // $translation->save();
+        return response()->json(['sucess' => true, 'message' => 'Translation successfully saved.']);
+
     }
 }

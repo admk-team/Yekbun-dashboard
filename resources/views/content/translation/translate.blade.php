@@ -1,7 +1,15 @@
 @extends('layouts/layoutMaster')
 
 @section('title', 'Boxicons - Icons')
-
+<style>
+  .toast-container {
+      background-color: green;
+      color: white;
+  }
+  .toast-title {
+      font-weight: bold;
+  }
+</style>
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/bs-stepper/bs-stepper.css')}}" />
@@ -20,11 +28,16 @@
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+<script src="{{asset('assets/vendor/libs/toastr/toastr.js')}}"></script>
+
 @endsection
 
 @section('vendor-script')
 <script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
+<script src="{{asset('assets/js/ui-toasts.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/jquery-repeater/jquery-repeater.js')}}"></script>
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/toastr/toastr.css')}}" />
+
 @endsection
 
 @section('content')
@@ -41,7 +54,6 @@
             <th>#</th>
             <th>Language</th> 
             <th>Translation</th>
-            <th>Action</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
@@ -60,7 +72,7 @@
         </tr>
         @empty
         <tr>
-            <td class="text-center" colspan="8"><b>No Voting found.<b></td>
+            <td class="text-center" colspan="8"><b>No Translation  found.<b></td>
         </tr>
         @endforelse
         </tbody>
@@ -267,6 +279,7 @@ $(function () {
   }
 });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
   $("#submit-btn").on("click", (event) => {
     $("#submit-btn").html('Loading...');
@@ -274,7 +287,6 @@ $(function () {
     event.preventDefault();
 
     let translations = $(".translation-value");
-
     let data = [];
 
     for (let i=0; i<translations.length; i++) {
@@ -305,7 +317,14 @@ $(function () {
 
     .then(res => {
       if (res.data.success)
-        alert(res.data.message);
+         // Handle success response
+         Swal.fire({
+            position: 'top-end',
+            toast: true,
+            title: 'Translation successfully saved',
+            showConfirmButton: false,
+            timer: 3000,
+        });
     })
 
     .catch(error => {
@@ -315,4 +334,5 @@ $(function () {
     $("#submit-btn").html('Save');
   }
 </script>
+
 @endsection
