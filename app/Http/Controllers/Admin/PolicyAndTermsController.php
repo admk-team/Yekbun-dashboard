@@ -7,6 +7,9 @@ use App\Models\PolicyTerm;
 use Illuminate\Http\Request;
 use App\Models\PolicyAndTerm;
 use App\Http\Controllers\Controller;
+use App\Models\Translation;
+use App\Models\Language;
+
 
 class PolicyAndTermsController extends Controller
 {
@@ -17,12 +20,10 @@ class PolicyAndTermsController extends Controller
      */
     public function index()
     {
-        // $privacy = Setting::firstorCreate(['name' => 'privacy_policy']);
-        // $decode =   json_decode($privacy->description);
-        // $disclaimer = Setting::firstorCreate(['name' => 'disclaimer']);
-        // $tab = PolicyTerm::get();
-        $data = PolicyAndTerm::all();
 
+        $languages = Language::withCount('translations')->get();
+        return $languages;
+        $data = PolicyAndTerm::all();
         //return  view('content.policy_and_terms.index' , compact('decode' , 'disclaimer' , 'tab'));
         return  view('content.policy_and_terms.index' , compact('data'));
     }
