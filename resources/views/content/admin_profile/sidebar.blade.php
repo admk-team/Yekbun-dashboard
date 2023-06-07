@@ -64,16 +64,7 @@
 
                         </span>
                     </li>
-                    <li class="mb-3">
-                        <span class="fw-bold me-2">Contact:</span>
-                        <span>{{ auth()->user()->number ?? '' }}</span>
-                    </li>
-
-                    <li class="mb-3">
-                        <span class="fw-bold me-2">Country:</span>
-                        <span>
-                            {{ auth()->user()->country_id ?? '' }} </span>
-                    </li>
+                 
                 </ul>
                 <div class="d-flex justify-content-center pt-3">
                     <a href="javascript:;" class="btn btn-primary me-3" data-bs-target="#editUser" data-bs-toggle="modal">Edit</a>
@@ -119,7 +110,7 @@
 <!-- Modal -->
 <!-- Edit User Modal -->
 <div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-simple modal-edit-user">
+    <div class="modal-dialog modal-md modal-simple modal-edit-user">
         <div class="modal-content p-3 p-md-5">
             <div class="modal-body">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -127,53 +118,30 @@
                     <h3>Edit User Information</h3>
                     <p>Updating user details will receive a privacy audit.</p>
                 </div>
-                <form id="editUserForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" method="POST" action="{{ route('admin_profile.store') }}">
+                <form id="editUserForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" method="POST" action="{{ route('admin_profile.store') }}" enctype="multipart/form-data">
                     @csrf
-                    <div class="col-12 col-md-6 fv-plugins-icon-container">
-                        <label class="form-label" for="FirstName">First Name</label>
-                        <input type="text" id="modalEditUserFirstName" name="FirstName" class="form-control" placeholder="John" value="{{ auth()->user()->fname ?? '' }}">
-                        <div class="fv-plugins-message-container invalid-feedback"></div>
-                    </div>
-                    <div class="col-12 col-md-6 fv-plugins-icon-container">
-                        <label class="form-label" for="LastName">Last Name</label>
-                        <input type="text" id="LastName" name="LastName" class="form-control" placeholder="Doe" value="{{ auth()->user()->lname ?? '' }}">
-                        <div class="fv-plugins-message-container invalid-feedback"></div>
-                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-start align-items-sm-center gap-4">
+                            <img class="img-fluid rounded my-4" src="{{ Auth::user() && Auth()->user()->image ? asset('storage/'.Auth::user()->image) : asset('https://www.w3schools.com/howto/img_avatar.png') }}" height="110" width="110" alt="User avatar" >
+                          <div class="button-wrapper">
+                            <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                              <span class="d-none d-sm-block">Upload new photo</span>
+                              <i class="bx bx-upload d-block d-sm-none"></i>
+                              <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg" name="image">
+                            </label>
+                            <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                          </div>
+                        </div>
+                      </div>
+
                     <div class="col-12 fv-plugins-icon-container">
-                        <label class="form-label" for="Name">Username</label>
-                        <input type="text" id="Name" name="Name" class="form-control" placeholder="john.doe.007" value="{{ auth()->user()->username ?? '' }}">
+                        <label class="form-label" for="Name">Name</label>
+                        <input type="text" id="Name" name="Name" class="form-control" placeholder="john.doe.007" value="{{ auth()->user()->name ?? '' }}">
                         <div class="fv-plugins-message-container invalid-feedback"></div>
                     </div>
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-12">
                         <label class="form-label" for="Email">Email</label>
                         <input type="text" id="Email" name="Email" class="form-control" placeholder="example@domain.com" value="{{ auth()->user()->email ?? '' }}" readonly>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <label class="form-label" for="Status">Status</label>
-                        <select id="Status" name="Status" class="form-select" aria-label="Default select example">
-                            <option selected="">Status</option>
-                            <option value="1">Active</option>
-                            <option value="2">Inactive</option>
-                            <option value="3">Suspended</option>
-                        </select>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <label class="form-label" for="Phone">Phone Number</label>
-                        <div class="input-group input-group-merge">
-                            <span class="input-group-text">+1</span>
-                            <input type="text" id="Phone" name="Phone" class="form-control phone-number-mask" placeholder="202 555 0111" value="{{ auth()->user()->number ?? '' }}">
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <label class="switch">
-                            <input type="checkbox" class="switch-input">
-                            <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                            </span>
-                            <span class="switch-label">Use as a billing address?</span>
-                        </label>
                     </div>
                     <div class="col-12 text-center">
                         <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>

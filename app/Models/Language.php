@@ -20,4 +20,5 @@ class Language extends Model
     {
         return $this->hasMany(Translation::class, 'language_id');
     }
+   
 }
