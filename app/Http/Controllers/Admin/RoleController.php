@@ -34,7 +34,7 @@ class RoleController extends Controller
         $validated = $request->validated();
   
         $role = Role::create($validated);
-        $role->syncPermissions($validated['permissions']);
+        $role->syncPermissions($validated['permissions']?? []);
 
         return back()->with("success", "Role successfully created.");
     }
@@ -54,7 +54,7 @@ class RoleController extends Controller
         if ($role->name === 'Super Admin')
             abort(403);
         $role->fill($validated);
-        $role->syncPermissions($validated['permissions']);
+        $role->syncPermissions($validated['permissions']?? []);
         $role->save();
 
         return back()->with("success", "Role successfully updated.");
