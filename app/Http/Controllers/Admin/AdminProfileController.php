@@ -13,6 +13,7 @@ class AdminProfileController extends Controller
 {
     public function index(){
         
+        
         $activity = Auth::user()->actions()->orderBy('created_at', 'DESC')->paginate(20);
         return view('content.admin_profile.index', compact("activity"));
     }
@@ -20,12 +21,20 @@ class AdminProfileController extends Controller
     public function store(Request $request){
          
         $profile = User::find(auth()->user()->id);
-        $profile->fname  = $request->FirstName;
-        $profile->lname = $request->LastName;
         $profile->username = $request->Name;
-        $profile->name = $request->FirstName.' '.$request->LastName;
-        $profile->number = $request->Phone;
-
+        $profile->email  = $request->Email;
+        if($request->has('image')){
+            if(isset($profile->image)){
+                $path = public_path('storage/'.$profile->image);
+                if(file_exists($path)){
+                    unlink($path);
+                }
+            
+            }
+            $image_paht = $request->file('image')->store('/images/user','public');
+            $profile->image = $image_paht;
+       
+        }
         if($profile->update()){
             return back()->with('success', 'Your profile has been updated');
         }else{

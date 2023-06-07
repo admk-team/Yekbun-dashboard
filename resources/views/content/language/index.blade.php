@@ -60,35 +60,10 @@
                     <td>{{ $language->title ?? '' }}</td>
                     <td>
                         <img src="{{ asset('storage/'.$language->icon) }}" width="50" height="50">
-                        {{-- @switch($language->icon)
-                        @case('AE')
-                        <img src="{{ asset('assets/img/AE.png') }}" class="rounded">
-                        @break
-                        @case('GB')
-                        <img src="{{ asset('assets/img/GB.png') }}" class="rounded">
-                        @break
-                        @case('US')
-                        <img src="{{ asset('assets/img/US.png') }}" class="rounded">
-                        @break
-                        @case('FR')
-                        <img src="{{ asset('assets/img/FR.png') }}" class="rounded">
-                        @break
-                        @case('DE')
-                        <img src="{{ asset('assets/img/DE.png') }}" class="rounded">
-                        @break
-                        @case('IT')
-                        <img src="{{ asset('assets/img/IT.png') }}" class="rounded">
-                        @break
-                        @case('ES')
-                        <img src="{{ asset('assets/img/ES.png') }}" class="rounded">
-                        @break
-                        @default
-
-                        @endswitch --}}
                     </td>
                     <td>
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: {{ rand(0,100) }}%;" aria-valuenow="{{ rand(0,100) }}" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" role="progressbar" style="width: {{ ( $language->translations_count *100)/$language->texts_count}}%" aria-valuenow="{{ $language->translations_count }}" aria-valuemin="0" aria-valuemax="{{ $language->texts_count }}">{{  floor(($language->translations_count *100)/$language->texts_count)}}%</div>
                         </div>
                     </td>
                     <td>
