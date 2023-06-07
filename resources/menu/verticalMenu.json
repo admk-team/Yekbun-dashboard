@@ -467,6 +467,7 @@
       "submenu": [
         {
           "name": "Language",
+          "permissions": "language.read,language.create,language.write,language.delete",
           "submenu": [
             {
               "url": "/language",

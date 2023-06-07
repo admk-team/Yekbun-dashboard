@@ -426,5 +426,27 @@
                 "label": "Delete"
             }
         ]
+    },
+    {
+        "name": "language",
+        "label": "Language",
+        "children": [
+            {
+                "name": "read",
+                "label": "Read"
+            },
+            {
+                "name": "write",
+                "label": "Write"
+            },
+            {
+                "name": "create",
+                "label": "Create"
+            },
+            {
+                "name": "delete",
+                "label": "Delete"
+            }
+        ]
     }
 ]

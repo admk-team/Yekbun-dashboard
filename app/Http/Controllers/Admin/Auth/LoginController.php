@@ -34,7 +34,11 @@ class LoginController extends Controller
                 ->event('logged_in')
                 ->log("<strong>" . Auth::user()->name . "</strong> logged in");
             $request->session()->regenerate();
-            return redirect()->intended(route('dashboard-analytics'));
+            return redirect()->intended(
+                Auth::user()->can('dashboard.read')? 
+                route('dashboard-analytics'):
+                route('admin_profile')
+            );
         }
     
         return back()->withInput(request()->only(['email', 'password']))->with('error', "Invalid Credentials!");
