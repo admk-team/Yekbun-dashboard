@@ -9,6 +9,14 @@
       $active = $configData["layout"] === 'vertical' && isset($submenu->submenu) ? 'active open':'active';
       
       $activeClass = isNavMenuActive($submenu, $currentRouteName)? $active: null;
+
+      if ($submenu->permissions?? false) {
+        $permissions = explode(',', $submenu->permissions);
+        if (! Auth::user()->canAny($permissions))
+          continue;
+      } elseif(!($submenu->hasNoPermissions?? false) && !Auth::user()->hasRole('Super Admin')) {
+        continue;
+      }
     @endphp
 
       <li class="menu-item {{$activeClass}}">

@@ -35,7 +35,11 @@ class CityController extends Controller
     {
         $validated = $request->validated();
 
-        $city = City::create($validated);
+        $cities = $validated['cities'];
+        unset($validated['cities']);
+        
+        foreach ($cities as $city)
+            City::create(array_merge($validated, ['zipcode' => $city['zipcode'], 'name' => $city['name']]));
 
         return back()->with("success", "City successfully added.");
     }

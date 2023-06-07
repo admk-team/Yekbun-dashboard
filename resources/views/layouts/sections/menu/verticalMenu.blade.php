@@ -41,11 +41,13 @@ $configData = Helper::appClasses();
     $active = isset($menu->submenu)? 'active open': 'active';
 
     $activeClass = isNavMenuActive($menu, $currentRouteName)? $active: null;
-
+    
     if ($menu->permissions?? false) {
       $permissions = explode(',', $menu->permissions);
       if (! Auth::user()->canAny($permissions))
         continue;
+    } elseif(!($menu->hasNoPermissions?? false) && !Auth::user()->hasRole('Super Admin')) {
+      continue;
     }
     @endphp
 
