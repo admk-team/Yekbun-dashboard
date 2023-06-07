@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Region;
 use App\Models\City;
+use App\Models\User;
 use App\Models\Country;
 
 class CountryController extends Controller
@@ -15,6 +16,10 @@ class CountryController extends Controller
 
         for($i=0; $i<sizeof($provinces); $i++){
             $provinces[$i]->cities = $provinces[$i]->cities;
+
+            foreach ($provinces[$i]->cities as $item) {
+                $item->user_count = User::where('province_city', $item->name)->count() ?? '';
+            }
         }
 
         return response()->json(['success' => true, "data" => $provinces]);

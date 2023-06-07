@@ -40,6 +40,8 @@ class User extends Authenticatable  implements MustVerifyEmail
         'address',
         'province',
         'city',
+        'province_city',
+        'country',
         'is_admin_user',
         'is_superadmin'
     ];
