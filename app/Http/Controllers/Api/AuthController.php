@@ -83,12 +83,12 @@ class AuthController extends Controller
       );
       try {
         $details = [
-          'title' => 'Mail from Yekbun.com',
-          'code' => $code
+          'title' => 'Mail from Yekbun.org',
+          'code' => $code,
+          'username' => $request->username,
         ];
 
         Mail::to($request['email'])->send(new SendCodeMail($details));
-
         return response()->json(['success' => true, "message" => "Verfication Code sent to your email", 'data' => $user->id], 201);
       } catch (Exception $e) {
         info("Error: " . $e->getMessage());

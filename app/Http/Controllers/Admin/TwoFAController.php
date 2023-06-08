@@ -54,4 +54,25 @@ class TwoFAController extends Controller
   
         return back()->with('success', 'We sent you code on your email.');
     }
+
+
+    public function check(){
+        $imageName = 'logo.png';
+        // Path to the image file
+$imagePath = public_path('assets/img/'.$imageName);
+
+// Get the MIME type of the image
+$mime = mime_content_type($imagePath);
+
+// Read the image file contents
+$imageData = file_get_contents($imagePath);
+
+// Encode the image data as base64
+$base64Data = base64_encode($imageData);
+
+// Create the data URI
+$dataURI = 'data:' . $mime . ';base64,' . $base64Data;
+
+        return view('content.emails.code' , compact('dataURI'));
+    }
 }

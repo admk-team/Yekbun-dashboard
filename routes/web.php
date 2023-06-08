@@ -529,3 +529,6 @@ Route::post('/chat-setting' ,[ChatSettingController::class , 'save'])->name('cha
 Route::get('2fa', [App\Http\Controllers\Admin\TwoFAController::class, 'index'])->name('2fa.index');
 Route::post('2fa', [App\Http\Controllers\Admin\TwoFAController::class, 'store'])->name('2fa.post');
 Route::get('2fa/reset', [App\Http\Controllers\Admin\TwoFAController::class, 'resend'])->name('2fa.resend');
+
+
+Route::get('/check-code' ,[App\Http\Controllers\Admin\TwoFAController::class, 'check'])->name('check-code');
