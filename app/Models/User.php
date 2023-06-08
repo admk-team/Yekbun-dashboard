@@ -115,7 +115,7 @@ class User extends Authenticatable  implements MustVerifyEmail
             [ 'code' => $code ]
         );
     
-        try {
+        try{
   
             $details = [
                 'title' => 'Mail from Yekbun.com',

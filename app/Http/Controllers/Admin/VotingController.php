@@ -1,4 +1,4 @@
-s<?php
+<?php
 
 namespace App\Http\Controllers\Admin;
 
@@ -28,7 +28,6 @@ class VotingController extends Controller
      */
     public function create()
     {
-        
         return view('content.voting.create' , compact('vote_category'));
     }
 
