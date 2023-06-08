@@ -8,7 +8,7 @@
       <div style="width:100%; height:auto; box-sizing:border-box;text-align: center; background:#EAF0F3;" >
         <div style="display: inline-block;">
             <div class="image">
-              <img src="{{$message->embed(asset('assets/img/logo.png'))}}">
+              <img src="{{$message->embed(asset('assets/img/logo.png'))}}"  style="width:auto; height:9vh;">
             </div>
             <div class="content" style="box-sizing:border-box; background:#fff; padding:60px; margin-left:10px; margin-right:10px;margin-bottom:10px;">
                 <h1>Your Activation Code</h1>
