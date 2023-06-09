@@ -5,15 +5,17 @@ namespace App\Http\Controllers\Api;
 use session;
 use App\Models\User;
 use App\Models\UserCode;
-use App\Models\ResetUserPassword;
 use App\Mail\SendCodeMail;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\ResetUserPassword;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -27,6 +29,7 @@ class AuthController extends Controller
       if ($user->status == 0)
         return response()->json(['success' => false, 'message' => 'Your email is not verified.']);
 
+      // $token = explode('|', $user->createToken('Yekhbun')->plainTextToken)[1];
       $token = explode('|', $user->createToken('Yekhbun')->plainTextToken)[1];
 
       return response()->json(['success' => true, 'data' => ['user' => $user, 'token' => $token]], 200);
@@ -191,53 +194,18 @@ class AuthController extends Controller
   }
 
 
-  // public function reset(Request $request)
-  // {
-  //     $request->validate([
-  //         'email' => 'required|email',
-  //         'password' => 'required|string|confirmed|min:8',
-  //         'token' => 'required|string',
-  //     ]);
-
-  //     $response = Password::reset($request->only('email', 'password', 'password_confirmation', 'token'), function ($user, $password) {
-  //         $user->forceFill([
-  //             'password' => bcrypt($password),
-  //             'remember_token' => Str::random(60),
-  //         ])->save();
-
-  //         event(new PasswordReset($user));
-  //     });
-
-  //     if ($response === Password::PASSWORD_RESET) {
-  //         return response()->json(['message' => 'Password reset successful'], 200);
-  //     } else {
-  //         return response()->json(['message' => 'Unable to reset password'], 400);
-  //     }
-  // }
+  public function change_password(Request $request){
+    $request->validate([
+      'OldPassword' => 'required',
+    ]);
+        if(!Hash::check($request->OldPassword , $request->user()->password)){
+          return response()->json(['success'=>false , 'message'=>'Old password is incorrect']);
+        }else{
+          User::whereId($request->user()->id)->update([
+            'password' => Hash::make($request->NewPassword)
+          ]);
+          return response()->json(['success'=>true, 'message'=>'Password successfully changed']);
+        }
+  }
+  
 }
-
-
-
-
-
-
-
-
-
-
-
-//   $validator = Validator::make($request->all(), [
-    //       'email' => 'required|email',
-    //   ]);
-
-    //   if ($validator->fails()) {
-    //       return response()->json(['errors' => $validator->errors()], 422);
-    //   }
-
-    //   $response = Password::sendResetLink($request->only('email'));
-
-    //   if ($response == Password::RESET_LINK_SENT) {
-    //       return response()->json(['message' => 'Password reset link sent on your email id',"email" => $request->email]);
-    //   } else {
-    //       return response()->json(['message' => 'Unable to send password reset link'], 500);
-    //   }

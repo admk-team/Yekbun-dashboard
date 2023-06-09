@@ -184,7 +184,6 @@
               </td>
           </tr>
           {{-- @empty --}}
-         
           @endforeach
           @else
           <tr>

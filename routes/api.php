@@ -121,6 +121,7 @@ Route::post('change-password', [AuthController::class, 'change_password']);
 Route::post('/reset/password', [AuthController::class, 'reset'])->name('password.reset');
 Route::post('/reset', [AuthController::class, 'resetpassword'])->name('reset.complete');
 Route::post('/reset/resend', [AuthController::class, 'reset_resend'])->name('reset.resend');
+Route::post('/change-password' , [AuthController::class , 'change_password'])->name('change-password')->middleware('auth:sanctum');
 
 Route::post('2fa', [TwoFactorController::class, 'store'])->name('2fa.post');
 Route::post('2fa/reset', [TwoFactorController::class, 'resend'])->name('2fa.resend');

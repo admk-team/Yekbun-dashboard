@@ -43,13 +43,13 @@ class MusicController extends Controller
             'category_id'=>'required',
             'status' => 'required'
           ]); 
-   
-      
+
+    //   $music_implode = implode('' , $request->audio_paths);
       $music = new Music();
       $music->category_id = $request->category_id;
       $music->audio = $request->audio_paths??[];
       $music->status = $request->status;
-      $music->name = $request->title;
+    //   $music->name = $request->title;
 
         if($music->save()){
             return redirect()->route('music.index')->with('success', 'Music Has been inserted');
@@ -116,7 +116,7 @@ class MusicController extends Controller
     {
         $music = Music::findorFail($id);
         if($music->audio){
-           $image_path = public_path('storage/'.$music->audio);
+           $image_path = public_path('storage/'.implode(' ,' ,$music->audio));
            if(file_exists($image_path)){
                unlink($image_path);
            }
@@ -132,6 +132,7 @@ class MusicController extends Controller
     }
     public function status($id , $status){
         $music = Music::find($id);
+       
         $music->status = $status;
         if($music->update()){
             return redirect()->route('music.index')->with('success', 'Status Has been Updated');

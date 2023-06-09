@@ -29,7 +29,6 @@ class AdminProfileController extends Controller
                 if(file_exists($path)){
                     unlink($path);
                 }
-            
             }
             $image_paht = $request->file('image')->store('/images/user','public');
             $profile->image = $image_paht;
@@ -75,14 +74,12 @@ class AdminProfileController extends Controller
     }
 
     public function change_password(Request $request)
-    {
-            
+    {       
         $request->validate([
             'currentPassword' => 'required',
             'newPassword' => 'required',
             'confirmPassword' => 'required'
         ]);
-
         if(!Hash::check($request->currentPassword, auth()->user()->password)){
             return back()->with("error", "Old Password Doesn't match!");
         }else{

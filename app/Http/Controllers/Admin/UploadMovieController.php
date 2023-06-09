@@ -54,14 +54,14 @@ class UploadMovieController extends Controller
         $movies = collect([]);
         
         foreach($request->file('movie') as $value){
-            $path = $value->store('/images/movie/','public');
+            $path = $value->store('images/movie/','public');
             $movies->push($path);
         }
         $movie->movie = $movies->toJson();
 
 
         if($request->hasFile('thumbnail')){
-            $movies_path = $request->file('thumbnail')->store('/images/movies/thumbnail/','public');
+            $movies_path = $request->file('thumbnail')->store('images/movie/thumbnail/','public');
             $movie->thumbnail = $movies_path;
            }
        
@@ -107,6 +107,7 @@ class UploadMovieController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $movie = UploadMovie::find($id);
         $movie->title = $request->title;
         $movie->description = $request->description;
@@ -116,24 +117,23 @@ class UploadMovieController extends Controller
 
         if($request->hasFile('thumbnail')){
             if(isset($movie->thumbnail)){
-                $image_path = public_path('/storage/'.$movie->thumbnail);
+                $image_path = public_path('storage/'.$movie->thumbnail);
                 if(file_exists($image_path)){
                     unlink($image_path);
                 }
             }
-            $path  = $request->file('thumbnail')->store('/images/movies/thumbnail/','public');
+            $path  = $request->file('thumbnail')->store('images/movie/thumbnail/','public');
             $movie->thumbnail = $path;
         }
 
-      
-        if($request->hasFile('movie')){
+        if($request->has('movie')){
             foreach($request->file('movie') as $value){
                     if(isset($movie->movie)){
-                        $video_path  = public_path('/storage/'.$movie->movie);
+                        $video_path  = public_path('storage/'.$movie->movie);
                         if(file_exists($video_path)){
                             unlink($video_path);
                         }
-                        $path  = $value->storeAs('/images/movies/video/' , 'public');
+                        $path  = $value->store('images/movie/','public');
                         $videos->push($path);
                         $movie->movie  = $videos;
                     }
@@ -142,7 +142,6 @@ class UploadMovieController extends Controller
             $arr = $movie->movie;
             $movie->movie = $arr;
         }
-
         if($movie->update()){
             return redirect()->route('upload-movies.index')->with('success', 'Movie Has been updated');
            }else{
@@ -166,6 +165,12 @@ class UploadMovieController extends Controller
                unlink($movie_path);
            }
         }
+        if($movie->thumbnail){
+            $movie_thumbnail = public_path('storage/'.$movie->thumbnail);
+            if(file_exists($movie_thumbnail)){
+                unlink($movie_thumbnail);
+            }
+         }
         
         if($movie->delete($movie->id)){
             return redirect()->route('upload-movies.index')->with('success', 'Movie Has been Deleted');

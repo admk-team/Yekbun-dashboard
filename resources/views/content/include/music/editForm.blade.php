@@ -12,6 +12,7 @@
     @csrf
     @method('put')
     <div class="hidden-inputs">
+        
         @foreach($musics->audio as $path)
             <input type="hidden" name="audio_paths[]" value="{{ $path }}" data-path="{{ $path }}">
         @endforeach

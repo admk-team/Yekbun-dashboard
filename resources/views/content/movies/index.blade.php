@@ -61,9 +61,7 @@
               @php
                 $json = $movie->movie;
                 $arr = json_decode($json, true);
-               
               @endphp
-            
             <td>
               <div class="d-flex justify-content-start align-items-center">
                 <span data-bs-toggle="modal" data-bs-target="#editmoviesModal{{ $movie->id }}">
@@ -82,7 +80,6 @@
               </div>
               <x-modal id="editmoviesModal{{$movie->id}}" title="Update Movie" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{$movie->id}}" size="md">
                 @include('content.include.movies.editForm')
-              
               </x-modal>
             </td>
           </tr>
