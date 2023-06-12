@@ -41,7 +41,7 @@ use App\Http\Controllers\Api\TwoFactorController;
 use App\Http\Controllers\Api\CountryController;
 use App\Http\Controllers\Api\PrivacyAndPolicyController;
 use App\Http\Controllers\Api\TranslationController;
-
+use App\Http\Controllers\Api\AccountSettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -121,8 +121,10 @@ Route::post('change-password', [AuthController::class, 'change_password']);
 Route::post('/reset/password', [AuthController::class, 'reset'])->name('password.reset');
 Route::post('/reset', [AuthController::class, 'resetpassword'])->name('reset.complete');
 Route::post('/reset/resend', [AuthController::class, 'reset_resend'])->name('reset.resend');
-Route::post('/change-password' , [AuthController::class , 'change_password'])->name('change-password')->middleware('auth:sanctum');
 
+// Account Setting  Controller
+Route::post('/change-password' , [AccountSettingController::class , 'change_password'])->name('change-password')->middleware('auth:sanctum');
+Route::post('/change-email' , [AccountSettingController::class , 'change_email'] )->name('change-email');
 Route::post('2fa', [TwoFactorController::class, 'store'])->name('2fa.post');
 Route::post('2fa/reset', [TwoFactorController::class, 'resend'])->name('2fa.resend');
 
@@ -138,3 +140,5 @@ Route::prefix('/translate')->name('api.translate.')->group(function () {
     Route::get('/languages', [TranslationController::class, 'fetch_languages'])->name('languages');
     Route::get('/{id}', [TranslationController::class, 'translate'])->name('translate');
 });
+
+

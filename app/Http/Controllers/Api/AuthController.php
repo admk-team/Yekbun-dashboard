@@ -93,7 +93,7 @@ class AuthController extends Controller
 
         Mail::to($request['email'])->send(new SendCodeMail($details));
         return response()->json(['success' => true, "message" => "Verfication Code sent to your email", 'data' => $user->id], 201);
-      } catch (Exception $e) {
+      } catch (\Exception $e) {
         info("Error: " . $e->getMessage());
       }
     }
@@ -122,7 +122,7 @@ class AuthController extends Controller
       ];
       Mail::to($user->email)->send(new SendCodeMail($details));
       return response()->json(['success' => true, 'message' => 'A verification email has been sent to ' . $user->email . '!', 'data' => ['user_id' => $user->id, 'email' => $user->email, 'token' => $token]], 201);
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       info('Error: ' . $e->getMessage());
     }
   }
@@ -188,24 +188,12 @@ class AuthController extends Controller
       $user->save();
 
       return response()->json(['success' => true, "message" => "Email successfully resent."]);
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       info("Error: " . $e->getMessage());
     }
   }
 
 
-  public function change_password(Request $request){
-    $request->validate([
-      'OldPassword' => 'required',
-    ]);
-        if(!Hash::check($request->OldPassword , $request->user()->password)){
-          return response()->json(['success'=>false , 'message'=>'Old password is incorrect']);
-        }else{
-          User::whereId($request->user()->id)->update([
-            'password' => Hash::make($request->NewPassword)
-          ]);
-          return response()->json(['success'=>true, 'message'=>'Password successfully changed']);
-        }
-  }
+
   
 }
