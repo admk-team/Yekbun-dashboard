@@ -25,12 +25,6 @@ class TwoFactorController extends Controller
             ->where('updated_at', '>=', now()->subMinutes(15))
             ->first();
 
-    if (isset($find)) {
-      $find->update([
-        'code' => $request->code,
-        'user_id' => $request->user_id,
-      ]);
-
         if (isset($find)) {
             $find->update([
                 'code' => $request->code,
@@ -39,10 +33,10 @@ class TwoFactorController extends Controller
 
             $user = User::find($request->user_id);
             $user->status = 1;
+            $find->delete($find->id);
             $user->save();
             return response()->json(['success' => true, 'message' => "Your account is successfully verfied.", "data" => $user]);
         }
-    }
     
     return response()->json(['success' => false, 'message' => "You entered an invalid code."]);
   }

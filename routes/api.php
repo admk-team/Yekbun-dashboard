@@ -142,6 +142,7 @@ Route::get('province', [CountryController::class , 'province'])->name('province'
 
 // Privacy and Policy
 Route::get('privacy', [PrivacyAndPolicyController::class , 'privacy'])->name('privacy');
+Route::get('/single-privacy/{name}' , [PrivacyAndPolicyController::class , 'single_privacy'])->name('single_privacy');
 
 // Translation
 Route::prefix('/translate')->name('api.translate.')->group(function () {

@@ -36,7 +36,7 @@ class AccountSettingController extends Controller
     $request->validate([
       'oldEmail' => 'required|email',
       'newEmail' => 'required|email',
-      'repeatedNewEmail' => 'required|email|same:newEmail',
+      'confirmEmail' => 'required|email|same:newEmail',
     ]);
 
     $code = UserCode::where('code' , $request->code)->first();
@@ -63,14 +63,14 @@ class AccountSettingController extends Controller
   {
     // First Run this Api to send the email that provided email.
     $request->validate([
-      'OldEmail' => 'required|email',
+      'oldEmail' => 'required|email',
     ]);
 
-    $user = User::where('email', $request->OldEmail)->first();
+    $user = User::where('email', $request->oldEmail)->first();
     if (!$user) {
       return response()->json(['success' => false, 'message' => 'Email is not valid.']);
     } else {
-      if ($request->NewEmail == $request->RepeatedNewEmail) {
+      if ($request->NewEmail == $request->confirmEmail) {
         $code = rand(1000, 9999);
         UserCode::updateorCreate(
           ['user_id' => $user->id],
@@ -82,8 +82,8 @@ class AccountSettingController extends Controller
             'code' => $code,
             'username' => $user->username ?? '',
           ];
-          Mail::to($request->NewEmail)->send(new SendCodeMail($details));
-          return response()->json(['success' => true, 'message' => "Email Verfication code sent to your email", 'data' => ['user_id' =>$user->id , 'code' => $code]], 201);
+          Mail::to($request->oldEmail)->send(new SendCodeMail($details));
+          return response()->json(['success' => true, 'message' => "Email Verfication code sent to your email"], 201);
         } catch (\Exception $e) {
           info("Error: " . $e->getMessage());
         }
