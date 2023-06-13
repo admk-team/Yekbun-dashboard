@@ -42,6 +42,7 @@ use App\Http\Controllers\Api\CountryController;
 use App\Http\Controllers\Api\PrivacyAndPolicyController;
 use App\Http\Controllers\Api\TranslationController;
 use App\Http\Controllers\Api\AccountSettingController;
+use App\Http\Controllers\Api\ContactUsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -128,6 +129,8 @@ Route::post('/send-email-code' , [AccountSettingController::class , 'send_email_
 Route::post('/resend-email' , [AccountSettingController::class , 'resend_email_code'] )->name('resend-email');
 Route::post('/change-email' , [AccountSettingController::class , 'change_email'] )->name('change-email');
 
+// Contact Us Controller
+Route::post('/contact-us', [ContactUsController::class , 'contact_us'])->name('contact-us');
 
 
 Route::post('2fa', [TwoFactorController::class, 'store'])->name('2fa.post');
