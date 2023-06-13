@@ -183,7 +183,8 @@ class AuthController extends Controller
 
       $details = [
         'title' => 'Mail from Yekbun.com',
-        'code' => $code
+        'code' => $code,
+        'username' => $user->username
       ];
 
       Mail::to($user->email)->send(new SendCodeMail($details));
