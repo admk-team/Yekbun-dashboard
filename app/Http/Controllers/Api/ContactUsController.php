@@ -26,4 +26,5 @@ class ContactUsController extends Controller
             return response()->json(['success' => false, 'message' => 'Issue has not  sent successfully.']);
         }
     }
+    
 }

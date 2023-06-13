@@ -18,8 +18,7 @@ class PrivacyAndPolicyController extends Controller
         $single_privacy = PolicyAndTerm::where('name', $name)->first();
         return response()->json(['success' => true, 'data' => $single_privacy]);
     }
-
-
+    
 }
 
 

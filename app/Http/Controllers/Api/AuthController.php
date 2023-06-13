@@ -103,6 +103,7 @@ class AuthController extends Controller
 
   public function forgot_password(Request $request)
   {
+
     $request->validate([
       'email' => 'required|email',
     ]);
@@ -119,12 +120,14 @@ class AuthController extends Controller
     ResetUserPassword::updateorCreate(['user_id' => $user->id, 'email' => $user->email], ['code' => $code, 'user_id' => $user->id, 'token' => $token, 'email' => $user->email]);
     try {
       $details = [
-        'title' => 'Mail from Yekbun.com',
+        'title' => 'Mail from Yekbun.org',
         'code' => $code,
+        'username' => $user->username
       ];
       Mail::to($user->email)->send(new SendCodeMail($details));
       return response()->json(['success' => true, 'message' => 'A verification email has been sent to ' . $user->email . '!', 'data' => ['user_id' => $user->id, 'email' => $user->email, 'token' => $token]], 201);
     } catch (\Exception $e) {
+
       info('Error: ' . $e->getMessage());
     }
   }
@@ -193,4 +196,5 @@ class AuthController extends Controller
       info("Error: " . $e->getMessage());
     }
   }
+  
 }
