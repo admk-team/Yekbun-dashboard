@@ -6,6 +6,7 @@ use session;
 use App\Models\User;
 use App\Models\UserCode;
 use App\Mail\SendCodeMail;
+use App\Mail\YekhbunMail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\ResetUserPassword;
@@ -95,6 +96,7 @@ class AuthController extends Controller
         return response()->json(['success' => true, "message" => "Verfication Code sent to your email", 'data' => $user->id], 201);
       } catch (\Exception $e) {
         info("Error: " . $e->getMessage());
+        return response()->json(['success' => false, 'message' => $e->getMessage()], 505);
       }
     }
   }
@@ -172,7 +174,6 @@ class AuthController extends Controller
   public function reset_resend(Request $request)
   {
     $user = ResetUserPassword::where('user_id', $request->user_id)->first();
-
     $code = rand(1000, 9999);
 
     try {
@@ -192,8 +193,4 @@ class AuthController extends Controller
       info("Error: " . $e->getMessage());
     }
   }
-
-
-
-  
 }

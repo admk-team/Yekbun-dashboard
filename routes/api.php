@@ -124,7 +124,12 @@ Route::post('/reset/resend', [AuthController::class, 'reset_resend'])->name('res
 
 // Account Setting  Controller
 Route::post('/change-password' , [AccountSettingController::class , 'change_password'])->name('change-password')->middleware('auth:sanctum');
+Route::post('/send-email-code' , [AccountSettingController::class , 'send_email_code'] )->name('send-email-code');
+Route::post('/resend-email' , [AccountSettingController::class , 'resend_email_code'] )->name('resend-email');
 Route::post('/change-email' , [AccountSettingController::class , 'change_email'] )->name('change-email');
+
+
+
 Route::post('2fa', [TwoFactorController::class, 'store'])->name('2fa.post');
 Route::post('2fa/reset', [TwoFactorController::class, 'resend'])->name('2fa.resend');
 
