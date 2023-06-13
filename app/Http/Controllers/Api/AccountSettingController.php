@@ -20,12 +20,12 @@ class AccountSettingController extends Controller
 
     ]);
     if (!Hash::check($request->oldPassword, $request->user()->password)) {
-      return response()->json(['success' => false, 'message' => 'Old password is incorrect']);
+      return response()->json(['success' => false, 'message' => 'Current password is incorrect.']);
     } else {
       User::whereId($request->user()->id)->update([
         'password' => Hash::make($request->password)
       ]);
-      return response()->json(['success' => true, 'message' => 'Password successfully changed']);
+      return response()->json(['success' => true, 'message' => 'Password successfully updated.']);
     }
   }
 
@@ -34,28 +34,28 @@ class AccountSettingController extends Controller
 
     // This is the code when user try to change your email..
     $request->validate([
-      'OldEmail' => 'required|email',
-      'NewEmail' => 'required|email',
-      'RepeatedNewEmail' => 'required|email|same:NewEmail',
+      'oldEmail' => 'required|email',
+      'newEmail' => 'required|email',
+      'repeatedNewEmail' => 'required|email|same:newEmail',
     ]);
 
     $code = UserCode::where('code' , $request->code)->first();
     if(isset($code)){
 
-      $user = User::where('email' , $request->OldEmail)->first();
+      $user = User::where('email' , $request->oldEmail)->first();
       if(isset($user)){
 
-        $user->email = $request->NewEmail;
+        $user->email = $request->newEmail;
         $user->update();
         $code->delete($code->id);
-        return response()->json(['success' => true, 'message' => 'Email successfully changed.']);
+        return response()->json(['success' => true, 'message' => 'Email successfully updated.']);
 
       }else{
-        return response()->json(['success' => false, 'message' => 'Email is not valid.']);
+        return response()->json(['success' => false, 'message' => 'No user found with the email.']);
       }
 
     }else{
-      return response()->json(['success' => false , 'message' => 'Code is not valid.']);
+      return response()->json(['success' => false , 'message' => 'OPT code is incorrect.']);
     }
 
   }
