@@ -197,5 +197,5 @@ class AuthController extends Controller
       info("Error: " . $e->getMessage());
     }
   }
-  
+
 }
