@@ -43,6 +43,7 @@ use App\Http\Controllers\Api\PrivacyAndPolicyController;
 use App\Http\Controllers\Api\TranslationController;
 use App\Http\Controllers\Api\AccountSettingController;
 use App\Http\Controllers\Api\ContactUsController;
+use App\Http\Controllers\Api\UserSettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -150,4 +151,6 @@ Route::prefix('/translate')->name('api.translate.')->group(function () {
     Route::get('/{id}', [TranslationController::class, 'translate'])->name('translate');
 });
 
-
+// Notification Setting Controller 
+Route::post('/notification/{user_id}' , [UserSettingController::class , 'index'])->name('notification');
+Route::post('/notification/save', [UserSettingController::class , 'save'])->name('notification-save')->middleware('auth:sanctum');
