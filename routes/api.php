@@ -151,6 +151,6 @@ Route::prefix('/translate')->name('api.translate.')->group(function () {
     Route::get('/{id}', [TranslationController::class, 'translate'])->name('translate');
 });
 
-// Notification Setting Controller 
-Route::post('/notification/{user_id}' , [UserSettingController::class , 'index'])->name('notification');
-Route::post('/notification/save', [UserSettingController::class , 'save'])->name('notification-save')->middleware('auth:sanctum');
+// User  Setting Controller 
+Route::post('/user-setting/{user_id}' , [UserSettingController::class , 'index'])->name('user-setting');
+Route::post('/user-setting/save', [UserSettingController::class , 'save'])->name('user-setting-save')->middleware('auth:sanctum');

@@ -19,7 +19,6 @@ class UserSettingController extends Controller
     }
 
     public function save(Request $request){
-
         $setting =  new Setting();
         $setting->name = $request->name;
         $setting->value = $request->value;
@@ -31,5 +30,4 @@ class UserSettingController extends Controller
         }
     }
 
-  
 }
