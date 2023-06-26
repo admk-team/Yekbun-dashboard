@@ -44,6 +44,8 @@ use App\Http\Controllers\Api\TranslationController;
 use App\Http\Controllers\Api\AccountSettingController;
 use App\Http\Controllers\Api\ContactUsController;
 use App\Http\Controllers\Api\UserSettingController;
+use App\Http\Controllers\Api\FeedController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -154,3 +156,7 @@ Route::prefix('/translate')->name('api.translate.')->group(function () {
 // User  Setting Controller 
 Route::post('/user-setting/{user_id}' , [UserSettingController::class , 'index'])->name('user-setting');
 Route::post('/user-setting/save', [UserSettingController::class , 'save'])->name('user-setting-save')->middleware('auth:sanctum');
+
+
+// Feed Controller 
+Route::get('share-feed' , [FeedController::class , 'shareWidget'])->name('share-feed');
