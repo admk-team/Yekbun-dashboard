@@ -178,7 +178,7 @@ return [
     App\Providers\RouteServiceProvider::class,
     App\Providers\MenuServiceProvider::class,
     Spatie\Permission\PermissionServiceProvider::class,
-
+    Jorenvh\Share\Providers\ShareServiceProvider::class,
   ],
 
   /*
@@ -194,7 +194,8 @@ return [
 
   'aliases' => Facade::defaultAliases()->merge([
     // ...
-    'Helper' => App\Helpers\Helpers::class
+    'Helper' => App\Helpers\Helpers::class,
+    'Share' => Jorenvh\Share\ShareFacade::class,
   ])->toArray(),
 
 ];

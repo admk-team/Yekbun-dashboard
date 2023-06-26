@@ -40,6 +40,7 @@ use App\Http\Controllers\Api\BazarSubCategoryController;
 use App\Http\Controllers\Api\TwoFactorController;
 use App\Http\Controllers\Api\CountryController;
 use App\Http\Controllers\Api\PrivacyAndPolicyController;
+use App\Http\Controllers\Api\FeedController;
 
 
 /*
@@ -131,3 +132,7 @@ Route::get('province', [CountryController::class , 'province'])->name('province'
 // Privacy and Policy
 
 Route::get('privacy', [PrivacyAndPolicyController::class , 'privacy'])->name('privacy');
+
+
+// Feed Controller 
+Route::get('share-feed' , [FeedController::class , 'shareWidget'])->name('share-feed');

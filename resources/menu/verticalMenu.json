@@ -56,8 +56,8 @@
           "submenu": [
             {
               "url": "/artist",
-          "name": "Add Artist",
-          "slug": "artist.index"
+              "name": "Add Artist",
+              "slug": "artist.index"
             },
             {
               "url": "/album",

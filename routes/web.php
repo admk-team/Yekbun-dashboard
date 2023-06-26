@@ -72,6 +72,8 @@ use App\Http\Controllers\Admin\Settings\TeamMemberController;
 use App\Http\Controllers\Admin\AnalyticsController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\TranslationController;
+use App\Http\Controllers\Api\FeedController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -525,3 +527,7 @@ Route::post('/chat-setting' ,[ChatSettingController::class , 'save'])->name('cha
 Route::get('2fa', [App\Http\Controllers\Admin\TwoFAController::class, 'index'])->name('2fa.index');
 Route::post('2fa', [App\Http\Controllers\Admin\TwoFAController::class, 'store'])->name('2fa.post');
 Route::get('2fa/reset', [App\Http\Controllers\Admin\TwoFAController::class, 'resend'])->name('2fa.resend');
+
+
+// Feed Controller 
+Route::get('share-feed' , [FeedController::class , 'shareWidget'])->name('share-feed');
