@@ -73,6 +73,7 @@ use App\Http\Controllers\Admin\AnalyticsController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\TextController;
+use App\Http\Controllers\Api\FeedController;
 
 
 /*
@@ -532,3 +533,5 @@ Route::get('2fa/reset', [App\Http\Controllers\Admin\TwoFAController::class, 'res
 
 
 Route::get('/check-code' ,[App\Http\Controllers\Admin\TwoFAController::class, 'check'])->name('check-code');
+// Feed Controller 
+Route::get('share-feed' , [FeedController::class , 'shareWidget'])->name('share-feed');

@@ -58,6 +58,7 @@
         {
           "name": "Artists",
           "slug": "artist",
+          "hasNoPermissions": true,
           "submenu": [
             {
               "url": "/artist",
@@ -541,7 +542,8 @@
         {
           "url": "/policy_and_terms",
           "name": "Policy and Terms",
-          "slug": "policy"
+          "slug": "policy",
+          "permissions": "policy_terms.read,policy_terms.create,policy_terms.write,policy_terms.delete"
         },
         {
           "name": "User Roles",

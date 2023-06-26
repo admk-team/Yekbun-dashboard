@@ -79,6 +79,7 @@ class AuthController extends Controller
       'status' => 0
     ]);
 
+
     if ($user->id) {
       $code = rand(1000, 9999);
       UserCode::updateOrCreate(
@@ -197,5 +198,4 @@ class AuthController extends Controller
       info("Error: " . $e->getMessage());
     }
   }
-  
 }

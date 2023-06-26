@@ -110,5 +110,5 @@ class AccountSettingController extends Controller
       info("Error: " . $e->getMessage());
     }
   }
-    
+
 }
