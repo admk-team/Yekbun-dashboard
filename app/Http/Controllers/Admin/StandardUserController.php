@@ -95,6 +95,7 @@ class StandardUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
     public function update(UpdateStandardUserRequest $request, $id)
     {
         $validated = $request->validated();
