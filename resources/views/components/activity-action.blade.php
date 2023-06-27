@@ -20,7 +20,7 @@ if(!$causer){
         'name' => '',
         'image' => '',
         'email' => ''
-    ]))
+]));
 }
 if ($event === 'logged_in' || $event === 'logged_out') {
     $causerName = auth()->user()->id === $causer->id? 'You': $causer->name;
