@@ -45,6 +45,7 @@
       <li class="nav-item"><a class="nav-link" href="{{route('admin_profile.connection')}}"><i class="bx bx-link-alt me-1"></i> Connections</a></li> --}}
     </ul>
     <!-- Change Password -->
+    @if(auth()->user()->is_superadmin && auth()->user()->hasRole('Super Admin'))
     <div class="card mb-4">
       <h5 class="card-header">Change Password</h5>
       <div class="card-body">
@@ -93,6 +94,7 @@
         </form>
       </div>
     </div>
+    @endif
     <!--/ Change Password -->
 
     <!-- Two-steps verification -->

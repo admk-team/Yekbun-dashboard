@@ -513,7 +513,7 @@ $(function () {
         {
           // Actions
           targets: -1,
-          title: 'Actions',
+          title: 'Actions',         
           orderable: false,
           render: function (data, type, full, meta) {
             return (
