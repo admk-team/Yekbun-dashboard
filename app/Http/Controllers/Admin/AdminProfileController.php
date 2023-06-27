@@ -61,7 +61,9 @@ class AdminProfileController extends Controller
     }
 
     public function account(){
-        return view('content.pages.pages-account-settings-account');
+        $activity = Auth::user()->actions()->orderBy('created_at', 'DESC')->paginate(20);
+        
+        return view('content.pages.pages-account-settings-account' , compact('activity'));
     }
     public function billing(){
         return view('content.pages.pages-account-settings-billing');
