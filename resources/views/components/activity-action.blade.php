@@ -11,8 +11,17 @@ $name = $description = '';
 $modelEvents = ['created', 'updated', 'deleted'];
 
 $event = $action->event;
+
 $causer = $action->causer()->first();
 
+if(!$causer){
+    $causer = json_decode(json_encode([
+        'id' => '',
+        'name' => '',
+        'image' => '',
+        'email' => ''
+    ]))
+}
 if ($event === 'logged_in' || $event === 'logged_out') {
     $causerName = auth()->user()->id === $causer->id? 'You': $causer->name;
     $name = "<strong>$causerName</strong> " . str_replace('_', ' ', $event);
