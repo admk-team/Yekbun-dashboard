@@ -450,7 +450,7 @@
         ]
     },
     {
-        "name": "Policy_terms",
+        "name": "policy_terms",
         "label": "Policy And Terms",
         "children": [
             {
