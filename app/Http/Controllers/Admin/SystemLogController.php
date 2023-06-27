@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Services\ActivityHTML;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Models\Activity;
 
 class SystemLogController extends Controller
@@ -16,7 +17,8 @@ class SystemLogController extends Controller
      */
     public function index()
     {
-        $activity = Activity::orderBy('created_at', 'DESC')->paginate(20);
+        // $activity = Activity::orderBy('created_at', 'DESC')->paginate(20);
+        $activity =   Auth::user()->actions()->orderBy('created_at', 'DESC')->paginate(20);
         return view('content.system_log.index', compact('activity'));
     }
 
