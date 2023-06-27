@@ -327,7 +327,9 @@
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script>
   $(document).ready(function() {
-      $('#DataTables_Table_3').DataTable();
+      $('#DataTables_Table_3').DataTable({
+        'paging' : false,
+      });
   });
 </script>
 
