@@ -111,4 +111,27 @@ class AccountSettingController extends Controller
     }
   }
 
+  public function upgrade_account(Request $request){
+    $request->validate([
+      'email' => 'required',
+      'level' => 'required'
+    ]);
+
+    $user = User::where('email'  , $request->email)->first();
+
+    if(isset($user)){
+      
+      $user->level = $request->level;
+      $user->save();
+      $levels = [
+        0 => 'Standard',
+        1 => 'Premium',
+        2 => 'VIP'
+      ];
+      return response()->json(['success' => true, 'message' =>"User Upgrade to {$levels[$request->level]} Successfully."]);
+    }else{
+      return response()->json(['success' => false, 'message' =>'User not found.']);
+    }
+  } 
+  
 }
