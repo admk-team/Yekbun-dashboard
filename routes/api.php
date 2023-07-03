@@ -45,6 +45,7 @@ use App\Http\Controllers\Api\AccountSettingController;
 use App\Http\Controllers\Api\ContactUsController;
 use App\Http\Controllers\Api\UserSettingController;
 use App\Http\Controllers\Api\FeedController;
+use App\Http\Controllers\Api\RingtoneController;
 
 
 /*
@@ -160,3 +161,7 @@ Route::post('/user-setting/save', [UserSettingController::class , 'save'])->name
 
 // Feed Controller 
 Route::get('share-feed' , [FeedController::class , 'shareWidget'])->name('share-feed');
+
+
+// Ringtone Controller
+Route::get('/ringtone', [RingtoneController::class , 'get'])->name('ringtone');

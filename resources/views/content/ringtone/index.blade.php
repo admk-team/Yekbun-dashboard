@@ -62,7 +62,7 @@
                             @csrf
                             <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
                         </form>
-                        <x-modal id="editringtoneModal{{ $ringtone->id }}" title="Edit Smiley" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $ringtone->id }}" size="md">
+                        <x-modal id="editringtoneModal{{ $ringtone->id }}" title="Edit Smiley" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $ringtone->id }}" size="sm">
                             @include('content.include.ringtone.editForm')
                         </x-modal>
                     </div>
@@ -80,7 +80,7 @@
 </div>
 
 
-<x-modal id="createringtoneModal" title="Create Ringtone" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm" size="md">
+<x-modal id="createringtoneModal" title="Create Ringtone" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm" size="sm">
     @include('content.include.ringtone.createForm')
 </x-modal>
 @section('page-script')
