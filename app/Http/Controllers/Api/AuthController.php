@@ -203,7 +203,7 @@ class AuthController extends Controller
   {
     if ($request->hasFile('image')) {
         
-      $imagePath = $request->file('image')->store('public/images');
+      $imagePath = $request->file('image')->store('images');
 
         return $imagePath;
     }
