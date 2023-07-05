@@ -204,7 +204,9 @@ class AuthController extends Controller
     if ($request->image) {
         
 
-        return '$path';
+        return 'yes';
     }
+
+    return 'no';
   }
 }
