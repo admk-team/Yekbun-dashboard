@@ -199,13 +199,18 @@ class AuthController extends Controller
     }
   }
 
-  public function test (Request $request)
+  public function test(Request $request)
   {
     if ($request->hasFile('image')) {
-        
-      $imagePath = $request->file('image')->store('public/images');
+      $paths = [];
 
-        return $imagePath;
+      foreach ($request->file('image') as $image) {
+        $imagePath = $image->store('public/images');
+
+        array_push($paths, $imagePath);
+      }
+
+      return $paths;
     }
   }
 }
