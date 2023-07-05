@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -42,36 +41,32 @@ class AuthController extends Controller
 
   public function signup(Request $request)
   {
-    // $validatedData = $request->validate([
-    //   'username' => 'required|max:100',
-    //   'firstName' => 'required|max:100',
-    //   'lastName' => 'required|max:100',
-    //   'gender' => 'required',
-    //   'dob' => 'required',
-    //   'province' => 'required|max:255',
-    //   'city' => 'required|max:255',
-    //   'email' => 'required',
-    //   'password' => 'required|min:6',
-    // ]);
+    $validatedData = $request->validate([
+      'username' => 'required|max:100',
+      'firstName' => 'required|max:100',
+      'lastName' => 'required|max:100',
+      'gender' => 'required',
+      'dob' => 'required',
+      'province' => 'required|max:255',
+      'city' => 'required|max:255',
+      'email' => 'required',
+      'password' => 'required|min:6',
+    ]);
 
-    // $userExist = User::where('email', $request->email)->first();
+    $userExist = User::where('email', $request->email)->first();
 
-    // if ($userExist) {
-    //   return response()->json([
-    //     'success' => false,
-    //     'message' => 'Email is already taken.',
-    //   ]);
-    // }
-
-    $path = Storage::putFile('images', $request->file('image'));
-
-    return $path;
+    if ($userExist) {
+      return response()->json([
+        'success' => false,
+        'message' => 'Email is already taken.',
+      ]);
+    }
 
     $user = User::create([
       'username' => $request['username'],
       'firstName' => $request['firstName'],
       'lastName' => $request['lastName'],
-      'image' => $imagePath ?? '',
+      'image' => $request['image'] ?? '',
       'name' => $request['firstName'] . ' ' . $request['lastName'],
       'gender' => $request['gender'],
       'dob' => $request['dob'],
@@ -83,6 +78,7 @@ class AuthController extends Controller
       'password' => bcrypt($request['password']),
       'status' => 0
     ]);
+
 
     if ($user->id) {
       $code = rand(1000, 9999);
