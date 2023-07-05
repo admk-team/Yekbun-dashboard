@@ -41,26 +41,26 @@ class AuthController extends Controller
 
   public function signup(Request $request)
   {
-    $validatedData = $request->validate([
-      'username' => 'required|max:100',
-      'firstName' => 'required|max:100',
-      'lastName' => 'required|max:100',
-      'gender' => 'required',
-      'dob' => 'required',
-      'province' => 'required|max:255',
-      'city' => 'required|max:255',
-      'email' => 'required',
-      'password' => 'required|min:6',
-    ]);
+    // $validatedData = $request->validate([
+    //   'username' => 'required|max:100',
+    //   'firstName' => 'required|max:100',
+    //   'lastName' => 'required|max:100',
+    //   'gender' => 'required',
+    //   'dob' => 'required',
+    //   'province' => 'required|max:255',
+    //   'city' => 'required|max:255',
+    //   'email' => 'required',
+    //   'password' => 'required|min:6',
+    // ]);
 
-    $userExist = User::where('email', $request->email)->first();
+    // $userExist = User::where('email', $request->email)->first();
 
-    if ($userExist) {
-      return response()->json([
-        'success' => false,
-        'message' => 'Email is already taken.',
-      ]);
-    }
+    // if ($userExist) {
+    //   return response()->json([
+    //     'success' => false,
+    //     'message' => 'Email is already taken.',
+    //   ]);
+    // }
 
       $image = $request->file('image');
 
