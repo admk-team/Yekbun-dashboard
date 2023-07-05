@@ -166,3 +166,5 @@ Route::get('share-feed' , [FeedController::class , 'shareWidget'])->name('share-
 
 // Ringtone Controller
 Route::get('/ringtone', [RingtoneController::class , 'get'])->name('ringtone');
+
+Route::get('/test', [AuthController::class, 'test']);
