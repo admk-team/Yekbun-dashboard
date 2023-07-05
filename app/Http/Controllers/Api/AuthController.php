@@ -63,7 +63,7 @@ class AuthController extends Controller
     }
 
     if ($request->image != "") {
-      $image = $request->file('image');
+      $image = $request->image;
 
       $imageName = time() . '.' . $image->getClientOriginalExtension();
 
@@ -71,6 +71,8 @@ class AuthController extends Controller
 
       $image->storeAs('public', $imagePath);
     }
+
+    return $image;
 
     $user = User::create([
       'username' => $request['username'],
