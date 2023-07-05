@@ -208,7 +208,7 @@ class AuthController extends Controller
       foreach ($request->file('image') as $image) {
         $imagePath = $image->store('public/images');
 
-        return $imagePath;
+        return '$imagePath';
         array_push($paths, $imagePath);
       }
 
