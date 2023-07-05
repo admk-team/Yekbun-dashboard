@@ -8,7 +8,7 @@ trait UploadMedia
     {
         $imagePath = $file->store('public/images');
 
-        $filtered_path = explode('/', $imagePath, 2)[1];
+        $filtered_path = 'storage/' . explode('/', $imagePath, 2)[1];
 
         return $filtered_path;
     }

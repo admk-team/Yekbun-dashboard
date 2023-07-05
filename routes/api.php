@@ -46,6 +46,7 @@ use App\Http\Controllers\Api\ContactUsController;
 use App\Http\Controllers\Api\UserSettingController;
 use App\Http\Controllers\Api\FeedController;
 use App\Http\Controllers\Api\RingtoneController;
+use App\Http\Controllers\Api\UploadMediaController;
 
 
 /*
@@ -167,4 +168,4 @@ Route::get('share-feed' , [FeedController::class , 'shareWidget'])->name('share-
 // Ringtone Controller
 Route::get('/ringtone', [RingtoneController::class , 'get'])->name('ringtone');
 
-Route::post('/test', [AuthController::class, 'test']);
+Route::post('/upload-media', [UploadMediaController::class, 'index']);

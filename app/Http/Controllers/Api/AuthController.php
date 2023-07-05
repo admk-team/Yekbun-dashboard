@@ -17,12 +17,9 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Validator;
-use App\Traits\UploadMedia;
 
 class AuthController extends Controller
 {
-  use UploadMedia;
-
   public function login(Request $request)
   {
     $credentials = $request->only('email', 'password');
@@ -200,10 +197,5 @@ class AuthController extends Controller
     } catch (\Exception $e) {
       info("Error: " . $e->getMessage());
     }
-  }
-
-  public function test(Request $request)
-  {
-    return UploadMedia::index($request->file('image'));
   }
 }
