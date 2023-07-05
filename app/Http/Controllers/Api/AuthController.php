@@ -62,7 +62,7 @@ class AuthController extends Controller
       ]);
     }
 
-    if ($request->hasFile('image')) {
+    if ($request->image != "") {
       $image = $request->file('image');
 
       $imageName = time() . '.' . $image->getClientOriginalExtension();
