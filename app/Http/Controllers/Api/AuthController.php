@@ -44,6 +44,7 @@ class AuthController extends Controller
 
   public function signup(Request $request)
   {
+    return 'working';
     $validatedData = $request->validate([
       'username' => 'required|max:100',
       'firstName' => 'required|max:100',
