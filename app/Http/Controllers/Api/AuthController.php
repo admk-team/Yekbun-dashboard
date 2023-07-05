@@ -201,7 +201,7 @@ class AuthController extends Controller
 
   public function test (Request $request)
   {
-    if ($request->hasFile('image')) {
+    if ($request->image) {
         
 
         return '$path';
