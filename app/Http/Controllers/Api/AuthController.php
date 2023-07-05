@@ -62,11 +62,21 @@ class AuthController extends Controller
       ]);
     }
 
+    if ($request->hasFile('image')) {
+      $image = $request->file('image');
+
+      $imageName = time() . '.' . $image->getClientOriginalExtension();
+
+      $imagePath = 'images/' . $imageName;
+
+      $image->storeAs('public', $imagePath);
+    }
+
     $user = User::create([
       'username' => $request['username'],
       'firstName' => $request['firstName'],
       'lastName' => $request['lastName'],
-      'image' => $request['image'] ?? '',
+      'image' => $imagePath ?? '',
       'name' => $request['firstName'] . ' ' . $request['lastName'],
       'gender' => $request['gender'],
       'dob' => $request['dob'],
@@ -78,7 +88,6 @@ class AuthController extends Controller
       'password' => bcrypt($request['password']),
       'status' => 0
     ]);
-
 
     if ($user->id) {
       $code = rand(1000, 9999);
