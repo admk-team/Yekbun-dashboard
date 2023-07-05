@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -62,15 +63,9 @@ class AuthController extends Controller
     //   ]);
     // }
 
-      $image = $request->file('image');
+    $path = Storage::putFile('images', $request->file('image'));
 
-      $imageName = time() . '.' . $image->getClientOriginalExtension();
-
-      $imagePath = 'images/' . $imageName;
-
-      $image->storeAs('public', $imagePath);
-
-      return $imagePath;
+    return $path;
 
     $user = User::create([
       'username' => $request['username'],
