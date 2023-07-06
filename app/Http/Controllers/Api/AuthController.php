@@ -44,7 +44,6 @@ class AuthController extends Controller
 
   public function signup(Request $request)
   {
-    return 'working';
     $validatedData = $request->validate([
       'username' => 'required|max:100',
       'firstName' => 'required|max:100',
@@ -66,14 +65,11 @@ class AuthController extends Controller
       ]);
     }
 
-    if ($request->hasFile('image'))
-      $img_path = UploadMedia::index($request->file('image'));
-
     $user = User::create([
       'username' => $request['username'],
       'firstName' => $request['firstName'],
       'lastName' => $request['lastName'],
-      'image' => $img_path ?? '',
+      'image' => $request->image ?? '',
       'name' => $request['firstName'] . ' ' . $request['lastName'],
       'gender' => $request['gender'],
       'dob' => $request['dob'],
