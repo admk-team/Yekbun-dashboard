@@ -14,7 +14,7 @@ class AdController extends Controller
      */
     public function index()
     {
-        $ads = Ad::whereIn('status', [1, 2])->get();
+        $ads = Ad::whereIn('status', [1, 2 , 3])->get();
         return view('content.ads.index' , compact('ads'));
     }
 
@@ -44,6 +44,7 @@ class AdController extends Controller
             'Ad moved to pending',
             'Ad accepted',
             'Ad denied',
+            'Ad on Hold'
         ];
 
         if($ad->update()){
@@ -56,19 +57,44 @@ class AdController extends Controller
 
     public function requests()
     {
-        $ads = Ad::where('status' , 0)->get();
+        $type = url()->full();
+        $parsedUrl = parse_url($type);
+        parse_str($parsedUrl['query'], $queryParameters);
+        $type = $queryParameters['type'];
+        $ads = Ad::where('status' , 0)->where('type' , $type)->get();
         return view('content.ads.requests' , compact('ads'));
     }
 
     public function accepted()
     {
-        $ads = Ad::where('status' , 1)->get();
+        $type = url()->full();
+        $parsedUrl = parse_url($type);
+        parse_str($parsedUrl['query'], $queryParameters);
+        $type = $queryParameters['type'];
+        $ads = Ad::where('status' , 1)->where('type' , $type)->get();
         return view('content.ads.accepted' , compact('ads'));
     }
 
     public function denied()
     {
-        $ads = Ad::where('status' , 2)->get();
+        $type = url()->full();
+        $parsedUrl = parse_url($type);
+        parse_str($parsedUrl['query'], $queryParameters);
+        $type = $queryParameters['type'];
+        $ads = Ad::where('status' , 2)->where('type' , $type)->get();
         return view('content.ads.denied' , compact('ads'));
+    }
+
+    public function onHold(){
+        $type = url()->full();
+        $parsedUrl = parse_url($type);
+        parse_str($parsedUrl['query'], $queryParameters);
+        $type = $queryParameters['type'];
+        $ads = Ad::where('status' , 3)->where('type' , $type)->get();
+        return view('content.ads.onHold' , compact('ads'));
+    }
+
+    public function setting(){
+        return view('content.ads.setting');
     }
 }

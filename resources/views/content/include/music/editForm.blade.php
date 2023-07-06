@@ -1,12 +1,12 @@
 <style>
-    .edit-form .dropzone {
+    /* .edit-form .dropzone {
         display: flex;
         flex-wrap: wrap;
     }
 
     .edit-form .dropzone .dz-message {
         width: 100%;
-    }
+    } */
 </style>
 <form id="editForm{{ $musics->id }}" class="edit-form" method="POST" action="{{ route('music.update',$musics->id) }}" enctype="multipart/form-data">
     @csrf
@@ -78,9 +78,9 @@
     dropZoneInitFunctions.push(function () {
             // previewTemplate: Updated Dropzone default previewTemplate
     
-            const previewTemplate = `<div class="dz-preview dz-file-preview">
+            const previewTemplate = `<div class="row"><div class="col-md-12 col-12 d-flex justify-content-center"><div class="dz-preview dz-file-preview w-100">
                                     <div class="dz-details">
-                                        <div class="dz-thumbnail">
+                                        <div class="dz-thumbnail"  style="width:95%">
                                         <img data-dz-thumbnail>
                                         <span class="dz-nopreview">No preview</span>
                                         <div class="dz-success-mark"></div>
@@ -93,7 +93,7 @@
                                         <div class="dz-filename" data-dz-name></div>
                                         <div class="dz-size" data-dz-size></div>
                                     </div>
-                                    </div>`;
+                                    </div></div></div>`;
     
             // Multiple Dropzone
     

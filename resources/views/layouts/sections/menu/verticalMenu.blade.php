@@ -78,7 +78,8 @@ function isNavMenuActive($menu, $currentRouteName)
     if (isset($menu->submenu)) {
         return isNavMenuActive($menu->submenu, $currentRouteName);
     }
-    return (isset($menu->url) && '/'.request()->path() === explode('?', $menu->url)[0]) || (isset($menu->slug) && $currentRouteName === $menu->slug);
+    // return (isset($menu->url) && '/'.request()->path() === explode('?', $menu->url)[0]) || (isset($menu->slug) && $currentRouteName === $menu->slug);
+    return (isset($menu->url) && '/'.request()->path() .'?'.request()->getQueryString() === $menu->url) || (isset($menu->slug) && $currentRouteName === $menu->slug);
   }
 
   $isActive = false;

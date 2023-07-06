@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Ads - New Requests')
+@section('title', 'Ads - Accepted')
 
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
@@ -15,7 +15,7 @@
 <div class="d-flex justify-content-between">
   <div>
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Ads /</span> New Requests
+    <span class="text-muted fw-light">Ads /</span> On Hold
 </h4>
 </div>
 <!-- <div class="">
@@ -87,7 +87,7 @@
 
 <!-- Basic Bootstrap Table -->
 <div class="card">
-    <h5 class="card-header">New Requests</h5>
+    <h5 class="card-header">Accepted Ads</h5>
     <div class="table-responsive text-nowrap">
       <table class="table">
         <thead>
@@ -123,14 +123,7 @@
             <td>{{ $ad->payment_type }}</td>
             <td>
               @can('advertisement.write')
-              <a href="{{ route('ads-status', ['id' => $ad->id, 'status' => 1]) }}" class="btn btn-sm btn-icon ms-1" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Accept"><i class="bx bx-check"></i></a>
-              @endcan
-              @can('advertisement.write')
-              <button class="btn btn-sm btn-icon ms-1" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Deny" onclick="$('#warningModal{{ $ad->id }}').modal('show')"><i class="bx bx-x-circle"></i></button>
-              @endcan
-              {{-- ads on hold --}}
-              @can('advertisement.write')
-              <a href={{ route('ads-status',['id' => $ad->id, 'status'=>3]) }} class="btn btn-sm btn-icon ms-1" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="on Hold"><i class='bx bxs-hand'></i></a>
+              <button class="btn badge badge-center bg-label-danger ms-1" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Deny" onclick="$('#warningModal{{ $ad->id }}').modal('show')"><i class="bx bx-x-circle"></i></button>
               @endcan
               <!-- View -->
               <span data-bs-toggle="modal" data-bs-target="#viewModal{{ $ad->id }}" class="ms-1">

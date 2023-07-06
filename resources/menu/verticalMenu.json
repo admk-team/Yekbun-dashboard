@@ -1,7 +1,7 @@
 {
   "menu": [
     {
-      "url":"/analytics",
+      "url": "/analytics",
       "name": "Dashboards",
       "icon": "menu-icon tf-icons bx bxs-dashboard",
       "slug": "dashboard",
@@ -38,7 +38,7 @@
       ]
     },
     {
-       "name": "Music",
+      "name": "Music",
       "icon": "menu-icon tf-icons bx bxs-music",
       "slug": "music",
       "permissions": "music.read,music.create,music.write,music.delete",
@@ -72,12 +72,10 @@
               "slug": "artist.album.index",
               "hasNoPermissions": true
             }
-                 
           ]
         }
       ]
     },
-  
     {
       "name": "Voting",
       "icon": "menu-icon tf-icons fa fa-pie-chart",
@@ -109,92 +107,97 @@
           "name": "dashboard",
           "slug": "dashboard",
           "hasNoPermissions": true,
-          "submenu" : [
+          "submenu": [
             {
-              "url":"/new-reques",
+              "url": "/new-reques",
               "name": "New Requ",
               "slug": "new-reques"
-            },{
-              "url":"/total-shops",
+            },
+            {
+              "url": "/total-shops",
               "name": "Total Shops",
               "slug": "total-shops"
-            },{
-              "url":"/shop-onHold",
+            },
+            {
+              "url": "/shop-onHold",
               "name": "Shop on Hold",
               "slug": "shop-onHold"
-            },{
-              "url":"/order-today",
+            },
+            {
+              "url": "/order-today",
               "name": "Total Order Today",
               "slug": "order-today"
             },
             {
-              "url":"/order-week",
+              "url": "/order-week",
               "name": "Total Order This Week",
               "slug": "order-week"
-            },{
-              "url":"/order-month",
+            },
+            {
+              "url": "/order-month",
               "name": "Total Order This Month",
               "slug": "order-month"
             },
             {
-              "url":"/income-week",
+              "url": "/income-week",
               "name": "Total Income This Week",
               "slug": "income-week"
-            },{
-              "url":"/income-month",
+            },
+            {
+              "url": "/income-month",
               "name": "Total Income This Month",
               "slug": "income-month"
-            }
-            ,{
-              "url":"/best-shop-orders",
+            },
+            {
+              "url": "/best-shop-orders",
               "name": "List Best Shop by orders",
               "slug": "best-shop-orders"
             }
           ]
-                
         },
         {
           "url": "/new-request",
           "name": "New Reques",
           "slug": "new-request",
           "hasNoPermissions": true
-        },{
+        },
+        {
           "url": "/manage-shops",
           "name": "Manage Shops",
           "slug": "manage-shops",
           "hasNoPermissions": true
-        }
-        ,{
+        },
+        {
           "url": "/pricing-plan",
           "name": "Pricing Plan",
           "slug": "pricing-plan",
           "hasNoPermissions": true
-        }
-        ,{
+        },
+        {
           "url": "/payment",
           "name": "Payment",
           "slug": "payment",
           "hasNoPermissions": true
-        }
-        ,{
+        },
+        {
           "url": "/bills",
           "name": "Bills",
           "slug": "bills",
           "hasNoPermissions": true
-        }
-        ,{
+        },
+        {
           "url": "/refund-request",
           "name": "Refund Request",
           "slug": "refund-requet",
           "hasNoPermissions": true
-        }
-        ,{
+        },
+        {
           "url": "/payout-request",
           "name": "Payout Request",
           "slug": "payout-requet",
           "hasNoPermissions": true
-        }
-        ,{
+        },
+        {
           "url": "/income",
           "name": "Income",
           "slug": "income",
@@ -480,33 +483,90 @@
       ]
     },
     {
-      "name": "Advertisement",
-      "icon": "menu-icon tf-icons bx bxs-rocket",
-      "slug": "ads",
+      "url": "service-ads",
+      "icon": "menu-icon tf-icons fa fa-cart-plus",
+      "name": "Service Ads",
+      "slug": "service-ads",
       "permissions": "advertisement.read,advertisement.create,advertisement.write,advertisement.delete",
       "submenu": [
         {
-          "url": "/ads/categories?target=ads&has_sub_categories=1",
-          "name": "Add / Manage Category",
-          "slug": "ads.categories.index",
+          "url": "/ads/requests?type=service",
+          "name": "Manage Request",
+          "slug": "ads/requests?type=service",
           "hasNoPermissions": true
         },
         {
-          "url": "/ads/requests",
-          "name": "Manage New Request",
-          "slug": "ads.requests",
+          "url": "/manage-ads?type=service",
+          "name": "Manage Ads",
+          "slug": "service-ads.ads.manage-ads",
           "hasNoPermissions": true
         },
         {
-          "url": "/ads/accepted",
+          "url": "/ads/accepted?type=service",
           "name": "Accepted Ads",
-          "slug": "ads.accepted",
+          "slug": "service-ads.accepted",
           "hasNoPermissions": true
         },
         {
-          "url": "/ads/denied",
+          "url": "/ads/denied?type=service",
           "name": "Denied Ads",
-          "slug": "ads.denied",
+          "slug": "service-ads..ads.denied",
+          "hasNoPermissions": true
+        },
+        {
+          "url": "/ads/onHold?type=service",
+          "name": "Ads on Hold",
+          "slug": "service-ads.ads.onHold",
+          "hasNoPermissions": true
+        },
+        {
+          "url": "/ads/setting?type=service",
+          "name": "Settings",
+          "slug": "service-ads.ads.setting",
+          "hasNoPermissions": true
+        }
+      ]
+    },
+    {
+      "url": "products-ads",
+      "name": "Products Ads",
+      "icon": "menu-icon tf-icons fa fa-cart-plus",
+      "slug": "product-ads",
+      "submenu": [
+        {
+          "url": "/ads/requests?type=product",
+          "name": "Manage Request",
+          "slug": "product-ads.ads.requests",
+          "hasNoPermissions": true
+        },
+        {
+          "url": "/manage-ads?type=product",
+          "name": "Manage Ads",
+          "slug": "product-ads.manage-ads",
+          "hasNoPermissions": true
+        },
+        {
+          "url": "/ads/accepted?type=product",
+          "name": "Accepted Ads",
+          "slug": "product-ads.accepted",
+          "hasNoPermissions": true
+        },
+        {
+          "url": "/ads/denied?type=product",
+          "name": "Denied Ads",
+          "slug": "product-ads.denied",
+          "hasNoPermissions": true
+        },
+        {
+          "url": "/ads/onHold?type=product",
+          "name": "Ads on Hold",
+          "slug": "product-ads.onHold",
+          "hasNoPermissions": true
+        },
+        {
+          "url": "/ads/setting?type=product",
+          "name": "Settings",
+          "slug": "product-ads.setting",
           "hasNoPermissions": true
         }
       ]
@@ -531,9 +591,9 @@
               "hasNoPermissions": true
             },
             {
-              "url":"/translation",
-              "name":"Translation",
-              "slug":"translation",
+              "url": "/translation",
+              "name": "Translation",
+              "slug": "translation",
               "hasNoPermissions": true
             }
           ]
@@ -632,23 +692,23 @@
         {
           "name": "Chat Setting",
           "slug": "chat-setting",
-          "submenu":[
+          "submenu": [
             {
-              "url":"/smiley",
+              "url": "/smiley",
               "name": "Smileys",
-              "slug":"chat-setting.smileys.index",
+              "slug": "chat-setting.smileys.index",
               "hasNoPermissions": true
             },
             {
-              "url":"/ringtone",
+              "url": "/ringtone",
               "name": "Add Ring Tones",
-              "slug":"chat-setting.ringtone.index",
+              "slug": "chat-setting.ringtone.index",
               "hasNoPermissions": true
             },
             {
-              "url":"/chat-settings",
+              "url": "/chat-settings",
               "name": "Setting",
-              "slug":"chat-setting.chat-settings.index",
+              "slug": "chat-setting.chat-settings.index",
               "hasNoPermissions": true
             }
           ]

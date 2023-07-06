@@ -42,6 +42,10 @@ class MusicCategoryController extends Controller
 
         $model = new MusicCategory();
         $model->name = $request->music_category;
+        if($request->hasFile('icon')){
+            $path = $request->file('icon')->store('images/music_category','public');
+            $model->icon = $path;
+        }
         if($model->save()){
             return redirect()->route('music-category.index')->with('success', 'Music Category Has been inserted');
         }else{
@@ -81,8 +85,20 @@ class MusicCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+   
         $music = MusicCategory::findorFail($id);
          $music->name = $request->music_category;
+         if($request->hasFile('icon')){
+            if(isset($music->icon)){
+                $icon_path = public_path('storage/'.$music->icon);
+                if(file_exists($icon_path)){
+                    unlink($icon_path);
+                }
+                $path = $request->file('icon')->store('images/music_category','public');
+                $music->icon = $path;
+            }
+         }
+
          if($music->update()){
             return redirect()->route('music-category.index')->with('success', 'Music Category Has been Updated');
         }else{

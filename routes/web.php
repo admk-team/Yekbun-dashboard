@@ -73,7 +73,8 @@ use App\Http\Controllers\Admin\AnalyticsController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\TextController;
-use App\Http\Controllers\Api\FeedController;
+use App\Http\Controllers\Admin\ManageAdController;
+
 
 
 /*
@@ -352,9 +353,13 @@ Route::any('mobile-setting', [MobileSettingsController::class, 'save'])->name('m
     Route::get('/ads/requests', [AdController::class, 'requests'])->name('ads.requests');
     Route::get('/ads/accepted', [AdController::class, 'accepted'])->name('ads.accepted');
     Route::get('/ads/denied', [AdController::class, 'denied'])->name('ads.denied');
+    Route::get('/ads/onHold', [AdController::class, 'onHold'])->name('ads.onHold');
+    Route::get('/ads/setting' , [AdController::class , 'setting'])->name('ads.setting');
     Route::resource('/ads' , AdController::class);
     Route::get('/ads-status/{id}/{status}' , [AdController::class, 'status'])->name('ads-status');
 
+    // Manage Ads 
+    Route::resource('/manage-ads' , ManageAdController::class);
     // Report Page
     Route::get('/user-report' , $controller_path . '\report\Report@user_report')->name('user-report');
     Route::get('/user-warning' , $controller_path . '\report\Report@user_warning')->name('user-warning');

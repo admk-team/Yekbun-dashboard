@@ -45,12 +45,18 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('music-category.store') }}">
+                <form method="POST" action="{{ route('music-category.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col mb-3">
                             <label for="nameLarge" class="form-label">Name</label>
                             <input type="text" id="nameLarge" class="form-control" placeholder="Enter Name" name="music_category">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="icon" class="form-label">Icon</label>
+                            <input type="file" id="icon" class="form-control" name="icon"/>
                         </div>
                     </div>
             </div>
@@ -74,6 +80,7 @@
                 <tr>
                     <th>#</th>
                     <th>Category</th>
+                    {{-- <th>Icon</th> --}}
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -83,6 +90,7 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $music->name ?? '' }}</td>
+                    {{-- <td><img src={{ asset('storage/'.$music->icon) }} class="img-fluid rounded"></td> --}}
                     {{-- <td>
                         <div class="dropdown d-inline-block show">
                             @php
@@ -137,7 +145,7 @@
                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                   </div>
                                   <div class="modal-body">
-                                      <form method="POST" action="{{ route('music-category.update',$music->id) }}">
+                                      <form method="POST" action="{{ route('music-category.update',$music->id) }}" enctype="multipart/form-data">
                                           @csrf
                                           @method('put')
                                           <div class="row">
@@ -146,6 +154,12 @@
                                                   <input type="text" id="nameLarge" class="form-control" placeholder="Enter Name" name="music_category" value={{ $music->name ?? '' }}>
                                               </div>
                                           </div>
+                                          <div class="row">
+                                            <div class="col mb-3">
+                                                <label for="nameLarge" class="form-label">Icon</label>
+                                                <input type="file" id="icon" class="form-control" placeholder="Enter Name" name="icon" />
+                                            </div>
+                                        </div>
                                   </div>
                                   <div class="modal-footer">
                                       <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
