@@ -31,7 +31,7 @@
                                 <label class="form-label" for="fullname">Banner upload</label>
                                 <input type="file" id="fullname" class="form-control" name="image">
                             </div>
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 <label class="form-label" for="fullname">Select Category</label>
                                 <select name="category_id" class="form-select">
                                     <option selected>Choose a Category</option>
@@ -39,7 +39,7 @@
                                         <option value="{{ $vote->id }}">{{ $vote->name ?? '' }}</option>
                                     @endforeach
                                 </select>
-                            </div>
+                            </div> --}}
                             <div class="col-md-12">
                                 <label class="form-label" for="fullname">Description</label>
                                 <textarea class="form-control" name="description" style="height:150px;" id="inputDescription"></textarea>
@@ -47,7 +47,7 @@
                             <div class="col-md-12 mt-5">
                                 <!-- Form Repeater -->
                                 <div class="form-repeater">
-                                    <div data-repeater-list="group-a">
+                                    {{-- <div data-repeater-list="group-a">
                                         <div data-repeater-item>
                                             <div class="row">
                                                 <div class="col-lg-9 col-12 mb-0">
@@ -62,13 +62,13 @@
                                             </div>
                                             <hr>
                                         </div>
-                                    </div>
-                                    <div class="mb-0">
+                                    </div> --}}
+                                    {{-- <div class="mb-0">
                                         <button type="button" class="btn btn-primary" data-repeater-create>
                                             <i class="bx bx-plus me-1"></i>
                                             <span class="align-middle">Add More Fields</span>
                                         </button>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <!-- /Form Repeater -->
                             </div>

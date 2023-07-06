@@ -434,7 +434,7 @@ Route::get('/music_category/{id}/{status}' , [MusicCategoryController::class, 's
 //artist
 Route::resource('/artist', ArtistController::class);
 Route::get('/artists/{id}/{status}' , [ArtistController::class, 'status'])->name('artists-status');
-
+Route::get('get/city/{id}' , [ArtistController::class , 'get_city']);
 // upload video clip 
 Route::resource('/upload_video', UplaodVideoClipController::class);
 Route::get('/upload_video/{id}/{status}' , [UplaodVideoClipController::class, 'status'])->name('upload-status');

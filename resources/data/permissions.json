@@ -470,5 +470,27 @@
                 "label": "Delete"
             }
         ]
+    },
+    {
+        "name": "artist",
+        "label": "Artist",
+        "children": [
+            {
+                "name": "read",
+                "label": "Read"
+            },
+            {
+                "name": "write",
+                "label": "Write"
+            },
+            {
+                "name": "create",
+                "label": "Create"
+            },
+            {
+                "name": "delete",
+                "label": "Delete"
+            }
+        ]
     }
 ]

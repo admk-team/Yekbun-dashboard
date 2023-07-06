@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\Artist;
+use App\Models\Region;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ArtistController extends Controller
 {
@@ -15,8 +17,8 @@ class ArtistController extends Controller
     public function index()
     {
         $artist  = Artist::get();
-        
-        return view('content.artist.index' , compact('artist'));
+        $provinces = Region::get();
+        return view('content.artist.index' , compact('artist' , 'provinces'));
     }
 
     /**
@@ -37,11 +39,11 @@ class ArtistController extends Controller
      */
     public function store(Request $request)
     {
+  
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
             'city' => 'required',
-            'dob' => 'required',
             'gender' => 'required',
             'image' => 'required'
           ]); 
@@ -51,9 +53,11 @@ class ArtistController extends Controller
       $artist->first_name = $request->first_name;
       $artist->last_name = $request->last_name;
       $artist->city = $request->city;
-      $artist->dob= $request->dob;
       $artist->gender = $request->gender;
       $artist->status = $request->status;
+      $artist->city_id = $request->city;
+      $artist->province_id= $request->province;
+
       if($request->hasFile('image')){
         $path  = $request->file('image')->store('/images/artist/' , 'public');
         $artist->image = $path;
@@ -159,5 +163,10 @@ class ArtistController extends Controller
             return redirect()->route('artist.index')->with('error', 'Status is not changed');
 
         }
+    }
+
+    public function get_city($id){
+        $province = Region::findorFail($id);
+        return $city = City::where('region_id',$province->id)->get();
     }
 }

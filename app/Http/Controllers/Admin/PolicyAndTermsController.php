@@ -139,7 +139,10 @@ class PolicyAndTermsController extends Controller
      */
     public function destroy($id)
     {
-        //
+         $policy = PolicyAndTerm::find($id);
+         if($policy->delete($policy->id)){
+            return redirect()->back();
+         }
     }
 
     public function saveFileds(Request $request){

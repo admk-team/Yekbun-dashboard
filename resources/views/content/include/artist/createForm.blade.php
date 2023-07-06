@@ -19,13 +19,20 @@
                     <label class="form-label" for="fullname">Last Name</label>
                     <input type="text" id="fullname" class="form-control" placeholder="lorem" name="last_name">
                 </div>
-                <div class="col-md-12">
-                    <label class="form-label" for="fullname">City</label>
-                    <input type="text" id="fullname" class="form-control" placeholder="lorem" name="city">
+                <div class="col-md-4">
+                    <label class="form-label" for="fullname">Province</label>
+                    <select name="province" class="form-control province_id" id="province_id" data-url={{ url('get/city') }} value="{{ old('province_id') }}">
+                        <option value="">Select province</option>
+                        @foreach($provinces as $province)
+                        <option value="{{ $province->id }}">{{ $province->name ?? '' }}</option>
+                        @endforeach
+                    </select>
                 </div>
-                <div class="col-md-12">
-                    <label class="form-label" for="fullname">Dob</label>
-                    <input type="date" id="fullname" class="form-control" name="dob">
+                <div class="col-md-8">
+                    <label class="form-label" for="fullname">City</label>
+                    <select name="city" class="form-control city_id" id="city_id">
+                        <option value="">Select province</option>
+                    </select>
                 </div>
               
                 <div class="col-md-12">

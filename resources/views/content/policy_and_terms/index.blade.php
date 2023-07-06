@@ -32,7 +32,9 @@
         </h4>
     </div>
     <div>
+        @can('policy_terms.create')
         <button class="btn btn-primary" data-bs-target="#addnewtab" data-bs-toggle="modal">Add New</button>
+        @endcan
     </div>
 </div>
 
@@ -69,8 +71,16 @@
         <div class="col-md-2">
             <ul class="nav nav-pills me-3" role="tablist">
                 @foreach($data as $section)
-                    <li class="nav-item">
+                    <li class="nav-item d-flex align-items-center">
                         <button type="button" class="nav-link {{ $loop->iteration == 1 && !old('tab') ? 'active' : ''  }} {{ old('tab') === "tab{$section->id}"  ? 'active' : '' }}" role="tab" data-bs-toggle="tab" data-bs-target="#tab{{ $section->id }}" aria-controls="tab{{ $section->id }}" aria-selected="true"><i class='bx bx-file'></i>{{ $section->name }}</button>
+
+                        <form action="{{ route('policy_and_terms.destroy' ,$section->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
+                            @method('DELETE')
+                            @csrf
+                            @can('policy_terms.delete')
+                            <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1 text-danger" ></i></button>
+                            @endcan
+                        </form>
                     </li>
                     @section('tab-content')
                         @parent

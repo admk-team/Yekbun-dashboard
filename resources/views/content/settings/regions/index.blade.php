@@ -58,8 +58,8 @@
           @forelse($regions as $region)
           <tr>
             <td>{{ $region->id }}</td>
-            <td>{{ $region->name }}</td>
             <td>{{ $region->country? $region->country->name: '' }}</td>
+            <td>{{ $region->name }}</td>
             <td>{{ $region->users->count() }}</td>
             <td>
               <div>

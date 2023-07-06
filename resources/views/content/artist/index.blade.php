@@ -30,7 +30,9 @@
         </h4>
     </div>
     <div class="">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createartistModal">Add Artist</button>
+       @can('artist.create')
+       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createartistModal">Add Artist</button>
+       @endcan
     </div>
 </div>
 
@@ -40,7 +42,7 @@
     <div class="table-responsive text-nowrap">
         <table class="table">
             <thead>
-                <tr>
+                <tr>p
                     <th>#</th>
                     <th>Artist Image</th>
                     <th>Actions</th>
@@ -51,47 +53,53 @@
                 @foreach($artist as $artists)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td><div class="d-flex justify-content-start align-items-center user-name">
-                        <div class="avatar-wrapper">
-                          <div class="avatar avatar-sm me-3"><img src="{{asset('storage/'.$artists->image )}}" alt="Avatar" class="rounded-circle"></div>
+                    <td>
+                        <div class="d-flex justify-content-start align-items-center user-name">
+                            <div class="avatar-wrapper">
+                                <div class="avatar avatar-sm me-3"><img src="{{asset('storage/'.$artists->image )}}" alt="Avatar" class="rounded-circle"></div>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a href="javascript:void(0)" class="text-body text-truncate">
+                                    <span class="fw-semibold">{{ $artists->first_name ?? '' }}</span>
+                                </a>
+                                <small class="text-muted">{{ $artists->last_name ?? '' }}</small>
+                            </div>
                         </div>
-                        <div class="d-flex flex-column">
-                          <a href="javascript:void(0)" class="text-body text-truncate">
-                            <span class="fw-semibold">{{ $artists->first_name ?? '' }}</span>
-                          </a>
-                          <small class="text-muted">{{ $artists->last_name ?? '' }}</small>
+                    </td>
+
+
+
+                    <td>
+                        <div class="d-flex justify-content-start align-items-center">
+                            <span data-bs-toggle="modal" data-bs-target="#editartistModal{{ $artists->id }}">
+                                @can('artist.write')
+                                <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button></span>
+                                @endcan
+                            <form action="{{ route('artist.destroy', $artists->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
+                                @method('DELETE')
+                                @csrf
+                                @can('artist.delete')
+                                <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                                @endcan
+                            </form>
+
+                            <x-modal id="editartistModal{{ $artists->id }}" title="Edit Artist" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $artists->id }}" size="md">
+                                @include('content.include.artist.editForm')
+                            </x-modal>
                         </div>
-                      </div></td>
-         
-           
-
-    <td>
-        <div class="d-flex justify-content-start align-items-center">
-            <span data-bs-toggle="modal" data-bs-target="#editartistModal{{ $artists->id }}">
-                <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button></span>
-            <form action="{{ route('artist.destroy', $artists->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
-                @method('DELETE')
-                @csrf
-                <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
-            </form>
-
-            <x-modal id="editartistModal{{ $artists->id }}" title="Edit Artist" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $artists->id }}" size="md">
-                @include('content.include.artist.editForm')
-            </x-modal>
-        </div>
-    </td>
-    </tr>
-    @endforeach
-    @else
-    <tr>
-        <td class="text-center" colspan="8">No Artist found.</td>
-    </tr>
-    @endif
+                    </td>
+                </tr>
+                @endforeach
+                @else
+                <tr>
+                    <td class="text-center" colspan="8">No Artist found.</td>
+                </tr>
+                @endif
 
 
-    </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script>
@@ -126,6 +134,28 @@
             }
         });
     }
+
+</script>
+
+<script>
+    $('.province_id').change(function() {
+        let url = $(this).data('url');
+        let id = $(this).val();
+        console.log(url);
+        console.log(id);
+        $.ajax({
+            type: 'get'
+            , url: url + '/' + id
+            , success: function(response) {
+                $('#city_id').html('')
+                $.each(response, function(index, value) {
+                    console.log(index, value);
+                    $('#city_id').append('<option value="' + value.id + '">' + value.name + '</option>')
+                })
+            }
+        })
+
+    });
 
 </script>
 @endsection

@@ -28,14 +28,11 @@
                     <label class="form-label" for="fullname">Last Name</label>
                     <input type="text" id="fullname" class="form-control" placeholder="lorem" name="last_name" value="{{ $artists->last_name ?? '' }}">
                 </div>
-                <div class="col-md-12">
+                {{-- <div class="col-md-12">
                     <label class="form-label" for="fullname">City</label>
                     <input type="text" id="fullname" class="form-control" placeholder="lorem" name="city" value="{{ $artists->city ?? '' }}">
                 </div>
-                <div class="col-md-12">
-                    <label class="form-label" for="fullname">Dob</label>
-                    <input type="date" id="fullname" class="form-control" name="dob" value="{{ $artists->dob ?? '' }}">
-                </div>
+                --}}
               
                 <div class="col-md-12">
                     <label class="form-label" for="fullname">Image</label>

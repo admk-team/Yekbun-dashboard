@@ -62,11 +62,15 @@ class AuthController extends Controller
       ]);
     }
 
+    if($request->hasFile('image')){
+      $path = $request->file('image')->store('images/user','public');
+    }
+
     $user = User::create([
       'username' => $request['username'],
       'firstName' => $request['firstName'],
       'lastName' => $request['lastName'],
-      'image' => $request['image'] ?? '',
+      'image' => $path ?? '',
       'name' => $request['firstName'] . ' ' . $request['lastName'],
       'gender' => $request['gender'],
       'dob' => $request['dob'],

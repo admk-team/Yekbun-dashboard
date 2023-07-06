@@ -85,7 +85,10 @@
           <tr>
             <th>#</th>
             <th>Title</th>
-            <th>Category </th>
+            <th>Voted Total </th>
+            <th>Total Likes </th>
+            <th>Total Dislikes </th>
+            <th>Total Natural </th>
             <th>Option</th>
           </tr>
         </thead>

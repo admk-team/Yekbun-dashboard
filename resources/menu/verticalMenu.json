@@ -58,7 +58,7 @@
         {
           "name": "Artists",
           "slug": "artist",
-          "hasNoPermissions": true,
+          "permissions": "artist.read,artist.create,artist.write,artist.delete",
           "submenu": [
             {
               "url": "/artist",
@@ -108,42 +108,96 @@
           "url": "/dashboard",
           "name": "dashboard",
           "slug": "dashboard",
-          "hasNoPermissions": true
+          "hasNoPermissions": true,
+          "submenu" : [
+            {
+              "url":"/new-reques",
+              "name": "New Requ",
+              "slug": "new-reques"
+            },{
+              "url":"/total-shops",
+              "name": "Total Shops",
+              "slug": "total-shops"
+            },{
+              "url":"/shop-onHold",
+              "name": "Shop on Hold",
+              "slug": "shop-onHold"
+            },{
+              "url":"/order-today",
+              "name": "Total Order Today",
+              "slug": "order-today"
+            },
+            {
+              "url":"/order-week",
+              "name": "Total Order This Week",
+              "slug": "order-week"
+            },{
+              "url":"/order-month",
+              "name": "Total Order This Month",
+              "slug": "order-month"
+            },
+            {
+              "url":"/income-week",
+              "name": "Total Income This Week",
+              "slug": "income-week"
+            },{
+              "url":"/income-month",
+              "name": "Total Income This Month",
+              "slug": "income-month"
+            }
+            ,{
+              "url":"/best-shop-orders",
+              "name": "List Best Shop by orders",
+              "slug": "best-shop-orders"
+            }
+          ]
+                
         },
         {
-          "url": "/online-category",
-          "name": "Category",
-          "slug": "category",
+          "url": "/new-request",
+          "name": "New Reques",
+          "slug": "new-request",
           "hasNoPermissions": true
-        },
-        {
-          "url": "/add/items",
-          "name": "Add item",
-          "slug": "item",
+        },{
+          "url": "/manage-shops",
+          "name": "Manage Shops",
+          "slug": "manage-shops",
           "hasNoPermissions": true
-        },
-        {
-          "url": "/Manage/items",
-          "name": "Manage item",
-          "slug": "item",
+        }
+        ,{
+          "url": "/pricing-plan",
+          "name": "Pricing Plan",
+          "slug": "pricing-plan",
           "hasNoPermissions": true
-        },
-        {
-          "url": "/orders",
-          "name": "Order",
-          "slug": "order",
+        }
+        ,{
+          "url": "/payment",
+          "name": "Payment",
+          "slug": "payment",
           "hasNoPermissions": true
-        },
-        {
-          "url": "/cancels",
-          "name": "cancels",
-          "slug": "cancels",
+        }
+        ,{
+          "url": "/bills",
+          "name": "Bills",
+          "slug": "bills",
           "hasNoPermissions": true
-        },
-        {
-          "url": "/in-shipping",
-          "name": "In-Shipping",
-          "slug": "In-shipings",
+        }
+        ,{
+          "url": "/refund-request",
+          "name": "Refund Request",
+          "slug": "refund-requet",
+          "hasNoPermissions": true
+        }
+        ,{
+          "url": "/payout-request",
+          "name": "Payout Request",
+          "slug": "payout-requet",
+          "hasNoPermissions": true
+        }
+        ,{
+          "url": "/income",
+          "name": "Income",
+          "slug": "income",
           "hasNoPermissions": true
         }
       ]
