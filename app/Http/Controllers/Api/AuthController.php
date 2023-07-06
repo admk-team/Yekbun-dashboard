@@ -17,9 +17,12 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Validator;
+use App\Traits\UploadMedia;
 
 class AuthController extends Controller
 {
+  use UploadMedia;
+
   public function login(Request $request)
   {
     $credentials = $request->only('email', 'password');
@@ -41,6 +44,7 @@ class AuthController extends Controller
 
   public function signup(Request $request)
   {
+    return 'working';
     $validatedData = $request->validate([
       'username' => 'required|max:100',
       'firstName' => 'required|max:100',
@@ -62,15 +66,14 @@ class AuthController extends Controller
       ]);
     }
 
-    if($request->hasFile('image')){
-      $path = $request->file('image')->store('images/user','public');
-    }
+    if ($request->hasFile('image'))
+      $img_path = UploadMedia::index($request->file('image'));
 
     $user = User::create([
       'username' => $request['username'],
       'firstName' => $request['firstName'],
       'lastName' => $request['lastName'],
-      'image' => $path ?? '',
+      'image' => $img_path ?? '',
       'name' => $request['firstName'] . ' ' . $request['lastName'],
       'gender' => $request['gender'],
       'dob' => $request['dob'],
