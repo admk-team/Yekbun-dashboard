@@ -12,7 +12,7 @@
 
   .btn-reply {
     border: 0 !important;
-    box-shadow: none !important;
+    box-shadow: none !important;             
     transition: all 0.2s ease-in-out;
   }
 
@@ -123,7 +123,7 @@
     <div class="d-none d-md-block col-md-3">
       <div class="card">
         <div class="card-body p-0 border-none">
-          <div class="list-group" role="tablist">
+          <div class="list-group nav nav-tab" role="tablist">
             <a class="list-group-item list-group-item-action" href="?show=all">
               All Feeds<br>
               <small class="text-muted">All User Feeds here</small>
@@ -549,6 +549,8 @@
       <p class="text-center"><b>No posts found.</b></p>
       @endforelse
     </div>
+
+   
     <div class="d-none d-md-block col-md-3"></div>
   </div>
 
