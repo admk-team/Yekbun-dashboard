@@ -391,7 +391,7 @@
         },
         {
           "url": "/events",
-          "name": "Add / Manage Event",
+          "name": "Manage Event",
           "slug": "events.index",
           "hasNoPermissions": true
         },
