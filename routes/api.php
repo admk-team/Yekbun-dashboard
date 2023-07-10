@@ -136,3 +136,4 @@ Route::get('privacy', [PrivacyAndPolicyController::class , 'privacy'])->name('pr
 
 // Feed Controller 
 Route::get('share-feed' , [FeedController::class , 'shareWidget'])->name('share-feed');
+Route::post('/add-feed' , [FeedController::class , 'add_feed'])->name('add-feed');
