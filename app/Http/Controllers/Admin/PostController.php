@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\BackgroundFeed;
 
 class PostController extends Controller
 {
@@ -43,9 +44,14 @@ class PostController extends Controller
             case "admin":
                 $posts = Post::where("user_id", null)->orderBy("updated_at", "desc")->get();
                 break;
+            case "background":
+                $background_post = BackgroundFeed::get();
+                $posts =[];
+                break;
         }
 
-        $allPosts = $posts;
+        // if($show == "all" || $show == "fanpage" || $show == "reported" || $show="admin")
+        $allPosts = $posts ;
         if ($show !== "all")
             $allPosts = Post::orderBy("updated_at", "desc")->get();
         
@@ -57,7 +63,9 @@ class PostController extends Controller
             return $post->user_id === null;
         })->count();
 
-        return view('content.posts.index', compact("posts", "totalPosts", "totalUserPosts", "totalAdminPosts"));
+        $background_post = BackgroundFeed::get();
+
+        return view('content.posts.index', compact("posts", "totalPosts", "totalUserPosts", "totalAdminPosts" , "background_post" , "show"));
     }
 
     /**
