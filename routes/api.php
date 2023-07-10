@@ -43,6 +43,7 @@ use App\Http\Controllers\Api\PrivacyAndPolicyController;
 use App\Http\Controllers\Api\TranslationController;
 use App\Http\Controllers\Api\AccountSettingController;
 use App\Http\Controllers\Api\ContactUsController;
+use App\Http\Controllers\Api\FeedBackgroundImageController;
 use App\Http\Controllers\Api\UserSettingController;
 use App\Http\Controllers\Api\FeedController;
 use App\Http\Controllers\Api\RingtoneController;
@@ -170,3 +171,8 @@ Route::get('/ringtone', [RingtoneController::class , 'get'])->name('ringtone');
 
 Route::post('/upload-media', [UploadMediaController::class, 'index']);
 Route::post('/add-feed' , [FeedController::class , 'add_feed'])->name('add-feed');
+
+
+// Feed image backgroind
+Route::post('/upload-background' , [FeedBackgroundImageController::class , 'upload'])->name('upload-background');
+Route::get('/get-background' , [FeedBackgroundImageController::class , 'get'])->name('get-background');

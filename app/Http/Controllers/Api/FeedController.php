@@ -25,6 +25,7 @@ class FeedController extends Controller
     public function add_feed(Request $request){
            
         $feed = new Feed();
+        $feed->title = $request->title;
         $feed->description = $request->description;
         $feed->type = $request->type;
         $feed->status = $request->status;

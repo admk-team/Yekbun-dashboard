@@ -99,8 +99,8 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, $id)
     {
-        $validated = $request->validated();
 
+        $validated = $request->validated();
         $validated['ticket_sale'] = filter_var($validated['ticket_sale']?? true, FILTER_VALIDATE_BOOLEAN);
         $validated['online_sale'] = filter_var($validated['online_sale']?? true, FILTER_VALIDATE_BOOLEAN);
 
@@ -118,6 +118,7 @@ class EventController extends Controller
 
         $event = Event::find($id);
         $event->fill($validated);
+        $event->reason = $request->reason;
         $event->save();
 
         return back()->with("success", "Event successfully updated.");
