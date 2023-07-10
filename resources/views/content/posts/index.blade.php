@@ -33,9 +33,9 @@
     {{-- <a href="{{ route('posts.create') }}">
       <button class="btn btn-primary">Add Post</button>
     </a>--}}
-    @can('posts.create')
+    {{-- @can('posts.create')
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Add Post</button>
-    @endcan
+    @endcan --}}
 </div>
 </div>
 
@@ -140,11 +140,16 @@
               Admin Feeds<br>
               <small class="text-muted">All Admin Feeds</small>
             </a>
+            <a class="list-group-item list-group-item-action" href="?show=background">
+              Post Background<br>
+              <small class="text-muted">All Post Background</small>
+            </a>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-12 col-md-6">
+    <div class="col-12 {{ $show == "background" ? "col-md-9" : "col-md-6" }}">
+      @if($show != "background")
       @forelse($posts as $post)
       @php
       $reportedComments = $post->comments()->whereExists(function ($query) {
@@ -548,13 +553,17 @@
       @empty
       <p class="text-center"><b>No posts found.</b></p>
       @endforelse
+      @endif
+     @if($show == "background")
+       @include('content.include.FeedBackground.backgroundFeed')
+     @endif
     </div>
 
    
     <div class="d-none d-md-block col-md-3"></div>
   </div>
 
-  <x-modal
+  {{-- <x-modal
     id="createModal"
     title="Add Post" 
     saveBtnText="Create"
@@ -563,5 +572,17 @@
     :show="old('showCreateFormModal')? true: false"
   >
     @include('content.posts.includes.create_form')
-  </x-modal>
+  </x-modal> --}}
+  {{-- Create Backgournd  model --}}
+<x-modal 
+    id="createBackgroundModel" 
+    title="Create Background"
+    saveBtnText="Create" 
+    saveBtnType="submit"
+    saveBtnForm="createForm" 
+    size="md">
+ @include('content.include.FeedBackground.createForm')
+</x-modal>
+
+
 @endsection
