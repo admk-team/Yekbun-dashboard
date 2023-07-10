@@ -169,3 +169,4 @@ Route::get('share-feed' , [FeedController::class , 'shareWidget'])->name('share-
 Route::get('/ringtone', [RingtoneController::class , 'get'])->name('ringtone');
 
 Route::post('/upload-media', [UploadMediaController::class, 'index']);
+Route::post('/add-feed' , [FeedController::class , 'add_feed'])->name('add-feed');
