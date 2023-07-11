@@ -92,7 +92,25 @@ class FanPageTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $service = FanPageType::find($id);
+        $service->name = $request->title;
+        if($request->hasFile('icon')){
+            if(isset($service->icon)){
+                $icon_path = public_path('storage/'.$service->icon);
+                if(file_exists($icon_path)){
+                    unlink($icon_path);
+                }
+                $path = UploadMedia::index($request->file('icon'));
+                $service->icon  = $path;
+            }
+        }
+
+        $service->types = json_encode($request->option);
+        if($service->update()){
+            return redirect()->back()->with('success' , 'Your page has been updated.');
+        }else{
+            return redirect()->back()->with('error', 'Your page could not be updated.');
+        }
     }
 
     /**
@@ -103,6 +121,18 @@ class FanPageTypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $service = FanPageType::find($id);
+        if($service->icon){
+            $public_path = public_path('storage/'.$service->icon);
+            if(file_exists($public_path)){
+                unlink($public_path);
+            }
+        }
+
+        if($service->destroy($id)){
+            return redirect()->back()->with('success', 'Your page has been deleted.');
+        }else{
+            return redirect()->back()->with('error', 'Your page has not been deleted.');
+        }
     }
 }

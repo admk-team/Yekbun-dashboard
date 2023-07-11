@@ -30,7 +30,7 @@
                     <label class="col-md-1 col-form-label">Demostration</label>
                     <div class="col-md-11 d-flex align-items-center">
                         <div class="form-check form-switch">
-                            <input class="form-check-input" onclick="confirmSettingUpdate(event)" type="checkbox" name="option[]" value="demostrationl">
+                            <input class="form-check-input" onclick="confirmSettingUpdate(event)" type="checkbox" name="option[]" value="demostration">
                         </div>
                     </div>
                 </div>
