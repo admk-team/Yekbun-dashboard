@@ -19,8 +19,8 @@ class UploadMediaController extends Controller
         $path = UploadMedia::index($request->file('file'));
 
         if ($path == "")
-            return response()->json(['succcess' => false, 'message' => 'Something went wrong.']);
+            return response()->json(['success' => false, 'message' => 'Something went wrong.']);
 
-        return response()->json(['succcess' => true, 'data' => $path, 'message' => 'File successfully uploaded.']);
+        return response()->json(['success' => true, 'data' => $path, 'message' => 'File successfully uploaded.']);
     }
 }

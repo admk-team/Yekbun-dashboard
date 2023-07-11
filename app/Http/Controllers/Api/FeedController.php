@@ -22,10 +22,10 @@ class FeedController extends Controller
         return view('content.dummy' , compact('shareComponent'));
     }
 
-    public function add_feed(Request $request){
-           
+    public function add_feed(Request $request)
+    {
         $feed = new Feed();
-        $feed->title = $request->title;
+        $feed->title = $request->title ?? '';
         $feed->description = $request->description;
         $feed->type = $request->type;
         $feed->status = $request->status;
