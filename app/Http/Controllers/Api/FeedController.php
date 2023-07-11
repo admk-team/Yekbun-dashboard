@@ -30,8 +30,12 @@ class FeedController extends Controller
         $feed->description = $request->description;
         $feed->type = $request->type;
         $feed->status = $request->status;
-        $feed->user_id = $request->userId ?? '';
-        $feed->fanpage_id = $request->fanpageId ?? '';
+
+        if ($request->has('userId'))
+            $feed->user_id = $request->userId;
+
+        if ($request->has('fanpageId'))
+            $feed->fanpage_id = $request->fanpageId;
 
         $feed->media = json_encode($request->media);
 
