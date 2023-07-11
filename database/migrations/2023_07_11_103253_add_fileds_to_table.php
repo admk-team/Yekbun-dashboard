@@ -14,8 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->integer('user_id')->nullable();
-            $table->integer('fanpage_id')->nullable();
+            if (!Schema::hasColumn('posts', 'user_id')) {
+                $table->integer('user_id')->nullable();
+            }
+
+            if (!Schema::hasColumn('posts', 'fanpage_id')) {
+                $table->integer('fanpage_id')->nullable();
+            }
         });
     }
 
@@ -27,8 +32,13 @@ return new class extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('user_id');
-            $table->dropColumn('fanpage_id');
+            if (Schema::hasColumn('posts', 'user_id')) {
+                $table->dropColumn('user_id');
+            }
+
+            if (Schema::hasColumn('posts', 'fanpage_id')) {
+                $table->dropColumn('fanpage_id');
+            }
         });
     }
 };
