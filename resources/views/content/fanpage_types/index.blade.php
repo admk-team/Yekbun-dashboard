@@ -53,7 +53,7 @@
                     <td>{{ $type->id }}</td>
                     <td>{{ $type->name ?? '' }}</td>
                     <td>
-                        <img src="{{$type->emoji }}" width="100" height="100" class="rounded" style="object-fit: cover">
+                        <img src="{{$type->icon }}" width="100" height="100" class="rounded" style="object-fit: cover">
                     </td>
                     <td>
                         <div class="dropdown d-inline-block">
