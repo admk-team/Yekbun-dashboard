@@ -171,6 +171,7 @@ Route::get('/ringtone', [RingtoneController::class , 'get'])->name('ringtone');
 
 Route::post('/upload-media', [UploadMediaController::class, 'index']);
 Route::post('/add-feed' , [FeedController::class , 'add_feed'])->name('add-feed');
+Route::get('/get-feed/{id}' , [FeedController::class , 'get_feed'])->name('get-feed');
 
 
 // Feed image backgroind

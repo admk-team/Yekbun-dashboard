@@ -48,4 +48,9 @@ class FeedController extends Controller
             return response()->json(['success' => false, 'data' => 'Failed to add feed.']);
         }
     }
+
+    public function get_feed($user_id){
+        $feed = Feed::where('user_id', $user_id)->get();
+        return response()->json(['success' => true, 'data' => $feed]);
+    }
 }
