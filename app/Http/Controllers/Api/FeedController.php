@@ -40,9 +40,9 @@ class FeedController extends Controller
         $feed->media = $request->has('media') ? json_encode($request->media) : '{}';
 
         if ($feed->save()) {
-            return response()->json(['success' => true, 'data' => $feed]);
+            return response()->json(['success' => true, 'message' => 'Feed successfully added.']);
         } else {
-            return response()->json(['success' => false, 'data' => $feed]);
+            return response()->json(['success' => false, 'data' => 'Failed to add feed.']);
         }
     }
 }
