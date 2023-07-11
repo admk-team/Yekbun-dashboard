@@ -75,6 +75,7 @@ use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\TextController;
 use App\Http\Controllers\Admin\ManageAdController;
 use App\Http\Controllers\Admin\BackgroundFeedController;
+use App\Http\Controllers\Admin\AnimationEmojiController;
 
 
 
@@ -544,3 +545,5 @@ Route::get('share-feed' , [FeedController::class , 'shareWidget'])->name('share-
 
 // Backgrond Feed Cotnroller 
 Route::resource('/backgrond-feed' , BackgroundFeedController::class);
+// Animated Emoji
+Route::resource('/animated-emoji' , AnimationEmojiController::class);

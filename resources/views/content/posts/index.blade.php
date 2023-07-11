@@ -144,12 +144,16 @@
               Post Background<br>
               <small class="text-muted">All Post Background</small>
             </a>
+            <a class="list-group-item list-group-item-action" href="?show=animated">
+              Animated Emoji<br>
+              <small class="text-muted">All Animated Emoji</small>
+            </a>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-12 {{ $show == "background" ? "col-md-9" : "col-md-6" }}">
-      @if($show != "background")
+    <div class="col-12 {{ $show == "background" || $show == "animated" ? "col-md-9" : "col-md-6" }} ">
+      @if($show != "background" || $show != "animated")
       @forelse($posts as $post)
       @php
       $reportedComments = $post->comments()->whereExists(function ($query) {
@@ -557,6 +561,9 @@
      @if($show == "background")
        @include('content.include.FeedBackground.backgroundFeed')
      @endif
+     @if($show == "animated")
+       @include('content.include.AnimatedEmoji.animatedFeed')
+     @endif
     </div>
 
    
@@ -584,5 +591,14 @@
  @include('content.include.FeedBackground.createForm')
 </x-modal>
 
+<x-modal 
+    id="createAnimatedModel" 
+    title="Create Emoji"
+    saveBtnText="Create" 
+    saveBtnType="submit"
+    saveBtnForm="createForm" 
+    size="md">
+ @include('content.include.AnimatedEmoji.createForm')
+</x-modal>
 
 @endsection

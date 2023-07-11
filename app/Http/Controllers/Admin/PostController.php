@@ -6,12 +6,13 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\FlaggedUser;
 use Illuminate\Http\Request;
+use App\Models\AnimationEmoji;
+use App\Models\BackgroundFeed;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdatePostRequest;
-use App\Models\BackgroundFeed;
 
 class PostController extends Controller
 {
@@ -47,10 +48,12 @@ class PostController extends Controller
             case "background":
                 $background_post = BackgroundFeed::get();
                 $posts =[];
-                break;
+                break; 
+            case "animated" :
+                $animated_emoji = AnimationEmoji::get();
+                $posts =[];
+                
         }
-
-        // if($show == "all" || $show == "fanpage" || $show == "reported" || $show="admin")
         $allPosts = $posts ;
         if ($show !== "all")
             $allPosts = Post::orderBy("updated_at", "desc")->get();
@@ -64,8 +67,9 @@ class PostController extends Controller
         })->count();
 
         $background_post = BackgroundFeed::get();
+        $animated = AnimationEmoji::get();
 
-        return view('content.posts.index', compact("posts", "totalPosts", "totalUserPosts", "totalAdminPosts" , "background_post" , "show"));
+        return view('content.posts.index', compact("posts", "totalPosts", "totalUserPosts", "totalAdminPosts" , "background_post" , "show" , "animated_emoji"));
     }
 
     /**

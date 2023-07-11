@@ -26,7 +26,7 @@
                           <i class="bx bx-edit"></i>
                       </button>
                   </span>
-
+           
                   <!-- Delete -->
                   <form action="{{ route('backgrond-feed.destroy',$background->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
                       @method('DELETE')
