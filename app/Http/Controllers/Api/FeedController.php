@@ -12,7 +12,7 @@ class FeedController extends Controller
 
     public function shareWidget()
     {
-        $shareComponent =  Share::page('https://www.codesolutionstuff.com/generate-rss-feed-in-laravel/', 'dummy text')
+        $shareComponent = Share::page('https://www.codesolutionstuff.com/generate-rss-feed-in-laravel/', 'dummy text')
             ->facebook()
             ->whatsapp()
             ->twitter()
