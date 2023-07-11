@@ -37,7 +37,7 @@ class FeedController extends Controller
         if ($request->has('fanpageId'))
             $feed->fanpage_id = $request->fanpageId;
 
-        $feed->media = $request->media;
+        $feed->media = $request->has('media') ? json_encode($request->media) : '';
 
         if ($feed->save()) {
             return response()->json(['success' => true, 'data' => $feed]);
