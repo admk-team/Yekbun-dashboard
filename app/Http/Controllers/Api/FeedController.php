@@ -31,6 +31,9 @@ class FeedController extends Controller
         $feed->type = $request->type;
         $feed->status = $request->status;
 
+        if ($request->has('backgroundId'))
+            $feed->background_id = $request->backgroundId;
+
         if ($request->has('userId'))
             $feed->user_id = $request->userId;
 
