@@ -10,16 +10,17 @@ use App\Http\Controllers\Controller;
 class FeedController extends Controller
 {
 
-    public function shareWidget(){
-        $shareComponent =  Share::page('https://www.codesolutionstuff.com/generate-rss-feed-in-laravel/','dummy text')
-        ->facebook()
-        ->whatsapp()
-        ->twitter()
-        ->linkedin()
-        ->reddit()
-        ->telegram();
+    public function shareWidget()
+    {
+        $shareComponent =  Share::page('https://www.codesolutionstuff.com/generate-rss-feed-in-laravel/', 'dummy text')
+            ->facebook()
+            ->whatsapp()
+            ->twitter()
+            ->linkedin()
+            ->reddit()
+            ->telegram();
 
-        return view('content.dummy' , compact('shareComponent'));
+        return view('content.dummy', compact('shareComponent'));
     }
 
     public function add_feed(Request $request)
@@ -29,15 +30,15 @@ class FeedController extends Controller
         $feed->description = $request->description;
         $feed->type = $request->type;
         $feed->status = $request->status;
-   
+        $feed->user_id = $request->userId ?? '';
+        $feed->fanpage_id = $request->fanpageId ?? '';
+
         $feed->media = json_encode($request->media);
-    
-        if($feed->save()){
-            return response()->json(['success' => true , 'data' => $feed]);
-        }else{
-            return response()->json(['success' => false , 'data' => $feed]);
+
+        if ($feed->save()) {
+            return response()->json(['success' => true, 'data' => $feed]);
+        } else {
+            return response()->json(['success' => false, 'data' => $feed]);
         }
     }
-
-    
 }
