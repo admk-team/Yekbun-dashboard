@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\AnimationEmoji;
+use App\Traits\UploadMedia;
 use Illuminate\Http\Request;
+use App\Models\AnimationEmoji;
 use App\Http\Controllers\Controller;
 
 class AnimationEmojiController extends Controller
@@ -36,6 +37,7 @@ class AnimationEmojiController extends Controller
      */
     public function store(Request $request)
     {
+ 
         $request->validate([
             'emoji' => 'required',
         ]);
@@ -43,7 +45,7 @@ class AnimationEmojiController extends Controller
         $animated = new AnimationEmoji();
         // $animated->title  = $request->title;
         if($request->hasFile('emoji')){
-            $path = $request->file('emoji')->store('images/EmojiFeed','public');
+             $path = UploadMedia::index($request->file('emoji')) ?? '';
             $animated->emoji = $path;
         }
 
@@ -86,6 +88,7 @@ class AnimationEmojiController extends Controller
      */
     public function update(Request $request,$id)
     {
+   
         $animated = AnimationEmoji::find($id);
         if($request->hasFile('emoji')){
             if(isset($animated->emoji)){
@@ -93,7 +96,7 @@ class AnimationEmojiController extends Controller
                 if(file_exists($emoji_path)){
                     unlink($emoji_path);
                 }
-                $path = $request->file('emoji')->store('images/EmojiFeed','public');
+                $path = UploadMedia::index($request->file('emoji')) ?? '';
                 $animated->emoji = $path;
             }
         }

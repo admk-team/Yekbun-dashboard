@@ -30,9 +30,11 @@ class PostController extends Controller
         switch ($show) {
             case "all":
                 $posts = Post::orderBy("updated_at", "desc")->get();
+                $animated_emoji =[];
                 break;
             case "fanpage":
                 $posts = Post::orderBy("updated_at", "desc")->get();
+                $animated_emoji=[];
                 break;
             case "reported":
                 $posts = Post::whereExists(function ($query) {
@@ -41,6 +43,7 @@ class PostController extends Controller
                         ->whereColumn('reports.reported_post_id', 'posts.id')
                         ->where('status', 0);
                 })->orderBy("posts.updated_at", "desc")->get();
+                $animated_emoji=[];
                 break;
             case "admin":
                 $posts = Post::where("user_id", null)->orderBy("updated_at", "desc")->get();
@@ -48,6 +51,7 @@ class PostController extends Controller
             case "background":
                 $background_post = BackgroundFeed::get();
                 $posts =[];
+                $animated_emoji=[];
                 break; 
             case "animated" :
                 $animated_emoji = AnimationEmoji::get();

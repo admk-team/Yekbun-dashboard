@@ -2,7 +2,7 @@
     <div class="table-responsive text-nowrap">
         <table class="table">
           <div class="d-flex justify-content-end mt-2">
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAnimatedModel"><i class="bx bx-plus me-0 me-sm-1"></i>Add new</button>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAnimatedModel{{ $show }}"><i class="bx bx-plus me-0 me-sm-1"></i>Add new</button>
         </div>
           <thead>
             <tr>
@@ -16,7 +16,7 @@
           <tr>
               <td>{{ $animated->id }}</td>
               <td>
-                <img src="{{ asset('storage/'.$animated->image) }}" width="100" height="100" class="rounded">
+                <img src="{{$animated->emoji }}" width="100" height="100" class="rounded" style="object-fit: cover">
               </td>
               <td>
                   <div class="dropdown d-inline-block">
@@ -26,7 +26,6 @@
                               <i class="bx bx-edit"></i>
                           </button>
                       </span>
-               
                       <!-- Delete -->
                       <form action="{{ route('animated-emoji.destroy',$animated->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
                           @method('DELETE')

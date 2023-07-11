@@ -228,6 +228,12 @@
           "name": "Blocked Fan Page",
           "slug": "fanpage.blocked",
           "hasNoPermissions": true
+        },
+        {
+          "url": "/fan-page-type",
+          "name": "Fan Page Type",
+          "slug": "fanpage.fan-page-type",
+          "hasNoPermissions": true
         }
       ]
     },
@@ -406,7 +412,14 @@
           "name": "Tickets",
           "slug": "events.tickets",
           "hasNoPermissions": true
+        },
+        {
+          "url": "/ticket-service",
+          "name" : "Services",
+          "slug" : "events.services",
+          "hasNoPermissions":true
         }
+        
       ]
     },
     {

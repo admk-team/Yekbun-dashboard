@@ -118,23 +118,6 @@
                             <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
                             @endcan
                         </form>
-
-                        {{--<button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-light">Action
-                        </button>
-                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a href="{{ route('history.edit',$historys->id) }}" class="nav-link">
-                                        <i class="nav-link-icon pe-7s-chat"> </i><span>Edit</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);" data-id="{{ route('history.destroy',$historys->id) }}">
-                                        <i class="nav-link-icon pe-7s-wallet"> </i><span>Delete</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>--}}
                     </div>
 
                     <x-modal id="editModal{{ $historys->id }}" title="Edit History" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $historys->id }}" size="lg">

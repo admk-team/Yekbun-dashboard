@@ -38,13 +38,14 @@ class BackgroundFeedController extends Controller
      */
     public function store(Request $request)
     {
+     
 
         $request->validate([
             'image' => 'required',
         ]);
 
         $background = new BackgroundFeed();
-        $background->title  = $request->title;
+        // $background->title  = $request->title;
         if ($request->hasFile('image')) {
             $path = UploadMedia::index($request->file('image')) ?? '';
             $background->image = $path;
@@ -89,7 +90,7 @@ class BackgroundFeedController extends Controller
     public function update(Request $request, $id)
     {
         $background = BackgroundFeed::find($id);
-        $background->title = $request->title;
+        // $background->title = $request->title;
         if ($request->hasFile('image')) {
             if (isset($background->image)) {
                 $image_path = public_path('storage/' . $background->image);

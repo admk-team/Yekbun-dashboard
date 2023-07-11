@@ -76,6 +76,8 @@ use App\Http\Controllers\Admin\TextController;
 use App\Http\Controllers\Admin\ManageAdController;
 use App\Http\Controllers\Admin\BackgroundFeedController;
 use App\Http\Controllers\Admin\AnimationEmojiController;
+use App\Http\Controllers\Admin\TicketServiceController;
+use App\Http\Controllers\Admin\FanPageTypeController;
 
 
 
@@ -547,3 +549,11 @@ Route::get('share-feed' , [FeedController::class , 'shareWidget'])->name('share-
 Route::resource('/backgrond-feed' , BackgroundFeedController::class);
 // Animated Emoji
 Route::resource('/animated-emoji' , AnimationEmojiController::class);
+
+// Ticket Service 
+
+Route::resource('/ticket-service' , TicketServiceController::class);
+
+// FanPage Type 
+Route::resource('/fan-page-type' , FanPageTypeController::class);
+

@@ -1,4 +1,4 @@
-<form id="createForm" method="POST" action="{{ route('animated-emoji.store') }}" enctype="multipart/form-data">
+<form id="createForm{{ $show }}" method="POST" action="{{ route('animated-emoji.store') }}" enctype="multipart/form-data">
     @csrf
     <div class="row">
         <div class="col-lg-12 mx-auto">
