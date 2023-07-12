@@ -100,7 +100,11 @@ class User extends Authenticatable  implements MustVerifyEmail
         return $this->belongsTo(City::class);
     }
 
-    
+    public function feeds()
+    {
+        return $this->hasMany(Feed::class);
+    }
+
     /**
      * Write code on Method
      *
@@ -109,23 +113,22 @@ class User extends Authenticatable  implements MustVerifyEmail
     public  function generateCode()
     {
         $code = rand(100000, 999999);
-  
+
         UserCode::updateOrCreate(
-            [ 'user_id' => auth()->user()->id ],
-            [ 'code' => $code ]
+            ['user_id' => auth()->user()->id],
+            ['code' => $code]
         );
-    
-        try{
-  
+
+        try {
+
             $details = [
                 'title' => 'Mail from Yekbun.com',
                 'code' => $code
             ];
-             
+
             Mail::to(auth()->user()->email)->send(new SendCodeMail($details));
-    
         } catch (Exception $e) {
-            info("Error: ". $e->getMessage());
+            info("Error: " . $e->getMessage());
         }
     }
 }
