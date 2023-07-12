@@ -50,7 +50,7 @@ class FeedController extends Controller
 
     public function get_first_feed($user_id)
     {
-        $feed = Feed::where('user_id', $user_id)->first();
+        $feed = Feed::where('user_id', $user_id)->with('background')->first();
 
         $feed->media = json_decode($feed->media);
 
