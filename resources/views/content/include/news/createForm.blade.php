@@ -5,7 +5,7 @@
             <span class="bs-stepper-circle">EN</span>
             </button>
         </div>
-        <div class="line"></div>
+        {{-- <div class="line"></div>
         <div class="step" data-target="#de">
             <button type="button" class="step-trigger">
             <span class="bs-stepper-circle">DE</span>
@@ -28,7 +28,7 @@
             <button type="button" class="step-trigger">
             <span class="bs-stepper-circle">IR</span>
             </button>
-        </div>
+        </div> --}}
     </div>
     <div class="bs-stepper-content">
         <form id="createForm" method="POST" action="{{ route('news.store') }}" enctype="multipart/form-data" onSubmit="return false">
@@ -95,7 +95,7 @@
                     </div>
                 </div>
             </div>
-
+{{-- 
             <!-- DE -->
             <div id="de" class="content">
                 <div class="content-header mb-3">
@@ -112,10 +112,10 @@
                     <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
                     </button>
                 </div>
-            </div>
+            </div> --}}
 
             <!-- KR -->
-            <div id="kr" class="content">
+            {{-- <div id="kr" class="content">
             <div class="content-header mb-3">
                     <h6 class="mb-0">KR</h6>
                     <small>Enter news in KR.</small>
@@ -130,10 +130,10 @@
                     <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
                     </button>
                 </div>
-            </div>
+            </div> --}}
 
             <!-- TR -->
-            <div id="tr" class="content">
+            {{-- <div id="tr" class="content">
                 <div class="content-header mb-3">
                     <h6 class="mb-0">TR</h6>
                     <small>Enter news in TR.</small>
@@ -148,10 +148,10 @@
                     <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
                     </button>
                 </div>
-            </div>
+            </div> --}}
 
             <!-- IR -->
-            <div id="ir" class="content">
+            {{-- <div id="ir" class="content">
                 <div class="content-header mb-3">
                     <h6 class="mb-0">IR</h6>
                     <small>Enter news in IR.</small>
@@ -163,7 +163,7 @@
                     </button>
                     <button class="btn btn-success btn-submit">Submit</button>
                 </div>
-            </div>
+            </div> --}}
         </form>
     </div>
 </div>

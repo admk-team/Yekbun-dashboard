@@ -21,5 +21,9 @@ class Feed extends Model
         return $this->hasMany(BackgroundFeed::class  , 'id' , 'background_id');
     }
 
+    public function user(){
+        return $this->hasMany(User::class , 'id' , 'user_id');
+    }
+
   
 }
