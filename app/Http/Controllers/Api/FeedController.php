@@ -50,7 +50,9 @@ class FeedController extends Controller
     }
 
     public function get_feed($user_id){
-        $feed = Feed::where('user_id', $user_id)->get();
+
+        $feed = Feed::with('background')->where('user_id', $user_id)->get();
         return response()->json(['success' => true, 'data' => $feed]);
+        
     }
 }
