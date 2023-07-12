@@ -17,5 +17,9 @@ class Feed extends Model
         'type'
     ];
 
+    public function background(){
+        return $this->hasMany(BackgroundFeed::class  , 'id' , 'background_id');
+    }
+
   
 }

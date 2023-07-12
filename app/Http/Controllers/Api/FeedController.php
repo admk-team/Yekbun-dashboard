@@ -48,22 +48,16 @@ class FeedController extends Controller
         }
     }
 
-    public function get_feed($user_id)
-    {
-        $feeds = Feed::where('user_id', $user_id)->get();
-
-        foreach ($feeds as $feed) {
-            $feed->media = json_decode($feed->media);
-        }
-
-        return response()->json(['success' => true, 'data' => $feeds]);
-    }
-
     public function get_first_feed($user_id)
     {
         $feed = Feed::where('user_id', $user_id)->first();
 
         $feed->media = json_decode($feed->media);
+    }
+
+    public function get_feed($user_id)
+    {
+        $feed = Feed::with('background')->where('user_id', $user_id)->get();
 
         return response()->json(['success' => true, 'data' => $feed]);
     }
