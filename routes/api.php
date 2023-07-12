@@ -48,6 +48,7 @@ use App\Http\Controllers\Api\UserSettingController;
 use App\Http\Controllers\Api\FeedController;
 use App\Http\Controllers\Api\RingtoneController;
 use App\Http\Controllers\Api\UploadMediaController;
+use App\Http\Controllers\Api\CollectionController;
 
 
 /*
@@ -178,3 +179,8 @@ Route::get('/get-first-feed/{id}' , [FeedController::class , 'get_first_feed'])-
 // Feed image backgroind
 Route::post('/upload-background' , [FeedBackgroundImageController::class , 'upload'])->name('upload-background');
 Route::get('/get-background' , [FeedBackgroundImageController::class , 'get'])->name('get-background');
+
+// collectoin feed
+Route::post('/add-collection' , [CollectionController::class , 'insert'])->name('add-collection');
+Route::get('/get_collection/{user_id}' , [CollectionController::class , 'get_collection'])->name('get-collection');
+Route::delete('/remove-collection/{id}' , [CollectionController::class , 'destroy'])->name('remove-collection');
