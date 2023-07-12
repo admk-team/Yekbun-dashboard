@@ -88,7 +88,7 @@
             <th>#</th>
             <th>Category</th>
             <th>Title</th>
-            <th>Languages</th>
+            {{-- <th>Languages</th> --}}
             <th>Actions</th>
           </tr>
         </thead>
@@ -98,7 +98,7 @@
                 <td>{{ $historys->id }}</td>
                 <td>{{ $historys->history_category->name ?? '' }}</td>
                 <td>{{ $historys->title ?? '' }}</td>
-                <td>{{ $historys->language ?? '' }}</td>
+                {{-- <td>{{ $historys->language ?? '' }}</td> --}}
                 <td>
                     <div class="dropdown d-inline-block">
                         <!-- Edit -->

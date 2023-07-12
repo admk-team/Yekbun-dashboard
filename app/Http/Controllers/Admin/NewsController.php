@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\News;
+use App\Traits\UploadMedia;
 use App\Models\NewsCategory;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class NewsController extends Controller
 {
@@ -17,7 +18,8 @@ class NewsController extends Controller
     public function index()
     {
         $news_category  = NewsCategory::get();
-          $news  = News::with('news_category')->get();
+        $news  = News::with('news_category')->get();
+      
         return view('content.news.index' , compact('news' , 'news_category'));
     }
 
@@ -41,22 +43,22 @@ class NewsController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'description' => 'required',
-            'image' => 'required'
-          ]); 
-   
-      
+            'description' => 'required'
+          ]);
+
       $news = new News();
       $news->title = $request->title;
       $news->description = $request->description;
       $news->category_id = $request->category_id;
       $news->status = (int) $request->status;
-      
-      if($request->hasFile('image')){
-        $path  = $request->file('image')->store('/images/news/' , 'public');
-        $news->image = $path;
+
+      $asset = collect([]);
+      foreach($request->file('image') as $file){
+        $path = UploadMedia::index($file ?? '');
+        $asset->push($path);
       }
 
+      $news->image = json_encode($asset);
     if($news->save()){
         return redirect()->route('news.index')->with('success', 'News Has been inserted');
     }else{
@@ -103,18 +105,20 @@ class NewsController extends Controller
         $news->title = $request->title;
         $news->description = $request->description;
         $news->category_id = $request->category_id;
-        
-        if($request->hasFile('image')){
-           if(isset($news->image)){
-               $image_path  = public_path('storage/'.$news->image);
-               if(file_exists($image_path)){
-                   unlink($image_path);
-               }
-               $path = $request->file('image')->store('/images/news' , 'public');
-               $news->image = $path;
-           }
+        $asset = collect([]);
+        foreach($request->file('image') as $file){
+            if(isset($news->image)){
+                $image_path = public_path('storage/'.$news->image);
+                if(file_exists($image_path)){
+                    unlink($image_path);
+                }
+                $path = UploadMedia::index($file ?? '');
+                $asset->push($path);
+            }
         }
 
+        $news->image = json_encode($asset);
+        
         if($news->update()){
             return redirect()->route('news.index')->with('success', 'News Has been Updated');
 

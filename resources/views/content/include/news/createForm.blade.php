@@ -31,14 +31,10 @@
         </div> --}}
     </div>
     <div class="bs-stepper-content">
-        <form id="createForm" method="POST" action="{{ route('news.store') }}" enctype="multipart/form-data" onSubmit="return false">
+        <form id="createForm" method="POST" action="{{ route('news.store') }}" enctype="multipart/form-data">
             @csrf
             <!-- EN -->
             <div id="en" class="content">
-                <div class="content-header mb-3">
-                    <h6 class="mb-0">EN</h6>
-                    <small>Enter news in EN.</small>
-                </div>
                 <div class="row g-3">
                     <div class="col-md-12">
                         <label class="form-label" for="fullname">News Title</label>
@@ -55,8 +51,8 @@
                         @enderror
                     </div>
                     <div class="col-md-12">
-                        <label class="form-label" for="fullname">News Image</label>
-                        <input type="file" name="image" class="form-control" id="image" />
+                        <label class="form-label" for="fullname">Upload News Image/Video</label>
+                        <input type="file" name="image[]" class="form-control" id="image" multiple accept="image/*,video/*" />
                         @error('image')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -83,7 +79,12 @@
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="col-12 d-flex justify-content-between">
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-label-primary">
+                            Submit
+                         </button>
+                    </div>
+                    {{-- <div class="col-12 d-flex justify-content-between">
                         <button class="btn btn-label-secondary btn-prev" disabled>
                             <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
                             <span class="align-middle d-sm-inline-block d-none">Previous</span>
@@ -92,7 +93,7 @@
                             <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
                             <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
                         </button>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 {{-- 
@@ -285,7 +286,7 @@
                 </span>
             </button>
         </div>
-        <div class="line"></div>
+        {{-- <div class="line"></div>
         <div class="step" data-target="#ir">
             <button type="button" class="step-trigger" aria-selected="false">
                 <span class="bs-stepper-circle"><i class="bx bx-box fs-5"></i></span>
@@ -293,8 +294,8 @@
                     <span class="bs-stepper-title text-uppercase">IR</span>
                 </span>
             </button>
-        </div>
-        <div class="line"></div>
+        </div> --}}
+        {{-- <div class="line"></div>
         <div class="step" data-target="#kr">
             <button type="button" class="step-trigger" aria-selected="false">
                 <span class="bs-stepper-circle"><i class="bx bx-box fs-5"></i></span>
@@ -302,8 +303,8 @@
                     <span class="bs-stepper-title text-uppercase">KR</span>
                 </span>
             </button>
-        </div>
-        <div class="line"></div>
+        </div> --}}
+        {{-- <div class="line"></div>
         <div class="step" data-target="#tr">
             <button type="button" class="step-trigger" aria-selected="false">
                 <span class="bs-stepper-circle"><i class="bx bx-box fs-5"></i></span>
@@ -311,8 +312,8 @@
                     <span class="bs-stepper-title text-uppercase">TR</span>
                 </span>
             </button>
-        </div>
-        <div class="line"></div>
+        </div> --}}
+        {{-- <div class="line"></div>
         <div class="step" data-target="#de">
             <button type="button" class="step-trigger" aria-selected="false">
                 <span class="bs-stepper-circle"><i class="bx bx-box fs-5"></i></span>
@@ -320,7 +321,7 @@
                     <span class="bs-stepper-title text-uppercase">DE</span>
                 </span>
             </button>
-        </div>
+        </div> --}}
     </div>
     <div class="col-md-10">
         <div class="bs-stepper-content p-1">
@@ -364,20 +365,23 @@
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+                                <button type="submit" class="btn btn-label-secondary"> <i class="bx bx-left-arrow-alt bx-xs me-sm-1 me-0"></i>
+                                   Submit
+                                </button>
                             </div>
                         </div>
                     </div>
                 </form>
-
+{{-- 
                 <div class="col-12 d-flex justify-content-between mt-4">
                     <button class="btn btn-label-secondary btn-prev" disabled=""> <i class="bx bx-left-arrow-alt bx-xs me-sm-1 me-0"></i>
                         <span class="align-middle d-sm-inline-block d-none">Previous</span>
                     </button>
                     <button class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="bx bx-right-arrow-alt bx-xs"></i></button>
-                </div>
+                </div> --}}
             </div>
             <!-- IR -->
-            <div id="ir" class="content ">
+            {{-- <div id="ir" class="content ">
                 <form id="createForm" method="POST" action="" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
@@ -571,7 +575,7 @@
                     <button class="btn btn-label-secondary btn-prev"> <i class="bx bx-left-arrow-alt bx-xs me-sm-1 me-0"></i> <span class="align-middle d-sm-inline-block d-none">Previous</span> </button>
                     <button class="btn btn-primary btn-next"> <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i class="bx bx-right-arrow-alt bx-xs"></i></button>
                 </div>
-            </div>
+            </div> --}}
 
         </div>
     </div>

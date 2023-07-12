@@ -593,24 +593,7 @@
       "slug": "setting",
       "hasNoPermissions": true,
       "submenu": [
-        {
-          "name": "Language",
-          "permissions": "language.read,language.create,language.write,language.delete",
-          "submenu": [
-            {
-              "url": "/language",
-              "name": "Language",
-              "slug": "language",
-              "hasNoPermissions": true
-            },
-            {
-              "url": "/translation",
-              "name": "Translation",
-              "slug": "translation",
-              "hasNoPermissions": true
-            }
-          ]
-        },
+      
         {
           "url": "/main-page-setting",
           "name": "Main Page Setting",

@@ -115,8 +115,19 @@
           <td>
               {{ $new->news_category->name  ??  '' }} </option>
           </td>
+        @php
+            $img = json_decode($new->image);
+            $extension = pathinfo($img[0], PATHINFO_EXTENSION);
+
+        @endphp
           <td>
-            <img class="rounded" src="{{ asset('storage/'.$new->image) }}" height="100" width="100" alt="">
+            @if($extension == 'png')
+            <img class="rounded" src="{{ $img[0] ?? ''  }}" width="200" alt="">
+            @else
+            <video autoplay loop style="width: 200px;" class="rounded" controls>
+              <source src="{{ $img[0] ?? '' }}">
+            </video>
+            @endif
           </td>
           <td>
             @if ($new->status)

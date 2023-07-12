@@ -6,7 +6,7 @@
             <span class="bs-stepper-circle">EN</span>
             </button>
         </div>
-        <div class="line"></div>
+        {{-- <div class="line"></div>
         <div class="step" data-target="#de{{ $new->id }}">
             <button type="button" class="step-trigger">
             <span class="bs-stepper-circle">DE</span>
@@ -29,18 +29,14 @@
             <button type="button" class="step-trigger">
             <span class="bs-stepper-circle">IR</span>
             </button>
-        </div>
+        </div> --}}
     </div>
     <div class="bs-stepper-content">
-        <form id="editForm{{ $new->id }}" method="POST" action="{{ route('news.update',$new->id) }}" enctype="multipart/form-data" onSubmit="return false">
+        <form id="editForm{{ $new->id }}" method="POST" action="{{ route('news.update',$new->id) }}" enctype="multipart/form-data">
             @method('put')
             @csrf
             <!-- EN -->
             <div id="en{{ $new->id }}" class="content">
-                <div class="content-header mb-3">
-                    <h6 class="mb-0">EN</h6>
-                    <small>Enter news in EN.</small>
-                </div>
                 <div class="row g-3">
                     <div class="col-md-12">
                         <label class="form-label" for="fullname">News Title</label>
@@ -57,8 +53,8 @@
                         @enderror
                     </div>
                     <div class="col-md-12">
-                        <label class="form-label" for="fullname">News Image</label>
-                        <input type="file" name="image" class="form-control" id="image" />
+                        <label class="form-label" for="fullname">Upload News Image/Video</label>
+                        <input type="file" name="image[]" class="form-control" id="image" multiple accept="image/*,video/*"  />
                         @error('image')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -85,7 +81,10 @@
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="col-12 d-flex justify-content-between">
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <button class="btn btn-label-primary" type="submit">Update</button>
+                    </div>
+                    {{-- <div class="col-12 d-flex justify-content-between">
                         <button class="btn btn-label-secondary btn-prev{{ $new->id }}" disabled>
                             <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
                             <span class="align-middle d-sm-inline-block d-none">Previous</span>
@@ -94,11 +93,11 @@
                             <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
                             <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
                         </button>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 
-            <!-- DE -->
+            {{-- <!-- DE -->
             <div id="de{{ $new->id }}" class="content">
                 <div class="content-header mb-3">
                     <h6 class="mb-0">DE</h6>
@@ -165,7 +164,7 @@
                     </button>
                     <button class="btn btn-success btn-submit{{ $new->id }}">Submit</button>
                 </div>
-            </div>
+            </div> --}}
         </form>
     </div>
 </div>
@@ -273,7 +272,7 @@
     })
 </script>
 
-@if (false)
+{{-- @if (false)
 <!-- Property Listing Wizard -->
 <div id="wizard-create-app{{ $new->id }}" class="bs-stepper vertical mt-2 shadow-none border-0">
     <div class="bs-stepper-header border-0 p-1">
@@ -671,4 +670,4 @@
     })
 
 </script>
-@endif
+@endif --}}
