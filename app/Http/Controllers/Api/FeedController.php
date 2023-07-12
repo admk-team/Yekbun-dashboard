@@ -53,6 +53,8 @@ class FeedController extends Controller
         $feed = Feed::where('user_id', $user_id)->first();
 
         $feed->media = json_decode($feed->media);
+
+        return response()->json(['success' => true, 'data' => $feed]);
     }
 
     public function get_feed($user_id)
