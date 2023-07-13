@@ -42,14 +42,20 @@
                 </div>
                 <div class="col-md-12">
                     <label class="form-label" for="inputCountry">Country</label>
-                    <input type="text" id="inputCountry" name="country" class="form-control" value="{{ $office->country }}" placeholder="Country">
+                    <select name="country" class="form-control">
+                        <option value="{{ $country->id }}" readonly>{{ $country->name ?? '' }}</option>
+                    </select>
                     @error('country')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="col-md-12">
                     <label class="form-label" for="inputCity">City</label>
-                    <input type="text" id="inputCity" name="city" class="form-control" value="{{ $office->city }}" placeholder="City">
+                    <select  name="city" class="form-control">
+                        @foreach($cities as $city)
+                        <option value="{{ $city->id  }}" {{ $city->id == $office->city ? 'selected' : '' }}>{{ $city->name ?? '' }}</option>
+                        @endforeach
+                    </select>
                     @error('city')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror

@@ -78,6 +78,7 @@ use App\Http\Controllers\Admin\BackgroundFeedController;
 use App\Http\Controllers\Admin\AnimationEmojiController;
 use App\Http\Controllers\Admin\TicketServiceController;
 use App\Http\Controllers\Admin\FanPageTypeController;
+use App\Http\Controllers\Admin\BankTransferController;
 
 
 
@@ -382,6 +383,8 @@ Route::any('mobile-setting', [MobileSettingsController::class, 'save'])->name('m
         // Payment Methods
         Route::get('/payment-methods', [PaymentMethodController::class, 'index'])->name('payment-methods');
         Route::post('/payment-methods', [PaymentMethodController::class, 'save'])->name('payment-methods');
+        // Bank transfer
+        Route::resource('/bank-transfer' , BankTransferController::class);
         // Page Settings
         Route::get('page-settings', [PageSettingsController::class, 'index'])->name('page-settings');
         Route::post('page-settings', [PageSettingsController::class, 'save'])->name('page-settings');

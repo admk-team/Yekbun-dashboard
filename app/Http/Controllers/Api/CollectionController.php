@@ -44,8 +44,6 @@ class CollectionController extends Controller
                     return response()->json(['success' => true , 'data' => $collection]);
                 }
             }
-            
-
         }
 
 }
