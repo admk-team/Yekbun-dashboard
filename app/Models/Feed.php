@@ -29,6 +29,4 @@ class Feed extends Model
         return $this->belongsToMany(Collection::class, 'collection_feeds', 'feed_id', 'collection_id');
     }
     
-
-  
 }

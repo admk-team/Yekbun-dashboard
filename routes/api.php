@@ -49,6 +49,7 @@ use App\Http\Controllers\Api\FeedController;
 use App\Http\Controllers\Api\RingtoneController;
 use App\Http\Controllers\Api\UploadMediaController;
 use App\Http\Controllers\Api\CollectionController;
+use App\Http\Controllers\Api\PaymentController;
 
 
 /*
@@ -184,3 +185,8 @@ Route::get('/get-background' , [FeedBackgroundImageController::class , 'get'])->
 Route::post('/add-collection' , [CollectionController::class , 'insert'])->name('add-collection');
 Route::get('/get_collection/{user_id}' , [CollectionController::class , 'get_collection'])->name('get-collection');
 Route::delete('/remove-collection/{id}' , [CollectionController::class , 'destroy'])->name('remove-collection');
+
+
+Route::post('charge', [PaymentController::class,'charge']);
+Route::get('success', [PaymentController::class , 'success']);
+Route::get('error', [PaymentController::class , 'error']);

@@ -16,6 +16,8 @@
     "laravel/framework": "^9.0",
     "laravel/sanctum": "^2.14",
     "laravel/tinker": "^2.7",
+    "league/omnipay": "^3.2",
+    "omnipay/paypal": "^3.0",
     "spatie/laravel-activitylog": "^4.7",
     "spatie/laravel-permission": "^5.10"
   },
@@ -65,7 +67,10 @@
   "config": {
     "optimize-autoloader": true,
     "preferred-install": "dist",
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
   },
   "minimum-stability": "dev",
   "prefer-stable": true
