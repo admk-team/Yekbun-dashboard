@@ -79,7 +79,7 @@ class FeedController extends Controller
             }
 
         $data = $feeds->map(function ($item) {
-            if (sizeof($item->user) != '[]')
+            if (isset($item->user))
                 return $item;
         });
 
