@@ -83,6 +83,9 @@ class FeedController extends Controller
                 return $item;
         });
 
-        return response()->json(['success' => true, 'data' => $data]);
+        return response()->json(['success' => true, 'data' => $data->map(function ($item) {
+            if ($item != null)
+                return $item;
+        })]);
     }
 }
