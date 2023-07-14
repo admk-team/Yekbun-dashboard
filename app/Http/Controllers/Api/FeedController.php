@@ -79,10 +79,10 @@ class FeedController extends Controller
             }
 
         $data = $feeds->map(function ($item) {
-            if (!is_null($item->user))
+            if (sizeof($item->user) > 0)
                 return $item;
         });
 
-        return response()->json(['success' => true, 'data' => $feeds]);
+        return response()->json(['success' => true, 'data' => $data]);
     }
 }
