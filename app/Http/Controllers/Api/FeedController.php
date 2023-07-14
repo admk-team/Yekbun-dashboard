@@ -79,7 +79,7 @@ class FeedController extends Controller
             }
 
         $data = $feeds->map(function ($item) {
-            if (isset($item->user))
+            if (!is_null($item->user))
                 return $item;
         });
 
