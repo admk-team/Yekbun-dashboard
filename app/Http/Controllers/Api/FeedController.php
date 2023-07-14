@@ -83,6 +83,6 @@ class FeedController extends Controller
                 return $item;
         });
 
-        return response()->json(['success' => true, 'data' => $data]);
+        return response()->json(['success' => true, 'data' => sizeof($data[0]->user)]);
     }
 }
