@@ -78,14 +78,11 @@ class FeedController extends Controller
                 $feed->media = json_decode($feed->media);
             }
 
-        $data = $feeds->map(function ($item) {
-            if (sizeof($item->user) > 0)
-                return $item;
+        $data = $feeds->filter(function ($item) {
+            return $item->user !== null;
         });
 
-        return response()->json(['success' => true, 'data' => $data->map(function ($item) {
-            if ($item != null)
-                return $item;
-        })]);
+
+        return response()->json(['success' => true, 'data' => $data]);
     }
 }
