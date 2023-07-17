@@ -50,6 +50,7 @@ use App\Http\Controllers\Api\RingtoneController;
 use App\Http\Controllers\Api\UploadMediaController;
 use App\Http\Controllers\Api\CollectionController;
 use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\UpgradeAccountController;
 
 
 /*
@@ -191,3 +192,7 @@ Route::delete('/remove-collection/{id}' , [CollectionController::class , 'destro
 Route::post('charge', [PaymentController::class,'charge']);
 Route::get('success', [PaymentController::class , 'success']);
 Route::get('error', [PaymentController::class , 'error']);
+
+
+Route::get('get_account_price' , [UpgradeAccountController::class  , 'price_upgrade'])->name('get_account_price');
+Route::post('/account-upgrade' , [UpgradeAccountController::class  , 'account_upgrade'])->name('account-upgrade')->middleware('auth:sanctum');
