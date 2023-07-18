@@ -617,5 +617,12 @@
       }
     });
   }
+  @error('image')
+  window.addEventListener('load' , function(){
+    document.querySelector('.add_new').click();
+    
+  })
+
+@enderror
   </script>
 @endsection

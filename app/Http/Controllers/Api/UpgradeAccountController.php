@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use Nette\Utils\Json;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use App\Models\GenerateInvoice;
 use App\Http\Controllers\Controller;
 
 class UpgradeAccountController extends Controller
@@ -21,6 +24,16 @@ class UpgradeAccountController extends Controller
         $user = User::where('id' ,auth()->user()->id)->first();
         $user->level = $request->level;
         $user->save();
+
+        $invoice = new GenerateInvoice();
+        $invoice->invoice_no = time();
+        $invoice->date =date('Y-m-d');
+        $invoice->due_date = Carbon::now()->addDays(4)->format('Y-m-d');
+        $invoice->user_id = auth()->user()->id;
+        $invoice->total = $request->payment;
+        $invoice->item = Json_encode(["name" => "User Account Upgrade"]);
+        $invoice->status = "paid";
+        $invoice->save();
         return response()->json(['success' => 'true' , 'message' => 'Account upgrade successfully']);
     }
 }

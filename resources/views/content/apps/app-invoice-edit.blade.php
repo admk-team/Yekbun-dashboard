@@ -32,12 +32,57 @@
         <div class="row p-sm-3 p-0">
           <div class="col-md-6 mb-md-0 mb-4">
             <div class="d-flex svg-illustration mb-4 gap-2">
-              <span class="app-brand-logo demo">@include('_partials.macros',["width"=>25,"withbg"=>'#696cff'])</span>
-              <span class="app-brand-text demo text-body fw-bolder">{{ config('variables.templateName') }}</span>
+              <span class="app-brand-logo demo"><img src="{{ asset('storage/'.$address->logo) }}" width="30" height="30" class="rounded-circle"></span>
+              <span class="app-brand-text demo text-body fw-bolder">{{ $address->title ?? '' }}</span>
             </div>
-            <p class="mb-1">Office 149, 450 South Brand Brooklyn</p>
-            <p class="mb-1">San Diego County, CA 91905, USA</p>
-            <p class="mb-0">+1 (123) 456 7891, +44 (876) 543 2198</p>
+            @php
+            $dynamicText = $address->address ?? '';
+            $first60Chars = substr($dynamicText, 0, 50);
+            $remainingChars = substr($dynamicText, 60);
+          @endphp
+           <p>{{ $first60Chars ?? '' }}</p>
+           <p>{{ $remainingChars ?? '' }}</p> 
+            <div>
+              <span data-bs-target="#addressModal" data-bs-toggle="modal">
+                <button class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit">
+                  <i class="bx bx-edit"></i>
+              </button>
+              </span>
+            </div>
+            <!-- Modal -->
+                    <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog  modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Invoice</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <form method="POST" action="{{ route('invoice-address') }}" enctype="multipart/form-data">
+                            @csrf
+                          <div class="modal-body">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <label for="logo" class="form-label">Logo</label>
+                                <input type="file" name="logo" class="form-control"/>
+                              </div>
+                              <div class="col-md-12 mt-2">
+                                <label for="text" class="form-labele">Title</label>
+                                <input type="text" name="title" class="form-control" value="{{ $address->title ?? '' }}"/>
+                              </div>
+                              <div class="col-md-12 mt-2">
+                                <label for="text" class="form-labele">Address</label>
+                                <textarea class="form-control" name="address" style="height: 150px">{{ $address->address ?? '' }}</textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                          </div>
+                        </form>
+                        </div>
+                      </div>
+                    </div>
           </div>
           <div class="col-md-6">
             <dl class="row mb-2">

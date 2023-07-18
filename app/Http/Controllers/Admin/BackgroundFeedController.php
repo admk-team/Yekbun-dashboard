@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BackgroundFeed;
 use Illuminate\Http\Request;
 use App\Traits\UploadMedia;
-
+use Intervention\Image\Facades\Image;
 class BackgroundFeedController extends Controller
 {
     use UploadMedia;
@@ -41,9 +41,9 @@ class BackgroundFeedController extends Controller
      
 
         $request->validate([
-            'image' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max_image_dimensions:375,314',
         ]);
-
+       
         $background = new BackgroundFeed();
         // $background->title  = $request->title;
         if ($request->hasFile('image')) {
@@ -54,8 +54,9 @@ class BackgroundFeedController extends Controller
         if ($background->save()) {
             return redirect()->back()->with('success', 'Background feed successfully added.');
         } else {
-            return redirect()->back()->with('error', 'Failed to add background feed.');
-        }
+            return redirect()->back()->with('errors', 'Failed to add background feed.');
+     }
+     
     }
 
     /**
@@ -89,6 +90,9 @@ class BackgroundFeedController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max_image_dimensions:375,314',
+        ]);
         $background = BackgroundFeed::find($id);
         // $background->title = $request->title;
         if ($request->hasFile('image')) {

@@ -79,6 +79,7 @@ use App\Http\Controllers\Admin\AnimationEmojiController;
 use App\Http\Controllers\Admin\TicketServiceController;
 use App\Http\Controllers\Admin\FanPageTypeController;
 use App\Http\Controllers\Admin\BankTransferController;
+use App\Http\Controllers\Admin\InvoiceController;
 
 
 
@@ -559,4 +560,7 @@ Route::resource('/ticket-service' , TicketServiceController::class);
 
 // FanPage Type 
 Route::resource('/fan-page-type' , FanPageTypeController::class);
+
+// invoice eidt
+Route::post('/invoice-address' , [InvoiceController::class , 'update_address'])->name('invoice-address');
 

@@ -53,9 +53,11 @@ $navbarDetached = ($navbarDetached ?? '');
                     @if(!isset($menuHorizontal))
                     <!-- Language -->
 
+                    @if(auth()->user()->is_superadmin && auth()->user()->hasRole('Super Admin'))
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#livestreammodel">
                         <img src="{{ asset('assets/img/8103873.png') }}" width="20" />
                     </button>
+                    @endif
                     <!--/ Language -->
                     @endif
 

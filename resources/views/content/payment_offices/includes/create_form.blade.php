@@ -25,13 +25,13 @@
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="col-md-12">
+                {{-- <div class="col-md-12">
                     <label class="form-label" for="inputEmail">Email</label>
                     <input type="text" id="inputEmail" name="email" class="form-control" value="{{ old('email') }}" placeholder="Email">
                     @error('email')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
-                </div>
+                </div> --}}
                 <div class="col-md-12">
                     <label class="form-label" for="inputPhone">Phone No</label>
                     <input type="text" id="inputPhone" name="phone" class="form-control" value="{{ old('phone') }}" placeholder="Phone No">
