@@ -38,5 +38,19 @@ public function boot()
 
         return $image[0] <= $maxWidth && $image[1] <= $maxHeight;
     });
+
+    Validator::extend('max_emoji_dimensions' ,function($attribute ,$value , $parameters ,$validator){
+      $maxWidth = $parameters[0] ?? null;
+      $maxHeight = $parameters[0] ?? null;
+
+      if(!$maxWidth || !$maxHeight){
+        throw new \Exception('Missing required parameters for max_emoji_dimesions validation rules.');
+      }
+
+      $emoji = getimagesize($value->getPathname());
+
+      return $emoji[0] <= $maxWidth && $emoji[1] <= $maxHeight;
+      
+    });
 }
 }

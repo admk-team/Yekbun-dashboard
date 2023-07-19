@@ -39,7 +39,7 @@ class AnimationEmojiController extends Controller
     {
  
         $request->validate([
-            'emoji' => 'required',
+            'emoji' => 'required|max_emoji_dimensions:60,60',
         ]);
 
         $animated = new AnimationEmoji();

@@ -2,7 +2,7 @@
     <div class="table-responsive text-nowrap">
         <table class="table">
           <div class="d-flex justify-content-end mt-2">
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAnimatedModel{{ $show }}"><i class="bx bx-plus me-0 me-sm-1"></i>Add new</button>
+          <button class="btn btn-primary emoji_new" data-bs-toggle="modal" data-bs-target="#createAnimatedModel{{ $show }}"><i class="bx bx-plus me-0 me-sm-1"></i>Add new</button>
         </div>
           <thead>
             <tr>

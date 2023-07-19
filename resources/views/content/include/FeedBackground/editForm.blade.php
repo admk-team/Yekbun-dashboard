@@ -4,18 +4,12 @@
     <div class="row">
         <div class="col-lg-12 mx-auto">
             <div class="row g-3">
-                {{-- <div class="col-md-12">
-                    <label class="form-label" for="inputTitle">Title</label>
-                    <input type="text" id="inputTitle" class="form-control" placeholder="Title" name="title" value="{{ $background->title ?? '' }}">
-                    @error('title')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div> --}}
                 <div class="col-md-12">
                     <label class="form-label" for="inputTitle">Backround Image</label>
-                    <input type="file" id="inputTitle" class="form-control" placeholder="Title" name="image">
+                    <input type="file" id="inputTitle" class="form-control" placeholder="Title" name="image.{{ $background->id }}">
+                    <input type="hidden" id="image_id" name="image_id" value="image_id"/>
                     @error('image')
-                    <span class="text-danger">{{ $message }}</span>
+                    <span class="text-danger">Image must be 375 * 314 dimensions.</span>
                     @enderror
                 </div>
             </div>

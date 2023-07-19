@@ -10,7 +10,7 @@
                     <label class="form-label" for="inputTitle">Backround Image</label>
                     <input type="file"  class="form-control" placeholder="Title" name="image" id="imageInput">
                     @error('image')
-                    <span class="text-danger">{{ $message }}</span>
+                    <span class="text-danger ">Image must be 375 * 314 dimensions.</span>
                     @enderror
                 </div>
             </div>

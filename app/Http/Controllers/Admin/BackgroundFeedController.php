@@ -91,7 +91,7 @@ class BackgroundFeedController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max_image_dimensions:375,314',
+            'image.'.$id => 'required|image|mimes:jpeg,png,jpg,gif|max_image_dimensions:375,314',
         ]);
         $background = BackgroundFeed::find($id);
         // $background->title = $request->title;
@@ -109,7 +109,7 @@ class BackgroundFeedController extends Controller
         if ($background->update()) {
             return redirect()->back()->with('success', 'Background Feed updated successfully.');
         } else {
-            return redirect()->back()->with('success', 'Failed to update Background Feed .');
+            return redirect()->back()->with('success', 'Failed to update Background Feed.');
         }
     }
 

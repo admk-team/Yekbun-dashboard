@@ -21,8 +21,8 @@
           <td>
               <div class="dropdown d-inline-block">
                   <!-- Edit -->
-                  <span data-bs-toggle="modal" data-bs-target="#editBackgroundModal{{ $background->id }}">
-                      <button class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit" aria-describedby="tooltip557134">
+                  <span data-bs-toggle="modal"  data-bs-target="#editBackgroundModal{{ $background->id }}">
+                      <button class="btn btn-sm btn-icon"  id="openEditModal{{ $background->id }}" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit" aria-describedby="tooltip557134">
                           <i class="bx bx-edit"></i>
                       </button>
                   </span>

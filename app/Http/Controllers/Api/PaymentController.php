@@ -35,8 +35,8 @@ class PaymentController extends Controller
      */
     public function charge(Request $request)
     {
-        if($request->input('submit'))
-        {
+        // if($request->input('submit'))
+        // {
             try {
                 $response = $this->gateway->purchase(array(
                     'amount' => $request->input('amount'),
@@ -58,7 +58,7 @@ class PaymentController extends Controller
                 
                 return $e->getMessage();
             }
-        }
+        // }
     }
   
     /**
@@ -92,7 +92,7 @@ class PaymentController extends Controller
                 $payment->payment_status = $arr_body['state'];
                 $payment->save();
         
-                return resposne()->json(['success' => true , 'data' => $arr_body['id']]);
+                return view('content.paypal.success');
                 // return "Payment is successful. Your transaction id is: ". $arr_body['id'];
             } else {
                 return response()->json(['success' => false , 'data' => $response->getMessage()]);
