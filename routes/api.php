@@ -178,7 +178,6 @@ Route::get('/fetch-feed' , [FeedController::class , 'fetch_feed'])->name('fetch-
 Route::get('/get-feed/{id}' , [FeedController::class , 'get_feed'])->name('get-feed');
 Route::get('/get-first-feed/{id}' , [FeedController::class , 'get_first_feed'])->name('get-feed-first');
 
-
 // Feed image backgroind
 Route::post('/upload-background' , [FeedBackgroundImageController::class , 'upload'])->name('upload-background');
 Route::get('/get-background' , [FeedBackgroundImageController::class , 'get'])->name('get-background');
@@ -188,11 +187,9 @@ Route::post('/add-collection' , [CollectionController::class , 'insert'])->name(
 Route::get('/get_collection/{user_id}' , [CollectionController::class , 'get_collection'])->name('get-collection');
 Route::delete('/remove-collection/{id}' , [CollectionController::class , 'destroy'])->name('remove-collection');
 
-
 Route::post('charge', [PaymentController::class,'charge']);
 Route::get('success', [PaymentController::class , 'success']);
 Route::get('error', [PaymentController::class , 'error']);
-
 
 Route::get('get_account_price' , [UpgradeAccountController::class  , 'price_upgrade'])->name('get_account_price');
 Route::post('/account-upgrade' , [UpgradeAccountController::class  , 'account_upgrade'])->name('account-upgrade')->middleware('auth:sanctum');
