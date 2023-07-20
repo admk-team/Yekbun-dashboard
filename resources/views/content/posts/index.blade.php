@@ -617,5 +617,33 @@
       }
     });
   }
+  @error('image')
+  window.addEventListener('load' , function(){
+    const bg_image = document.querySelector('.bg_image');
+    document.querySelector('.add_new').click();
+  })
+@enderror
+@php
+$field_id =null;
+foreach($errors->keys() as $errorKey){
+
+    if (str_starts_with($errorKey, 'image.') && $errorKey !== 'image.'){
+        $field_id = explode('.', $errorKey)[1];
+    }
+}
+@endphp
+@error('image.*')
+
+  window.addEventListener('load' , function(){
+    // const bg_image = document.querySelector('.openEditModal{{ explode('.' , $errors->first('image.*'))[1] }}');
+    document.querySelector('#openEditModal{{ $field_id }}').click();
+  })
+@enderror
+
+@error('emoji')
+window.addEventListener('load' , function(){
+    document.querySelector('.emoji_new').click();
+})
+@enderror
   </script>
 @endsection

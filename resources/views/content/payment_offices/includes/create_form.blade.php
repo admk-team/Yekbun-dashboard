@@ -25,13 +25,13 @@
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="col-md-12">
+                {{-- <div class="col-md-12">
                     <label class="form-label" for="inputEmail">Email</label>
                     <input type="text" id="inputEmail" name="email" class="form-control" value="{{ old('email') }}" placeholder="Email">
                     @error('email')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
-                </div>
+                </div> --}}
                 <div class="col-md-12">
                     <label class="form-label" for="inputPhone">Phone No</label>
                     <input type="text" id="inputPhone" name="phone" class="form-control" value="{{ old('phone') }}" placeholder="Phone No">
@@ -41,14 +41,21 @@
                 </div>
                 <div class="col-md-12">
                     <label class="form-label" for="inputCountry">Country</label>
-                    <input type="text" id="inputCountry" name="country" class="form-control" value="{{ old('country') }}" placeholder="Country">
+                    <select name="country" class="form-control">
+                        <option  value="{{ $country->id }}" readonly>{{ $country->name ?? '' }}</option>
+                    </select>
                     @error('country')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="col-md-12">
                     <label class="form-label" for="inputCity">City</label>
-                    <input type="text" id="inputCity" name="city" class="form-control" value="{{ old('city') }}" placeholder="City">
+                    <select  name="city" class="form-control">
+                        <option value="">Select city</option>
+                    @foreach($cities as $city)
+                       <option value="{{ $city->id }}">{{ $city->name ?? '' }}</option>
+                    @endforeach
+                </select>
                     @error('city')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\City;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Models\PaymentOffice;
 use App\Http\Controllers\Controller;
@@ -18,8 +20,11 @@ class PaymentOfficeController extends Controller
      */
     public function index()
     {
+        $country = Country::first();
+       
+        $cities = City::where('country_id' , $country->id)->get();
         $paymentOffices = PaymentOffice::orderBy("updated_at", "DESC")->get();
-        return view("content.payment_offices.index", compact("paymentOffices"));
+        return view("content.payment_offices.index", compact("paymentOffices" , "country"  , "cities"));
     }
 
     /**
@@ -50,7 +55,7 @@ class PaymentOfficeController extends Controller
 
         $paymentOffice = PaymentOffice::create($validated);
 
-        return back()->with("success", "Payment office successfully created.");
+        return redirect()->route('settings.payment-offices.index')->with("success", "Payment office successfully created.");
     }
 
     /**
@@ -86,6 +91,7 @@ class PaymentOfficeController extends Controller
      */
     public function update(UpdatePaymentOfficeRequest $request, $id)
     {
+   
         $validated = $request->validated();
 
         $imagePath = null;
@@ -98,7 +104,7 @@ class PaymentOfficeController extends Controller
         $paymentOffice->fill($validated);
         $paymentOffice->save();
 
-        return back()->with("success", "Payment office successfully updated.");
+        return redirect()->route('settings.payment-offices.index')->with("success", "Payment office successfully updated.");
     }
 
     /**

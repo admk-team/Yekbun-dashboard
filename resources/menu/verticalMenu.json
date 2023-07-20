@@ -202,6 +202,12 @@
           "name": "Income",
           "slug": "income",
           "hasNoPermissions": true
+        },
+        {
+          "url": "/gift",
+          "name": "For Gift",
+          "slug": "gift",
+          "hasNoPermissions": true
         }
       ]
     },
@@ -622,6 +628,12 @@
               "url": "/settings/payment-methods",
               "name": "Payment Methods",
               "slug": "settings.payment-methods",
+              "hasNoPermissions": true
+            },
+            {
+              "url": "/settings/bank-transfer",
+              "name": "Bank Transfer",
+              "slug": "settings.bank-transfer",
               "hasNoPermissions": true
             }
           ]

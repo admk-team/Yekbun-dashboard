@@ -27,20 +27,43 @@
 <!-- Invoice List Table -->
 <div class="card">
   <div class="card-datatable table-responsive">
-    <table class="invoice-list-table table border-top">
+    <table class="table border-top">
       <thead>
         <tr>
           <th></th>
           <th>#ID</th>
-          <th><i class='bx bx-trending-up'></i></th>
           <th>Client</th>
           <th>Total</th>
           <th class="text-truncate">Issued Date</th>
-          <th>Balance</th>
+          <th class="text-truncate">Due Date</th>
           <th>Invoice Status</th>
-          <th class="cell-fit">Actions</th>
         </tr>
       </thead>
+        <tbody>
+        @foreach($user_invoice as $invoice)
+        <tr>
+          <td></td>
+           <td>{{ $invoice->invoice_no ?? '' }}</td>
+           <td>
+            <div class="d-flex justify-content-start align-items-center user-name">
+            <div class="avatar-wrapper">
+              <div class="avatar avatar-sm me-3"><img src="{{ asset('storage/'.$invoice->user->image) }}" alt="Avatar" class="rounded-circle"></div>
+            </div>
+            <div class="d-flex flex-column">
+              <a href="javascript:void(0)" class="text-body text-truncate">
+                <span class="fw-semibold">{{ $invoice->user->name ?? '' }}</span>
+              </a>
+              <small class="text-muted">{{ $invoice->user->email ?? '' }}</small>
+            </div>
+          </div>
+        </td>
+        <td>{{ $invoice->total ?? '' }}</td>
+        <td>{{ $invoice->date ?? '' }}</td>
+        <td>{{ $invoice->due_date ?? '' }}</td>
+        <td>{{ $invoice->status ?? '' }}</td>
+        </tr>
+        @endforeach
+      </tbody>
     </table>
   </div>
 </div>

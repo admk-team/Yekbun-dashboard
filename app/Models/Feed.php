@@ -24,4 +24,9 @@ class Feed extends Model
     public function user(){
         return $this->hasMany(User::class , 'id' , 'user_id');
     }
+    public function collections()
+    {
+        return $this->belongsToMany(Collection::class, 'collection_feeds', 'feed_id', 'collection_id');
+    }
+    
 }

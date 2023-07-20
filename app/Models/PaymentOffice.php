@@ -28,4 +28,5 @@ class PaymentOffice extends Model
     {
         return LogOptions::defaults();
     }
+
 }
