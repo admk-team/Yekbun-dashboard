@@ -27,7 +27,7 @@
         }
 
         .text-primary {
-            color: #4155a6 !important;
+            color: #009CDE !important;
         }
     </style>
 
