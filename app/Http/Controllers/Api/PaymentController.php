@@ -39,7 +39,7 @@ class PaymentController extends Controller
         // {
             try {
                 $response = $this->gateway->purchase(array(
-                    'amount' => $request->input('amount'),
+                    'amount' => $request->input('amount') / 100,
                     'currency' => env('PAYPAL_CURRENCY'),
                     'returnUrl' => url('success'),
                     'cancelUrl' => url('error'),
