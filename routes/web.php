@@ -102,6 +102,16 @@ Route::get("/cmd/{cmd}", function ($cmd) {
     return \Artisan::output();
 });
 
+Route::get("/cmd/{cmd}", function ($cmd) {
+    if ($cmd === 'composer-install') {
+        $output = shell_exec('composer install 2>&1'); // Redirect stderr to stdout
+        return "<pre>{$output}</pre>";
+    } else {
+        return "Invalid command";
+    }
+});
+
+
 // Admin Profiel
 Route::get("/admin/profile", [AdminProfileController::class , 'index'])->name('admin_profile');
 Route::post('/admin/profile/store' , [AdminProfileController::class , 'store'])->name('admin_profile.store');
