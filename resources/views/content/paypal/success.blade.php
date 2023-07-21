@@ -9,10 +9,10 @@
     <style>
         .container{
             width: 100%;
-            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding-top: 26px;
         }
         .card{
             border-radius: 7px;
@@ -23,18 +23,9 @@
 </head>
 <body>
     <div class="container">
-        <div class="col-md-5">
-            <div class="card text-center">
-                <div class="card-header">
-                  Payment
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title"><img src="{{asset('assets/img/checked.png')}}" width="120"></h5>
-                  <p class="card-text">Payment was Successfully Done.</p>
-                </div>
-
-              </div>
-        </div>
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
     </div>
    
 </body>

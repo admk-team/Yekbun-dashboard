@@ -38,14 +38,14 @@ class PaymentController extends Controller
         // if($request->input('submit'))
         // {
         try {
-            $amountInDollars = $request->input('amount');
-            $amountInCents = $amountInDollars * 100; // Convert to cents
+            $amountInDollars = $request->amount;
+            $amountInCents = $amountInDollars * 1000;
 
             $response = $this->gateway->purchase(array(
                 'amount' => $amountInCents,
                 'currency' => env('PAYPAL_CURRENCY'),
-                'returnUrl' => url('success'),
-                'cancelUrl' => url('error'),
+                'returnUrl' => url('/api/success'),
+                'cancelUrl' => url('/api/error'),
             ))->send();
 
             if ($response->isRedirect()) {
