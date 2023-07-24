@@ -91,6 +91,7 @@ class PaymentController extends Controller
                 $payment->amount = $arr_body['transactions'][0]['amount']['total'];
                 $payment->currency = env('PAYPAL_CURRENCY');
                 $payment->payment_status = $arr_body['state'];
+                $payment->type = 'paypal';
                 $payment->save();
 
                 return view('content.paypal.success');
