@@ -39,7 +39,7 @@ class PaymentController extends Controller
         // {
         try {
             $amountInDollars = $request->amount;
-            $amountInCents = $amountInDollars;
+            $amountInCents = 5;
 
             $response = $this->gateway->purchase(array(
                 'amount' => $amountInCents,
