@@ -102,11 +102,6 @@ Route::get("/cmd/{cmd}", function ($cmd) {
     return \Artisan::output();
 });
 
-Route::get('/create-symlink', function (){
-    symlink(storage_path('/app/public'), public_path('storage'));
-    echo "Symlink Created. Thanks";
-});
-
 // Admin Profiel
 Route::get("/admin/profile", [AdminProfileController::class , 'index'])->name('admin_profile');
 Route::post('/admin/profile/store' , [AdminProfileController::class , 'store'])->name('admin_profile.store');
