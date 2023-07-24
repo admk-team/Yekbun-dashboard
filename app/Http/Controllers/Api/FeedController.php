@@ -94,7 +94,7 @@ class FeedController extends Controller
             //     $images = array_slice($json , 0 , 4);
             //     return response()->json(['success' => true , 'data' => $images]);
             // }
-            return $feed_bg;
+            return $feed_bg[0];
             return response()->json(['success' => false , 'message' => 'No image found..']);
         }
         return response()->json(['success' => false , 'message' => 'No image about to that user.']);
