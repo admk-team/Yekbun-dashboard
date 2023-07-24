@@ -105,10 +105,10 @@ class FeedController extends Controller
             }
 
             $images = array_slice($convertedDataArray , 0 , 4);
-            return response()->json(['success' , true , 'data' => $images]);
+            return ['success' => true, 'data' => $convertedDataArray];
         }
 
-        return response()->json(['success' => false , 'message' => 'No image found..']);
+        return ['success' => false , 'message' => 'No image found..'];
     }
 
     public function get_all($id){
@@ -131,10 +131,10 @@ class FeedController extends Controller
                 }
             }
 
-            return response()->json(['success' , true , 'data' => $convertedDataArray]);
+            return ['success' , true , 'data' => $convertedDataArray];
         }
 
-        return response()->json(['success' => false , 'message' => 'No image found..']);
+        return ['success' => false , 'message' => 'No image found..'];
 
     }
 
@@ -158,7 +158,7 @@ class FeedController extends Controller
             $videos = array_slice($convertedDataArray , 0 , 4);
             return response()->json(['success' => true , 'data' => $videos]);
         }
-        return response()->json(['error' => false , 'message' => 'No video found .']);
+        return ['error' => false , 'message' => 'No video found .'];
     }
 
     public function get_all_feed_videos($id){
@@ -174,8 +174,8 @@ class FeedController extends Controller
                     }
                 }
             }
-            return response()->json(['success' => true , 'data' => $convertedDataArray]);
+            return ['success' => true, 'data' => $convertedDataArray];
         }
-        return response()->json(['success'  => false , 'message' => 'No videos found..']);
+        return ['success'  => false , 'message' => 'No videos found..'];
     }
 }
