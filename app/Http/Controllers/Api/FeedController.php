@@ -24,7 +24,7 @@ class FeedController extends Controller
 
     public function add_feed(Request $request)
     {
-        
+        return $request->media;
         $feed = new Feed();
         $feed->title = $request->title ?? '';
         $feed->description = $request->description;
