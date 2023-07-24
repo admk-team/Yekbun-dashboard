@@ -71,7 +71,6 @@ class PaymentController extends Controller
      */
     public function success(Request $request)
     {
-        // Once the transaction has been approved, we need to complete it.
         if ($request->input('paymentId') && $request->input('PayerID')) {
             $transaction = $this->gateway->completePurchase(array(
                 'payer_id'             => $request->input('PayerID'),
@@ -80,10 +79,8 @@ class PaymentController extends Controller
             $response = $transaction->send();
 
             if ($response->isSuccessful()) {
-                // The customer has successfully paid.
                 $arr_body = $response->getData();
 
-                // Insert transaction data into the database
                 $payment = new Payment;
                 $payment->payment_id = $arr_body['id'];
                 $payment->payer_id = $arr_body['payer']['payer_info']['payer_id'];
@@ -93,17 +90,15 @@ class PaymentController extends Controller
                 $payment->payment_status = $arr_body['state'];
                 $payment->type = 'paypal';
                 $payment->transaction_id = 'yk_' . mt_rand(100000000, 999999999) . PHP_EOL;
+                $payment->status = 1;
                 $payment->save();
 
                 return view('content.paypal.success');
-                // return "Payment is successful. Your transaction id is: ". $arr_body['id'];
             } else {
                 return response()->json(['success' => false, 'data' => $response->getMessage()]);
-                // return $response->getMessage();
             }
         } else {
             return response()->json(['success' => false, 'data' => 'Transcation is declined.']);
-            // return 'Transaction is declined';
         }
     }
 

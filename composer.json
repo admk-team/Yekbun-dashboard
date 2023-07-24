@@ -21,7 +21,8 @@
     "nesbot/carbon": "^2.68",
     "omnipay/paypal": "^3.0",
     "spatie/laravel-activitylog": "^4.7",
-    "spatie/laravel-permission": "^5.10"
+    "spatie/laravel-permission": "^5.10",
+    "stripe/stripe-php": "^10.18"
   },
   "require-dev": {
     "fakerphp/faker": "^1.9.1",

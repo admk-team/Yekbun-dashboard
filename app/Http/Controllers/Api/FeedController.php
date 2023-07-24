@@ -111,8 +111,5 @@ class FeedController extends Controller
 
         }
         return response()->json(['success' => false , 'message' => 'No image about to that user.']);
-
     }
-
-
 }

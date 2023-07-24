@@ -51,6 +51,7 @@ use App\Http\Controllers\Api\UploadMediaController;
 use App\Http\Controllers\Api\CollectionController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\UpgradeAccountController;
+use App\Http\Controllers\Api\StripeController;
 
 
 /*
@@ -188,10 +189,15 @@ Route::post('/add-collection', [CollectionController::class, 'insert'])->name('a
 Route::get('/get_collection/{user_id}', [CollectionController::class, 'get_collection'])->name('get-collection');
 Route::delete('/remove-collection/{id}', [CollectionController::class, 'destroy'])->name('remove-collection');
 
+// Paypal
 Route::post('charge', [PaymentController::class, 'charge']);
 Route::get('success', [PaymentController::class, 'success']);
 Route::get('error', [PaymentController::class, 'error']);
 Route::get('/payment-details/{payment_id}', [PaymentController::class, 'payment_details']);
+
+// Stripe
+Route::post('/stripe/checkout', [StripeController::class, 'index']);
+Route::get('/stripe/success', [StripeController::class, 'success']);
 
 Route::get('get_account_price', [UpgradeAccountController::class, 'price_upgrade'])->name('get_account_price');
 Route::post('/account-upgrade', [UpgradeAccountController::class, 'account_upgrade'])->name('account-upgrade')->middleware('auth:sanctum');
