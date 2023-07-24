@@ -102,6 +102,11 @@ Route::get("/cmd/{cmd}", function ($cmd) {
     return \Artisan::output();
 });
 
+Route::get('/create-symlink', function (){
+    symlink(storage_path('/app/public'), public_path('storage'));
+    echo "Symlink Created. Thanks";
+});
+
 // Admin Profiel
 Route::get("/admin/profile", [AdminProfileController::class , 'index'])->name('admin_profile');
 Route::post('/admin/profile/store' , [AdminProfileController::class , 'store'])->name('admin_profile.store');
@@ -112,8 +117,6 @@ Route::get('/admin/profile/notification' , [AdminProfileController::class , 'not
 Route::get('/admin/profile/connection' , [AdminProfileController::class , 'connection'])->name('admin_profile.connection');
 Route::post('/admin/change-password' , [AdminProfileController::class , 'change_password'])->name('admin_change_password');
 Route::get('/admin/2FA', [AdminProfileController::class , 'enable'])->name('admin.enable.2fa');
-
-
 
 Route::get('/login', [LoginController::class, 'index'])->name('admin.login')->middleware('guest');
 
