@@ -88,30 +88,55 @@ class FeedController extends Controller
     }
 
     public function get_feed_bg($id){
+
         $feed_bg = Feed::select('media')->where('user_id' , $id)->get();
         if(isset($feed_bg)){
-            if( (json_decode($feed_bg[0]->media) !== null )){
-                $json = json_decode($feed_bg[0]->media);
-                $images = array_slice($json , 0 , 4);
-                return response()->json(['success' => true , 'data' => $images]);
-            }
-            return response()->json(['success' => false , 'message' => 'No image found..']);
-        }
-        return response()->json(['success' => false , 'message' => 'No image about to that user.']);
         
+            // Create an empty array to store the converted data
+            $convertedDataArray = [];
+
+            // Loop through the array and convert the "media" values
+            foreach ($feed_bg as $data) {
+                $mediaArray = json_decode($data->media , true );
+            
+                foreach ($mediaArray as $media) {
+                  
+                    $convertedDataArray[] = $media['path'];
+                }
+            }
+
+            $images = array_slice($convertedDataArray , 0 , 4);
+            return response()->json(['success' , true , 'data' => $images]);
+        }
+
+        return response()->json(['success' => false , 'message' => 'No image found..']);
     }
+    
+
+
 
     public function get_all($id){
+      
         $feed_bg = Feed::select('media')->where('user_id' , $id)->get();
         if(isset($feed_bg)){
-            if(json_decode($feed_bg[0]->media) !== null){
-                $images = json_decode($feed_bg[0]->media);
-                return response()->json(['success' => true  , 'data' => $images]);
-            }
-            return response()->json(['success' => false , 'message' => 'No image found..']);
+        
+            // Create an empty array to store the converted data
+            $convertedDataArray = [];
 
+            // Loop through the array and convert the "media" values
+            foreach ($feed_bg as $data) {
+                $mediaArray = json_decode($data->media , true );
+            
+                foreach ($mediaArray as $media) {
+                  
+                    $convertedDataArray[] = $media['path'];
+                }
+            }
+
+            return response()->json(['success' , true , 'data' => $convertedDataArray]);
         }
-        return response()->json(['success' => false , 'message' => 'No image about to that user.']);
+
+        return response()->json(['success' => false , 'message' => 'No image found..']);
 
     }
 
