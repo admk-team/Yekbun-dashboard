@@ -180,6 +180,8 @@ Route::get('/get-feed/{id}' , [FeedController::class , 'get_feed'])->name('get-f
 Route::get('/get-first-feed/{id}' , [FeedController::class , 'get_first_feed'])->name('get-feed-first');
 Route::get('/get-feed-bg/{id}' , [FeedController::class , 'get_feed_bg'])->name('get-feed-bg');
 Route::get('/get-feed-background/{id}' , [FeedController::class , 'get_all'])->name('get-feed-background');
+Route::get('feed-background-video/{id}' ,[FeedController::class  , 'get_feed_background_video'])->name('feed-background-video');
+Route::get('/get-all-videos/{id}' , [FeedController::class , 'get_all_feed_videos'])->name('get-all-videos');
 // Feed image backgroind
 Route::post('/upload-background', [FeedBackgroundImageController::class, 'upload'])->name('upload-background');
 Route::get('/get-background', [FeedBackgroundImageController::class, 'get'])->name('get-background');
