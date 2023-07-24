@@ -114,4 +114,11 @@ class PaymentController extends Controller
         return response()->json(['success' => false, 'data' => 'User Cancelled the payment.']);
         // return 'User cancelled the payment.';
     }
+
+    public function payment_details($payment_id)
+    {
+        $payment = Payment::where('payment_id', $payment_id)->first();
+
+        return response()->json(['success' => true, 'data' => $payment]);
+    }
 }

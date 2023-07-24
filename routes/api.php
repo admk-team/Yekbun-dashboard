@@ -133,14 +133,14 @@ Route::post('/reset', [AuthController::class, 'resetpassword'])->name('reset.com
 Route::post('/reset/resend', [AuthController::class, 'reset_resend'])->name('reset.resend');
 
 // Account Setting  Controller
-Route::post('/change-password' , [AccountSettingController::class , 'change_password'])->name('change-password')->middleware('auth:sanctum');
-Route::post('/send-email-code' , [AccountSettingController::class , 'send_email_code'] )->name('send-email-code');
-Route::post('/resend-email' , [AccountSettingController::class , 'resend_email_code'] )->name('resend-email');
-Route::post('/change-email' , [AccountSettingController::class , 'change_email'] )->name('change-email');
-Route::post('/upgrade-account' , [AccountsettingController::class , 'upgrade_account'])->name('upgrade-account');
+Route::post('/change-password', [AccountSettingController::class, 'change_password'])->name('change-password')->middleware('auth:sanctum');
+Route::post('/send-email-code', [AccountSettingController::class, 'send_email_code'])->name('send-email-code');
+Route::post('/resend-email', [AccountSettingController::class, 'resend_email_code'])->name('resend-email');
+Route::post('/change-email', [AccountSettingController::class, 'change_email'])->name('change-email');
+Route::post('/upgrade-account', [AccountsettingController::class, 'upgrade_account'])->name('upgrade-account');
 
 // Contact Us Controller
-Route::post('/contact-us', [ContactUsController::class , 'contact_us'])->name('contact-us');
+Route::post('/contact-us', [ContactUsController::class, 'contact_us'])->name('contact-us');
 
 
 Route::post('2fa', [TwoFactorController::class, 'store'])->name('2fa.post');
@@ -148,11 +148,11 @@ Route::post('2fa/reset', [TwoFactorController::class, 'resend'])->name('2fa.rese
 
 
 // Country Controller 
-Route::get('province', [CountryController::class , 'province'])->name('province');
+Route::get('province', [CountryController::class, 'province'])->name('province');
 
 // Privacy and Policy
-Route::get('privacy', [PrivacyAndPolicyController::class , 'privacy'])->name('privacy');
-Route::get('/single-privacy/{name}' , [PrivacyAndPolicyController::class , 'single_privacy'])->name('single_privacy');
+Route::get('privacy', [PrivacyAndPolicyController::class, 'privacy'])->name('privacy');
+Route::get('/single-privacy/{name}', [PrivacyAndPolicyController::class, 'single_privacy'])->name('single_privacy');
 
 // Translation
 Route::prefix('/translate')->name('api.translate.')->group(function () {
@@ -161,35 +161,36 @@ Route::prefix('/translate')->name('api.translate.')->group(function () {
 });
 
 // User  Setting Controller 
-Route::post('/user-setting/{user_id}' , [UserSettingController::class , 'index'])->name('user-setting');
-Route::post('/user-setting/save', [UserSettingController::class , 'save'])->name('user-setting-save')->middleware('auth:sanctum');
+Route::post('/user-setting/{user_id}', [UserSettingController::class, 'index'])->name('user-setting');
+Route::post('/user-setting/save', [UserSettingController::class, 'save'])->name('user-setting-save')->middleware('auth:sanctum');
 
 
 // Feed Controller 
-Route::get('share-feed' , [FeedController::class , 'shareWidget'])->name('share-feed');
+Route::get('share-feed', [FeedController::class, 'shareWidget'])->name('share-feed');
 
 
 // Ringtone Controller
-Route::get('/ringtone', [RingtoneController::class , 'get'])->name('ringtone');
+Route::get('/ringtone', [RingtoneController::class, 'get'])->name('ringtone');
 
 Route::post('/upload-media', [UploadMediaController::class, 'index']);
-Route::post('/add-feed' , [FeedController::class , 'add_feed'])->name('add-feed');
-Route::get('/fetch-feed' , [FeedController::class , 'fetch_feed'])->name('fetch-feed');
-Route::get('/get-feed/{id}' , [FeedController::class , 'get_feed'])->name('get-feed');
-Route::get('/get-first-feed/{id}' , [FeedController::class , 'get_first_feed'])->name('get-feed-first');
+Route::post('/add-feed', [FeedController::class, 'add_feed'])->name('add-feed');
+Route::get('/fetch-feed', [FeedController::class, 'fetch_feed'])->name('fetch-feed');
+Route::get('/get-feed/{id}', [FeedController::class, 'get_feed'])->name('get-feed');
+Route::get('/get-first-feed/{id}', [FeedController::class, 'get_first_feed'])->name('get-feed-first');
 
 // Feed image backgroind
-Route::post('/upload-background' , [FeedBackgroundImageController::class , 'upload'])->name('upload-background');
-Route::get('/get-background' , [FeedBackgroundImageController::class , 'get'])->name('get-background');
+Route::post('/upload-background', [FeedBackgroundImageController::class, 'upload'])->name('upload-background');
+Route::get('/get-background', [FeedBackgroundImageController::class, 'get'])->name('get-background');
 
 // collectoin feed
-Route::post('/add-collection' , [CollectionController::class , 'insert'])->name('add-collection');
-Route::get('/get_collection/{user_id}' , [CollectionController::class , 'get_collection'])->name('get-collection');
-Route::delete('/remove-collection/{id}' , [CollectionController::class , 'destroy'])->name('remove-collection');
+Route::post('/add-collection', [CollectionController::class, 'insert'])->name('add-collection');
+Route::get('/get_collection/{user_id}', [CollectionController::class, 'get_collection'])->name('get-collection');
+Route::delete('/remove-collection/{id}', [CollectionController::class, 'destroy'])->name('remove-collection');
 
-Route::post('charge', [PaymentController::class,'charge']);
-Route::get('success', [PaymentController::class , 'success']);
-Route::get('error', [PaymentController::class , 'error']);
+Route::post('charge', [PaymentController::class, 'charge']);
+Route::get('success', [PaymentController::class, 'success']);
+Route::get('error', [PaymentController::class, 'error']);
+Route::get('/payment-details/{payment_id}', [PaymentController::class, 'payment_details']);
 
-Route::get('get_account_price' , [UpgradeAccountController::class  , 'price_upgrade'])->name('get_account_price');
-Route::post('/account-upgrade' , [UpgradeAccountController::class  , 'account_upgrade'])->name('account-upgrade')->middleware('auth:sanctum');
+Route::get('get_account_price', [UpgradeAccountController::class, 'price_upgrade'])->name('get_account_price');
+Route::post('/account-upgrade', [UpgradeAccountController::class, 'account_upgrade'])->name('account-upgrade')->middleware('auth:sanctum');
