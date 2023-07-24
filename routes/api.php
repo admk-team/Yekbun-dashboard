@@ -173,11 +173,12 @@ Route::get('share-feed', [FeedController::class, 'shareWidget'])->name('share-fe
 Route::get('/ringtone', [RingtoneController::class, 'get'])->name('ringtone');
 
 Route::post('/upload-media', [UploadMediaController::class, 'index']);
-Route::post('/add-feed', [FeedController::class, 'add_feed'])->name('add-feed');
-Route::get('/fetch-feed', [FeedController::class, 'fetch_feed'])->name('fetch-feed');
-Route::get('/get-feed/{id}', [FeedController::class, 'get_feed'])->name('get-feed');
-Route::get('/get-first-feed/{id}', [FeedController::class, 'get_first_feed'])->name('get-feed-first');
-
+Route::post('/add-feed' , [FeedController::class , 'add_feed'])->name('add-feed');
+Route::get('/fetch-feed' , [FeedController::class , 'fetch_feed'])->name('fetch-feed');
+Route::get('/get-feed/{id}' , [FeedController::class , 'get_feed'])->name('get-feed');
+Route::get('/get-first-feed/{id}' , [FeedController::class , 'get_first_feed'])->name('get-feed-first');
+Route::get('/get-feed-bg/{id}' , [FeedController::class , 'get_feed_bg'])->name('get-feed-bg');
+Route::get('/get-feed-background/{id}' , [FeedController::class , 'get_all'])->name('get-feed-background');
 // Feed image backgroind
 Route::post('/upload-background', [FeedBackgroundImageController::class, 'upload'])->name('upload-background');
 Route::get('/get-background', [FeedBackgroundImageController::class, 'get'])->name('get-background');
