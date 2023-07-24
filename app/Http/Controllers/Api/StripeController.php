@@ -16,7 +16,7 @@ class StripeController extends Controller
 
         $description = 'Example Payment';
 
-        $transaction_id = 'yk_' . mt_rand(100000000, 999999999) . PHP_EOL;
+        $transaction_id = 'yk_' . mt_rand(100000000, 999999999);
 
         $checkoutSession = Session::create([
             'payment_method_types' => ['card'],
@@ -33,13 +33,13 @@ class StripeController extends Controller
                 ],
             ],
             'mode' => 'payment',
-            'success_url' => url('/api/stripe/success') . '?transaction_id=' . $transaction_id,
-            'cancel_url' => url('/error'),
+            'success_url' => url('/api/stripe/update-transaction') . '?transaction_id=' . $transaction_id,
+            'cancel_url' => url('/api/error'),
         ]);
 
         $payment = new Payment;
         $payment->payment_id = $checkoutSession->id;
-        $payment->payer_id = mt_rand(100000000, 999999999) . PHP_EOL;
+        $payment->payer_id = mt_rand(100000000, 999999999);
         $payment->payer_email = $request->email;
         $payment->amount = $request->amount;
         $payment->currency = env('STRIPE_CURRENCY');
@@ -52,16 +52,19 @@ class StripeController extends Controller
         return $checkoutSession->url;
     }
 
-    public function success(Request $request)
+    public function update(Request $request)
     {
         $payment = Payment::where('transaction_id', $request->transaction_id)->first();
-
-        return $payment;
 
         $payment->payment_status = 'approved';
         $payment->status = 1;
         $payment->save();
 
-        return redirect('/api/success');
+        return redirect('/api/stripe/update-success' . '?transaction_id=' . $request->transaction_id);
+    }
+
+    public function success()
+    {
+        return view('content.paypal.success');
     }
 }

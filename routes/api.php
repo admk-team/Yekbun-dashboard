@@ -197,7 +197,8 @@ Route::get('/payment-details/{payment_id}', [PaymentController::class, 'payment_
 
 // Stripe
 Route::post('/stripe/checkout', [StripeController::class, 'index']);
-Route::get('/stripe/success', [StripeController::class, 'success']);
+Route::get('/stripe/update-transaction', [StripeController::class, 'update']);
+Route::get('/stripe/update-success', [StripeController::class, 'success']);
 
 Route::get('get_account_price', [UpgradeAccountController::class, 'price_upgrade'])->name('get_account_price');
 Route::post('/account-upgrade', [UpgradeAccountController::class, 'account_upgrade'])->name('account-upgrade')->middleware('auth:sanctum');

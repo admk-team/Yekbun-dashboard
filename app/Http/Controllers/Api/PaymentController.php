@@ -90,7 +90,7 @@ class PaymentController extends Controller
                 $payment->currency = env('PAYPAL_CURRENCY');
                 $payment->payment_status = $arr_body['state'];
                 $payment->type = 'paypal';
-                $payment->transaction_id = 'yk_' . mt_rand(100000000, 999999999) . PHP_EOL;
+                $payment->transaction_id = 'yk_' . mt_rand(100000000, 999999999);
                 $payment->status = 1;
                 $payment->save();
 
