@@ -89,11 +89,12 @@ class FeedController extends Controller
     public function get_feed_bg($id){
         $feed_bg = Feed::select('media')->where('user_id' , $id)->get();
         if(isset($feed_bg)){
-            if( (json_decode($feed_bg[0]->media) !== null )){
-                $json = json_decode($feed_bg[0]->media);
-                $images = array_slice($json , 0 , 4);
-                return response()->json(['success' => true , 'data' => $images]);
-            }
+            // if( (json_decode($feed_bg[0]->media) !== null )){
+            //     $json = json_decode($feed_bg[0]->media);
+            //     $images = array_slice($json , 0 , 4);
+            //     return response()->json(['success' => true , 'data' => $images]);
+            // }
+            return $feed_bg;
             return response()->json(['success' => false , 'message' => 'No image found..']);
         }
         return response()->json(['success' => false , 'message' => 'No image about to that user.']);
