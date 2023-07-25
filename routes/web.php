@@ -80,8 +80,7 @@ use App\Http\Controllers\Admin\TicketServiceController;
 use App\Http\Controllers\Admin\FanPageTypeController;
 use App\Http\Controllers\Admin\BankTransferController;
 use App\Http\Controllers\Admin\InvoiceController;
-
-
+use App\Http\Controllers\Api\FeedController;
 
 /*
 |--------------------------------------------------------------------------
