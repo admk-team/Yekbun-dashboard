@@ -60,7 +60,7 @@ class StripeController extends Controller
         $payment->status = 1;
         $payment->save();
 
-        return redirect('/api/stripe/update-success' . '?payment_id=' . $request->payment_id);
+        return redirect('/api/stripe/update-success' . '?payment_id=' . $payment->payment_id);
     }
 
     public function success()
