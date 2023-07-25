@@ -16,7 +16,7 @@ class StripeController extends Controller
 
         $description = 'Account Upgrade';
 
-        $transaction_id = 'yk_' . mt_rand(100000000, 999999999);
+        $transaction_id = 'YK' . mt_rand(100000000, 999999999);
 
         $checkoutSession = Session::create([
             'payment_method_types' => ['card'],
