@@ -14,7 +14,7 @@ class StripeController extends Controller
     {
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
-        $description = 'Example Payment';
+        $description = 'Account Upgrade';
 
         $transaction_id = 'yk_' . mt_rand(100000000, 999999999);
 
@@ -49,7 +49,7 @@ class StripeController extends Controller
         $payment->status = 0;
         $payment->save();
 
-        return $checkoutSession->url;
+        return response()->json(['success' => true, 'data' => $checkoutSession->url]);
     }
 
     public function update(Request $request)
