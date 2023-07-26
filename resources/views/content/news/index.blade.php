@@ -116,9 +116,11 @@
               {{ $new->news_category->name  ??  '' }} </option>
           </td>
         @php
-            $img = json_decode($new->image);
-            $extension = pathinfo($img[0], PATHINFO_EXTENSION);
-
+        if(isset($new->image)){
+          
+              $img = json_decode($new->image);
+              $extension = pathinfo($img[0], PATHINFO_EXTENSION);
+        }
         @endphp
           <td>
             @if($extension == 'png')
