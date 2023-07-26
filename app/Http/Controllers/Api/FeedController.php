@@ -178,4 +178,16 @@ class FeedController extends Controller
         }
         return ['success'  => false , 'message' => 'No videos found..'];
     }
+
+    public function get_feed_media($id)
+    {
+        $feed = Feed::find($id);
+
+        if ($feed == '')
+            return response()->json(['success' => false, 'message' => 'No feed found by the id.']);
+
+        $media = json_decode($feed->media);
+
+        return response()->json(['success' => true, 'data' => $media]);
+    }
 }

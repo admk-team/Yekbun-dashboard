@@ -182,6 +182,7 @@ Route::get('/get-feed-bg/{id}' , [FeedController::class , 'get_feed_bg'])->name(
 Route::get('/get-feed-background/{id}' , [FeedController::class , 'get_all'])->name('get-feed-background');
 Route::get('feed-background-video/{id}' ,[FeedController::class  , 'get_feed_background_video'])->name('feed-background-video');
 Route::get('/get-all-videos/{id}' , [FeedController::class , 'get_all_feed_videos'])->name('get-all-videos');
+Route::get('/feed/media/{id}' , [FeedController::class , 'get_feed_media'])->name('feed.media');
 // Feed image backgroind
 Route::post('/upload-background', [FeedBackgroundImageController::class, 'upload'])->name('upload-background');
 Route::get('/get-background', [FeedBackgroundImageController::class, 'get'])->name('get-background');
