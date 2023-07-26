@@ -116,17 +116,21 @@
               {{ $new->news_category->name  ??  '' }} </option>
           </td>
         @php
-        if(isset($new->image)){
-          
+        if(isset($new->image) ){
               $img = json_decode($new->image);
-              $extension = pathinfo($img[0], PATHINFO_EXTENSION);
+              if(is_array($img)){
+                $extension = pathinfo($img[0], PATHINFO_EXTENSION) ?? '';
+              }else{
+                $extension = '';
+
+              }
         }
         @endphp
           <td>
             @if($extension == 'png')
-            <img class="rounded" src="{{ $img[0] ?? ''  }}" width="200" alt="">
+            <img class="rounded" src="{{ $img[0] ?? ''  }}" width="100" alt="">
             @else
-            <video autoplay loop style="width: 200px;" class="rounded" controls>
+            <video autoplay loop style="width: 100px;" class="rounded" controls>
               <source src="{{ $img[0] ?? '' }}">
             </video>
             @endif
@@ -148,7 +152,6 @@
                   </button>
                   @endcan
                 </span>
-
                 <!-- Delete -->
                 <form action="{{ route('news.destroy',$new->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
                   @method('DELETE')

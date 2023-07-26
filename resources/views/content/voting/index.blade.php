@@ -100,6 +100,9 @@
             <td>
                 {{ $vote->voting_category->name  ??  '' }} </option>
             </td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td>
                 <div class="dropdown d-inline-block">
                     <!-- Edit -->

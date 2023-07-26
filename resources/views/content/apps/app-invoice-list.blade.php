@@ -47,7 +47,11 @@
            <td>
             <div class="d-flex justify-content-start align-items-center user-name">
             <div class="avatar-wrapper">
-              <div class="avatar avatar-sm me-3"><img src="{{ asset('storage/'.$invoice->user->image) }}" alt="Avatar" class="rounded-circle"></div>
+              <div class="avatar avatar-sm me-3">
+                @if(isset($invoice->user))
+                <img src="{{ asset('storage/'.$invoice->user->image) }}  " alt="Avatar" class="rounded-circle">
+              @endif
+            </div>
             </div>
             <div class="d-flex flex-column">
               <a href="javascript:void(0)" class="text-body text-truncate">

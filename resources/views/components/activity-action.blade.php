@@ -1,3 +1,4 @@
+
 @php
 $eventPointColors = [
     'logged_in' => 'success',
