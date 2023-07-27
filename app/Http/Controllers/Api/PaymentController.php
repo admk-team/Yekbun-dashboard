@@ -41,7 +41,7 @@ class PaymentController extends Controller
         try {
             $amountInDollars = $request->amount;
 
-            $amountInCents = $amountInDollars * 100;
+            $amountInCents = $amountInDollars;
 
             \Log::info($amountInCents);
 
