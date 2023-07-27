@@ -43,10 +43,16 @@ class PaymentController extends Controller
 
             $amountInCents = $amountInDollars;
 
-            \Log::info($amountInCents);
-
             $response = $this->gateway->purchase(array(
-                'amount' => $amountInCents,
+                'amount' => $request->input('amount'),
+                'items' => array(
+                    array(
+                        'name'=>'Yekbun',
+                        'price' => $request->input('amount'),
+                        'description' => 'Account Upgrade',
+                        'quantity' =>1,
+                    )
+                ),
                 'currency' => env('PAYPAL_CURRENCY'),
                 'returnUrl' => url('/api/success'),
                 'cancelUrl' => url('/api/error'),
