@@ -14,9 +14,9 @@ class StripeController extends Controller
     {
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
-        $description = 'Example Payment';
+        $description = 'Account Upgrade';
 
-        $transaction_id = 'yk_' . mt_rand(100000000, 999999999);
+        $transaction_id = 'YK' . mt_rand(100000000, 999999999);
 
         $checkoutSession = Session::create([
             'payment_method_types' => ['card'],
@@ -49,7 +49,7 @@ class StripeController extends Controller
         $payment->status = 0;
         $payment->save();
 
-        return $checkoutSession->url;
+        return response()->json(['success' => true, 'data' => $checkoutSession->url]);
     }
 
     public function update(Request $request)
@@ -60,7 +60,7 @@ class StripeController extends Controller
         $payment->status = 1;
         $payment->save();
 
-        return redirect('/api/stripe/update-success' . '?transaction_id=' . $request->transaction_id);
+        return redirect('/api/stripe/update-success' . '?payment_id=' . $payment->payment_id);
     }
 
     public function success()

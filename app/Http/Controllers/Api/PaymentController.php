@@ -39,8 +39,8 @@ class PaymentController extends Controller
         // {
         try {
             $amountInDollars = $request->amount;
-            $amountInCents = ($amountInDollars * 1000) / $amountInDollars;
-            return $amountInCents;
+
+            $amountInCents = $amountInDollars * 100;
 
             $response = $this->gateway->purchase(array(
                 'amount' => $amountInCents,
@@ -90,7 +90,7 @@ class PaymentController extends Controller
                 $payment->currency = env('PAYPAL_CURRENCY');
                 $payment->payment_status = $arr_body['state'];
                 $payment->type = 'paypal';
-                $payment->transaction_id = 'yk_' . mt_rand(100000000, 999999999);
+                $payment->transaction_id = 'YK' . mt_rand(100000000, 999999999);
                 $payment->status = 1;
                 $payment->save();
 

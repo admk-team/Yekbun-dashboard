@@ -41,7 +41,7 @@ class FeedController extends Controller
 
         $feed->media = $request->has('media') ? json_encode($request->media) : '{}';
 
-        if ($feed->save()) {   
+        if ($feed->save()) {
             return response()->json(['success' => true, 'message' => 'Feed successfully added.']);
         } else {
             return response()->json(['success' => false, 'data' => 'Failed to add feed.']);
@@ -86,96 +86,141 @@ class FeedController extends Controller
         return response()->json(['success' => true, 'data' => $data]);
     }
 
-    public function get_feed_bg($id){
+    public function get_feed_bg($id)
+    {
 
-        $feed_bg = Feed::select('media')->where('user_id' , $id)->get();
-        if(isset($feed_bg)){
-        
+        $feed_bg = Feed::select('media')->where('user_id', $id)->get();
+        if (isset($feed_bg)) {
+
             // Create an empty array to store the converted data
             $convertedDataArray = [];
 
             // Loop through the array and convert the "media" values
             foreach ($feed_bg as $data) {
-                $mediaArray = json_decode($data->media , true );
-                        foreach ($mediaArray as $media) {
-                            if($media['type'] == 0){
-                            $convertedDataArray[] = $media['path'];
-                            }
-                        }
-            }
-
-            $images = array_slice($convertedDataArray , 0 , 4);
-            return ['success' => true, 'data' => $convertedDataArray];
-        }
-
-        return ['success' => false , 'message' => 'No image found..'];
-    }
-
-    public function get_all($id){
-      
-        $feed_bg = Feed::select('media')->where('user_id' , $id)->get();
-    
-        if(isset($feed_bg)){
-        
-            // Create an empty array to store the converted data
-            $convertedDataArray = [];
-
-            // Loop through the array and convert the "media" values
-            foreach ($feed_bg as $data) {
-                $mediaArray = json_decode($data->media , true );
-            
+                $mediaArray = json_decode($data->media, true);
                 foreach ($mediaArray as $media) {
-                    if($media['type'] == 0){
-                         $convertedDataArray[] = $media['path'];
+                    if ($media['type'] == 0) {
+                        $convertedDataArray[] = $media['path'];
                     }
                 }
             }
 
-            return ['success' , true , 'data' => $convertedDataArray];
+            $images = array_slice($convertedDataArray, 0, 4);
+            return ['success' => true, 'data' => $convertedDataArray];
         }
 
-        return ['success' => false , 'message' => 'No image found..'];
-
+        return ['success' => false, 'message' => 'No image found..'];
     }
 
-    public function get_feed_background_video($id){
-        $feed_video = Feed::select('media')->where('user_id' , $id)->get();
+    public function get_all($id)
+    {
 
-        if(isset($feed_video)){
+        $feed_bg = Feed::select('media')->where('user_id', $id)->get();
+
+        if (isset($feed_bg)) {
+
+            // Create an empty array to store the converted data
+            $convertedDataArray = [];
+
+            // Loop through the array and convert the "media" values
+            foreach ($feed_bg as $data) {
+                $mediaArray = json_decode($data->media, true);
+
+                foreach ($mediaArray as $media) {
+                    if ($media['type'] == 0) {
+                        $convertedDataArray[] = $media['path'];
+                    }
+                }
+            }
+
+            return ['success', true, 'data' => $convertedDataArray];
+        }
+
+        return ['success' => false, 'message' => 'No image found..'];
+    }
+
+    public function get_feed_background_video($id)
+    {
+        $feed_video = Feed::select('media')->where('user_id', $id)->get();
+
+        if (isset($feed_video)) {
             // create empty array
             $converteedDataArray = [];
-            
-            foreach($feed_video as $data){
-                $mediaArray = json_decode($data->media , true);
 
-                foreach($mediaArray as $media){
-                    if($media['type'] == 1){
+            foreach ($feed_video as $data) {
+                $mediaArray = json_decode($data->media, true);
+
+                foreach ($mediaArray as $media) {
+                    if ($media['type'] == 1) {
                         $convertedDataArray[] = $media['path'];
                     }
                 }
             }
 
-            $videos = array_slice($convertedDataArray , 0 , 4);
-            return response()->json(['success' => true , 'data' => $videos]);
+            $videos = array_slice($convertedDataArray, 0, 4);
+            return response()->json(['success' => true, 'data' => $videos]);
         }
-        return ['error' => false , 'message' => 'No video found .'];
+        return ['error' => false, 'message' => 'No video found .'];
     }
 
-    public function get_all_feed_videos($id){
-        $feed_videos = Feed::select('media')->where('user_id' , $id)->get();
+    public function get_all_feed_videos($id)
+    {
+        $feed_videos = Feed::select('media')->where('user_id', $id)->get();
 
-        if(isset($feed_videos)){
+        if (isset($feed_videos)) {
             $convertedDataArray = [];
-            foreach($feed_videos as $data){
-                $mediaArray = json_decode($data->media , true);
-                foreach($mediaArray as $media){
-                    if($media['type'] == 1){
+            foreach ($feed_videos as $data) {
+                $mediaArray = json_decode($data->media, true);
+                foreach ($mediaArray as $media) {
+                    if ($media['type'] == 1) {
                         $convertedDataArray[] = $media['path'];
                     }
                 }
             }
             return ['success' => true, 'data' => $convertedDataArray];
         }
-        return ['success'  => false , 'message' => 'No videos found..'];
+        return ['success'  => false, 'message' => 'No videos found..'];
+    }
+
+    public function get_feed_media($id)
+    {
+        $feed = Feed::find($id);
+
+        if ($feed == '')
+            return response()->json(['success' => false, 'message' => 'No feed found by the id.']);
+
+        $media = json_decode($feed->media);
+
+        return response()->json(['success' => true, 'data' => $media]);
+    }
+
+    public function feed_media_delete(Request $request)
+    {
+        $feeds = Feed::where('user_id', $request->user_id)->get();
+
+        foreach ($feeds as $feed) {
+            $media = json_decode($feed->media);
+
+            foreach ($media as $item) {
+                if ($item->path == $request->path) {
+                    $media_feed = Feed::find($feed->id);
+                    
+                    $feed_media = collect(json_decode($media_feed->media));
+
+                    $updated_media = $feed_media->filter(function ($single_media) use ($request) {
+                        return $single_media->path !== $request->path;
+                    });
+
+                    $new_media = array_values($updated_media->toArray());
+
+                    $media_feed->media = $new_media;
+                    $media_feed->save();
+
+                    return response()->json(['success' => true, 'message' => 'Successfully deleted.']);
+                }
+            }
+        }
+
+        return response()->json(['success' => false, 'message' => 'Not found.']);
     }
 }

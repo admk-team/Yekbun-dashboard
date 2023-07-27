@@ -80,8 +80,7 @@ use App\Http\Controllers\Admin\TicketServiceController;
 use App\Http\Controllers\Admin\FanPageTypeController;
 use App\Http\Controllers\Admin\BankTransferController;
 use App\Http\Controllers\Admin\InvoiceController;
-
-
+use App\Http\Controllers\Api\FeedController;
 
 /*
 |--------------------------------------------------------------------------
@@ -112,8 +111,6 @@ Route::get('/admin/profile/notification' , [AdminProfileController::class , 'not
 Route::get('/admin/profile/connection' , [AdminProfileController::class , 'connection'])->name('admin_profile.connection');
 Route::post('/admin/change-password' , [AdminProfileController::class , 'change_password'])->name('admin_change_password');
 Route::get('/admin/2FA', [AdminProfileController::class , 'enable'])->name('admin.enable.2fa');
-
-
 
 Route::get('/login', [LoginController::class, 'index'])->name('admin.login')->middleware('guest');
 
