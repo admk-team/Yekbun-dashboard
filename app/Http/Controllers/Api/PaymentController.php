@@ -35,15 +35,24 @@ class PaymentController extends Controller
      */
     public function charge(Request $request)
     {
+        
         // if($request->input('submit'))
         // {
         try {
             $amountInDollars = $request->amount;
 
-            $amountInCents = $amountInDollars * 100;
+            $amountInCents = $amountInDollars;
 
             $response = $this->gateway->purchase(array(
-                'amount' => $amountInCents,
+                'amount' => $request->input('amount'),
+                'items' => array(
+                    array(
+                        'name'=>'Yekbun',
+                        'price' => $request->input('amount'),
+                        'description' => 'Account Upgrade',
+                        'quantity' =>1,
+                    )
+                ),
                 'currency' => env('PAYPAL_CURRENCY'),
                 'returnUrl' => url('/api/success'),
                 'cancelUrl' => url('/api/error'),
