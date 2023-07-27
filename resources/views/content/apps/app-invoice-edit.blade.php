@@ -32,7 +32,10 @@
         <div class="row p-sm-3 p-0">
           <div class="col-md-6 mb-md-0 mb-4">
             <div class="d-flex svg-illustration mb-4 gap-2">
-              <span class="app-brand-logo demo"><img src="{{ asset('storage/'.$address->logo) }}" width="30" height="30" class="rounded-circle"></span>
+              <span class="app-brand-logo demo">
+                @if(isset($address->logo))
+                <img src="{{ asset('storage/'.$address->logo) }}" width="30" height="30" class="rounded-circle"></span>
+                @endif
               <span class="app-brand-text demo text-body fw-bolder">{{ $address->title ?? '' }}</span>
             </div>
             @php
