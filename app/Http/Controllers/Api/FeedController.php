@@ -203,6 +203,13 @@ class FeedController extends Controller
 
         $feed_media = collect(json_decode($feed->media));
 
+        $media_exists = $feed_media->contains(function ($item) use ($request) {
+            return $item->path === $request->path;
+        });
+    
+        if (!$media_exists)
+            return response()->json(['success' => false, 'message' => 'No media found.']);
+
         $filtered_media = $feed_media->filter(function ($item) use ($request) {
             return $item->path !== $request->path;
         });
