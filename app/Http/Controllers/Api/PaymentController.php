@@ -35,12 +35,15 @@ class PaymentController extends Controller
      */
     public function charge(Request $request)
     {
+        
         // if($request->input('submit'))
         // {
         try {
             $amountInDollars = $request->amount;
 
             $amountInCents = $amountInDollars * 100;
+
+            \Log::info($amountInCents);
 
             $response = $this->gateway->purchase(array(
                 'amount' => $amountInCents,
