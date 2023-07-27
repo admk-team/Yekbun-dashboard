@@ -98,7 +98,6 @@
             <td>{{ $vote->id }}</td>
             <td>{{ $vote->name ?? '' }}</td>
             <td>
-                {{ $vote->voting_category->name  ??  '' }} </option>
             </td>
             <td></td>
             <td></td>

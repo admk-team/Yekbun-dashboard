@@ -122,12 +122,11 @@
                 $extension = pathinfo($img[0], PATHINFO_EXTENSION) ?? '';
               }else{
                 $extension = '';
-
               }
         }
         @endphp
           <td>
-            @if($extension == 'png')
+            @if( strtoLower($extension) == 'png'  || strtoLower($extension) == 'jpg' || strtoLower($extension) == 'jpeg'  || strtoLower($extension) == 'gif')
             <img class="rounded" src="{{ $img[0] ?? ''  }}" width="100" alt="">
             @else
             <video autoplay loop style="width: 100px;" class="rounded" controls>
