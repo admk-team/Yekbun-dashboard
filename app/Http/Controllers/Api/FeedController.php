@@ -196,29 +196,31 @@ class FeedController extends Controller
 
     public function feed_media_delete(Request $request)
     {
-        $feed = Feed::find($request->id);
+        $feeds = Feed::where('user_id', $request->user_id)->get();
 
-        if (!$feed)
-            return response()->json(['success' => false, 'message' => 'No feed found by the id.']);
+        foreach ($feeds as $feed) {
+            $media = json_decode($feed->media);
 
-        $feed_media = collect(json_decode($feed->media));
+            foreach ($media as $item) {
+                if ($item->path == $request->path) {
+                    $media_feed = Feed::find($feed->id);
+                    
+                    $feed_media = collect(json_decode($media_feed->media));
 
-        $media_exists = $feed_media->contains(function ($item) use ($request) {
-            return $item->path === $request->path;
-        });
-    
-        if (!$media_exists)
-            return response()->json(['success' => false, 'message' => 'No media found.']);
+                    $updated_media = $feed_media->filter(function ($single_media) use ($request) {
+                        return $single_media->path !== $request->path;
+                    });
 
-        $filtered_media = $feed_media->filter(function ($item) use ($request) {
-            return $item->path !== $request->path;
-        });
+                    $new_media = array_values($updated_media->toArray());
 
-        $updated_media = array_values($filtered_media->toArray());
+                    $media_feed->media = $new_media;
+                    $media_feed->save();
 
-        $feed->media = $updated_media;
-        $feed->save();
+                    return response()->json(['success' => true, 'message' => 'Successfully deleted.']);
+                }
+            }
+        }
 
-        return response()->json(['success' => true, 'message' => 'Successfully deleted.']);
+        return response()->json(['success' => false, 'message' => 'Not found.']);
     }
 }
