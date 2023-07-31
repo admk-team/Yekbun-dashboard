@@ -112,7 +112,7 @@
                                             <div class="row">
                                                 <div class="col mb-3">
                                                     <label for="nameLarge" class="form-label">Name</label>
-                                                    <input type="text" id="nameLarge" class="form-control" placeholder="Enter Name" name="movie_category" value={{ $movie->name ?? '' }}>
+                                                    <input type="text" id="nameLarge" class="form-control" placeholder="Enter Name" name="movie_category" value={{ $movie->category ?? '' }}>
                                                 </div>
                                             </div>
                                     </div>
