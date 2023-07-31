@@ -141,7 +141,7 @@ class NewsController extends Controller
          }
     }
 
-    public function news()
+    public function category_news($id)
     {
         $news = News::all();
 

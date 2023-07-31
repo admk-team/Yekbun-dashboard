@@ -208,11 +208,11 @@ Route::get('get_account_price', [UpgradeAccountController::class, 'price_upgrade
 Route::post('/account-upgrade', [UpgradeAccountController::class, 'account_upgrade'])->name('account-upgrade')->middleware('auth:sanctum');
 
 // News
-Route::get('/news', [NewsController::class, 'news']);
+Route::get('/news/{id}', [NewsController::class, 'category_news']);
 Route::get('/news-cover', [NewsController::class, 'cover_news']);
 Route::get('/news-category', [NewsController::class, 'categories']);
 
 // History
-Route::get('/history', [HistoryController::class, 'history']);
+Route::get('/history/{id}', [HistoryController::class, 'categorgy_history']);
 Route::get('/history-cover', [HistoryController::class, 'cover_history']);
 Route::get('/history-category', [HistoryController::class, 'categories']);
