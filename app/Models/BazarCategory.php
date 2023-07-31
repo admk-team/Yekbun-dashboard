@@ -23,4 +23,8 @@ class BazarCategory extends Model
     public function bazarsubcategory(){
         return $this->hasMany(SubCategoryBazar::class , 'category_id');
     }
+
+    public function sub_categories(){
+        return $this->hasMany(SubCategoryBazar::class , 'category_id' , 'id' , 'sub_category_bazars');
+    }
 }

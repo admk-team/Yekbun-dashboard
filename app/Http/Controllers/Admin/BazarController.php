@@ -17,7 +17,7 @@ class BazarController extends Controller
     public function index()
     {
          $bazars = Bazar::with('bazar_category')->get();
-        $bazar_category = BazarCategory::get();
+        $bazar_category = BazarCategory::with('sub_categories')->get();
         return view('content.bazars.index' , compact('bazars' , 'bazar_category'));
     }
 
@@ -102,7 +102,7 @@ class BazarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $request->all();
+      
         $bazar = Bazar::findorFail($id);
         $bazar->title = $request->title;
         $bazar->category_id = $request->category_id;
