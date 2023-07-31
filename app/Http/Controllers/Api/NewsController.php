@@ -143,7 +143,7 @@ class NewsController extends Controller
 
     public function category_news($id)
     {
-        $news = News::all();
+        $news = News::where('category_id', $id)->get();
 
         foreach ($news as $new) {
             $new->image = json_decode($new->image);
