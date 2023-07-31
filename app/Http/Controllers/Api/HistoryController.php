@@ -112,4 +112,18 @@ class HistoryController extends Controller
            return response()->json('Failed to delete history ' , 400);
         }
     }
+
+    public function history()
+    {
+        $history = History::all();
+
+        return $history;
+    }
+
+    public function cover_history()
+    {
+        $history = History::limit(3)->get();
+
+        return $history;
+    }
 }
