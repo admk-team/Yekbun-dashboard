@@ -206,3 +206,14 @@ Route::get('/stripe/update-success', [StripeController::class, 'success']);
 
 Route::get('get_account_price', [UpgradeAccountController::class, 'price_upgrade'])->name('get_account_price');
 Route::post('/account-upgrade', [UpgradeAccountController::class, 'account_upgrade'])->name('account-upgrade')->middleware('auth:sanctum');
+
+// News
+Route::get('/category-news/{id}', [NewsController::class, 'category_news']);
+Route::get('/news-cover', [NewsController::class, 'cover_news']);
+Route::get('/news-category', [NewsController::class, 'categories']);
+Route::get('/news-detail/{id}', [NewsController::class, 'detail']);
+
+// History
+Route::get('/history/{id}', [HistoryController::class, 'categorgy_history']);
+Route::get('/history-cover', [HistoryController::class, 'cover_history']);
+Route::get('/history-category', [HistoryController::class, 'categories']);

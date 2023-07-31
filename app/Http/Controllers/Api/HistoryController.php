@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\History;
+use App\Models\HistoryCategory;
 
 class HistoryController extends Controller
 {
@@ -111,5 +112,26 @@ class HistoryController extends Controller
         }else{
            return response()->json('Failed to delete history ' , 400);
         }
+    }
+
+    public function categorgy_history($id)
+    {
+        $history = History::all();
+
+        return response()->json(['success' => true, 'data' => $history]);
+    }
+
+    public function cover_history()
+    {
+        $history = History::limit(3)->get();
+
+        return response()->json(['success' => true, 'data' => $history]);
+    }
+
+    public function categories()
+    {
+        $categories = HistoryCategory::all();
+
+        return response()->json(['success' => true, 'data' => $categories]);
     }
 }

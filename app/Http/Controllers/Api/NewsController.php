@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\News;
+use App\Models\NewsCategory;
 
 class NewsController extends Controller
 {
@@ -138,5 +139,44 @@ class NewsController extends Controller
          }else{
             return response()->json('Failed to delete news' , 400);
          }
+    }
+
+    public function category_news($id)
+    {
+        $news = News::where('category_id', $id)->get();
+
+        foreach ($news as $new) {
+            $new->image = json_decode($new->image);
+        }
+
+        return response()->json(['success' => true, 'data' => $news]);
+    }
+
+    public function cover_news()
+    {
+        $news = News::limit(3)->get();
+
+        foreach ($news as $new) {
+            $new->image = json_decode($new->image);
+        }
+
+        return response()->json(['success' => true, 'data' => $news]);
+    }
+
+    public function categories()
+    {
+        $categories = NewsCategory::all();
+
+        return response()->json(['success' => true, 'data' => $categories]);
+    }
+
+    public function detail($id)
+    {
+        $news = News::with(['news_category'])->find($id);
+
+        if ($news != "")
+            $news->image = json_decode($news->image);
+
+        return response()->json(['success' => true, 'data' => $news]);
     }
 }
