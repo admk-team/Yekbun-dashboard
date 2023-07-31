@@ -110,6 +110,7 @@
                                         <div class="modal-body">
                                             <form method="POST" action="{{ route('upload-video-category.update',$video->id) }}">
                                                 @csrf
+                                                @method('put')
                                                 <div class="row">
                                                     <div class="col mb-3">
                                                         <label for="nameLarge" class="form-label">Name</label>
