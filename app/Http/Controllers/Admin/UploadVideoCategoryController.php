@@ -83,7 +83,7 @@ class UploadVideoCategoryController extends Controller
      */
     public function update(Request $request,$id)
     {
-        
+          
         $video = UploadVideoCategory::findorFail($id);
          $video->category = $request->video_category;
          if($video->update()){
