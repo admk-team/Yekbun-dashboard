@@ -169,4 +169,14 @@ class NewsController extends Controller
 
         return response()->json(['success' => true, 'data' => $categories]);
     }
+
+    public function detail($id)
+    {
+        $news = News::with(['news_category'])->find($id);
+
+        if ($news != "")
+            $news->image = json_decode($news->image);
+
+        return response()->json(['success' => true, 'data' => $news]);
+    }
 }

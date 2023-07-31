@@ -211,6 +211,7 @@ Route::post('/account-upgrade', [UpgradeAccountController::class, 'account_upgra
 Route::get('/category-news/{id}', [NewsController::class, 'category_news']);
 Route::get('/news-cover', [NewsController::class, 'cover_news']);
 Route::get('/news-category', [NewsController::class, 'categories']);
+Route::get('/news-detail/{id}', [NewsController::class, 'detail']);
 
 // History
 Route::get('/history/{id}', [HistoryController::class, 'categorgy_history']);
