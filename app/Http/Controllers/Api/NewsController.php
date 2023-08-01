@@ -16,7 +16,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        return response()->json(['news' =>News::get()] , 200);
+        return response()->json(['news' => News::get()], 200);
     }
 
     /**
@@ -37,30 +37,28 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-       $request->validate([
-         'title' => 'required',
-         'description' => 'required',
-         'category_id' => 'required',
-       ]);
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'category_id' => 'required',
+        ]);
 
-       $imagePath  = $request->image;
-       if($request->hasFile('image')){
-        $path = $request->file('image')->store('/images/news/' , 'public');
-        $imagePath = $path;
-   }
-            $news = News::create([
+        $imagePath  = $request->image;
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('/images/news/', 'public');
+            $imagePath = $path;
+        }
+        $news = News::create([
             'title' => $request->title,
             'description' => $request->description,
             'category_id' => $request->category_id,
             'image' => $imagePath
         ]);
-       return response()->json([
-        "success" => true,
-        "message" => "News successfully created.",
-        "data" => $news
-    ], 200);
-
-
+        return response()->json([
+            "success" => true,
+            "message" => "News successfully created.",
+            "data" => $news
+        ], 200);
     }
 
     /**
@@ -94,28 +92,28 @@ class NewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-      
-         $news = News::findorFail($id);
-         $news->title = $request->title ?? $news->title;
-         $news->description = $request->description ?? $news->description;
-         $news->category_id = $request->category_id ?? $news->category_id;
-         
-         if($request->hasFile('image')){
-            if(isset($news->image)){
-                $image_path  = public_path('storage/'.$news->image);
-                if(file_exists($image_path)){
+
+        $news = News::findorFail($id);
+        $news->title = $request->title ?? $news->title;
+        $news->description = $request->description ?? $news->description;
+        $news->category_id = $request->category_id ?? $news->category_id;
+
+        if ($request->hasFile('image')) {
+            if (isset($news->image)) {
+                $image_path  = public_path('storage/' . $news->image);
+                if (file_exists($image_path)) {
                     unlink($image_path);
                 }
                 $path = $request->file('image')->store('/images/news', 'public');
                 $news->image = $path;
             }
-         }
+        }
 
-         if($news->update()){
-            return response()->json('News Updated Successfully' , 200);
-         }else{
-            return response()->json('Failed to updated news' , 400);
-         }
+        if ($news->update()) {
+            return response()->json('News Updated Successfully', 200);
+        } else {
+            return response()->json('Failed to updated news', 400);
+        }
     }
 
     /**
@@ -126,24 +124,27 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-         $news = News::findorFail($id);
-         if($news->image){
-            $image_path = public_path('storage/'.$news->image);
-            if(file_exists($image_path)){
+        $news = News::findorFail($id);
+        if ($news->image) {
+            $image_path = public_path('storage/' . $news->image);
+            if (file_exists($image_path)) {
                 unlink($image_path);
             }
-         }
+        }
 
-         if($news->delete($news->id)){
-           return response()->json('News Deleted Successfully' ,200);
-         }else{
-            return response()->json('Failed to delete news' , 400);
-         }
+        if ($news->delete($news->id)) {
+            return response()->json('News Deleted Successfully', 200);
+        } else {
+            return response()->json('Failed to delete news', 400);
+        }
     }
 
     public function category_news($id)
     {
-        $news = News::where('category_id', $id)->get();
+        $news = News::where('category_id', $id)
+            ->inRandomOrder()
+            ->limit(8)
+            ->get();
 
         foreach ($news as $new) {
             $new->image = json_decode($new->image);

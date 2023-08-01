@@ -214,6 +214,6 @@ Route::get('/news-category', [NewsController::class, 'categories']);
 Route::get('/news-detail/{id}', [NewsController::class, 'detail']);
 
 // History
-Route::get('/history/{id}', [HistoryController::class, 'categorgy_history']);
+Route::get('/category-history/{id}', [HistoryController::class, 'categorgy_history']);
 Route::get('/history-cover', [HistoryController::class, 'cover_history']);
 Route::get('/history-category', [HistoryController::class, 'categories']);
