@@ -13,7 +13,12 @@ class AnimationEmojiController extends Controller
         $emoji = AnimationEmoji::get();
         if($emoji->isEmpty()){
             return response()->json(['success' => false , 'data' =>  $emoji]);
+        }else{
+            
+            $emojiArray = $emoji->toArray(); 
+            $collectionLength = count($emojiArray);
+            $splitData = array_chunk($emojiArray, 4);
+            return response()->json(['success' =>true, 'data' => $splitData]);
         }
-        return response()->json(['success' =>true, 'data' => $emoji]);
     }
 }
