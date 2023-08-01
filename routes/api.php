@@ -213,12 +213,13 @@ Route::get('/category-news/{id}', [NewsController::class, 'category_news']);
 Route::get('/news-cover', [NewsController::class, 'cover_news']);
 Route::get('/news-category', [NewsController::class, 'categories']);
 Route::get('/news-detail/{id}', [NewsController::class, 'detail']);
+Route::post('/news-search', [NewsController::class, 'search']);
 
 // History
 Route::get('/category-history/{id}', [HistoryController::class, 'categorgy_history']);
 Route::get('/history-cover', [HistoryController::class, 'cover_history']);
 Route::get('/history-category', [HistoryController::class, 'categories']);
+Route::post('/history-search', [HistoryController::class, 'search']);
 
 //Animation Emojji
-
 Route::get('/get-all-emoji' , [AnimationEmojiController::class  , 'get_all_emoji'])->name('get-all-emoji');
