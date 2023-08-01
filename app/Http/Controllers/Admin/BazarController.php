@@ -46,6 +46,7 @@ class BazarController extends Controller
 
           $bazar = new Bazar();
           $bazar->category_id = $request->category_id;
+          $bazar->subcategory_id = $request->subcategory_id;
           $bazar->title  = $request->title;
           $images = collect([]);
           foreach($request->file('image') as $value){
