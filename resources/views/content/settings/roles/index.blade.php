@@ -34,7 +34,7 @@
           <h6 class="fw-normal">Total {{ $role->users->count() }} users</h6>
           <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">
             @foreach($role->users as $user)
-            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="Vinnie Mostowy" class="avatar avatar-sm pull-up">
+            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="{{ $user->name ?? '' }}" class="avatar avatar-sm pull-up">
               <img class="rounded-circle" src="{{asset('storage/'.$user->image)}}" alt="Avatar">
             </li>
             @endforeach

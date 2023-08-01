@@ -116,7 +116,7 @@ dropZoneInitFunctions.push(function () {
                                         <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress></div>
                                     </div>
                                     </div>
-                                    <div class="dz-filename" data-dz-name></div>
+                                    <div class="dz-filename d-none" data-dz-name></div>
                                     <div class="dz-size" data-dz-size></div>
                                 </div>
                                 </div>`;
@@ -251,7 +251,7 @@ dropZoneInitFunctions.push(function () {
                     // file['webkitRelativePath'] = "";
                     file['width'] = 500;
                     file['height'] = 500;
-                    file['accepted'] = true;
+                    // file['accepted'] = true;
                     file['dataURL'] = path;
                     file['addPathToDataset'] = true;
                     dropzoneMulti1.on('addedfile', function (file) {
@@ -264,7 +264,7 @@ dropZoneInitFunctions.push(function () {
                     };
 
                     dropzoneMulti1.emit("addedfile", file , path);
-                    dropzoneMulti1.emit("thumbnail", file , path);
+                    // dropzoneMulti1.emit("thumbnail", file , path);
                     // myDropzone.emit("complete", itemInfo);
                     // myDropzone.options.maxFiles = myDropzone.options.maxFiles - 1;
                     dropzoneMulti1.files.push(file);
@@ -282,7 +282,6 @@ dropZoneInitFunctions.push(function () {
 
         // Create a File object
         const file = new File([blob], fileName, { type: blob.type });
-
         return file;
     }
 </script>

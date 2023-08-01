@@ -2,9 +2,6 @@
 
 @section('title', 'Boxicons - Icons')
 
-
-
-
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/bs-stepper/bs-stepper.css')}}" />
