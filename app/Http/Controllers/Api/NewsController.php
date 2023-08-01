@@ -180,4 +180,15 @@ class NewsController extends Controller
 
         return response()->json(['success' => true, 'data' => $news]);
     }
+
+    public function search(Request $request)
+    {
+        $news = News::where('title', 'like', '%' . $request->search . '%')->get();
+
+        foreach ($news as $new) {
+            $new->image = json_decode($new->image);
+        }
+
+        return response()->json(['success' => true, 'data' => $news]);
+    }
 }
