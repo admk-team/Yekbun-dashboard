@@ -16,8 +16,7 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        return response()->json(['History ' =>History::get()] , 200);
-        
+        return response()->json(['History ' => History::get()], 200);
     }
 
     /**
@@ -40,20 +39,20 @@ class HistoryController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'category_id'=> 'required',
+            'category_id' => 'required',
             'language' => 'required'
-          ]);
+        ]);
 
         $history = History::create([
-               'title' => $request->title,
-               'language' => $request->language,
-               'category_id' => $request->category_id
-           ]);
-          return response()->json([
-           "success" => true,
-           "message" => "History  successfully created.",
-           "data" => $history
-       ], 200);
+            'title' => $request->title,
+            'language' => $request->language,
+            'category_id' => $request->category_id
+        ]);
+        return response()->json([
+            "success" => true,
+            "message" => "History  successfully created.",
+            "data" => $history
+        ], 200);
     }
 
     /**
@@ -91,10 +90,10 @@ class HistoryController extends Controller
         $history->title = $request->title ?? $history->title;
         $history->language = $request->language ?? $history->language;
         $history->category_id = $request->category_id ?? $history->category_id;
-        if($history->update()){
-           return response()->json('History  Updated Successfully' , 200);
-        }else{
-           return response()->json('Failed to updated history ' , 400);
+        if ($history->update()) {
+            return response()->json('History  Updated Successfully', 200);
+        } else {
+            return response()->json('Failed to updated history ', 400);
         }
     }
 
@@ -107,16 +106,19 @@ class HistoryController extends Controller
     public function destroy($id)
     {
         $history = History::findorFail($id);
-        if($history->delete($history->id)){
-          return response()->json('History  Deleted Successfully' ,200);
-        }else{
-           return response()->json('Failed to delete history ' , 400);
+        if ($history->delete($history->id)) {
+            return response()->json('History  Deleted Successfully', 200);
+        } else {
+            return response()->json('Failed to delete history ', 400);
         }
     }
 
     public function categorgy_history($id)
     {
-        $history = History::all();
+        $history = History::where('category_id', $id)
+            ->inRandomOrder()
+            ->limit(8)
+            ->get();
 
         return response()->json(['success' => true, 'data' => $history]);
     }
