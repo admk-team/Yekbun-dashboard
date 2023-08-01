@@ -24,7 +24,7 @@
                     <input type="file" name="image" id="imageInput{{ $user->id }}" class="form-control">
                 </div>
                 <div class="col-md-12">
-                    <label for="rolesInput{{ $user->id }}" class="form-label">Roles{{ $user->roles->count() }}</label>
+                    <label for="rolesInput{{ $user->id }}" class="form-label">Roles</label>
                     <input id="rolesInput{{ $user->id }}" name="roles" class="form-control" value="{{ $user->roles? rtrim($user->roles->reduce(fn($c, $i)=>$c.=$i->name.', '), ', '): '' }}" />
                     @error('roles')
                         <div class="invalid-feedback d-block">{{ $message }}</div>
