@@ -7,12 +7,30 @@
             <div class="row g-3">
                 <div class="col-md-12">
                     <label class="form-label" for="fullname">Category Name</label>
-                    <select class="form-select" aria-label="Default select example" name="category_id">
-                        <option selected>Select</option>
+                    <select class="form-select" aria-label="Default select example" name="category_id" onchange="loadSubCategories(this)">
+                        <option value="" selected>Select</option>
                         @foreach($bazar_category as $category)
                         <option value="{{ $category->id }}" {{ $bazar->category_id == $category->id ? 'selected' : '' }}>{{ $category->name ?? '' }}</option>
                         @endforeach
                     </select>
+                    @error('category_id')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="col-md-12">
+                    <div class="subcategories-container">
+                      <label class="form-label" for="fullname">Sub Category</label>
+                      <select class="form-select" aria-label="Default select example" name="subcategory_id" {{ $bazar->category_id? '': 'disabled' }}>
+                          @if (! $bazar->category_id)
+                            <option selected value="">Select</option>
+                          @else
+                            @foreach ($bazar_category->first(fn ($value, $key) => $value->id == $bazar->category_id)
+                                    ->sub_categories as $subCat)
+                                    <option value="{{ $subCat->id }}" {{ $subCat->id == $bazar->subcategory_id? 'selected': '' }}>{{ $subCat->name }}</option>
+                            @endforeach
+                          @endif
+                      </select>
+                    </div>
                     @error('category_id')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror

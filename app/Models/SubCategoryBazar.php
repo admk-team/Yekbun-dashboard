@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class SubCategoryBazar extends Model
 {
     use HasFactory , LogsActivity;
+    
     protected $fillable=[
         'category_id',
         'name',
@@ -22,5 +23,9 @@ class SubCategoryBazar extends Model
     }
     public function bazar_category(){
         return $this->belongsTo(BazarCategory::class , 'category_id');
+    }
+
+    public function category(){
+        return $this->belongsTo(BazarCategory::class , 'category_id' , 'id' , 'bazar_categories');
     }
 }

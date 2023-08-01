@@ -154,11 +154,8 @@
                     </td>
                     <td>{{ $bazar->user_name ?? '' }}</td>
                     <td>{{ $bazar->bazar_category->name ?? '' }}</td>
-                    <td>subcategory 01</td>
-                 
-
+                    <td>{{ $bazar->subcategory?->name }}</td>
                     <td>
-
                         <div class="d-flex">
                             <span data-bs-toggle="modal" data-bs-target="#viewbazarModal{{ $bazar->id }}">
                                 @can('bazar.write')
@@ -292,6 +289,37 @@
                 
             });
     }())
+</script>
+
+<script>
+    const subcategories = {
+        @foreach ($bazar_category as  $category)
+            {{ $category->id }}:JSON.parse('{!! json_encode($category->sub_categories) !!}'),
+        @endforeach
+    }
+
+    function loadSubCategories(self) {
+        const catValue = self.value;
+        const subCatSelect = self.closest('form').querySelector('.subcategories-container select');
+        subCatSelect.innerHTML = '';
+        if (! catValue) {
+            let option = document.createElement('option');
+            option.text = 'Select';
+            option.value = '';
+            subCatSelect.add(option);
+            subCatSelect.disabled = true;
+            return;
+        }
+
+        let subcats = subcategories[catValue];
+        subcats.forEach(sub => {
+            let option = document.createElement('option');
+            option.text = sub.name;
+            option.value = sub.id;
+            subCatSelect.add(option);
+        });
+        subCatSelect.disabled = false;
+    }
 </script>
 
 @endsection

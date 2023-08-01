@@ -38,4 +38,9 @@ class Bazar extends Model
         
         return $this->belongsTo(BazarCategory::class ,'category_id');
     }
+
+    public function subcategory()
+    {
+        return $this->hasOne(SubCategoryBazar::class, 'id', 'subcategory_id');
+    }
 }
