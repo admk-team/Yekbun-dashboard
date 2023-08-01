@@ -103,13 +103,14 @@ class BazarController extends Controller
      */
     public function update(Request $request, $id)
     {
-      
+
         $bazar = Bazar::findorFail($id);
         $bazar->title = $request->title;
         $bazar->category_id = $request->category_id;
         $bazar->title = $request->title;
         $bazar->warranty =  $request->warranty;
         $bazar->status = $request->status;
+        $bazar->subcategory_id = $request->subcategory_id;
         $images = collect([]);
 
   

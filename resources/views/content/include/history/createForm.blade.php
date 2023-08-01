@@ -146,6 +146,7 @@
                 }
             });
 
+            
             const dropzoneMulti1 = new Dropzone('#dropzone-video', {
                 url: '{{ route('file.upload') }}',
                 previewTemplate: previewTemplate,

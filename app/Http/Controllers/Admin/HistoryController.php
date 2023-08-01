@@ -16,7 +16,7 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        $history = History::with('history_category')->get();
+         $history = History::with('history_category')->get();
         $history_category = HistoryCategory::get();
         return view('content.history.index' , compact('history' , 'history_category'));
     }
