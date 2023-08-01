@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class AnimationEmoji extends Model
 {
     use HasFactory;
+
+    public $fillable = [
+        'emoji',
+    ];
 }

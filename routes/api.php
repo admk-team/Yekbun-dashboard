@@ -52,6 +52,7 @@ use App\Http\Controllers\Api\CollectionController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\UpgradeAccountController;
 use App\Http\Controllers\Api\StripeController;
+use App\Http\Controllers\Api\AnimationEmojiController;
 
 
 /*
@@ -217,3 +218,7 @@ Route::get('/news-detail/{id}', [NewsController::class, 'detail']);
 Route::get('/category-history/{id}', [HistoryController::class, 'categorgy_history']);
 Route::get('/history-cover', [HistoryController::class, 'cover_history']);
 Route::get('/history-category', [HistoryController::class, 'categories']);
+
+//Animation Emojji
+
+Route::get('/get-all-emoji' , [AnimationEmojiController::class  , 'get_all_emoji'])->name('get-all-emoji');
