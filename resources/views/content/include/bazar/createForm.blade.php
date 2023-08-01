@@ -5,12 +5,23 @@
             <div class="row g-3">
                   <div class="col-md-12">
                     <label class="form-label" for="fullname">Category </label>
-                    <select class="form-select" aria-label="Default select example" name="category_id">
+                    <select class="form-select" aria-label="Default select example" name="category_id" onchange="loadSubCategories(this)">
                         <option selected value="">Select</option>
                         @foreach($bazar_category as $bazar)
                         <option value="{{ $bazar->id }}">{{ $bazar->name ?? '' }}</option>
                         @endforeach
                     </select>
+                    @error('category_id')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="col-md-12">
+                    <div class="subcategories-container">
+                      <label class="form-label" for="fullname">Sub Category</label>
+                      <select class="form-select" aria-label="Default select example" name="subcategory_id" disabled>
+                          <option selected value="">Select</option>
+                      </select>
+                    </div>
                     @error('category_id')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
