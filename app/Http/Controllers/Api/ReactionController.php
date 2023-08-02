@@ -59,6 +59,8 @@ class ReactionController extends Controller
             $reaction->music_id = $request->music_id;
         }
 
+        $reaction->user_id = $request->user_id;
+
         if($reaction->save()){
             return response()->json(['success' => true , 'data' => $reaction]);
         }else{
