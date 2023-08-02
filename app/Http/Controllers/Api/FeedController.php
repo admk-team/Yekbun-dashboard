@@ -114,7 +114,6 @@ class FeedController extends Controller
 
     public function get_all($id)
     {
-
         $feed_bg = Feed::select('media')->where('user_id', $id)->get();
 
         if (isset($feed_bg)) {

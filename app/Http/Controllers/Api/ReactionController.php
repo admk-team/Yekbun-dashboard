@@ -30,7 +30,7 @@ class ReactionController extends Controller
         if ($reaction_exist != "" && $reaction_exist->emoji_id == $request->emoji_id) {
             $reaction_exist->delete();
 
-            return response()->json(['success' => true , 'message' => 'Reaction removed.']);
+            return response()->json(['success' => true, 'message' => 'Reaction removed.']);
         }
 
         $reaction =  new Reaction();
@@ -43,6 +43,7 @@ class ReactionController extends Controller
             
             $reaction->feed_id = $request->feed_id;
         }
+
         if($request->has('news_id')){
             $previous_reaction = Reaction::where('user_id', $request->user_id)->where('news_id', $request->news_id)->first();
 
@@ -51,6 +52,7 @@ class ReactionController extends Controller
             
             $reaction->news_id = $request->news_id;
         }
+
         if($request->has('history_id')){
             $previous_reaction = Reaction::where('user_id', $request->user_id)->where('history_id', $request->history_id)->first();
 
@@ -59,6 +61,7 @@ class ReactionController extends Controller
             
             $reaction->history_id = $request->history_id;
         }
+
         if($request->has('vote_id')){
             $previous_reaction = Reaction::where('user_id', $request->user_id)->where('vote_id', $request->vote_id)->first();
 
@@ -67,6 +70,7 @@ class ReactionController extends Controller
             
             $reaction->vote_id = $request->vote_id;
         }
+        
         if($request->has('music_id')){
             $previous_reaction = Reaction::where('user_id', $request->user_id)->where('music_id', $request->music_id)->first();
 

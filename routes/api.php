@@ -219,6 +219,7 @@ Route::post('/news-search', [NewsController::class, 'search']);
 Route::get('/category-history/{id}', [HistoryController::class, 'categorgy_history']);
 Route::get('/history-cover', [HistoryController::class, 'cover_history']);
 Route::get('/history-category', [HistoryController::class, 'categories']);
+Route::get('/history-detail/{id}', [HistoryController::class, 'detail']);
 Route::post('/history-search', [HistoryController::class, 'search']);
 
 //Animation Emojji
