@@ -18,7 +18,6 @@ class ReactionController extends Controller
 
         $reaction =  new Reaction();
         $reaction->user_id  = $request->user_id;
-        $reaction->type  = $request->type;
         $reaction->emoji_id = $request->emoji_id;
 
         if($request->has('feed_id')){
