@@ -60,6 +60,7 @@ class ReactionController extends Controller
         }
 
         $reaction->user_id = $request->user_id;
+        $reaction->emoji_id = $request->emoji_id;
 
         if($reaction->save()){
             return response()->json(['success' => true , 'data' => $reaction]);
