@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('reactions', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->boolean('type');
             $table->integer('feed_id')->nullable();
             $table->integer('news_id')->nullable();
             $table->integer('history_id')->nullable();
