@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Reaction extends Model
 {
     use HasFactory;
+
+    protected $fillable =[
+        'user_id',
+        'emoji_id',
+        'feed_id',
+        'news_id',
+        'history_id',
+        'vote_id',
+        'music_id'
+    ];
 }
