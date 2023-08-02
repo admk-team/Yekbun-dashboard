@@ -53,7 +53,7 @@ use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\UpgradeAccountController;
 use App\Http\Controllers\Api\StripeController;
 use App\Http\Controllers\Api\AnimationEmojiController;
-
+use App\Http\Controllers\Api\ReactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -223,3 +223,6 @@ Route::post('/history-search', [HistoryController::class, 'search']);
 
 //Animation Emojji
 Route::get('/get-all-emoji' , [AnimationEmojiController::class  , 'get_all_emoji'])->name('get-all-emoji');
+
+// Reaction 
+Route::post('/store-reaction' , [ReactionController::class , 'store_reaction'])->name('store-reaction');
