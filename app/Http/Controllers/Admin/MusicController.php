@@ -16,6 +16,7 @@ class MusicController extends Controller
     public function index()
    {
          $music  = Music::with('music_category')->get();
+
         $music_category  = MusicCategory::get();
         return view('content.music.index' , compact('music' , 'music_category'));
     }
@@ -39,6 +40,7 @@ class MusicController extends Controller
     public function store(Request $request)
     {
   
+      
         $request->validate([
             'category_id'=>'required',
             'status' => 'required'

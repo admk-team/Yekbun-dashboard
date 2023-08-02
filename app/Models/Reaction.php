@@ -18,4 +18,8 @@ class Reaction extends Model
         'vote_id',
         'music_id'
     ];
+
+    public function feed(){
+        return $this->belongsTo(Feed::class , 'feed_id');
+    }
 }

@@ -53,6 +53,7 @@ use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\UpgradeAccountController;
 use App\Http\Controllers\Api\StripeController;
 use App\Http\Controllers\Api\AnimationEmojiController;
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\ReactionController;
 
 /*
@@ -176,7 +177,7 @@ Route::get('/ringtone', [RingtoneController::class, 'get'])->name('ringtone');
 
 Route::post('/upload-media', [UploadMediaController::class, 'index']);
 Route::post('/add-feed', [FeedController::class, 'add_feed'])->name('add-feed');
-Route::get('/fetch-feed', [FeedController::class, 'fetch_feed'])->name('fetch-feed');
+Route::get('/fetch-feed/{id?}', [FeedController::class, 'fetch_feed'])->name('fetch-feed');
 Route::get('/get-feed/{id}', [FeedController::class, 'get_feed'])->name('get-feed');
 Route::get('/get-first-feed/{id}', [FeedController::class, 'get_first_feed'])->name('get-feed-first');
 Route::get('/get-feed-bg/{id}', [FeedController::class, 'get_feed_bg'])->name('get-feed-bg');
@@ -226,3 +227,5 @@ Route::get('/get-all-emoji' , [AnimationEmojiController::class  , 'get_all_emoji
 
 // Reaction 
 Route::post('/store-reaction' , [ReactionController::class , 'store_reaction'])->name('store-reaction');
+// comments 
+Route::post('/store-comments' , [CommentController::class , 'store_comments'])->name('store-comments');

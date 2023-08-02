@@ -10,15 +10,29 @@ class FileController extends Controller
 {
     public function upload(Request $request)
     {
+    
         if (! $request->hasFile('file')) {
             return response('', 400);
         }
 
-        $path = $request->file->store("/" . $request->folder?? 'files', "public");
+        // $path = $request->file->store("/" . $request->folder?? 'files', "public");
+    
+        // Get the uploaded file from the request
+        $uploadedFile = $request->file('file');
+
+        // Generate a unique name for the file, or use the original file name
+        $uniqueName = uniqid() . '_' . str_replace(' ', '_', $uploadedFile->getClientOriginalName());
+        
+        // Get the folder name from the request or use 'files' as the default folder
+        $folder = $request->folder ?? 'files';
+
+        // Store the file in the 'public' disk (configured in config/filesystems.php)
+        $filePath = $uploadedFile->storeAs("/{$folder}", $uniqueName, "public");
+
 
         return [
             'status' => true,
-            'path' => $path
+            'path' => $filePath
         ];
     }
 

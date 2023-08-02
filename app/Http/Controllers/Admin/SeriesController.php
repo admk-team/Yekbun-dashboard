@@ -39,6 +39,7 @@ class SeriesController extends Controller
      */
     public function store(Request $request)
     {
+       
         $request->validate([
             'thumbnail' => 'required',
             'title' => 'required',
@@ -50,19 +51,21 @@ class SeriesController extends Controller
         $serie->description = $request->description;
         $serie->category_id = $request->category_id;
         $serie->status = $request->status;
-        $series = collect([]);
+
+
+        $seriesPath = collect([]);
 
         if($request->hasFile('thumbnail')){
             $series_path = $request->file('thumbnail')->store('/images/series/thumbnail','public');
             $serie->thumbnail = $series_path;
            }
        
-
+        
         foreach($request->file('series') as $value){
             $path = $value->store('/images/series','public');
-            $series->push($path);
+            $seriesPath->push($path);
         }
-        $serie->series = $series->toJson();
+        $serie->series = $seriesPath->toJson();
 
        if($serie->save()){
         return redirect()->route('series.series.index')->with('success', 'Series  Has been inserted');
@@ -70,6 +73,8 @@ class SeriesController extends Controller
         return redirect()->route('series.series.index')->with('error', 'Series Has not inserted');
 
        }
+
+
     }
 
     /**

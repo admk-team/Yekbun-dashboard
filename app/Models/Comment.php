@@ -21,7 +21,14 @@ class Comment extends Model
         "post_id",
         "parent_id",
         "content",
-        "status"
+        "status",
+        "type",
+        "feed_id",
+        "news_id",
+        "history_id",
+        "vote_id",
+        "music_id",
+        "emoji_id"
     ];
 
     public function getActivitylogOptions(): LogOptions
