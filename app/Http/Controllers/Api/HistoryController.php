@@ -139,12 +139,14 @@ class HistoryController extends Controller
 
     public function detail($id)
     {
-        $categories = History::with(['history_category'])->find($id);
+        $history = History::with(['history_category'])->find($id);
 
-        if ($categories != "")
-            $categories->image = json_decode($categories->image);
+        return $history;
 
-        return response()->json(['success' => true, 'data' => $categories]);
+        if ($history != "")
+            $history->image = json_decode($history->image);
+
+        return response()->json(['success' => true, 'data' => $history]);
     }
 
     public function search(Request $request)
