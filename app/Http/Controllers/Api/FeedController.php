@@ -69,10 +69,12 @@ class FeedController extends Controller
         return response()->json(['success' => true, 'data' => $feeds]);
     }
 
-    public function fetch_feed()
+    public function fetch_feed($id=null)
     {
         $feeds = Feed::inRandomOrder()->take(8)->with(['background', 'user'])->get();
-
+        if($id){
+            
+        }
         if ($feeds != '[]')
             foreach ($feeds as $feed) {
                 $feed->media = json_decode($feed->media);

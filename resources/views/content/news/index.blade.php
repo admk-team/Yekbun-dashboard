@@ -127,10 +127,10 @@
         @endphp
           <td>
             @if( strtoLower($extension) == 'png'  || strtoLower($extension) == 'jpg' || strtoLower($extension) == 'jpeg'  || strtoLower($extension) == 'gif')
-            <img class="rounded" src="{{ $img[0] ?? ''  }}" width="100" alt="">
+            <img class="rounded" src="{{ $img[0] ?? ''  }}" width="200" alt="" height="150" style="object-fit: cover">
             @else
-            <video autoplay loop style="width: 100px;" class="rounded" controls>
-              <source src="{{ $img[0] ?? '' }}">
+            <video autoplay loop  class="rounded" controls style="width:200px; height:150px;">
+              <source src="{{ $img[0] ?? '' }}" >
             </video>
             @endif
           </td>

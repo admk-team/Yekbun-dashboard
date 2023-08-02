@@ -54,7 +54,7 @@
                     </div>
                     <div class="col-md-12">
                         <label class="form-label" for="fullname">Upload News Image/Video</label>
-                        <input type="file" name="image[]" class="form-control" id="image" multiple accept="image/*,video/*"  />
+                        <input type="file" name="image[]" class="form-control" id"=image" multiple accept="image/*,video/*" value="{{ $new->image[0] ?? '' }}" />
                         @error('image')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -84,16 +84,7 @@
                     <div class="col-md-12 d-flex justify-content-center">
                         <button class="btn btn-label-primary" type="submit">Update</button>
                     </div>
-                    {{-- <div class="col-12 d-flex justify-content-between">
-                        <button class="btn btn-label-secondary btn-prev{{ $new->id }}" disabled>
-                            <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
-                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                        </button>
-                        <button class="btn btn-primary btn-next{{ $new->id }}">
-                            <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
-                            <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
-                        </button>
-                    </div> --}}
+                  
                 </div>
             </div>
 
