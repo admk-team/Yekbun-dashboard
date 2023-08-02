@@ -16,6 +16,23 @@ class ReactionController extends Controller
             'user_id' => 'required',
         ]);
 
+        $optional_fields = ['feed_id', 'news_id', 'history_id', 'vote_id', 'music_id'];
+
+        $post_field = '';
+
+        foreach ($optional_fields as $item) {
+            if ($request->has($item))
+                $post_field = $item;
+        }
+
+        $reaction_exist = Reaction::where('user_id', $request->user_id)->where('emoji_id', $request->emoji_id)->where($post_field, $request[$post_field])->first();
+
+        if ($reaction_exist != "" && $reaction_exist->emoji_id == $request->emoji_id) {
+            $reaction_exist->delete();
+
+            return response()->json(['success' => true , 'message' => 'Reaction removed.']);
+        }
+
         $reaction =  new Reaction();
 
         if($request->has('feed_id')){
