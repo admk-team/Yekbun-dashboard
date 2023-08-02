@@ -141,11 +141,6 @@ class HistoryController extends Controller
     {
         $history = History::with(['history_category'])->find($id);
 
-        return $history;
-
-        if ($history != "")
-            $history->image = json_decode($history->image);
-
         return response()->json(['success' => true, 'data' => $history]);
     }
 
