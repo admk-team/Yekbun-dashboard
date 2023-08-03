@@ -73,9 +73,7 @@ class FeedController extends Controller
     public function fetch_feed($id = "")
     {
         $feeds = Feed::inRandomOrder()->take(8)->with(['background', 'user'])->get();
-        if($id){
-            
-        }
+        
         if ($feeds != '[]')
             foreach ($feeds as $feed) {
                 $feed->media = json_decode($feed->media);
