@@ -28,5 +28,9 @@ class Feed extends Model
     {
         return $this->belongsToMany(Collection::class, 'collection_feeds', 'feed_id', 'collection_id');
     }
+    public function reactions(){
+
+        return $this->hasMany(Reaction::class , 'feed_id');
+    }
     
 }

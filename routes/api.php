@@ -53,6 +53,7 @@ use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\UpgradeAccountController;
 use App\Http\Controllers\Api\StripeController;
 use App\Http\Controllers\Api\AnimationEmojiController;
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\ReactionController;
 
 /*
@@ -227,3 +228,5 @@ Route::get('/get-all-emoji' , [AnimationEmojiController::class  , 'get_all_emoji
 
 // Reaction 
 Route::post('/store-reaction' , [ReactionController::class , 'store_reaction'])->name('store-reaction');
+// comments 
+Route::post('/store-comments' , [CommentController::class , 'store_comments'])->name('store-comments');

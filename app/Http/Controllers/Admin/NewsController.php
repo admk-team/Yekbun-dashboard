@@ -19,7 +19,7 @@ class NewsController extends Controller
     {
         $news_category  = NewsCategory::get();
         $news  = News::with('news_category')->get();
-      
+  
         return view('content.news.index' , compact('news' , 'news_category'));
     }
 
@@ -41,6 +41,7 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
+       
         $request->validate([
             'title' => 'required',
             'description' => 'required'
@@ -101,6 +102,7 @@ class NewsController extends Controller
     public function update(Request $request, $id)
     {
         
+        dd($request->all());
         $news = News::findorFail($id);
         $news->title = $request->title;
         $news->description = $request->description;

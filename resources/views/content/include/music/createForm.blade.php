@@ -4,13 +4,7 @@
     <div class="row">
         <div class="col-lg-12 mx-auto">
             <div class="row g-3">
-                {{-- <div class="col-md-12">
-                    <label class="form-label" for="fullname">Music Title</label>
-                    <input type="text" id="fullname" class="form-control" placeholder="Title will add automatically" name="title" readonly>
-                    @error('title')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div> --}}
+          
                 <div class="col-md-12">
                     <label class="form-label" for="fullname">Select Category</label>
                     <select class="form-select" aria-label="Default select example" name="category_id">
@@ -23,13 +17,6 @@
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-                {{-- <div class="col-md-12">
-                    <label class="form-label" for="fullname">Audio</label>
-                    <input type="file" name="audio[]" class="form-control" id="audioFile" accept="audio/*" multiple />
-                    @error('audio')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div> --}}
 
             <div class="col-12">
                 <div class="card">
@@ -46,8 +33,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="col-md-12">
                 <label class="form-label" for="fullname">Status</label>
                 <select class="form-select" aria-label="Default select example" name="status">
@@ -134,6 +119,9 @@
             });
         });
 </script>
+
+
+{{-- 
 <script>
     document.getElementById("audioFile").addEventListener("change", function() {
 if(this.files.length == 1){
@@ -146,4 +134,4 @@ let title = file.name;
 document.querySelector('input[name="title"]').value = title;
 }
 });
-</script>
+</script> --}}

@@ -78,25 +78,30 @@
     dropZoneInitFunctions.push(function () {
             // previewTemplate: Updated Dropzone default previewTemplate
     
-            const previewTemplate = `<div class="row"><div class="col-md-12 col-12 d-flex justify-content-center"><div class="dz-preview dz-file-preview w-100">
-                                    <div class="dz-details">
-                                        <div class="dz-thumbnail"  style="width:95%">
-                                        <img data-dz-thumbnail>
-                                        <span class="dz-nopreview">No preview</span>
-                                        <div class="dz-success-mark"></div>
-                                        <div class="dz-error-mark"></div>
-                                        <div class="dz-error-message"><span data-dz-errormessage></span></div>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress></div>
-                                        </div>
-                                        </div>
-                                        <div class="dz-filename" data-dz-name></div>
-                                        <div class="dz-size" data-dz-size></div>
-                                    </div>
-                                    </div></div></div>`;
-    
+            const previewTemplate = `<div class="row">
+                                            <div class="col-md-12 col-12 d-flex justify-content-center">
+                                                <div class="dz-preview dz-file-preview w-100">
+                                                    <div class="dz-details">
+                                                        <div class="dz-thumbnail" style="width:95%">
+                                                            <img data-dz-thumbnail>
+                                                            <span class="dz-nopreview">No preview</span>
+                                                            <div class="dz-success-mark"></div>
+                                                            <div class="dz-error-mark"></div>
+                                                            <div class="dz-error-message"><span data-dz-errormessage></span></div>
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="dz-filename" data-dz-name></div>
+                                                        <div class="dz-size" data-dz-size></div>
+                                                        <!-- Add a new div to display the music title -->
+                                                        <div class="dz-title" data-dz-title></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>`;
+
             // Multiple Dropzone
-    
             const dropzoneMulti = new Dropzone('#dropzone-audio{{ $musics->id }}', {
                 url: '{{ route('file.upload') }}',
                 previewTemplate: previewTemplate,
@@ -142,6 +147,8 @@
             @foreach ($musics->audio as $audio)
                 $("document").ready(()=>{
                     var path = "{{ asset('storage/'.$audio) }}";
+                  
+                    console.log(path);
                     imageUrlToFile(path).then((file) => {
                         file['status'] = "success";
                         file['previewElement'] = "div.dz-preview.dz-image-preview";
@@ -162,9 +169,11 @@
                             bytesSent: 0 ,
                             progress: 0 ,
                         };
-    
+     
+                    // Update the preview template to include the music title
+
                         dropzoneMulti.emit("addedfile", file , path);
-                        dropzoneMulti.emit("thumbnail", file , path);
+                        // dropzoneMulti.emit("thumbnail", file , path);
                         // myDropzone.emit("complete", itemInfo);
                         // myDropzone.options.maxFiles = myDropzone.options.maxFiles - 1;
                         dropzoneMulti.files.push(file);
@@ -188,6 +197,10 @@
     }
 </script>
 
+
+
+{{-- 
+
 <script>
     document.getElementById("audioFile{{ $musics->id }}").addEventListener("change", function() {
         if(this.files.length == 1){
@@ -204,5 +217,5 @@
     
     
     });
-    </script>
+    </script> --}}
 
