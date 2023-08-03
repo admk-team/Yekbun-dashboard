@@ -445,6 +445,8 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
     Route::resource('/artist', ArtistController::class);
     Route::get('/artists/{id}/{status}', [ArtistController::class, 'status'])->name('artists-status');
     Route::get('get/city/{id}', [ArtistController::class, 'get_city']);
+    Route::delete('/artists/{id}/image', [ArtistController::class, 'deleteArtistImage'])->name('artists.delete-img');
+
     // upload video clip 
     Route::resource('/upload_video', UplaodVideoClipController::class);
     Route::get('/upload_video/{id}/{status}', [UplaodVideoClipController::class, 'status'])->name('upload-status');
@@ -452,6 +454,9 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
 
     // Album
     Route::resource('/album', AlbumController::class);
+    Route::delete('/album/{id}/album', [AlbumController::class, 'deleteAlbum'])->name('album.delete-audio');
+    Route::delete('/album/{id}/image', [AlbumController::class, 'deleteAlbumImage'])->name('album.delete-img');
+
 
     Route::resource('/upload-movies', UploadMovieController::class);
     Route::resource('/upload-movies-category', UploadMovieCategoryController::class);

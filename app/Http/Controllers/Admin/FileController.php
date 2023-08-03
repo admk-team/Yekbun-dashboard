@@ -29,6 +29,7 @@ class FileController extends Controller
         // Store the file in the 'public' disk (configured in config/filesystems.php)
         $filePath = $uploadedFile->storeAs("/{$folder}", $uniqueName, "public");
 
+        // $filtered_path = url('/') . '/storage/' .  $filePath;
 
         return [
             'status' => true,

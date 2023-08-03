@@ -56,11 +56,12 @@ class ArtistController extends Controller
       $artist->status = $request->status;
       $artist->city_id = $request->city;
       $artist->province_id= $request->province;
+      $artist->image = $request->image??'';
 
-      if($request->hasFile('image')){
-        $path  = $request->file('image')->store('/images/artist/' , 'public');
-        $artist->image = $path;
-      }
+    //   if($request->hasFile('image')){
+    //     $path  = $request->file('image')->store('/images/artist/' , 'public');
+    //     $artist->image = $path;
+    //   }
 
     if($artist->save()){
         return redirect()->route('artist.index')->with('success', 'Artist Has been inserted');
@@ -107,17 +108,18 @@ class ArtistController extends Controller
         $artist->city = $request->city;
         $artist->dob= $request->dob;
         $artist->gender = $request->gender;
+        $artist->image = $request->image??'';
         
-        if($request->hasFile('image')){
-           if(isset($artist->image)){
-               $image_path  = public_path('storage/'.$artist->image);
-               if(file_exists($image_path)){
-                   unlink($image_path);
-               }
-               $path = $request->file('image')->store('/images/artist' , 'public');
-               $artist->image = $path;
-           }
-        }
+        // if($request->hasFile('image')){
+        //    if(isset($artist->image)){
+        //        $image_path  = public_path('storage/'.$artist->image);
+        //        if(file_exists($image_path)){
+        //            unlink($image_path);
+        //        }
+        //        $path = $request->file('image')->store('/images/artist' , 'public');
+        //        $artist->image = $path;
+        //    }
+        // }
 
         if($artist->update()){
             return redirect()->route('artist.index')->with('success', 'Artist Has been Updated');

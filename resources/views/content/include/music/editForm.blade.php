@@ -75,6 +75,12 @@
 <script>
     'use strict';
     
+
+    // <div class="dz-filename" data-dz-name></div>
+    //                                                     <div class="dz-size" data-dz-size></div>
+    //                                                     <!-- Add a new div to display the music title -->
+    //                                                     <div class="dz-title" data-dz-title></div>
+
     dropZoneInitFunctions.push(function () {
             // previewTemplate: Updated Dropzone default previewTemplate
     
@@ -92,10 +98,7 @@
                                                                 <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress></div>
                                                             </div>
                                                         </div>
-                                                        <div class="dz-filename" data-dz-name></div>
-                                                        <div class="dz-size" data-dz-size></div>
-                                                        <!-- Add a new div to display the music title -->
-                                                        <div class="dz-title" data-dz-title></div>
+                                                    
                                                     </div>
                                                 </div>
                                             </div>
