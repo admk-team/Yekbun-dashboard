@@ -70,11 +70,7 @@ class FeedController extends Controller
         return response()->json(['success' => true, 'data' => $feeds]);
     }
 
-<<<<<<< HEAD
     public function fetch_feed($id = "")
-=======
-    public function fetch_feed($id=null)
->>>>>>> 5ebe8aa0bb1b55dab469ded24b41711a35158026
     {
         $feeds = Feed::inRandomOrder()->take(8)->with(['background', 'user'])->get();
         if($id){
