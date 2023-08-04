@@ -150,7 +150,7 @@ class VotingController extends Controller
 
     public function fetch()
     {
-        $voting = Voting::orderBy('created_at', 'desc')->take(5)->get();
+        $voting = Voting::orderBy('created_at', 'desc')->take(5)->with('voting_category')->get();
 
         foreach ($voting as $item) {
             $item->banner = url('/') . '/storage/' . $item->banner;
