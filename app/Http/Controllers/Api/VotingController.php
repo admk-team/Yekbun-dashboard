@@ -143,7 +143,7 @@ class VotingController extends Controller
         $voting = Voting::orderBy('created_at', 'desc')->take(1)->get();
 
         if ($voting != "")
-            $voting[0]->banner = url('/') . '/storage/images/' . $voting[0]->banner;
+            $voting[0]->banner = url('/') . '/storage/' . $voting[0]->banner;
 
         return response()->json(['success' => true, 'data' => $voting]);
     }
