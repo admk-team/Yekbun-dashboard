@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/tagify/tagify.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/dropzone/dropzone.css')}}" />
+
 @endsection
 
 @section('vendor-script')
@@ -20,6 +22,9 @@
 <script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
 @endsection
 @section('content')
+<script>
+  const dropZoneInitFunctions = [];
+</script>
 <div class="d-flex justify-content-between">
   <div>
       <h4 class="fw-bold py-3 mb-4">
@@ -59,10 +64,10 @@
             <td>{{ \Illuminate\Support\Str::random(5) }}</td>
             <td>{{ $serie->title ?? '' }}</td>
         
-              @php
+              {{-- @php
                 $json = $serie->series;
                 $arr = json_decode($json, true);
-              @endphp
+              @endphp --}}
            
         
             <td>
@@ -157,6 +162,11 @@
     }
 
 </script>
+<script>
+  function drpzone_init() {
+      dropZoneInitFunctions.forEach(callback => callback());
+  }
+</script>
+<script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js" onload="drpzone_init()"></script>
 @endsection
-
 @endsection

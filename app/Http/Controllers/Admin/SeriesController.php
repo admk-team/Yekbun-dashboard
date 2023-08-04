@@ -51,21 +51,23 @@ class SeriesController extends Controller
         $serie->description = $request->description;
         $serie->category_id = $request->category_id;
         $serie->status = $request->status;
+        $serie->thumbnail = $request->thumbnail??'';
+        $serie->series = $request->series??[];
 
 
-        $seriesPath = collect([]);
+        // $seriesPath = collect([]);
 
-        if($request->hasFile('thumbnail')){
-            $series_path = $request->file('thumbnail')->store('/images/series/thumbnail','public');
-            $serie->thumbnail = $series_path;
-           }
+        // if($request->hasFile('thumbnail')){
+        //     $series_path = $request->file('thumbnail')->store('/images/series/thumbnail','public');
+        //     $serie->thumbnail = $series_path;
+        //    }
        
         
-        foreach($request->file('series') as $value){
-            $path = $value->store('/images/series','public');
-            $seriesPath->push($path);
-        }
-        $serie->series = $seriesPath->toJson();
+        // foreach($request->file('series') as $value){
+        //     $path = $value->store('/images/series','public');
+        //     $seriesPath->push($path);
+        // }
+        // $serie->series = $seriesPath->toJson();
 
        if($serie->save()){
         return redirect()->route('series.series.index')->with('success', 'Series  Has been inserted');
@@ -113,37 +115,39 @@ class SeriesController extends Controller
         $serie->description = $request->description;
         $serie->category_id = $request->category_id;
         $serie->status = $request->status;
-        $series = collect([]);
+        $serie->thumbnail = $request->thumbnail??'';
+        $serie->series = $request->series??[];
+        // $series = collect([]);
 
-        if($request->hasFile('thumbnail')){
-            if(isset($serie->thumbnail)){
-                $image_path = public_path('storage/'.$serie->thumbnail);
-                if(file_exists($image_path)){
-                    unlink($image_path);
-                }
-            }
-            $path  = $request->file('thumbnail')->store('/images/series/thumbnail','public');
-            $serie->thumbnail = $path;
+        // if($request->hasFile('thumbnail')){
+        //     if(isset($serie->thumbnail)){
+        //         $image_path = public_path('storage/'.$serie->thumbnail);
+        //         if(file_exists($image_path)){
+        //             unlink($image_path);
+        //         }
+        //     }
+        //     $path  = $request->file('thumbnail')->store('/images/series/thumbnail','public');
+        //     $serie->thumbnail = $path;
            
-        }
+        // }
 
       
-        if($request->hasFile('series')){
-            foreach($request->file('series') as $value){
-                    if(isset($serie->series)){
-                        $video_path  = public_path('storage/'.$serie->series);
-                        if(file_exists($video_path)){
-                            unlink($video_path);
-                        }
-                        $path  = $value->store('/images/series/video' , 'public');
-                        $series->push($path);
-                        $serie->series = $series;
-                    }
-            }
-        }else{
-            $arr = $serie->series;
-            $serie->series = $arr;
-        }
+        // if($request->hasFile('series')){
+        //     foreach($request->file('series') as $value){
+        //             if(isset($serie->series)){
+        //                 $video_path  = public_path('storage/'.$serie->series);
+        //                 if(file_exists($video_path)){
+        //                     unlink($video_path);
+        //                 }
+        //                 $path  = $value->store('/images/series/video' , 'public');
+        //                 $series->push($path);
+        //                 $serie->series = $series;
+        //             }
+        //     }
+        // }else{
+        //     $arr = $serie->series;
+        //     $serie->series = $arr;
+        // }
 
         if($serie->update()){
             return redirect()->route('series.series.index')->with('success', 'Series Has been updated');

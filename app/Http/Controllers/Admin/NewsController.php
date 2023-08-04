@@ -103,24 +103,26 @@ class NewsController extends Controller
     public function update(Request $request, $id)
     {
         
-        dd($request->all());
+       
         $news = News::findorFail($id);
         $news->title = $request->title;
         $news->description = $request->description;
         $news->category_id = $request->category_id;
-        $asset = collect([]);
-        foreach($request->file('image') as $file){
-            if(isset($news->image)){
-                $image_path = public_path('storage/'.$news->image);
-                if(file_exists($image_path)){
-                    unlink($image_path);
-                }
-                $path = UploadMedia::index($file ?? '');
-                $asset->push($path);
-            }
-        }
+        $news->image = $request->image??[];
 
-        $news->image = json_encode($asset);
+        // $asset = collect([]);
+        // foreach($request->file('image') as $file){
+        //     if(isset($news->image)){
+        //         $image_path = public_path('storage/'.$news->image);
+        //         if(file_exists($image_path)){
+        //             unlink($image_path);
+        //         }
+        //         $path = UploadMedia::index($file ?? '');
+        //         $asset->push($path);
+        //     }
+        // }
+
+        // $news->image = json_encode($asset);
         
         if($news->update()){
             return redirect()->route('news.index')->with('success', 'News Has been Updated');

@@ -19,6 +19,12 @@ class Bazar extends Model
         'status',
         'warranty'
     ];
+    protected $casts = [
+        'image' => 'array'
+     ];
+     protected $attributes = [
+        'image' => '[]'
+     ];
 
     public function getActivitylogOptions(): LogOptions
     {

@@ -104,23 +104,24 @@
 dropZoneInitFunctions.push(function () {
         // previewTemplate: Updated Dropzone default previewTemplate
 
-        const previewTemplate = `<div class="dz-preview dz-file-preview">
-                                <div class="dz-details">
-                                    <div class="dz-thumbnail">
-                                    <img data-dz-thumbnail>
-                                    <span class="dz-nopreview">No preview</span>
-                                    <div class="dz-success-mark"></div>
-                                    <div class="dz-error-mark"></div>
-                                    <div class="dz-error-message"><span data-dz-errormessage></span></div>
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress></div>
-                                    </div>
-                                    </div>
-                                    <div class="dz-filename d-none" data-dz-name></div>
-                                    <div class="dz-size" data-dz-size></div>
-                                </div>
-                                </div>`;
-
+        const previewTemplate =` <div class="row">
+                                            <div class="col-md-12 col-12 d-flex justify-content-center">
+                                                <div class="dz-preview dz-file-preview w-100">
+                                                    <div class="dz-details">
+                                                        <div class="dz-thumbnail" style="width:95%">
+                                                            <img data-dz-thumbnail class="w-100" >
+                                                            <span class="dz-nopreview">No preview</span>
+                                                            <div class="dz-success-mark"></div>
+                                                            <div class="dz-error-mark"></div>
+                                                            <div class="dz-error-message"><span data-dz-errormessage></span></div>
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>`;
         // Multiple Dropzone
 
         const dropzoneMulti = new Dropzone('#dropzone-img{{ $historys->id }}', {

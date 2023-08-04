@@ -229,6 +229,9 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
         Route::get('/categories', [CategoryController::class, 'index'])->name('series.categories.index');
     });
 
+    Route::get('/series/{id}/series', [UploadMovieController::class, 'deleteMovie'])->name('series.delete-video');
+    Route::get('/series/{id}/thumbnail', [UploadMovieController::class, 'deleteImage'])->name('series.delete-thumbnail');
+
     // mobile setting s
     Route::resource('mobile-settings', MobileSettingsController::class);
     Route::any('mobile-setting', [MobileSettingsController::class, 'save'])->name('mobile-setting');
@@ -339,6 +342,7 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
     Route::get('/bazar/{id}/{status}', [BazarController::class, 'status'])->name('bazar-status');
     Route::resource('/bazar-category', BazarCategoryController::class);
     Route::get('/bazar-category/{id}/{status}', [BazarCategoryController::class, 'status'])->name('bazarcat-status');
+    Route::delete('/bazar/{id}/image', [BazarController::class, 'deleteBazarImage'])->name('bazar.delete-img');
 
     Route::resource('bazar-subcategory', SubCategoryBazarController::class);
     // Fan Page
@@ -462,6 +466,9 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
     Route::resource('/upload-movies-category', UploadMovieCategoryController::class);
     Route::get('/upload_movies/{id}/{status}', [UploadMovieController::class, 'status'])->name('movies_status');
     Route::get('/movie_category/{id}/{status}', [UploadMovieCategoryController::class, 'status'])->name('moviecat_status');
+    Route::get('/upload_movies/{id}/movie', [UploadMovieController::class, 'deleteMovie'])->name('movie.delete-video');
+    Route::get('/upload_movies/{id}/thumbnail', [UploadMovieController::class, 'deleteImage'])->name('moive.delete-thumbnail');
+
 
 
     Route::resource('/report-video', ReportVideoController::class);

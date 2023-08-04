@@ -6,8 +6,9 @@
                 <div class="col-md-7">
                     <div class="swiper swiper-with-arrows">
                         <div class="swiper-wrapper">
-                            @foreach($arr as $img)
-                          <div class="swiper-slide" style="background-image:url({{asset('storage/'.$img)}})"></div>
+                            @foreach($bazar->image as $img)
+                            {{ dd($img) }}
+                          <div class="swiper-slide" style="background-image:url({{ asset('storage/'.$img) }})"></div>
                           @endforeach
                         </div>
                         <div class="swiper-button-next swiper-button-white custom-icon">

@@ -17,6 +17,12 @@ class UploadMovie extends Model
         'video',
         'category_id'
     ];
+    protected $casts = [
+        'movie' => 'array'
+     ];
+     protected $attributes = [
+        'movie' => '[]'
+     ];
     
     public function getActivitylogOptions(): LogOptions
     {

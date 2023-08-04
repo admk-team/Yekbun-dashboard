@@ -800,6 +800,8 @@
                     // Update the preview template to include the music title
 
                         dropzoneMulti.emit("addedfile", file , path);
+                       dropzoneMulti.emit("thumbnail", file , path);
+
                         
                         dropzoneMulti.files.push(file);
                     });

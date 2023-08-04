@@ -18,6 +18,13 @@ class UplaodVideo extends Model
         'category_id',
         'app'
     ];
+    protected $casts = [
+        'video' => 'array'
+     ];
+     protected $attributes = [
+        'video' => '[]'
+     ];
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults();
