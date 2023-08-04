@@ -153,7 +153,7 @@ class VotingController extends Controller
         $voting = Voting::orderBy('created_at', 'desc')->take(5)->get();
 
         foreach ($voting as $item) {
-            $item[0]->banner = url('/') . '/storage/' . $item[0]->banner;
+            $item->banner = url('/') . '/storage/' . $item->banner;
         }
 
         return response()->json(['success' => true, 'data' => $voting]);
@@ -164,7 +164,7 @@ class VotingController extends Controller
         $voting = Voting::orderBy('created_at', 'desc')->get();
 
         foreach ($voting as $item) {
-            $item[0]->banner = url('/') . '/storage/' . $item[0]->banner;
+            $item->banner = url('/') . '/storage/' . $item->banner;
         }
 
         return response()->json(['success' => true, 'data' => $voting]);
@@ -175,7 +175,7 @@ class VotingController extends Controller
         $voting = VotingReaction::find($id);
 
         if ($voting != "")
-            $voting[0]->banner = url('/') . '/storage/' . $voting[0]->banner;
+            $voting->banner = url('/') . '/storage/' . $voting->banner;
 
         return response()->json(['success' => true, 'data' => $voting]);
     }
