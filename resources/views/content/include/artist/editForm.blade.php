@@ -74,6 +74,11 @@
 <script>
     'use strict';
 
+
+    //  <div class="progress">
+        // <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress></div>
+        //                                                     </div>
+
     dropZoneInitFunctions.push(function() {
         // previewTemplate: Updated Dropzone default previewTemplate
 
@@ -87,10 +92,10 @@
                                                             <div class="dz-success-mark"></div>
                                                             <div class="dz-error-mark"></div>
                                                             <div class="dz-error-message"><span data-dz-errormessage></span></div>
-                                                            <div class="progress">
-                                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress></div>
-                                                            </div>
+                                                          
                                                         </div>
+                                                        <div class="dz-filename" data-dz-name></div>
+                                                            <div class="dz-size" data-dz-size></div>
                                                     
                                                     </div>
                                                 </div>
@@ -151,8 +156,9 @@
         $("document").ready(() => {
             var path = "{{ asset('storage/'.$artists->image) }}";
             var rpath = "{{ $artists->image }}";
+            const parts = rpath.split("___");
 
-            imageUrlToFile(path).then((file) => {
+            imageUrlToFile(path,parts).then((file) => {
                 file['status'] = "success";
                 file['previewElement'] = "div.dz-preview.dz-image-preview";
                 file['previewTemplate'] = "div.dz-preview.dz-image-preview";
@@ -190,7 +196,7 @@
         const blob = await response.blob();
 
         // Create a File object
-        const file = new File([blob], fileName, { type: blob.type });
+        const file = new File([blob], fileName[1], { type: blob.type });
 
         return file;
     }

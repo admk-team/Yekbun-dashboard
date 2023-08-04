@@ -4,6 +4,13 @@
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/flatpickr/flatpickr.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/tagify/tagify.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/swiper/swiper.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/dropzone/dropzone.css')}}" />
 
 @endsection
 @section('page-style')
@@ -27,6 +34,13 @@
     }
 
 </style>
+@endsection
+
+@section('vendor-script')
+<script src="{{asset('assets/vendor/libs/flatpickr/flatpickr.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/select2/select2.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/tagify/tagify.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
 @endsection
 
 @section('content')
@@ -196,35 +210,35 @@
                                             <i class="bx bx-dots-vertical"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sharedList" style="">
-                                            <form action="{{ route('posts.destroy', $post->id) }}" method="post">
+                                            <form action="{{ route('posts.destroy', $post->id) }}" method="post" onsubmit="confirmAction(event, () => event.target.submit())">
                                                 @method('DELETE')
                                                 @csrf
-                                                <button type="submit" class="dropdown-item">
+                                                <button type="submit" class="dropdown-item" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true">
                                                     Remove Feed<br>
                                                     <small class="text-muted">Feed removed only</small>
                                                 </button>
                                             </form>
-                                            <form action="{{ $post->user? route('posts.destroyAndFlagUser', ['id' => $post->id, 'user_id' => $post->user->id]): '' }}" method="post">
+                                            
+                                            <form action="{{ $post->user? route('posts.destroyAndFlagUser', ['id' => $post->id, 'user_id' => $post->user->id]): '' }}" method="post" {!! $post->user? 'onsubmit="confirmActionFlag(event, () => event.target.submit())"': '' !!}>
                                                 @method('DELETE')
                                                 @csrf
-
-                                                <button type="{{ $post->user? 'submit': 'button' }}" class="dropdown-item">
+                                                <button type="{{ $post->user? 'submit': 'button' }}" {!! $post->user? '': 'onclick="confirmActionFlag(event, () => event.target.click())"' !!} class="dropdown-item" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true">
                                                     Remove - Flag User<br>
                                                     <small class="text-muted">Remove Feed - Flag User</small>
                                                 </button>
                                             </form>
-                                            <form action="{{ $post->user? route('posts.destroyAndBlockUser', ['id' => $post->id, 'user_id' => $post->user->id]): '' }}" method="post">
+                                            <form action="{{ $post->user? route('posts.destroyAndBlockUser', ['id' => $post->id, 'user_id' => $post->user->id]): '' }}" method="post" {!! $post->user? 'onsubmit="confirmActionBlock(event, () => event.target.submit())"': '' !!}>
                                                 @method('DELETE')
                                                 @csrf
-                                                <button type="{{ $post->user? 'submit': 'button' }}" class="dropdown-item">
+                                                <button type="{{ $post->user? 'submit': 'button' }}"  {!! $post->user? '': 'onclick="confirmActionBlock(event, () => event.target.click())"' !!} class="dropdown-item" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true">
                                                     Remove Block<br>
                                                     <small class="text-muted">Remove Feed - Block User</small>
                                                 </button>
                                             </form>
-                                            <form action="{{ $post->user? route('posts.destroyAndRemoveUser', $post->user->id): '' }}" method="post">
+                                            <form action="{{ $post->user? route('posts.destroyAndRemoveUser', $post->user->id): '' }}" method="post" {!! $post->user? 'onsubmit="confirmActionAccount(event,() => event.target.submit())"':'' !!}>
                                                 @method('DELETE')
                                                 @csrf
-                                                <button type="{{ $post->user? 'submit': 'button' }}" class="dropdown-item">
+                                                <button type="{{ $post->user? 'submit': 'button' }}"{!! $post->user? '' : 'onclick="confirmActionAccount(event,() => event.target.click())"' !!} class="dropdown-item" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true">
                                                     Remove User<br>
                                                     <small class="text-muted">Remove Account - IMEI</small>
                                                 </button>
@@ -602,10 +616,68 @@
     event.preventDefault();
     Swal.fire({
       title: 'Are you sure?',
-      text: "Are you sure you want to delete this?",
+      text: "Are you sure you want to Remove  this Feed?",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonText: 'Yes, Remove it!',
+      customClass: {
+        confirmButton: 'btn btn-danger me-3',
+        cancelButton: 'btn btn-label-secondary'
+      },
+      buttonsStyling: false
+    }).then(function (result) {
+      if (result.value) {
+        callback();
+      }
+    });
+  }
+   function confirmActionFlag(event, callback) {
+    event.preventDefault();
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Are you sure you want to  Flag this user?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Flag it!',
+      customClass: {
+        confirmButton: 'btn btn-danger me-3',
+        cancelButton: 'btn btn-label-secondary'
+      },
+      buttonsStyling: false
+    }).then(function (result) {
+      if (result.value) {
+        callback();
+      }
+    });
+  }
+  function confirmActionBlock(event, callback) {
+    event.preventDefault();
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Are you sure you want to  Block this user?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Block it!',
+      customClass: {
+        confirmButton: 'btn btn-danger me-3',
+        cancelButton: 'btn btn-label-secondary'
+      },
+      buttonsStyling: false
+    }).then(function (result) {
+      if (result.value) {
+        callback();
+      }
+    });
+  }
+   function confirmActionAccount(event, callback) {
+    event.preventDefault();
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Are you sure you want to  Block this account?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Block it!',
       customClass: {
         confirmButton: 'btn btn-danger me-3',
         cancelButton: 'btn btn-label-secondary'

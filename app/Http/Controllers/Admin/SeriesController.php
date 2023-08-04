@@ -166,12 +166,12 @@ class SeriesController extends Controller
     public function destroy($id)
     {
         $series = Series::findorFail($id);
-        if($series->series){
-           $series_path = public_path('storage/'.$series->series);
-           if(file_exists($series_path)){
-               unlink($series_path);
-           }
-        }
+        // if($series->series){
+        //    $series_path = public_path('storage/'.$series->series);
+        //    if(file_exists($series_path)){
+        //        unlink($series_path);
+        //    }
+        // }
         
         if($series->delete($series->id)){
             return redirect()->route('series.series.index')->with('success', 'Series Has been Deleted');
