@@ -3,7 +3,7 @@
         <li class="nav-item" role="presentation">
             <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-en" aria-controls="navs-top-home" aria-selected="true">En</button>
         </li>
-        <li class="nav-item" role="presentation">
+        {{-- <li class="nav-item" role="presentation">
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-de" aria-controls="navs-top-profile" aria-selected="false" tabindex="-1">DE</button>
         </li>
         <li class="nav-item" role="presentation">
@@ -14,7 +14,7 @@
         </li>
         <li class="nav-item" role="presentation">
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-ir" aria-controls="navs-top-messages" aria-selected="false" tabindex="-1">IR</button>
-        </li>
+        </li> --}}
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade active show" id="navs-en" role="tabpanel">

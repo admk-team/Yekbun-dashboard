@@ -16,18 +16,7 @@ class InvoiceController extends Controller
         $address = Invoice::first() ?? $address;
         $address->address = $request->address;
         $address->title = $request->title;
-        
-        if($request->hasFile('logo')){
-            if(isset($address->logo)){
-                $logo_path = public_path('storage/'.$address->logo);
-                if(file_exists($logo_path)){
-                    unlink($logo_path);
-                }    
-            }
-            $image_path = $request->file('logo')->store('images/invoice/logo','public');
-            $address->logo = $image_path;
-            
-        }
+        $address->logo = $request->logo??null;
         if($address->save()){
             return back()->with('success' , 'Address updated successfully');
         }

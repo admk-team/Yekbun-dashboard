@@ -19,6 +19,8 @@
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/dropzone/dropzone.css')}}" />
+
 <style>
   .ql-snow {
     overflow: hidden;
@@ -27,6 +29,9 @@
 @endsection
 
 @section('content')
+<script>
+  const dropZoneInitFunctions = [];
+</script>
 <div class="row g-4 mb-4">
   <div class="col-sm-6 col-xl-4">
     <div class="card">
@@ -102,7 +107,7 @@
             <th>Id</th>
             <th>Title</th>
             <th>Category </th>
-            <th>Image </th>
+            <th>Desc </th>
             <th>Status </th>
             <th>Option</th>
           </tr>
@@ -115,17 +120,18 @@
           <td>
               {{ $new->news_category->name  ??  '' }} </option>
           </td>
-        @php
-        if(isset($new->image) ){
-              $img = json_decode($new->image);
-              if(is_array($img)){
-                $extension = pathinfo($img[0], PATHINFO_EXTENSION) ?? '';
-              }else{
-                $extension = '';
-              }
-        }
-        @endphp
-          <td>
+          {{-- @php
+          $extension = '';
+          if(isset($new->image) && is_string($new->image)){
+            $img = json_decode($new->image, true);
+        
+            if(json_last_error() === JSON_ERROR_NONE && is_array($img) && count($img) > 0){
+              // Assuming the JSON is successfully decoded, it's an array, and it has at least one element
+              $extension = pathinfo($img[0], PATHINFO_EXTENSION) ?? '';
+            }
+          }
+        @endphp --}}
+          {{-- <td>
             @if( strtoLower($extension) == 'png'  || strtoLower($extension) == 'jpg' || strtoLower($extension) == 'jpeg'  || strtoLower($extension) == 'gif')
             <img class="rounded" src="{{ $img[0] ?? ''  }}" width="200" alt="" height="150" style="object-fit: cover">
             @else
@@ -133,7 +139,14 @@
               <source src="{{ $img[0] ?? '' }}" >
             </video>
             @endif
-          </td>
+          </td> --}}
+          @php
+            $maxTextLength = 50; // Set the maximum length of the text you want to display
+            $text = $new->description ?? '';
+            $shortenedText = strlen($text) > $maxTextLength ? substr($text, 0, $maxTextLength) . '...' : $text;
+        @endphp
+
+          <td>{{ $shortenedText ?? '' }}</td>
           <td>
             @if ($new->status)
               <span class="badge bg-label-success me-1">Published</span>
@@ -274,4 +287,10 @@
     });
   }
 </script>
+<script>
+  function drpzone_init() {
+      dropZoneInitFunctions.forEach(callback => callback());
+  }
+</script>
+<script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js" onload="drpzone_init()"></script>
 @endsection

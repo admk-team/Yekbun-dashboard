@@ -5,9 +5,19 @@
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
 @endsection
+@section('vendor-style')
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/flatpickr/flatpickr.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/tagify/tagify.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/dropzone/dropzone.css')}}" />
 
+@endsection
 @section('content')
-
+<script>
+    const dropZoneInitFunctions = [];
+  </script>
 @php
 if ($app === 'main')
     $cardsCount = 4;
@@ -142,14 +152,11 @@ else
             @if(count($upload_video))
             @foreach($upload_video as $video)
             <div class="col-md-6 mt-2">
-                @php
-                $json = $video->video;
-                $arr = json_decode($json, true);
-                @endphp
+               
 
                 <div class="card mb-3">
                     <video controls class="">
-                        <source src="{{ asset('storage/'.$arr[0]) }}" />
+                        <source src="{{ asset('storage/'.$video->video[0]) }}" />
                     </video>
                     <div class="card-body">
                         <div class="image d-flex align-items-center gap-2" style="position: relative;">
@@ -344,5 +351,10 @@ else
 <x-modal id="createvideoModal" title="Create Video" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm" size="md">
     @include('content.include.videos.createFile')
 </x-modal>
-
+<script>
+    function drpzone_init() {
+        dropZoneInitFunctions.forEach(callback => callback());
+    }
+  </script>
+  <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js" onload="drpzone_init()"></script>
 @endsection

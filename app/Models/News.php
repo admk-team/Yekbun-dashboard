@@ -19,6 +19,12 @@ class News extends Model
         'status'
     ];
 
+    protected $casts = [
+        'image' => 'array'
+     ];
+     protected $attributes = [
+        'image' => '[]'
+     ];
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults();

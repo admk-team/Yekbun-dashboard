@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/tagify/tagify.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/dropzone/dropzone.css')}}" />
+
 @endsection
 
 @section('vendor-script')
@@ -21,7 +23,9 @@
 @endsection
 
 @section('content')
-
+<script>
+    const dropZoneInitFunctions = [];
+  </script>
 {{-- Nav TAb --}}
 <div class="d-flex justify-content-between">
     <div>
@@ -42,7 +46,7 @@
     <div class="table-responsive text-nowrap">
         <table class="table">
             <thead>
-                <tr>p
+                <tr>
                     <th>#</th>
                     <th>Artist Image</th>
                     <th>Actions</th>
@@ -66,9 +70,6 @@
                             </div>
                         </div>
                     </td>
-
-
-
                     <td>
                         <div class="d-flex justify-content-start align-items-center">
                             <span data-bs-toggle="modal" data-bs-target="#editartistModal{{ $artists->id }}">
@@ -95,8 +96,6 @@
                     <td class="text-center" colspan="8">No Artist found.</td>
                 </tr>
                 @endif
-
-
             </tbody>
         </table>
     </div>
@@ -158,5 +157,11 @@
     });
 
 </script>
+<script>
+    function drpzone_init() {
+        dropZoneInitFunctions.forEach(callback => callback());
+    }
+  </script>
+  <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js" onload="drpzone_init()"></script>
 @endsection
 @endsection

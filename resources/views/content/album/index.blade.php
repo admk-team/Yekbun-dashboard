@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/tagify/tagify.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/dropzone/dropzone.css')}}" />
+
 @endsection
 
 @section('vendor-script')
@@ -20,7 +22,9 @@
 <script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
 @endsection
 @section('content')
-
+<script>
+  const dropZoneInitFunctions = [];
+</script>
 {{-- Nav TAb --}}
 <div class="d-flex justify-content-between">
     <div>
@@ -32,6 +36,7 @@
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createalbumModal">Add Album</button>
     </div>
 </div>
+
 
 <!-- Basic Bootstrap Table -->
 <div class="card">
@@ -58,9 +63,9 @@
                     <td>{{ $albums->title ?? '' }}</td>
                     <td><?php $ID = $albums->artist->id ?? '';  $count = DB::table('albums')->where('artist_id' , $ID)->count(); ?> {{ $count ?? '' }}</td>
                     <?php
-                 $json = $albums->album;
-                 $arr = json_decode($json, true); 
-              ?>
+            //      $json = $albums->album;
+            //      $arr = json_decode($json, true); 
+            //   ?>
                     <td>
                         <div class="d-flex justify-content-start align-items-center">
                             <span data-bs-toggle="modal" data-bs-target="#editalbumModal{{ $albums->id }}">
@@ -149,5 +154,11 @@
     }
 
 </script>
+<script>
+    function drpzone_init() {
+        dropZoneInitFunctions.forEach(callback => callback());
+    }
+  </script>
+  <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js" onload="drpzone_init()"></script>
 @endsection
 @endsection

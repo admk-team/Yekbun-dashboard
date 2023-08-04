@@ -229,6 +229,9 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
         Route::get('/categories', [CategoryController::class, 'index'])->name('series.categories.index');
     });
 
+    Route::get('/series/{id}/series', [UploadMovieController::class, 'deleteMovie'])->name('series.delete-video');
+    Route::get('/series/{id}/thumbnail', [UploadMovieController::class, 'deleteImage'])->name('series.delete-thumbnail');
+
     // mobile setting s
     Route::resource('mobile-settings', MobileSettingsController::class);
     Route::any('mobile-setting', [MobileSettingsController::class, 'save'])->name('mobile-setting');
@@ -339,6 +342,7 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
     Route::get('/bazar/{id}/{status}', [BazarController::class, 'status'])->name('bazar-status');
     Route::resource('/bazar-category', BazarCategoryController::class);
     Route::get('/bazar-category/{id}/{status}', [BazarCategoryController::class, 'status'])->name('bazarcat-status');
+    Route::delete('/bazar/{id}/image', [BazarController::class, 'deleteBazarImage'])->name('bazar.delete-img');
 
     Route::resource('bazar-subcategory', SubCategoryBazarController::class);
     // Fan Page
@@ -373,6 +377,14 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
 
     // Settings
     Route::prefix('settings')->name('settings.')->group(function () {
+
+          // Team
+          Route::prefix('team')->name('team.')->group(function () {
+            Route::resource('members', TeamMemberController::class);
+            Route::resource('roles', RoleController::class);
+        });
+       Route::delete('/member/{id}/image', [TeamMemberController::class, 'deleteMemberImage'])->name('user.delete-img');
+
         // Ftp settings
         Route::resource('/servers', ServerController::class)->only(['index', 'store', 'update', 'destroy']);
 
@@ -405,11 +417,7 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
         // Cities
         Route::resource('/cities', CityController::class);
 
-        // Team
-        Route::prefix('team')->name('team.')->group(function () {
-            Route::resource('members', TeamMemberController::class);
-            Route::resource('roles', RoleController::class);
-        });
+      
 
         // Save Setting Value via Ajax
         Route::post('/save', [SettingController::class, 'save'])->name('save');
@@ -445,6 +453,8 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
     Route::resource('/artist', ArtistController::class);
     Route::get('/artists/{id}/{status}', [ArtistController::class, 'status'])->name('artists-status');
     Route::get('get/city/{id}', [ArtistController::class, 'get_city']);
+    Route::delete('/artists/{id}/image', [ArtistController::class, 'deleteArtistImage'])->name('artists.delete-img');
+
     // upload video clip 
     Route::resource('/upload_video', UplaodVideoClipController::class);
     Route::get('/upload_video/{id}/{status}', [UplaodVideoClipController::class, 'status'])->name('upload-status');
@@ -452,11 +462,17 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
 
     // Album
     Route::resource('/album', AlbumController::class);
+    Route::delete('/album/{id}/album', [AlbumController::class, 'deleteAlbum'])->name('album.delete-audio');
+    Route::delete('/album/{id}/image', [AlbumController::class, 'deleteAlbumImage'])->name('album.delete-img');
+
 
     Route::resource('/upload-movies', UploadMovieController::class);
     Route::resource('/upload-movies-category', UploadMovieCategoryController::class);
     Route::get('/upload_movies/{id}/{status}', [UploadMovieController::class, 'status'])->name('movies_status');
     Route::get('/movie_category/{id}/{status}', [UploadMovieCategoryController::class, 'status'])->name('moviecat_status');
+    Route::get('/upload_movies/{id}/movie', [UploadMovieController::class, 'deleteMovie'])->name('movie.delete-video');
+    Route::get('/upload_movies/{id}/thumbnail', [UploadMovieController::class, 'deleteImage'])->name('moive.delete-thumbnail');
+
 
 
     Route::resource('/report-video', ReportVideoController::class);
