@@ -473,7 +473,8 @@
           }
       });
 
-      $("document").ready(() => {
+      @if($address->logo)
+      window.addEventListener('load' , () => {
           var path = "{{ asset('storage/'.$address->logo) }}";
           var rpath = "{{ $address->logo }}";
           const parts = rpath.split("___");
@@ -506,6 +507,7 @@
               // dropzoneMulti1.files.push(file);
           });
       });
+      @endif
   })
 </script>
 

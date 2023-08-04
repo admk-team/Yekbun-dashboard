@@ -153,6 +153,7 @@
             }
         });
 
+        @if($artists->image)
         $("document").ready(() => {
             var path = "{{ asset('storage/'.$artists->image) }}";
             var rpath = "{{ $artists->image }}";
@@ -186,6 +187,7 @@
                 // dropzoneMulti1.files.push(file);
             });
         });
+        @endif
     })
 </script>
 
