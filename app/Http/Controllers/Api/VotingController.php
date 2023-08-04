@@ -161,7 +161,7 @@ class VotingController extends Controller
 
     public function fetch_all()
     {
-        $voting = Voting::orderBy('created_at', 'desc')->get();
+        $voting = Voting::orderBy('created_at', 'desc')->with('voting_category')->get();
 
         foreach ($voting as $item) {
             $item->banner = url('/') . '/storage/' . $item->banner;
@@ -172,7 +172,7 @@ class VotingController extends Controller
 
     public function get_details($id)
     {
-        $voting = Voting::find($id);
+        $voting = Voting::find($id)->with('voting_category');
 
         if ($voting != "")
             $voting->banner = url('/') . '/storage/' . $voting->banner;
