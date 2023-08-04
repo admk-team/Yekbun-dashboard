@@ -137,4 +137,11 @@ class VotingController extends Controller
              return response()->json('Failed to delete vote' , 400);
           }
     }
+
+    public function get_cover()
+    {
+        $voting = Voting::first();
+
+        return response()->json(['success' => true, 'data' => $voting]);
+    }
 }

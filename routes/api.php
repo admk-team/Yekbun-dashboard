@@ -223,6 +223,9 @@ Route::get('/history-category', [HistoryController::class, 'categories']);
 Route::get('/history-detail/{id}', [HistoryController::class, 'detail']);
 Route::post('/history-search', [HistoryController::class, 'search']);
 
+// Voting
+Route::get('/voting/cover', [VotingController::class, 'get_cover']);
+
 //Animation Emojji
 Route::get('/get-all-emoji' , [AnimationEmojiController::class  , 'get_all_emoji'])->name('get-all-emoji');
 
