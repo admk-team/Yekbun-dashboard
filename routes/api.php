@@ -223,10 +223,17 @@ Route::get('/history-category', [HistoryController::class, 'categories']);
 Route::get('/history-detail/{id}', [HistoryController::class, 'detail']);
 Route::post('/history-search', [HistoryController::class, 'search']);
 
+// Voting
+Route::get('/voting-cover', [VotingController::class, 'get_cover']);
+Route::get('/fetch-voting', [VotingController::class, 'fetch']);
+Route::get('/fetch-voting/all', [VotingController::class, 'fetch_all']);
+Route::get('/voting-details/{id}', [VotingController::class, 'get_details']);
+Route::post('/voting/store-reaction', [VotingController::class, 'store_reaction']);
+
 //Animation Emojji
 Route::get('/get-all-emoji' , [AnimationEmojiController::class  , 'get_all_emoji'])->name('get-all-emoji');
 
 // Reaction 
-Route::post('/store-reaction' , [ReactionController::class , 'store_reaction'])->name('store-reaction');
+Route::post('/store-reaction' , [ReactionController::class, 'store_reaction'])->name('store-reaction');
 // comments 
-Route::post('/store-comments' , [CommentController::class , 'store_comments'])->name('store-comments');
+Route::post('/store-comment' , [CommentController::class, 'store_comment'])->name('store-comment');

@@ -6,6 +6,7 @@ use Share;
 use App\Models\Feed;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Reaction;
 
 class FeedController extends Controller
 {
@@ -69,15 +70,20 @@ class FeedController extends Controller
         return response()->json(['success' => true, 'data' => $feeds]);
     }
 
-    public function fetch_feed($id=null)
+    public function fetch_feed($id = "")
     {
         $feeds = Feed::inRandomOrder()->take(8)->with(['background', 'user'])->get();
-        if($id){
-            
-        }
+        
         if ($feeds != '[]')
             foreach ($feeds as $feed) {
                 $feed->media = json_decode($feed->media);
+
+                if ($id != "") {
+                    $reaction_exist = Reaction::where('user_id', $id)->where('feed_id', $feed->id)->first();
+
+                    if ($reaction_exist != "")
+                        $feed->reaction = $reaction_exist;
+                }
             }
 
         $data = $feeds->filter(function ($item) {
@@ -205,7 +211,7 @@ class FeedController extends Controller
             foreach ($media as $item) {
                 if ($item->path == $request->path) {
                     $media_feed = Feed::find($feed->id);
-                    
+
                     $feed_media = collect(json_decode($media_feed->media));
 
                     $updated_media = $feed_media->filter(function ($single_media) use ($request) {

@@ -148,10 +148,6 @@ class HistoryController extends Controller
     {
         $history = History::where('title', 'like', '%' . $request->search . '%')->get();
 
-        foreach ($history as $item) {
-            $item->image = json_decode($item->image);
-        }
-
         return response()->json(['success' => true, 'data' => $history]);
     }
 }
