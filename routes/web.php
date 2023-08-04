@@ -377,6 +377,14 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
 
     // Settings
     Route::prefix('settings')->name('settings.')->group(function () {
+
+          // Team
+          Route::prefix('team')->name('team.')->group(function () {
+            Route::resource('members', TeamMemberController::class);
+            Route::resource('roles', RoleController::class);
+        });
+       Route::delete('/member/{id}/image', [TeamMemberController::class, 'deleteMemberImage'])->name('user.delete-img');
+
         // Ftp settings
         Route::resource('/servers', ServerController::class)->only(['index', 'store', 'update', 'destroy']);
 
@@ -409,11 +417,7 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
         // Cities
         Route::resource('/cities', CityController::class);
 
-        // Team
-        Route::prefix('team')->name('team.')->group(function () {
-            Route::resource('members', TeamMemberController::class);
-            Route::resource('roles', RoleController::class);
-        });
+      
 
         // Save Setting Value via Ajax
         Route::post('/save', [SettingController::class, 'save'])->name('save');

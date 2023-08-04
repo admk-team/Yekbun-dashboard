@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreTeamMemberRequest;
 use App\Http\Requests\UpdateTeamMemberRequest;
+use PhpParser\Node\Expr\FuncCall;
 
 class TeamMemberController extends Controller
 {
@@ -34,12 +35,12 @@ class TeamMemberController extends Controller
     public function store(StoreTeamMemberRequest $request)
     {
         $validated = $request->validated();
-
-        $imagePath = null;
-        if ($request->hasFile('image')) {
-            $imagePath = $request->image->store("/users", "public");
-            $validated["image"] = $imagePath;
-        }
+        $validated['image'] = $request->image??null;
+        // $imagePath = null;
+        // if ($request->hasFile('image')) {
+        //     $imagePath = $request->image??'';
+        //     $validated["image"] = $imagePath;
+        // }
 
         $validated['is_admin_user'] = true;
         $validated['password'] = Hash::make($validated['password']);
@@ -62,12 +63,7 @@ class TeamMemberController extends Controller
     public function update(UpdateTeamMemberRequest $request, $id)
     {
         $validated = $request->validated();
-
-        $imagePath = null;
-        if ($request->hasFile('image')) {
-            $imagePath = $request->image->store("/users", "public");
-            $validated["image"] = $imagePath;
-        }
+        $validated['image'] = $request->image??null;
 
         $user = User::find($id);
         $user->fill($validated);
@@ -97,4 +93,8 @@ class TeamMemberController extends Controller
 
         return back()->with("success", "Team member successfully deleted.");
     }
+
+
+
+
 }

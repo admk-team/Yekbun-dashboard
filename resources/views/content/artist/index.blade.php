@@ -70,9 +70,6 @@
                             </div>
                         </div>
                     </td>
-
-
-
                     <td>
                         <div class="d-flex justify-content-start align-items-center">
                             <span data-bs-toggle="modal" data-bs-target="#editartistModal{{ $artists->id }}">
@@ -99,8 +96,6 @@
                     <td class="text-center" colspan="8">No Artist found.</td>
                 </tr>
                 @endif
-
-
             </tbody>
         </table>
     </div>
