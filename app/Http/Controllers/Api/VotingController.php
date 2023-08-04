@@ -172,7 +172,7 @@ class VotingController extends Controller
 
     public function get_details($id)
     {
-        $voting = Voting::find($id)->with('voting_category');
+        $voting = Voting::with('voting_category')->find($id);
 
         if ($voting != "")
             $voting->banner = url('/') . '/storage/' . $voting->banner;
