@@ -226,7 +226,9 @@ Route::post('/history-search', [HistoryController::class, 'search']);
 // Voting
 Route::get('/voting-cover', [VotingController::class, 'get_cover']);
 Route::get('/fetch-voting', [VotingController::class, 'fetch']);
+Route::get('/voting-details', [VotingController::class, 'get_details']);
 Route::get('/fetch-voting/all', [VotingController::class, 'fetch_all']);
+Route::post('/voting/store-reaction', [VotingController::class, 'store_reaction']);
 
 //Animation Emojji
 Route::get('/get-all-emoji' , [AnimationEmojiController::class  , 'get_all_emoji'])->name('get-all-emoji');

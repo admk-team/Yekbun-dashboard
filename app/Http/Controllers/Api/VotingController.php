@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Voting;
+use App\Models\VotingReaction;
 
 class VotingController extends Controller
 {
@@ -156,5 +157,40 @@ class VotingController extends Controller
         $voting = Voting::orderBy('created_at', 'desc')->get();
 
         return response()->json(['success' => true, 'data' => $voting]);
+    }
+
+    public function get_details($id)
+    {
+        $voting = VotingReaction::find($id);
+
+        return response()->json(['success' => true, 'data' => $voting]);
+    }
+
+    public function store_reaction(Request $request)
+    {
+        $credentails = $request->validate([
+            'user_id' => 'required',
+            'vote_id' => 'required',
+            'type' => 'required',
+        ]);
+
+        $existing_voting = VotingReaction::where('user_id', $request->user_id)->where('vote_id', $request->vote_id)->first();
+
+        if ($existing_voting != "") {
+            if ($existing_voting->type == $request->type) {
+                $existing_voting->delete();
+
+                return response()->json(['success' => true, 'message' => 'Vote removed.']);
+            } else {
+                $existing_voting->type = $request->type;
+                $existing_voting->save();
+
+                return response()->json(['success' => true, 'message' => 'Vote updated.']);
+            }
+        }
+
+        VotingReaction::create($credentails);
+
+        return response()->json(['success' => true, 'message' => 'Vote saved.']);
     }
 }
