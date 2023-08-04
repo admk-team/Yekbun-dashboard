@@ -144,4 +144,11 @@ class VotingController extends Controller
 
         return response()->json(['success' => true, 'data' => $voting]);
     }
+
+    public function fetch ()
+    {
+        $voting = Voting::orderBy('created_at', 'desc')->take(5)->get();
+
+        return response()->json(['success' => true, 'data' => $voting]);
+    }
 }
