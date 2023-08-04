@@ -140,7 +140,7 @@ class VotingController extends Controller
 
     public function get_cover()
     {
-        $voting = Voting::first();
+        $voting = Voting::orderBy('created_at', 'desc')->take(1)->get();
 
         return response()->json(['success' => true, 'data' => $voting]);
     }
