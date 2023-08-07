@@ -475,11 +475,24 @@
       ]
     },
     {
-      "url": "/media",
       "name": "Media",
       "icon": "menu-icon tf-icons fa fa-television",
-      "slug": "media.index",
-      "permissions": "meida.read,meida.create,meida.write,meida.delete"
+      "slug": "media",
+      "permissions": "meida.read,meida.create,meida.write,meida.delete",
+      "submenu": [
+        {
+          "url": "/media",
+          "name": "Manage Media",
+          "slug": "media.index",
+          "hasNoPermissions": true
+        },
+        {
+          "url": "/media-category",
+          "name": "Add Category",
+          "slug": "media-category.index",
+          "hasNoPermissions": true
+        }
+      ]
     },
     {
       "name": "Bazar",

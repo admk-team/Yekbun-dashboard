@@ -20,6 +20,8 @@
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/dropzone/dropzone.css')}}" />
+
 @endsection
 
 @section('vendor-script')
@@ -28,7 +30,9 @@
 @endsection
 
 @section('content')
-
+<script>
+    const dropZoneInitFunctions = [];
+  </script>
 <div class="row g-4 mb-4">
     <div class="col-sm-6  col-xl-6">
         <div class="card">
@@ -121,23 +125,9 @@
                         <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
                         @endcan
                     </form>
-                    {{--<button type="button" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-light">Action
-                    </button>
-                    <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu" style="min-width: 9rem;">
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <button class="btn " data-bs-toggle="modal" data-bs-target="#editvotingModal{{ $vote->id }}">Edit</button>
-                            </li>
-                            <li class="nav-item">
-                                <a href="javascript:void(0);" class="nav-link" type="button" onclick="delete_service(this);" data-id="{{ route('vote.destroy',$vote->id) }}">
-                                    <i class="nav-link-icon pe-7s-wallet"> </i><span>Delete</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>--}}
                 </div>
                 {{-- Edit Model Form --}}
-                <x-modal id="editvotingModal{{ $vote->id }}" title="Edit Vote" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm" size="lg">
+                <x-modal id="editvotingModal{{ $vote->id }}" title="Edit Vote" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm" size="md">
                     @include('content.include.voting.editForm')
                 </x-modal>
             </td>
@@ -192,7 +182,7 @@ title="Create Vote"
 saveBtnText="Create" 
 saveBtnType="submit"
 saveBtnForm="createForm" 
-size="lg">
+size="md">
  @include('content.include.voting.createForm')
 </x-modal>
 
@@ -349,4 +339,10 @@ $(function () {
   }
 });
 </script>
+<script>
+    function drpzone_init() {
+        dropZoneInitFunctions.forEach(callback => callback());
+    }
+  </script>
+  <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js" onload="drpzone_init()"></script>
 @endsection
