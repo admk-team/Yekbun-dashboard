@@ -48,16 +48,17 @@ class BazarController extends Controller
           $bazar->category_id = $request->category_id;
           $bazar->subcategory_id = $request->subcategory_id;
           $bazar->title  = $request->title;
-          $images = collect([]);
-          foreach($request->file('image') as $value){
-             $path = $value->store('/images/bazar/img' , 'public');
-             $images->push($path);
-          }
-          $bazar->image = $images;
-        //   if($request->hasFile('image')){
-        //     $path = $request->file('image')->store('/images/bazar/' , 'public');
-        //     $bazar->image = $path;
+          $bazar->image = $request->image??[];
+        //   $images = collect([]);
+        //   foreach($request->file('image') as $value){
+        //      $path = $value->store('/images/bazar/img' , 'public');
+        //      $images->push($path);
         //   }
+        //   $bazar->image = $images;
+        // //   if($request->hasFile('image')){
+        // //     $path = $request->file('image')->store('/images/bazar/' , 'public');
+        // //     $bazar->image = $path;
+        // //   }
           $bazar->user_id  = auth()->user()->id ?? null;
           $bazar->price = $request->price;
           $bazar->status = $request->status;
@@ -111,24 +112,25 @@ class BazarController extends Controller
         $bazar->warranty =  $request->warranty;
         $bazar->status = $request->status;
         $bazar->subcategory_id = $request->subcategory_id;
-        $images = collect([]);
+        $bazar->image = $request->image??[];
+        // $images = collect([]);
 
   
-        if($request->hasFile('image')){
-            foreach($request->file('image') as $value){
-           if(isset($bazar->image)){
-               $image_path  = public_path('storage/'.$bazar->image);
-               if(file_exists($image_path)){
-                   unlink($image_path);
-               }
-               $path = $value->store('/images/bazar/img' , 'public');
-               $images->push($path);
-           }
-        }
-        $bazar->image = $images;
-        }else{
-            $bazar->image = $bazar->image ?? '';
-        }
+        // if($request->hasFile('image')){
+        //     foreach($request->file('image') as $value){
+        //    if(isset($bazar->image)){
+        //        $image_path  = public_path('storage/'.$bazar->image);
+        //        if(file_exists($image_path)){
+        //            unlink($image_path);
+        //        }
+        //        $path = $value->store('/images/bazar/img' , 'public');
+        //        $images->push($path);
+        //    }
+        // }
+        // $bazar->image = $images;
+        // }else{
+        //     $bazar->image = $bazar->image ?? '';
+        // }
 
         if($bazar->update()){
             return redirect()->route('bazar.index')->with('success', 'Bazar Has been Updated');
@@ -147,12 +149,12 @@ class BazarController extends Controller
     public function destroy($id)
     {
         $bazar = Bazar::findorFail($id);
-        if($bazar->image){
-           $image_path = public_path('storage/'.$bazar->image);
-           if(file_exists($image_path)){
-               unlink($image_path);
-           }
-        }
+        // if($bazar->image){
+        //    $image_path = public_path('storage/'.$bazar->image);
+        //    if(file_exists($image_path)){
+        //        unlink($image_path);
+        //    }
+        // }
         if($bazar->delete($bazar->id)){
             return redirect()->route('bazar.index')->with('success', 'Bazar Has been Deleted');
         }else{
@@ -170,4 +172,18 @@ class BazarController extends Controller
 
         }
     }
+
+    public function deleteBazarImage(Request $request, $id)
+    {
+        $music = Bazar::find($id);
+        $music->image = array_filter($music->image, function ($path) use ($request) {
+            return !($path === $request->path); 
+        });
+        $music->save();
+        unlink(public_path('storage/' . $request->path));
+        return [
+            'status' => true
+        ];
+    }
+
 }

@@ -14,6 +14,8 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/swiper/swiper.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/dropzone/dropzone.css')}}" />
+
 
 @endsection
 
@@ -24,7 +26,9 @@
 <script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
 @endsection
 @section('content')
-
+<script>
+    const dropZoneInitFunctions = [];
+  </script>
 <div class="row g-4 mb-4">
     <div class="col-sm-6 col-xl-3">
         <div class="card">
@@ -146,11 +150,11 @@
                         $rand = (rand(1,9));
                     @endphp {{ $rand ?? '' }}</td>
                     <td>
-                        @php 
+                        {{-- @php 
                         $json = $bazar->image;
                         $arr  =json_decode($json , true);
-                        @endphp
-                      <img src="{{ asset('storage/'.$arr[0]) }}" alt="Avatar" class="rounded" width="100" height="100">
+                        @endphp --}}
+                      <img src="{{ asset('storage/'.$bazar->image[0]) }}" alt="Avatar" class="rounded" width="100" height="100">
                     </td>
                     <td>{{ $bazar->user_name ?? '' }}</td>
                     <td>{{ $bazar->bazar_category->name ?? '' }}</td>
@@ -321,5 +325,11 @@
         subCatSelect.disabled = false;
     }
 </script>
+<script>
+    function drpzone_init() {
+        dropZoneInitFunctions.forEach(callback => callback());
+    }
+  </script>
+  <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js" onload="drpzone_init()"></script>
 
 @endsection

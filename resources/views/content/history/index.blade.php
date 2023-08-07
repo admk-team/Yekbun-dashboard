@@ -117,7 +117,7 @@
                         </form>
                     </div>
 
-                    <x-modal id="editModal{{ $historys->id }}" title="Edit History" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $historys->id }}" size="lg">
+                    <x-modal id="editModal{{ $historys->id }}" title="Edit History" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $historys->id }}" size="md">
                         @include('content.include.history.editForm')
                     </x-modal>
                 </td>
@@ -164,7 +164,7 @@
     }
 
 </script>
-<x-modal id="createhistoryModal" title="Create History" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm" size="lg">
+<x-modal id="createhistoryModal" title="Create History" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm" size="md">
     @include('content.include.history.createForm')
 </x-modal>
 

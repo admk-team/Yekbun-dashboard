@@ -52,14 +52,15 @@ class NewsController extends Controller
       $news->description = $request->description;
       $news->category_id = $request->category_id;
       $news->status = (int) $request->status;
+      $news->image = $request->image??[];
 
-      $asset = collect([]);
-      foreach($request->file('image') as $file){
-        $path = UploadMedia::index($file ?? '');
-        $asset->push($path);
-      }
+    //   $asset = collect([]);
+    //   foreach($request->file('image') as $file){
+    //     $path = UploadMedia::index($file ?? '');
+    //     $asset->push($path);
+    //   }
 
-      $news->image = json_encode($asset);
+    //   $news->image = json_encode($asset);
     if($news->save()){
         return redirect()->route('news.index')->with('success', 'News Has been inserted');
     }else{
@@ -102,24 +103,26 @@ class NewsController extends Controller
     public function update(Request $request, $id)
     {
         
-        dd($request->all());
+       
         $news = News::findorFail($id);
         $news->title = $request->title;
         $news->description = $request->description;
         $news->category_id = $request->category_id;
-        $asset = collect([]);
-        foreach($request->file('image') as $file){
-            if(isset($news->image)){
-                $image_path = public_path('storage/'.$news->image);
-                if(file_exists($image_path)){
-                    unlink($image_path);
-                }
-                $path = UploadMedia::index($file ?? '');
-                $asset->push($path);
-            }
-        }
+        $news->image = $request->image??[];
 
-        $news->image = json_encode($asset);
+        // $asset = collect([]);
+        // foreach($request->file('image') as $file){
+        //     if(isset($news->image)){
+        //         $image_path = public_path('storage/'.$news->image);
+        //         if(file_exists($image_path)){
+        //             unlink($image_path);
+        //         }
+        //         $path = UploadMedia::index($file ?? '');
+        //         $asset->push($path);
+        //     }
+        // }
+
+        // $news->image = json_encode($asset);
         
         if($news->update()){
             return redirect()->route('news.index')->with('success', 'News Has been Updated');
@@ -139,12 +142,12 @@ class NewsController extends Controller
     public function destroy($id)
     {
         $news = News::findorFail($id);
-         if($news->image){
-            $image_path = public_path('storage/'.$news->image);
-            if(file_exists($image_path)){
-                unlink($image_path);
-            }
-         }
+        //  if($news->image){
+        //     $image_path = public_path('storage/'.$news->image);
+        //     if(file_exists($image_path)){
+        //         unlink($image_path);
+        //     }
+        //  }
 
          if($news->delete($news->id)){
             return redirect()->route('news.index')->with('success', 'News Has been Deleted');

@@ -43,7 +43,6 @@ class MusicController extends Controller
       
         $request->validate([
             'category_id'=>'required',
-            'status' => 'required'
           ]); 
 
     //   $music_implode = implode('' , $request->audio_paths);

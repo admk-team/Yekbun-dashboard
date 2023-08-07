@@ -26,7 +26,7 @@ class UpdateTeamMemberRequest extends FormRequest
         return [
             "name" => "required|string",
             "email" => "required|email",
-            "image" => "nullable|image",
+            "image" => "nullable",
             "status" => "nullable|integer",
             "roles" => "required",
         ];

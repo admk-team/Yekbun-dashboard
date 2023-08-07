@@ -11,6 +11,12 @@ class Series extends Model
 {
     use HasFactory , LogsActivity;
       
+    protected $casts = [
+        'series' => 'array'
+     ];
+     protected $attributes = [
+        'series' => '[]'
+     ];
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults();

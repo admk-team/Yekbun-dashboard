@@ -51,19 +51,21 @@ class UploadMovieController extends Controller
         $movie->description = $request->description;
         $movie->category_id = $request->category_id;
         $movie->status = $request->status;
-        $movies = collect([]);
+        $movie->thumbnail = $request->thumbnail??'';
+        $movie->movie = $request->movie??[];
+        // $movies = collect([]);
         
-        foreach($request->file('movie') as $value){
-            $path = $value->store('images/movie/','public');
-            $movies->push($path);
-        }
-        $movie->movie = $movies->toJson();
+        // foreach($request->file('movie') as $value){
+        //     $path = $value->store('images/movie/','public');
+        //     $movies->push($path);
+        // }
+        // $movie->movie = $movies->toJson();
 
 
-        if($request->hasFile('thumbnail')){
-            $movies_path = $request->file('thumbnail')->store('images/movie/thumbnail/','public');
-            $movie->thumbnail = $movies_path;
-           }
+        // if($request->hasFile('thumbnail')){
+        //     $movies_path = $request->file('thumbnail')->store('images/movie/thumbnail/','public');
+        //     $movie->thumbnail = $movies_path;
+        //    }
        
 
        if($movie->save()){
@@ -113,35 +115,37 @@ class UploadMovieController extends Controller
         $movie->description = $request->description;
         $movie->category_id = $request->category_id;
         $movie->status   = $request->status;
-        $videos = collect([]);
+        $movie->thumbnail = $request->thumbnail??'';
+        $movie->movie = $request->movie??[];
+        // $videos = collect([]);
 
-        if($request->hasFile('thumbnail')){
-            if(isset($movie->thumbnail)){
-                $image_path = public_path('storage/'.$movie->thumbnail);
-                if(file_exists($image_path)){
-                    unlink($image_path);
-                }
-            }
-            $path  = $request->file('thumbnail')->store('images/movie/thumbnail/','public');
-            $movie->thumbnail = $path;
-        }
+        // if($request->hasFile('thumbnail')){
+        //     if(isset($movie->thumbnail)){
+        //         $image_path = public_path('storage/'.$movie->thumbnail);
+        //         if(file_exists($image_path)){
+        //             unlink($image_path);
+        //         }
+        //     }
+        //     $path  = $request->file('thumbnail')->store('images/movie/thumbnail/','public');
+        //     $movie->thumbnail = $path;
+        // }
 
-        if($request->has('movie')){
-            foreach($request->file('movie') as $value){
-                    if(isset($movie->movie)){
-                        $video_path  = public_path('storage/'.$movie->movie);
-                        if(file_exists($video_path)){
-                            unlink($video_path);
-                        }
-                        $path  = $value->store('images/movie/','public');
-                        $videos->push($path);
-                        $movie->movie  = $videos;
-                    }
-            }
-        }else{
-            $arr = $movie->movie;
-            $movie->movie = $arr;
-        }
+        // if($request->has('movie')){
+        //     foreach($request->file('movie') as $value){
+        //             if(isset($movie->movie)){
+        //                 $video_path  = public_path('storage/'.$movie->movie);
+        //                 if(file_exists($video_path)){
+        //                     unlink($video_path);
+        //                 }
+        //                 $path  = $value->store('images/movie/','public');
+        //                 $videos->push($path);
+        //                 $movie->movie  = $videos;
+        //             }
+        //     }
+        // }else{
+        //     $arr = $movie->movie;
+        //     $movie->movie = $arr;
+        // }
         if($movie->update()){
             return redirect()->route('upload-movies.index')->with('success', 'Movie Has been updated');
            }else{
@@ -159,18 +163,18 @@ class UploadMovieController extends Controller
     public function destroy($id)
     {
         $movie = UploadMovie::findorFail($id);
-        if($movie->movie){
-           $movie_path = public_path('storage/'.$movie->movie);
-           if(file_exists($movie_path)){
-               unlink($movie_path);
-           }
-        }
-        if($movie->thumbnail){
-            $movie_thumbnail = public_path('storage/'.$movie->thumbnail);
-            if(file_exists($movie_thumbnail)){
-                unlink($movie_thumbnail);
-            }
-         }
+        // if($movie->movie){
+        //    $movie_path = public_path('storage/'.$movie->movie);
+        //    if(file_exists($movie_path)){
+        //        unlink($movie_path);
+        //    }
+        // }
+        // if($movie->thumbnail){
+        //     $movie_thumbnail = public_path('storage/'.$movie->thumbnail);
+        //     if(file_exists($movie_thumbnail)){
+        //         unlink($movie_thumbnail);
+        //     }
+        //  }
         
         if($movie->delete($movie->id)){
             return redirect()->route('upload-movies.index')->with('success', 'Movie Has been Deleted');
@@ -189,5 +193,37 @@ class UploadMovieController extends Controller
             return redirect()->route('upload-movies.index')->with('error', 'Status is not changed');
 
         }
+    }
+
+    public function deleteMovie(Request $request, $id)
+    {
+        $music = UploadMovie::find($id);
+        $music->movie = array_filter($music->movie, function ($path) use ($request) {
+            return !($path === $request->path); 
+        });
+        $music->save();
+        unlink(public_path('storage/' . $request->path));
+        return [
+            'status' => true
+        ];
+    }
+
+    public function deleteImage($id)
+    {
+        $music = UploadMovie::find($id);
+        if ($music && isset($music->thumbnail)) {
+            $path = public_path('storage/' . $music->thumbnail);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+    
+            // Remove the image filename from the model attribute
+            $music->thumbnail = null;
+            $music->save();
+        }
+        
+        return [
+            'status' => true
+        ];
     }
 }

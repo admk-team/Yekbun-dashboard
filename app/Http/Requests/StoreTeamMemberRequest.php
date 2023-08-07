@@ -27,7 +27,7 @@ class StoreTeamMemberRequest extends FormRequest
             "name" => "required",
             "email" => "required|email|unique:users,email",
             "password" => "required|confirmed",
-            "image" => "nullable|image",
+            "image" => "nullable",
             "status" => "nullable|integer",
             "roles" => "required",
         ];

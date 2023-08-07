@@ -81,10 +81,10 @@ class UplaodVideoController extends Controller
     public function store(Request $request)
     {
        
+       
         $request->validate([
             'thumbnail' => 'required',
             'title' => 'required',
-            'video' => 'required',
             'app' => 'nullable'
           ]); 
 
@@ -93,18 +93,20 @@ class UplaodVideoController extends Controller
         $video->description = $request->description;
         $video->category_id = $request->category_id;
         $video->app = $request->app?? 'main';
-        $videos = collect([]);
+        $video->thumbnail = $request->thumbnail??'';
+        $video->video = $request->video??[];
+        // $videos = collect([]);
 
-        if($request->file('thumbnail')){
-            $path  = $request->file('thumbnail')->store('/images/thumbnail/','public');
-            $video->thumbnail = $path;
-        }
+        // if($request->file('thumbnail')){
+        //     $path  = $request->file('thumbnail')->store('/images/thumbnail/','public');
+        //     $video->thumbnail = $path;
+        // }
 
-        foreach($request->file('video') as $value){
-            $path = $value->store('/images/video/' , 'public');
-            $videos->push($path);
-        }
-        $video->video = $videos->toJson();
+        // foreach($request->file('video') as $value){
+        //     $path = $value->store('/images/video/' , 'public');
+        //     $videos->push($path);
+        // }
+        // $video->video = $videos->toJson();
 
        if($video->save()){
         return redirect()->back()->with('success', 'Video Has been inserted');

@@ -21,7 +21,7 @@ class FileController extends Controller
         $uploadedFile = $request->file('file');
 
         // Generate a unique name for the file, or use the original file name
-        $uniqueName = uniqid() . '_' . str_replace(' ', '_', $uploadedFile->getClientOriginalName());
+        $uniqueName = uniqid() . '___' . str_replace(' ', '_', $uploadedFile->getClientOriginalName());
         
         // Get the folder name from the request or use 'files' as the default folder
         $folder = $request->folder ?? 'files';
@@ -29,6 +29,7 @@ class FileController extends Controller
         // Store the file in the 'public' disk (configured in config/filesystems.php)
         $filePath = $uploadedFile->storeAs("/{$folder}", $uniqueName, "public");
 
+        // $filtered_path = url('/') . '/storage/' .  $filePath;
 
         return [
             'status' => true,

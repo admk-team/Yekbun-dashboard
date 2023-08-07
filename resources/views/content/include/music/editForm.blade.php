@@ -75,6 +75,12 @@
 <script>
     'use strict';
     
+
+    // <div class="dz-filename" data-dz-name></div>
+    //                                                     <div class="dz-size" data-dz-size></div>
+    //                                                     <!-- Add a new div to display the music title -->
+    //                                                     <div class="dz-title" data-dz-title></div>
+
     dropZoneInitFunctions.push(function () {
             // previewTemplate: Updated Dropzone default previewTemplate
     
@@ -93,9 +99,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="dz-filename" data-dz-name></div>
-                                                        <div class="dz-size" data-dz-size></div>
-                                                        <!-- Add a new div to display the music title -->
-                                                        <div class="dz-title" data-dz-title></div>
+                                                            <div class="dz-size" data-dz-size></div>
+                                                    
                                                     </div>
                                                 </div>
                                             </div>
@@ -147,9 +152,10 @@
             @foreach ($musics->audio as $audio)
                 $("document").ready(()=>{
                     var path = "{{ asset('storage/'.$audio) }}";
-                  
+                    let name = "{{ basename($audio) }}";
+                    const parts = name.split("___");
                     console.log(path);
-                    imageUrlToFile(path).then((file) => {
+                    imageUrlToFile(path,parts).then((file) => {
                         file['status'] = "success";
                         file['previewElement'] = "div.dz-preview.dz-image-preview";
                         file['previewTemplate'] = "div.dz-preview.dz-image-preview";
@@ -191,7 +197,7 @@
         const blob = await response.blob();
 
         // Create a File object
-        const file = new File([blob], fileName, { type: blob.type });
+        const file = new File([blob], fileName[1], { type: blob.type });
 
         return file;
     }

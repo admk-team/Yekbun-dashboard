@@ -4,6 +4,8 @@
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/flatpickr/flatpickr.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/dropzone/dropzone.css')}}" />
+
 @endsection
 
 @section('page-style')
@@ -17,6 +19,8 @@
 <script src="{{asset('assets/vendor/libs/jquery-repeater/jquery-repeater.js')}}"></script>
 @endsection
 
+
+
 @section('page-script')
 <script src="{{asset('assets/js/offcanvas-add-payment.js')}}"></script>
 <script src="{{asset('assets/js/offcanvas-send-invoice.js')}}"></script>
@@ -24,6 +28,9 @@
 @endsection
 
 @section('content')
+<script>
+  const dropZoneInitFunctions = [];
+</script>
 <div class="row invoice-edit">
   <!-- Invoice Edit-->
   <div class="col-lg-9 col-12 mb-lg-0 mb-4">
@@ -62,12 +69,28 @@
                           </div>
                           <form method="POST" action="{{ route('invoice-address') }}" enctype="multipart/form-data">
                             @csrf
+                            <div class="hidden-inputs">
+                              <input type="hidden" name="logo" value="{{ $address->logo }}" data-path="{{ $address->logo }}">
+                          </div>
                           <div class="modal-body">
                             <div class="row">
-                              <div class="col-md-12">
-                                <label for="logo" class="form-label">Logo</label>
-                                <input type="file" name="logo" class="form-control"/>
-                              </div>
+                              <div class="col-12">
+                                
+                                <div class="card">
+                                    <h5 class="card-header">Logo</h5>
+                                    <div class="card-body">
+                                        <div class="dropzone needsclick" action="/" id="dropzone-img{{ $address->id }}">
+                                            <div class="dz-message needsclick">
+                                                Drop files here or click to upload
+                                            </div>
+                                            <div class="fallback">
+                                                <input type="file" name="logo" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                               <div class="col-md-12 mt-2">
                                 <label for="text" class="form-labele">Title</label>
                                 <input type="text" name="title" class="form-control" value="{{ $address->title ?? '' }}"/>
@@ -367,4 +390,146 @@
 @include('_partials/_offcanvas/offcanvas-send-invoice')
 @include('_partials/_offcanvas/offcanvas-add-payment')
 <!-- /Offcanvas -->
+
+<script>
+  'use strict';
+
+
+  //  <div class="progress">
+      // <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress></div>
+      //                                                     </div>
+
+  dropZoneInitFunctions.push(function() {
+      // previewTemplate: Updated Dropzone default previewTemplate
+
+      const previewTemplate = `<div class="row">
+                                          <div class="col-md-12 col-12 d-flex justify-content-center">
+                                              <div class="dz-preview dz-file-preview w-100">
+                                                  <div class="dz-details">
+                                                      <div class="dz-thumbnail" style="width:95%">
+                                                          <img data-dz-thumbnail >
+                                                          <span class="dz-nopreview">No preview</span>
+                                                          <div class="dz-success-mark"></div>
+                                                          <div class="dz-error-mark"></div>
+                                                          <div class="dz-error-message"><span data-dz-errormessage></span></div>
+                                                        
+                                                      </div>
+                                                      <div class="dz-filename" data-dz-name></div>
+                                                          <div class="dz-size" data-dz-size></div>
+                                                  
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>`;
+
+      // image
+      const dropzoneMulti1 = new Dropzone('#dropzone-img{{ $address->id }}', {
+          url: '{{ route('file.upload') }}',
+          previewTemplate: previewTemplate,
+          parallelUploads: 1,
+          maxFilesize: 100,
+          addRemoveLinks: true,
+          headers: {
+              'X-CSRF-TOKEN': '{{ csrf_token() }}'
+          },
+          sending: function(file, xhr, formData) {
+              formData.append('folder', 'music');
+          },
+          success: function(file, response) {
+
+              if (file.previewElement) {
+                  file.previewElement.classList.add("dz-success");
+              }
+              file.previewElement.dataset.path = response.path;
+              const hiddenInputsContainer = file.previewElement.closest('form').querySelector(
+                  '.hidden-inputs');
+              hiddenInputsContainer.innerHTML +=
+                  `<input type="hidden" name="logo" value="${response.path}" data-path="${response.path}">`;
+
+          },
+          removedfile: function(file) {
+              const hiddenInputsContainer = file.previewElement.closest('form').querySelector(
+                  '.hidden-inputs');
+              hiddenInputsContainer.querySelector(
+                  `input[data-path="${file.previewElement.dataset.path}"]`).remove();
+
+              if (file.previewElement != null && file.previewElement.parentNode != null) {
+                  file.previewElement.parentNode.removeChild(file.previewElement);
+              }
+
+              $.ajax({
+                  url: '',
+                  method: 'delete',
+                  headers: {
+                      'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                  },
+                  data: {
+                      path: file.previewElement.dataset.path
+                  },
+                  success: function() {}
+              });
+
+              return this._updateMaxFilesReachedClass();
+          }
+      });
+
+      @if($address->logo)
+      window.addEventListener('load' , () => {
+          var path = "{{ asset('storage/'.$address->logo) }}";
+          var rpath = "{{ $address->logo }}";
+          const parts = rpath.split("___");
+
+          imageUrlToFile(path,parts).then((file) => {
+              file['status'] = "success";
+              file['previewElement'] = "div.dz-preview.dz-image-preview";
+              file['previewTemplate'] = "div.dz-preview.dz-image-preview";
+              file['_removeLink'] = "a.dz-remove";
+              // file['webkitRelativePath'] = "";
+              file['width'] = 500;
+              file['height'] = 500;
+              file['accepted'] = true;
+              file['dataURL'] = path;
+              file['processing'] = true;
+              file['addPathToDataset'] = true;
+              dropzoneMulti1.on('addedfile', function(file) {
+                  if (file.addPathToDataset)
+                      file.previewElement.dataset.path = rpath;
+              });
+              file['upload'] = {
+                  bytesSent: 0,
+                  progress: 0,
+              };
+
+              // Update the preview template to include the music title
+
+              dropzoneMulti1.emit("addedfile", file, path);
+              dropzoneMulti1.emit("thumbnail", file, path);
+              // dropzoneMulti1.files.push(file);
+          });
+      });
+      @endif
+  })
+</script>
+
+<script>
+  async function imageUrlToFile(imageUrl, fileName) {
+      // Fetch the image
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+
+      // Create a File object
+      const file = new File([blob], fileName[1], { type: blob.type });
+
+      return file;
+  }
+</script>
+
+<script>
+  function drpzone_init() {
+      dropZoneInitFunctions.forEach(callback => callback());
+  }
+</script>
+<script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js" onload="drpzone_init()"></script>
+
 @endsection
+
