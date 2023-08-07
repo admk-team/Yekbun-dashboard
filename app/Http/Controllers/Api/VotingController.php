@@ -168,7 +168,7 @@ class VotingController extends Controller
         return response()->json(['success' => true, 'data' => $voting]);
     }
 
-    public function fetch_all($id)
+    public function fetch_all($id = null)
     {
         $voting = Voting::orderBy('created_at', 'desc')->with('voting_category')->get();
 
@@ -183,12 +183,17 @@ class VotingController extends Controller
         return response()->json(['success' => true, 'data' => $voting]);
     }
 
-    public function get_details($id)
+    public function get_details($id, $user_id = null)
     {
         $voting = Voting::with('voting_category')->find($id);
 
-        if ($voting != "")
+        if ($voting != "") {
             $voting->banner = url('/') . '/storage/' . $voting->banner;
+
+            $voting_reaction = VotingReaction::where('user_id', $user_id)->where('vote_id', $voting->id)->first();
+
+            $voting->user_reaction = $voting_reaction;
+        }
 
         return response()->json(['success' => true, 'data' => $voting]);
     }
