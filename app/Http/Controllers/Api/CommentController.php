@@ -49,7 +49,7 @@ class CommentController extends Controller
         $comments = Comment::where($type, $id)->get();
     
         $formattedComments = $comments->map(function ($comment) {
-            $comment['created_at'] = $this->formatCreatedAt($comment->created_at);
+            $comment->created_at = $this->formatCreatedAt($comment->created_at);
             return $comment;
         });
     
