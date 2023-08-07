@@ -156,11 +156,11 @@
                                                     <tr>
                                                         <td>{{ $b->name ?? '' }}</td>
                                                         <td>
-                                                            <span data-bs-toggle="modal" data-bs-target="#editbazarcategoryModal{{ $bazar->id }}">
+                                                            <span data-bs-toggle="modal" data-bs-target="#editbazarsubcategoryModal{{ $bazar->id }}{{ $b->id }}" data-bs-dismiss="modal">
                                                                 <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button>
                                                             </span>
                                                                 <!-- Category Model -->
-                                                                <div class="modal fade" id="editbazarcategoryModal{{ $bazar->id }}" tabindex="-1" aria-hidden="true">
+                                                                <div class="modal fade" id="editbazarsubcategoryModal{{ $bazar->id }}{{ $b->id }}" tabindex="-1" aria-hidden="true">
                                                                     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
