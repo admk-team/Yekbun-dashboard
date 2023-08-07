@@ -66,6 +66,11 @@ class TeamMemberController extends Controller
         $validated['image'] = $request->image??null;
 
         $user = User::find($id);
+        if (! ($validated['password']?? null)) {
+            $validated['password'] = $user->password;
+        } else {
+            $validated['password'] = Hash::make($validated['password']);
+        }
         $user->fill($validated);
         $user->save();
 

@@ -33,6 +33,17 @@
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
+                <div class="col-md-12">
+                    <label class="form-label" for="inputPassword">Password <span class="text-warning text-capitalize">( Leave empty if you don't want to change password )</span></label>
+                    <input type="text" id="inputPassword" name="password" class="form-control">
+                    @error('password')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label" for="inputPasswordConfirmation">Confirm Password <span class="text-warning text-capitalize">( Leave empty if you don't want to change password )</span></label>
+                    <input type="text" id="inputPasswordConfirmation" name="password_confirmation" class="form-control">
+                </div>
                 <div class="col-12">
                     <div class="card">
                         <h5 class="card-header">Image</h5>
