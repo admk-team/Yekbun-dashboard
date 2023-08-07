@@ -44,6 +44,9 @@
 @endsection
 
 @section('content')
+<script>
+    const dropZoneInitFunctions = [];
+  </script>
 <div class="d-flex justify-content-between">
     <div>
         <h4 class="fw-bold py-3 mb-4">
@@ -718,4 +721,10 @@ window.addEventListener('load' , function(){
 })
 @enderror
   </script>
+  <script>
+    function drpzone_init() {
+        dropZoneInitFunctions.forEach(callback => callback());
+    }
+  </script>
+  <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js" onload="drpzone_init()"></script>
 @endsection

@@ -53,4 +53,13 @@ class FileController extends Controller
             ];
         }
     }
+
+    public function upload_bg(Request $request){
+        $imagePath = $request->file('file')->store('public/images');
+        $filtered_path = url('/') . '/storage/' . explode('/', $imagePath, 2)[1];
+        return [
+            'status' => true,
+            'path' => $filtered_path
+        ];
+    }
 }

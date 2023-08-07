@@ -17,7 +17,8 @@ class MediaController extends Controller
     public function index()
     {
          $media = Media::with('media_category')->get();
-        return view('content.media.index' , compact('media'));
+         $media_category = MediaCategory::get();
+        return view('content.media.index' , compact('media' , 'media_category'));
     }
 
     /**
@@ -27,8 +28,7 @@ class MediaController extends Controller
      */
     public function create()
     {
-        $media_category = MediaCategory::get();
-        return view('content.media.create' , compact('media_category'));
+       //
     }
 
     /**
@@ -48,10 +48,8 @@ class MediaController extends Controller
           $media = new Media();
           $media->title  = $request->title;
           $media->category_id = $request->category_id;
-          if($request->hasFile('image')){
-            $path = $request->file('image')->store('/images/media/' , 'public');
-            $media->images  = $path;
-          }
+          $media->images = $request->image??null;
+          $media->sttus = $request->status;
 
           if($media->save()){
             return redirect()->route('media.index')->with('success', 'Media Has been inserted');
@@ -96,17 +94,8 @@ class MediaController extends Controller
         $media = Media::findorFail($id);
         $media->title=$request->title;
         $media->category_id = $request->category_id;
-        
-        if($request->hasFile('image')){
-            if(isset($media->images)){
-                $image_path = public_path('storage/'.$media->images);
-                if(isset($image_path)){
-                    unlink($image_path);
-                }
-                $path  = $request->file('image')->store('/images/media/'  , 'public');
-                $media->images = $path;
-            }
-        }
+        $media->images = $request->image;
+        $media->sttus = $request->status;
         if($media->update()){
             return redirect()->route('media.index')->with('success', 'Media Has been Updated');
         }else{
@@ -117,7 +106,7 @@ class MediaController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
+     *mem
      * @param  \App\Models\Media  $media
      * @return \Illuminate\Http\Response
      */
@@ -146,5 +135,24 @@ class MediaController extends Controller
             return redirect()->route('media.index')->with('error', 'Status is not changed');
 
         }
+    }
+
+    public function deleteMediaImage($id)
+    {
+        $music = Media::find($id);
+        if ($music && isset($music->images)) {
+            $path = public_path('storage/' . $music->images);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+    
+            // Remove the image filename from the model attribute
+            $music->images = null;
+            $music->save();
+        }
+        
+        return [
+            'status' => true
+        ];
     }
 }
