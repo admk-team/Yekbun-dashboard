@@ -20,7 +20,8 @@ class CommentController extends Controller
         "history_id",
         "vote_id",
         "music_id",
-        "emoji_id"
+        "emoji_id",
+        "audio_path"
     ];
 
     public function store_comment(Request $request)
@@ -41,5 +42,12 @@ class CommentController extends Controller
         $comment->save();
 
         return response()->json(['success' => true, 'data' => $comment, 'message' => 'Comment saved.']);
+    }
+
+    public function get_comment($type, $id)
+    {
+        $comments = Comment::where($type, $id)->get();
+
+        return response()->json(['success' => true, 'data' => $comments]);
     }
 }
