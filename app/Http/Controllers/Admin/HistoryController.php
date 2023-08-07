@@ -117,6 +117,22 @@ class HistoryController extends Controller
     public function destroy($id)
     {
         $history = History::find($id);
+        if(isset($history->image)){
+            foreach($history->image as $history_file){
+                $image_path  = public_path('storage/'.$history_file);
+                if(file_exists($image_path)){
+                    unlink($image_path);
+                }
+            }
+        }
+        if(isset($history->video)){
+            foreach($history->video as $history_file){
+                $image_path  = public_path('storage/'.$history_file);
+                if(file_exists($image_path)){
+                    unlink($image_path);
+                }
+            }
+        }
         if($history->delete($history->id)){
             return redirect()->route('history.index')->with('success', 'History Has been Deleted');
         }else{

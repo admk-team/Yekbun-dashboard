@@ -163,18 +163,20 @@ class UploadMovieController extends Controller
     public function destroy($id)
     {
         $movie = UploadMovie::findorFail($id);
-        // if($movie->movie){
-        //    $movie_path = public_path('storage/'.$movie->movie);
-        //    if(file_exists($movie_path)){
-        //        unlink($movie_path);
-        //    }
-        // }
-        // if($movie->thumbnail){
-        //     $movie_thumbnail = public_path('storage/'.$movie->thumbnail);
-        //     if(file_exists($movie_thumbnail)){
-        //         unlink($movie_thumbnail);
-        //     }
-        //  }
+        if($movie->movie){
+            foreach($movie->movie as $movie_file){
+                $movie_path = public_path('storage/'.$movie_file);
+                if(file_exists($movie_path)){
+                    unlink($movie_path);
+                }
+            }
+        }
+        if($movie->thumbnail){
+            $movie_thumbnail = public_path('storage/'.$movie->thumbnail);
+            if(file_exists($movie_thumbnail)){
+                unlink($movie_thumbnail);
+            }
+         }
         
         if($movie->delete($movie->id)){
             return redirect()->route('upload-movies.index')->with('success', 'Movie Has been Deleted');

@@ -43,12 +43,7 @@ class AnimationEmojiController extends Controller
         ]);
 
         $animated = new AnimationEmoji();
-        // $animated->title  = $request->title;
-        if($request->hasFile('emoji')){
-             $path = UploadMedia::index($request->file('emoji')) ?? '';
-            $animated->emoji = $path;
-        }
-
+        $animated->emoji = $request->emoji??null;
         if($animated->save()){
             return redirect()->back()->with('success'  , 'Animated Emoji successfully added.');
         }else{
@@ -90,17 +85,7 @@ class AnimationEmojiController extends Controller
     {
    
         $animated = AnimationEmoji::find($id);
-        if($request->hasFile('emoji')){
-            if(isset($animated->emoji)){
-                $emoji_path = public_path('storage/'.$animated->emoji);
-                if(file_exists($emoji_path)){
-                    unlink($emoji_path);
-                }
-                $path = UploadMedia::index($request->file('emoji')) ?? '';
-                $animated->emoji = $path;
-            }
-        }
-        
+        $animated->emoji = $request->emoji??null; 
         if($animated->update()){
             return redirect()->back()->with('success' , 'Animated Emoji updated successfully.');
         }else{
@@ -129,5 +114,24 @@ class AnimationEmojiController extends Controller
             return redirect()->back()->with('error' , 'Animated Emoji has not  been removed .');
 
         }
+    }
+     
+    public function deleteImage($id)
+    {
+        $music = AnimationEmoji::find($id);
+        if ($music && isset($music->emoji)) {
+            $path = public_path('storage/' . $music->emoji);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+    
+            // Remove the image filename from the model attribute
+            $music->emoji = null;
+            $music->save();
+        }
+        
+        return [
+            'status' => true
+        ];
     }
 }
