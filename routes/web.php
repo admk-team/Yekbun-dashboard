@@ -209,6 +209,10 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
     // Files
     Route::post('file/upload', [FileController::class, 'upload'])->name('file.upload');
     Route::delete('file/delete', [FileController::class, 'delete'])->name('file.delete');
+    Route::post('file/images', [FileController::class, 'upload_bg'])->name('file.images');
+    // Route::delete('file/delete', [FileController::class, 'delete'])->name('file.delete');
+    
+
 
     // Flagged users
     Route::prefix("reports")->name("reports.")->group(function () {
@@ -336,6 +340,8 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
     Route::get('/media/{id}/{status}', [MediaController::class, 'status'])->name('medias-status');
     Route::resource('/media-category', MediaCategoryController::class);
     Route::get('/media_category/{id}/{status}', [MediaCategoryController::class, 'status'])->name('mediacat-status');
+    Route::delete('/media/{id}/image', [MediaController::class, 'deleteMediaImage'])->name('media.delete-img');
+
 
     // Bazar
     Route::resource('/bazar', BazarController::class);
@@ -448,6 +454,8 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
 
     Route::resource('/music-category', MusicCategoryController::class);
     Route::get('/music_category/{id}/{status}', [MusicCategoryController::class, 'status'])->name('musiccat-status');
+    Route::delete('/music_icon/{id}/icon', [MusicCategoryController::class, 'deleteMusic'])->name('music_icon.delete-img');
+
 
     //artist
     Route::resource('/artist', ArtistController::class);
@@ -501,6 +509,8 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
     // Voting
     Route::resource('/vote', VotingController::class);
     Route::get('/vote/{id}/{status}', [VotingController::class, 'status'])->name('votes-status');
+    Route::get('/vote/{id}/banner', [VotingController::class, 'deleteImage'])->name('vote.delete-banner');
+
 
     Route::resource('/vote-category', VotingCategoryController::class);
     Route::get('/vote_category/{id}/{status}', [VotingCategoryController::class, 'status'])->name('votecat-status');

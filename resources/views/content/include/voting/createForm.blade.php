@@ -1,8 +1,8 @@
 <div class="nav-align-top mb-4">
     <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item" role="presentation">
+        {{-- <li class="nav-item" role="presentation">
             <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-en" aria-controls="navs-top-home" aria-selected="true">En</button>
-        </li>
+        </li> --}}
         {{-- <li class="nav-item" role="presentation">
             <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-de" aria-controls="navs-top-profile" aria-selected="false" tabindex="-1">DE</button>
         </li>
@@ -20,6 +20,7 @@
         <div class="tab-pane fade active show" id="navs-en" role="tabpanel">
             <form id="createForm" method="POST" action="{{ route('vote.store') }}" enctype="multipart/form-data">
                 @csrf
+                <div class="hidden-inputs"></div>
                 <div class="row">
                     <div class="col-lg-12 mx-auto">
                         <div class="row g-3">
@@ -27,10 +28,21 @@
                                 <label class="form-label" for="fullname">Title</label>
                                 <input type="text" id="fullname" class="form-control" placeholder="title" name="name">
                             </div>
-                            <div class="col-md-12">
-                                <label class="form-label" for="fullname">Banner upload</label>
-                                <input type="file" id="fullname" class="form-control" name="image">
-                            </div>
+                            <div class="col-12">
+                                <div class="card">
+                                    <h5 class="card-header">Banner Upload</h5>
+                                    <div class="card-body">
+                                        <div class="dropzone needsclick" action="/" id="dropzone-img">
+                                            <div class="dz-message needsclick">
+                                                Drop files here or click to upload
+                                            </div>
+                                            <div class="fallback">
+                                                <input type="file" name="image"  id="image" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
                             {{-- <div class="col-md-12">
                                 <label class="form-label" for="fullname">Select Category</label>
                                 <select name="category_id" class="form-select">
@@ -321,3 +333,76 @@
         </div>
     </div>
 </div>
+
+
+
+
+<script>
+    'use strict';
+
+    dropZoneInitFunctions.push(function (){
+            // previewTemplate: Updated Dropzone default previewTemplate
+
+            const previewTemplate = `<div class="row"><di class="col-md-12 d-flex justify-content-center"><div class="dz-preview dz-file-preview w-100">
+                                    <div class="dz-details">
+                                      <div class="dz-thumbnail" style="width:95%">
+                                        <img data-dz-thumbnail >
+                                        <span class="dz-nopreview">No preview</span>
+                                        <div class="dz-success-mark"></div>
+                                        <div class="dz-error-mark"></div>
+                                        <div class="dz-error-message"><span data-dz-errormessage></span></div>
+                                        <div class="progress">
+                                          <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress></div>
+                                        </div>
+                                      </div>
+                                      <div class="dz-filename" data-dz-name></div>
+                                      <div class="dz-size" data-dz-size></div>
+                                    </div>
+                                    </div></div></di>`;
+
+            // for image
+            const dropzoneMulti1 = new Dropzone('#dropzone-img', {
+                url: '{{ route('file.upload') }}',
+                previewTemplate: previewTemplate,
+                parallelUploads: 1,
+                maxFilesize: 100,
+                addRemoveLinks: true,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                sending: function (file, xhr, formData) {
+                    formData.append('folder', 'music');
+                },
+                success: function (file, response) {
+                    if (file.previewElement) {
+                        file.previewElement.classList.add("dz-success");
+                    }
+                    file.previewElement.dataset.path = response.path;
+                    const hiddenInputsContainer = file.previewElement.closest('form').querySelector('.hidden-inputs');
+                    hiddenInputsContainer.innerHTML += `<input type="hidden" name="image" value="${response.path}" data-path="${response.path}">`;
+
+
+                },
+                removedfile: function (file) {
+                    const hiddenInputsContainer = file.previewElement.closest('form').querySelector('.hidden-inputs');
+                    hiddenInputsContainer.querySelector(`input[data-path="${file.previewElement.dataset.path}"]`).remove();
+
+                    if (file.previewElement != null && file.previewElement.parentNode != null) {
+                        file.previewElement.parentNode.removeChild(file.previewElement);
+                    }
+
+                    $.ajax({
+                        url: '{{ route("file.delete") }}',
+                        method: 'delete',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        data: {path: file.previewElement.dataset.path},
+                        success: function () {}
+                    });
+                    
+                    return this._updateMaxFilesReachedClass();
+                }
+            });
+        });
+</script>

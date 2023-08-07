@@ -58,11 +58,7 @@ class VotingController extends Controller
           $vote->category_id = $request->category_id;
           $vote->description = $request->description;
           $vote->options = $options;
-
-          if($request->hasFile('image')){
-            $path = $request->file('image')->store('/images/voting/' , 'public');
-            $vote->banner = $path;
-          }
+          $vote->banner = $request->image??null;
           if($vote->save()){
             return redirect()->route('vote.index')->with('success', 'Vote Has been inserted');
         }else{
@@ -105,7 +101,7 @@ class VotingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $request;
+    
         $vote = Voting::find($id);
         $vote->name = $request->name;
         $vote->category_id = $request->category_id;
@@ -119,17 +115,7 @@ class VotingController extends Controller
         }
         $vote->options = $options;
 
-        if($request->hasFile('image'))
-        {
-            if(isset($vote->banner)){
-                $image_path = public_path('storage/'.$vote->banner);
-                if(file_exists($image_path)){
-                    unlink($image_path);
-                }
-                $path = $request->file('image')->store('/images/voting','public');
-                $vote->banner = $path;
-            }
-        }
+        $vote->banner = $request->image??null;
 
         if($vote->update()){
             return redirect()->route('vote.index')->with('success', 'Vote Has been Updated');
