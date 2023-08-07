@@ -81,6 +81,7 @@ use App\Http\Controllers\Admin\FanPageTypeController;
 use App\Http\Controllers\Admin\BankTransferController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Api\FeedController;
+use App\Models\Story;
 
 /*
 |--------------------------------------------------------------------------
@@ -264,6 +265,8 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
         Route::get('/videos/categories', [CategoryController::class, 'index'])->name('videos.categories.index');
         Route::get('/videos', [UplaodVideoController::class, 'index'])->name('videos.index');
         Route::get('/stories', [StoryController::class, 'index'])->name('stories.index');
+        Route::delete('/stories/{id}/delete-thumbnail', [StoryController::class, 'deleteStoryThumbnail'])->name('stories.delete-thumbnail');
+        Route::delete('/stories/{id}/delete-media', [StoryController::class, 'deleteStoryMedia'])->name('stories.delete-media');
     });
 
 
