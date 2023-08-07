@@ -142,12 +142,14 @@ class NewsController extends Controller
     public function destroy($id)
     {
         $news = News::findorFail($id);
-        //  if($news->image){
-        //     $image_path = public_path('storage/'.$news->image);
-        //     if(file_exists($image_path)){
-        //         unlink($image_path);
-        //     }
-        //  }
+         if($news->image){
+            foreach($news->image as $image){
+                $image_path = public_path('storage/'.$image);
+                if(file_exists($image_path)){
+                    unlink($image_path);
+                }
+            }
+         }
 
          if($news->delete($news->id)){
             return redirect()->route('news.index')->with('success', 'News Has been Deleted');
@@ -167,4 +169,17 @@ class NewsController extends Controller
 
         }
     }
+    public function deleteAlbum(Request $request, $id)
+    {
+        $music = News::find($id);
+        $music->image = array_filter($music->image, function ($path) use ($request) {
+            return !($path === $request->path); 
+        });
+        $music->save();
+        unlink(public_path('storage/' . $request->path));
+        return [
+            'status' => true
+        ];
+    }
+
 }

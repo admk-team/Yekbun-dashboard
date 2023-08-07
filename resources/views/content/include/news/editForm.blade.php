@@ -760,7 +760,7 @@
                     }
     
                     $.ajax({
-                        url: '{{ route("album.delete-audio", $new->id) }}',
+                        url: '{{ route("news.delete-asset", $new->id) }}',
                         method: 'delete',
                         headers: {
                             'X-CSRF-TOKEN': '{{ csrf_token() }}'

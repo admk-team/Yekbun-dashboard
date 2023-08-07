@@ -31,7 +31,7 @@ public function boot()
         $maxWidth = $parameters[0] ?? null;
         $maxHeight = $parameters[1] ?? null;
 
-
+  
         if (!$maxWidth || !$maxHeight) {
             throw new \Exception('Missing required parameters for max_image_dimensions validation rule.');
         }
@@ -62,8 +62,17 @@ public function boot()
         throw new \Exception('Missing required parameters for max_emoji_dimesions validation rules.');
       }
 
-      $emoji = getimagesize($value->getPathname());
-
+      if(is_string($value)){
+        // dd(str_replace("\","/",storage_path($value)));
+        // dd(str_replace("\\", "/", storage_path($value)));
+        $path  = str_replace("\\", "/", storage_path($value));
+        $path = str_replace("storage/","public/storage/",$path);
+        // dd($path);
+        $emoji = getimagesize($path);
+        // dd($value);
+      }else{
+        $image = getimagesize($value->getPathname());
+      }
       return $emoji[0] <= $maxWidth && $emoji[1] <= $maxHeight;
       
     });

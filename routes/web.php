@@ -270,6 +270,7 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
     // News
     Route::resource('/news', NewsController::class);
     Route::get('/news/{id}/{status}', [NewsController::class, 'status'])->name('news-status');
+    Route::delete('/news/{id}/asset', [NewsController::class, 'deleteassets'])->name('news.delete-asset');
 
     Route::resource('/news-category', NewsCategoryController::class);
     Route::get('/news_category/{id}/{status}', [NewsCategoryController::class, 'status'])->name('newscat-status');
@@ -574,8 +575,12 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
 
     // Backgrond Feed Cotnroller 
     Route::resource('/backgrond-feed', BackgroundFeedController::class);
+    Route::delete('/backgrond/{id}/image', [BackgroundFeedController::class, 'deleteImage'])->name('background.delete-image');
+
+
     // Animated Emoji
     Route::resource('/animated-emoji', AnimationEmojiController::class);
+    Route::delete('/animation/{id}/emoji', [AnimationEmojiController::class, 'deleteImage'])->name('animation.delete-image');
 
     // Ticket Service 
 

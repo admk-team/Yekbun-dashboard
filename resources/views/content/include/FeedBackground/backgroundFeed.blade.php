@@ -16,7 +16,7 @@
       <tr>
           <td>{{ $background->id }}</td>
           <td>
-            <img src="{{ $background->image }}" width="100" height="100" class="rounded" style="object-fit: cover;">
+            <img src="{{ asset('storage/'.$background->image)}}" width="100" height="100" class="rounded" style="object-fit: cover;">
           </td>
           <td>
               <div class="dropdown d-inline-block">

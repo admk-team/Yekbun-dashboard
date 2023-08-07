@@ -606,13 +606,17 @@
     @include('content.posts.includes.create_form')
   </x-modal> --}}
 {{-- Create Backgournd  model --}}
-<x-modal id="createBackgroundModel" title="Create Background" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm" size="md">
-    @include('content.include.FeedBackground.createForm')
-</x-modal>
+@if($show == "background")
+    <x-modal id="createBackgroundModel" title="Create Background" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm" size="md">
+        @include('content.include.FeedBackground.createForm')
+    </x-modal>
+@endif
 
-<x-modal id="createAnimatedModel{{ $show }}" title="Create Emoji" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm{{ $show }}" size="md">
-    @include('content.include.AnimatedEmoji.createForm')
-</x-modal>
+@if($show == "animated")
+    <x-modal id="createAnimatedModel{{ $show }}" title="Create Emoji" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm{{ $show }}" size="md">
+        @include('content.include.AnimatedEmoji.createForm')
+    </x-modal>
+@endif
 
 <script>
   function confirmAction(event, callback) {

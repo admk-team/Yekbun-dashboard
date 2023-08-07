@@ -159,4 +159,23 @@ class VotingController extends Controller
 
         }
     }
+
+    public function deleteImage($id)
+    {
+        $music = Voting::find($id);
+        if ($music && isset($music->banner)) {
+            $path = public_path('storage/' . $music->banner);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+    
+            // Remove the image filename from the model attribute
+            $music->banner = null;
+            $music->save();
+        }
+        
+        return [
+            'status' => true
+        ];
+    }
 }
