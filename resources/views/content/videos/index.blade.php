@@ -156,7 +156,7 @@ else
 
                 <div class="card mb-3">
                     <video controls class="">
-                        <source src="{{ asset('storage/'.$video->video[0]) }}" />
+                        <source src="{{ asset('storage/'.($video->video[0]?? '')) }}" />
                     </video>
                     <div class="card-body">
                         <div class="image d-flex align-items-center gap-2" style="position: relative;">
