@@ -38,18 +38,14 @@ class BackgroundFeedController extends Controller
      */
     public function store(Request $request)
     {
-     
 
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max_image_dimensions:375,314',
+            'image' => 'required|max_image_dimensions:375,314',
         ]);
        
+
         $background = new BackgroundFeed();
-        // $background->title  = $request->title;
-        if ($request->hasFile('image')) {
-            $path = UploadMedia::index($request->file('image')) ?? '';
-            $background->image = $path;
-        }
+        $background->image = url('/') . '/storage/'. $request->image??null;
 
         if ($background->save()) {
             return redirect()->back()->with('success', 'Background feed successfully added.');
