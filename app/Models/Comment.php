@@ -28,7 +28,8 @@ class Comment extends Model
         "history_id",
         "vote_id",
         "music_id",
-        "emoji_id"
+        "emoji_id",
+        "audio_path"
     ];
 
     public function getActivitylogOptions(): LogOptions

@@ -236,4 +236,5 @@ Route::get('/get-all-emoji' , [AnimationEmojiController::class  , 'get_all_emoji
 // Reaction 
 Route::post('/store-reaction' , [ReactionController::class, 'store_reaction'])->name('store-reaction');
 // comments 
+Route::get('/get-comment/{type}/{id}' , [CommentController::class, 'get_comment'])->name('get-comment');
 Route::post('/store-comment' , [CommentController::class, 'store_comment'])->name('store-comment');
