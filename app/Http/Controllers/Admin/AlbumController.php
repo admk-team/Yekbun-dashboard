@@ -94,6 +94,7 @@ class AlbumController extends Controller
         $album->title = $request->title;
         $album->album = $request->album??[];
         $album->image = $request->image??'';
+        $album->status = $request->status;
 
         // if($request->hasFile('image')){
         //     if(isset($album->image)){
