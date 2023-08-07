@@ -138,33 +138,46 @@ class VotingController extends Controller
         }
     }
 
-    public function get_cover()
+    public function get_cover($id = null)
     {
         $voting = Voting::orderBy('created_at', 'desc')->take(1)->get();
 
-        if ($voting != "")
+        if ($voting != "") {
             $voting[0]->banner = url('/') . '/storage/' . $voting[0]->banner;
 
-        return response()->json(['success' => true, 'data' => $voting]);
-    }
+            $voting_reaction = VotingReaction::where('user_id', $id)->where('vote_id', $voting[0]->id)->first();
 
-    public function fetch()
-    {
-        $voting = Voting::orderBy('created_at', 'desc')->take(5)->with('voting_category')->get();
-
-        foreach ($voting as $item) {
-            $item->banner = url('/') . '/storage/' . $item->banner;
+            $voting[0]->user_reaction = $voting_reaction;
         }
 
         return response()->json(['success' => true, 'data' => $voting]);
     }
 
-    public function fetch_all()
+    public function fetch($id = null)
+    {
+        $voting = Voting::orderBy('created_at', 'desc')->take(5)->with('voting_category')->get();
+
+        foreach ($voting as $item) {
+            $item->banner = url('/') . '/storage/' . $item->banner;
+
+            $voting_reaction = VotingReaction::where('user_id', $id)->where('vote_id', $item->id)->first();
+
+            $item->user_reaction = $voting_reaction;
+        }
+
+        return response()->json(['success' => true, 'data' => $voting]);
+    }
+
+    public function fetch_all($id)
     {
         $voting = Voting::orderBy('created_at', 'desc')->with('voting_category')->get();
 
         foreach ($voting as $item) {
             $item->banner = url('/') . '/storage/' . $item->banner;
+
+            $voting_reaction = VotingReaction::where('user_id', $id)->where('vote_id', $item->id)->first();
+
+            $item->user_reaction = $voting_reaction;
         }
 
         return response()->json(['success' => true, 'data' => $voting]);

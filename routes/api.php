@@ -224,9 +224,9 @@ Route::get('/history-detail/{id}', [HistoryController::class, 'detail']);
 Route::post('/history-search', [HistoryController::class, 'search']);
 
 // Voting
-Route::get('/voting-cover', [VotingController::class, 'get_cover']);
-Route::get('/fetch-voting', [VotingController::class, 'fetch']);
-Route::get('/fetch-voting/all', [VotingController::class, 'fetch_all']);
+Route::get('/voting-cover/{id?}', [VotingController::class, 'get_cover']);
+Route::get('/fetch-voting/{id?}', [VotingController::class, 'fetch']);
+Route::get('/fetch-voting/all/{id?}', [VotingController::class, 'fetch_all']);
 Route::get('/voting-details/{id}', [VotingController::class, 'get_details']);
 Route::post('/voting/store-reaction', [VotingController::class, 'store_reaction']);
 
