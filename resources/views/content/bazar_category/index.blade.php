@@ -147,11 +147,54 @@
                                     <div class="modal-body">
                                         <div class="row">
                                             <table class="table">
-                                                @foreach($bazar->bazarsubcategory as $b)
-                                                <tr>
-                                                    <td>{{ $b->name ?? '' }}</td>
-                                                </tr>
-                                                @endforeach
+                                                <thead>
+                                                    <th>Category Name</th>
+                                                    <th>Actions</th>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($bazar->bazarsubcategory as $b)
+                                                    <tr>
+                                                        <td>{{ $b->name ?? '' }}</td>
+                                                        <td>
+                                                            <span data-bs-toggle="modal" data-bs-target="#editbazarcategoryModal{{ $bazar->id }}">
+                                                                <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button>
+                                                            </span>
+                                                                <!-- Category Model -->
+                                                                <div class="modal fade" id="editbazarcategoryModal{{ $bazar->id }}" tabindex="-1" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="exampleModalLabel3">Category</h5>
+                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            </div>
+                                                                            <form method="POST" action="{{ route('bazar-category.update',$bazar->id) }}">
+                                                                                @csrf
+                                                                                @method('put')
+                                                                                <div class="modal-body">
+                                                                                    <div class="row">
+                                                                                        <div class="col mb-3">
+                                                                                            <label for="nameLarge" class="form-label">Name</label>
+                                                                                            <input type="text" id="nameLarge" class="form-control" placeholder="Enter Name" name="bazar_category" value="{{ $b->name ?? '' }}">
+                                                                                            @error('bazar_category')
+                                                                                            <span class="text-danger">{{ $message }}</span>
+                                                                                            @enderror
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                    <button type="submit" class="btn btn-primary">update</button>
+                                                                                </div>
+                                                                            </form>
+
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
                                             </table>
                                         </div>
                                     </div>
