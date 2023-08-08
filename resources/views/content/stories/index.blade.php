@@ -60,6 +60,24 @@
             <td>{{ $story->title }}</td>
             <td>
               <div class="dropdown">
+
+                <div class="d-flex justify-content-start align-items-center gap-1">
+                  @can('zarok_app.write')
+                    <span data-bs-toggle="modal" data-bs-target="#editModal{{ $story->id }}">
+                        <button class="btn p-0" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button>
+                    </span>
+                  @endcan
+
+                  @can('zarok_app.delete')
+                    <form action="{{ route('stories.destroy', $story->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
+                        @method('DELETE')
+                        @csrf
+                      <button type="submit" class="btn btn-sm btn-icon p-0" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
+                    </form>
+                  @endcan
+                </div>
+
+              {{--
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                 <div class="dropdown-menu">
                   @can('zarok_app.write')
@@ -73,6 +91,7 @@
                     @endcan
                   </form>
                 </div>
+              --}}
               </div>
               <x-modal
                 id="editModal{{ $story->id }}"

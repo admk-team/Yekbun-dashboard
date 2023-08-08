@@ -45,10 +45,11 @@ class TicketServiceController extends Controller
 
         $service = new TicketService();
         $service->title = $request->title;
-        if($request->hasFile('icon')){
-            $path = UploadMedia::index($request->file('icon')) ?? '';
-            $service->icon  = $path;
-        }
+        $service->icon = $request->icon;
+        // if($request->hasFile('icon')){
+        //     $path = UploadMedia::index($request->file('icon')) ?? '';
+        //     $service->icon  = $path;
+        // }
 
         if($service->save()){
             return redirect()->back()->with('success' , 'VIP Service has successfuly been added.');
@@ -90,16 +91,17 @@ class TicketServiceController extends Controller
     {
         $service = TicketService::find($id);
         $service->title = $request->title;
-        if($request->hasFile('icon')){
-            if(isset($service->icon)){
-                $icon_path = public_path('storage/'.$service->icon);
-                if(isset($image_path)){
-                    unlink($image_path);
-                }
-                $path = UploadMedia::index($request->file('icon')) ?? '';
-                $service->icon = $path;
-            }
-        }
+        $service->icon = $request->icon;
+        // if($request->hasFile('icon')){
+        //     if(isset($service->icon)){
+        //         $icon_path = public_path('storage/'.$service->icon);
+        //         if(isset($image_path)){
+        //             unlink($image_path);
+        //         }
+        //         $path = UploadMedia::index($request->file('icon')) ?? '';
+        //         $service->icon = $path;
+        //     }
+        // }
 
         if($service->update()){
             return redirect()->back()->with('success' , 'VIP Service has benn updated successfully.');
@@ -129,5 +131,24 @@ class TicketServiceController extends Controller
         }else{
             return redirect()->back()->with('error' , ' Failed to delete VIP Service.');
         }
+    }
+
+    public function deleteServiceImage($id)
+    {
+        $service = TicketService::find($id);
+        if ($service && isset($service->icon)) {
+            $path = public_path('storage/' . $service->icon);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+    
+            // Remove the image filename from the model attribute
+            $service->icon = null;
+            $service->save();
+        }
+        
+        return [
+            'status' => true
+        ];
     }
 }

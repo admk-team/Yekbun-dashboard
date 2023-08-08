@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/tagify/tagify.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/dropzone/dropzone.css')}}" />
 @endsection
 
 @section('vendor-script')
@@ -20,6 +21,9 @@
 <script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
 @endsection
 @section('content')
+<script>
+  const dropZoneInitFunctions = [];
+</script>
 
 {{-- Nav TAb --}}
 <div class="d-flex justify-content-between">
@@ -49,7 +53,7 @@
                 @foreach($smileys as $smiley)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                   <td><img src="{{asset('storage/'.$smiley->smiley_path)}}" width="100"></td>
+                   <td><img class="rounded" src="{{asset('storage/'.$smiley->smiley_path)}}" width="150" height="100"></td>
                    <td>
                     <div class="d-flex justify-content-start align-items-center">
                         <span data-bs-toggle="modal" data-bs-target="#editsmileyModal{{ $smiley->id }}">
@@ -104,5 +108,11 @@
     }
 
 </script>
+<script>
+  function drpzone_init() {
+      dropZoneInitFunctions.forEach(callback => callback());
+  }
+</script>
+<script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js" onload="drpzone_init()"></script>
 @endsection
 @endsection

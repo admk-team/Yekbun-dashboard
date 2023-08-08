@@ -28,7 +28,7 @@ class UpdateOrganizationRequest extends FormRequest
             'bank_account' => 'nullable',
             'paypal_account' => 'nullable',
             'address' => 'nullable',
-            'logo' => 'nullable|image',
+            'logo' => 'nullable',
             'status' => 'nullable|integer'
         ];
     }

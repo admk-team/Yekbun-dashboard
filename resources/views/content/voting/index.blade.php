@@ -128,7 +128,7 @@
                     </form>
                 </div>
                 {{-- Edit Model Form --}}
-                <x-modal id="editvotingModal{{ $vote->id }}" title="Edit Vote" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm" size="md">
+                <x-modal id="editvotingModal{{ $vote->id }}" title="Edit Vote" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $vote->id }}" size="md">
                     @include('content.include.voting.editForm')
                 </x-modal>
             </td>

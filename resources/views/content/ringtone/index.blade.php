@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/tagify/tagify.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/animate-css/animate.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/dropzone/dropzone.css')}}" />
 @endsection
 
 @section('vendor-script')
@@ -20,7 +21,9 @@
 <script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
 @endsection
 @section('content')
-
+<script>
+  const dropZoneInitFunctions = [];
+</script>
 {{-- Nav TAb --}}
 <div class="d-flex justify-content-between">
     <div>
@@ -62,7 +65,7 @@
                             @csrf
                             <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
                         </form>
-                        <x-modal id="editringtoneModal{{ $ringtone->id }}" title="Edit Smiley" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $ringtone->id }}" size="sm">
+                        <x-modal id="editringtoneModal{{ $ringtone->id }}" title="Edit Smiley" saveBtnText="Update" saveBtnType="submit" saveBtnForm="editForm{{ $ringtone->id }}" size="md">
                             @include('content.include.ringtone.editForm')
                         </x-modal>
                     </div>
@@ -80,7 +83,7 @@
 </div>
 
 
-<x-modal id="createringtoneModal" title="Create Ringtone" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm" size="sm">
+<x-modal id="createringtoneModal" title="Create Ringtone" saveBtnText="Create" saveBtnType="submit" saveBtnForm="createForm" size="md">
     @include('content.include.ringtone.createForm')
 </x-modal>
 @section('page-script')
@@ -106,5 +109,11 @@
     }
 
 </script>
+<script>
+  function drpzone_init() {
+      dropZoneInitFunctions.forEach(callback => callback());
+  }
+</script>
+<script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js" onload="drpzone_init()"></script>
 @endsection
 @endsection

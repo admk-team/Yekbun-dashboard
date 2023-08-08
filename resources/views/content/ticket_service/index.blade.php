@@ -62,7 +62,7 @@
                 {{ $service->title ?? ''}} 
             </td>
             <td>
-                <img src="{{ $service->icon }}" width="50" height="50" class="rounded-circle">
+                <img src="{{ asset('storage/'.$service->icon) }}" width="50" height="50" class="rounded-circle">
             </td>
             <td>
               <div class="d-flex justify-content-start align-items-center">
