@@ -588,6 +588,7 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
     // Ticket Service 
 
     Route::resource('/ticket-service', TicketServiceController::class);
+    Route::delete('ticket-service/{id}/delete-image', [TicketServiceController::class, 'deleteServiceImage'])->name('ticket-service.delete-image');
 
     // FanPage Type 
     Route::resource('/fan-page-type', FanPageTypeController::class);
