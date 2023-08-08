@@ -401,6 +401,7 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
 
         // Payment Offices
         Route::resource('/payment-offices', PaymentOfficeController::class);
+        Route::delete('/payment-offices/{id}/delete-image', [PaymentOfficeController::class, 'deleteOfficeImage'])->name('payment-offices.delete-image');
         // Payment Methods
         Route::get('/payment-methods', [PaymentMethodController::class, 'index'])->name('payment-methods');
         Route::post('/payment-methods', [PaymentMethodController::class, 'save'])->name('payment-methods');
