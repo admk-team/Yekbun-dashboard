@@ -12,6 +12,7 @@
         max-width: 80%;
         margin: 20px auto;
     }
+
 </style>
 <div class="nav-align-top mb-4">
     <ul class="nav nav-tabs" role="tablist">
