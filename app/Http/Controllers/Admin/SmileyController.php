@@ -44,10 +44,13 @@ class SmileyController extends Controller
         $smiley  = new Smiley();
         $smiley->name = $request->title;
         $smiley->code = $request->code;
-        if($request->has('smiley')){
-            $path = $request->file('smiley')->store('/images/smiley/','public');
-            $smiley->smiley_path = $path;
-        }
+        $smiley->smiley_path = $request->smiley;
+
+        // if($request->has('smiley')){
+        //     $path = $request->file('smiley')->store('/images/smiley/','public');
+        //     $smiley->smiley_path = $path;
+        // }
+
         if($smiley->save()){
             return redirect()->route('smiley.index')->with('success' , 'Smiley was successfully created');
         }else{
@@ -90,17 +93,18 @@ class SmileyController extends Controller
         $smiley  =Smiley::find($id);
         $smiley->name = $request->title;
         $smiley->code = $request->code;
-        if($request->has('smiley')){
-            if(isset($smiley->smiley_path)){
-                $img_path = public_path('storage/'.$smiley->smiley_path);
-                if(file_exists($img_path)){
-                    unlink($img_path);
-                }
-                $path = $request->file('smiley')->store('/images/smiley/','public');
-                $smiley->smiley_path = $path;
-            }
+        $smiley->smiley_path = $request->smiley;
+        // if($request->has('smiley')){
+        //     if(isset($smiley->smiley_path)){
+        //         $img_path = public_path('storage/'.$smiley->smiley_path);
+        //         if(file_exists($img_path)){
+        //             unlink($img_path);
+        //         }
+        //         $path = $request->file('smiley')->store('/images/smiley/','public');
+        //         $smiley->smiley_path = $path;
+        //     }
             
-        }
+        // }
         if($smiley->update()){
             return redirect()->route('smiley.index')->with('success' , 'Smiley was successfully Updated');
         }else{
@@ -131,5 +135,24 @@ class SmileyController extends Controller
         return redirect()->route('smiley.index')->with('success' , 'Smiley was not  Deleted ');
 
        }
+    }
+
+    public function deleteSmiley($id)
+    {
+        $smiley = Smiley::find($id);
+        if ($smiley && isset($smiley->smiley_path)) {
+            $path = public_path('storage/' . $smiley->smiley_path);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+    
+            // Remove the image filename from the model attribute
+            $smiley->smiley_path = null;
+            $smiley->save();
+        }
+        
+        return [
+            'status' => true
+        ];
     }
 }
