@@ -566,6 +566,7 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
     Route::resource('/smiley', SmileyController::class);
     Route::delete('smiley/{id}/delete-smiley', [SmileyController::class, 'deleteSmiley'])->name('smiley.delete-image');
     Route::resource('/ringtone', RingtoneController::class);
+    Route::delete('ringtone/{id}/delete-ringtone', [RingtoneController::class, 'deleteRingtone'])->name('ringtone.delete-ringtone');
     Route::resource('/chat-settings', ChatSettingController::class);
     Route::post('/chat-setting', [ChatSettingController::class, 'save'])->name('chat-setting');
 
