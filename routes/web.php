@@ -225,6 +225,7 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
     // Organizations
     Route::prefix("donations")->name("donations.")->group(function () {
         Route::resource('/organizations', OrganizationController::class);
+        Route::delete('organizations/{id}/delete-logo', [OrganizationController::class, 'deleteOrganizationLogo'])->name('organizations.delete-logo');
         Route::get('/categories', [CategoryController::class, 'index'])->name('organizations.categories.index');
     });
 

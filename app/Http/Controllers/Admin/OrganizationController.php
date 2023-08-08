@@ -42,11 +42,11 @@ class OrganizationController extends Controller
     {
         $validated = $request->validated();
 
-        $imagePath = null;
-        if ($request->hasFile('logo')) {
-            $imagePath = $request->logo->store("/organizations", "public");
-            $validated["logo"] = $imagePath;
-        }
+        // $imagePath = null;
+        // if ($request->hasFile('logo')) {
+        //     $imagePath = $request->logo->store("/organizations", "public");
+        //     $validated["logo"] = $imagePath;
+        // }
 
         $organization = Organization::create($validated);
 
@@ -88,11 +88,11 @@ class OrganizationController extends Controller
     {
         $validated = $request->validated();
 
-        $imagePath = null;
-        if ($request->hasFile('logo')) {
-            $imagePath = $request->logo->store("/organizations", "public");
-            $validated["logo"] = $imagePath;
-        }
+        // $imagePath = null;
+        // if ($request->hasFile('logo')) {
+        //     $imagePath = $request->logo->store("/organizations", "public");
+        //     $validated["logo"] = $imagePath;
+        // }
 
         $organization = Organization::find($id);
         $organization->fill($validated);
@@ -118,5 +118,24 @@ class OrganizationController extends Controller
         $organization->delete();
 
         return back()->with("success", "Organization successfully deleted.");
+    }
+
+    public function deleteOrganizationLogo($id)
+    {
+        $organization = Organization::find($id);
+        if ($organization && isset($organization->logo)) {
+            $path = public_path('storage/' . $organization->logo);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+    
+            // Remove the image filename from the model attribute
+            $organization->logo = null;
+            $organization->save();
+        }
+        
+        return [
+            'status' => true
+        ];
     }
 }
