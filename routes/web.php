@@ -562,7 +562,7 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
     Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');
 
 
-    // Smiley 
+    // Smiley
     Route::resource('/smiley', SmileyController::class);
     Route::delete('smiley/{id}/delete-smiley', [SmileyController::class, 'deleteSmiley'])->name('smiley.delete-image');
     Route::resource('/ringtone', RingtoneController::class);

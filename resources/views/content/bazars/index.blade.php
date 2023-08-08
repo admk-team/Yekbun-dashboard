@@ -156,7 +156,7 @@
                         @endphp --}}
                       <img src="{{ asset('storage/'.($bazar->image[0]?? '')) }}" alt="Avatar" class="rounded" width="100" height="100">
                     </td>
-                    <td>{{ $bazar->user_name ?? '' }}</td>
+                    <td>{{ $bazar->user?->name ?? '' }}</td>
                     <td>{{ $bazar->bazar_category->name ?? '' }}</td>
                     <td>{{ $bazar->subcategory?->name }}</td>
                     <td>

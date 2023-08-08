@@ -49,4 +49,9 @@ class Bazar extends Model
     {
         return $this->hasOne(SubCategoryBazar::class, 'id', 'subcategory_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
