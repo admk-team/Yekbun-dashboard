@@ -54,13 +54,6 @@
                         @enderror
                     </div> --}}
 
-                    <div class="col-12">
-                        <label class="form-label" for="inputDescription">News Description</label>
-                        <textarea class="form-control" id="inputDescription" name="description" rows="6" placeholder="Type..."></textarea>
-                        @error('description')
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
 
                     <div class="col-12">
                         <div class="card">
@@ -77,6 +70,14 @@
                             </div>
                         </div>
                     </div> 
+
+                    <div class="col-12">
+                        <label class="form-label" for="inputDescription">News Description</label>
+                        <textarea class="form-control" id="inputDescription" name="description" rows="6" placeholder="Type..."></textarea>
+                        @error('description')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
 
                     <div class="col-md-12">
                         <label class="form-label">Select Category</label>

@@ -98,13 +98,14 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-12">
-                        <label class="form-label" for="inputDescription{{ $new->id }}">News Description</label>
-                        <textarea class="form-control" id="inputDescription{{ $new->id }}" name="description" rows="6" placeholder="Type...">{{ $new->description ?? '' }}</textarea>
-                        @error('description')
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
+                    <label class="form-label" for="inputDescription{{ $new->id }}">News Description</label>
+                    <textarea class="form-control" id="inputDescription{{ $new->id }}" name="description" rows="6" placeholder="Type...">{{ $new->description ?? '' }}</textarea>
+                    @error('description')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
 
                     <div class="col-md-12">
                         <label class="form-label">Select Category</label>
