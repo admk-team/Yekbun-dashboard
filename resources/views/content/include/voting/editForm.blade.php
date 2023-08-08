@@ -33,7 +33,7 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade active show" id="navs-en{{ $vote->id }}" role="tabpanel">
-            <form id="editForm" method="POST" action="{{ route('vote.update',$vote->id) }}" enctype="multipart/form-data">
+            <form id="editForm{{ $vote->id }}" method="POST" action="{{ route('vote.update',$vote->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="hidden-inputs">
