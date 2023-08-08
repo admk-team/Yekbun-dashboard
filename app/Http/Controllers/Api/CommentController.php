@@ -46,7 +46,7 @@ class CommentController extends Controller
 
     public function get_comment($type, $id)
     {
-        $comments = Comment::where($type, $id)->get();
+        $comments = Comment::where($type, $id)->with('user')->get();
 
         $formattedComments = $comments->map(function ($comment) {
             $comment->time = $this->formatCreatedAt($comment->created_at);
