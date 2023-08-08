@@ -68,17 +68,6 @@
                     @enderror
                 </div>
               <div class="col-md-12">
-                <label class="form-label" for="Status">Status</label>
-                <select class="form-select" name="status">
-                  <option value="" selected>Select Status</option>
-                  <option value="0">Unpublish</option>
-                  <option value="1">Publish</option>
-                </select>
-                @error('status')
-                <span class="text-danger">{{ $message }}</span>
-            @enderror
-              </div>
-              <div class="col-md-12">
                 <label class="form-label" for="Warranty">Warranty</label>
                 <select class="form-select" name="warranty">
                   <option value="" selected>Select warranty</option>
@@ -86,6 +75,17 @@
                   <option value="1">Yes</option>
                 </select>
                 @error('warranty')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
+              </div>
+              <div class="col-md-12">
+                <label class="form-label" for="Status">Status</label>
+                <select class="form-select" name="status">
+                  <option value="" selected>Select Status</option>
+                  <option value="1">Publish</option>
+                  <option value="0">Unpublish</option>
+                </select>
+                @error('status')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
               </div>
