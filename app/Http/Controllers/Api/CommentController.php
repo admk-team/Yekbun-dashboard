@@ -53,7 +53,7 @@ class CommentController extends Controller
             ->with(['user' => function ($query) {
                 $query->select('id', 'name', 'image');
             }])
-            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
             ->get();
 
         $formattedComments = $comments->map(function ($comment) {
