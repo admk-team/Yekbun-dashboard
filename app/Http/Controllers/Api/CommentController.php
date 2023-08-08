@@ -41,46 +41,52 @@ class CommentController extends Controller
 
         $comment->save();
 
+        $comment->time = $this->formatCreatedAt($comment->created_at);
+        $comment->user = $comment->user;
+
         return response()->json(['success' => true, 'data' => $comment, 'message' => 'Comment saved.']);
     }
 
     public function get_comment($type, $id)
     {
-        $comments = Comment::where($type, $id)->get();
-    
+        $comments = Comment::where($type, $id)
+            ->with(['user' => function ($query) {
+                $query->select('id', 'name', 'image');
+            }])
+            ->orderBy('id', 'desc')
+            ->get();
+
         $formattedComments = $comments->map(function ($comment) {
             $comment->time = $this->formatCreatedAt($comment->created_at);
             return $comment;
         });
-    
+
         return response()->json(['success' => true, 'data' => $formattedComments]);
     }
-    
+
     private function formatCreatedAt($createdAt)
     {
         $now = time();
         $createdAtTimestamp = strtotime($createdAt);
         $diffInSeconds = $now - $createdAtTimestamp;
-    
-        if ($diffInSeconds >= 31536000) { // 1 year = 365 days * 24 hours * 60 minutes * 60 seconds
+
+        if ($diffInSeconds >= 31536000) {
             $years = floor($diffInSeconds / 31536000);
-            return $years . ' year' . ($years > 1 ? 's' : '') . ' ago';
-        } elseif ($diffInSeconds >= 2592000) { // 1 month = 30 days * 24 hours * 60 minutes * 60 seconds
+            return $years . ' yr' . ($years > 1 ? 's' : '');
+        } elseif ($diffInSeconds >= 2592000) {
             $months = floor($diffInSeconds / 2592000);
-            return $months . ' month' . ($months > 1 ? 's' : '') . ' ago';
-        } elseif ($diffInSeconds >= 86400) { // 1 day = 24 hours * 60 minutes * 60 seconds
+            return $months . ' mon' . ($months > 1 ? 's' : '');
+        } elseif ($diffInSeconds >= 86400) {
             $days = floor($diffInSeconds / 86400);
-            return $days . ' day' . ($days > 1 ? 's' : '') . ' ago';
-        } elseif ($diffInSeconds >= 3600) { // 1 hour = 60 minutes * 60 seconds
+            return $days . ' day' . ($days > 1 ? 's' : '');
+        } elseif ($diffInSeconds >= 3600) {
             $hours = floor($diffInSeconds / 3600);
-            return $hours . ' hr' . ($hours > 1 ? 's' : '') . ' ago';
+            return $hours . ' hr' . ($hours > 1 ? 's' : '');
         } elseif ($diffInSeconds >= 60) {
             $minutes = floor($diffInSeconds / 60);
-            return $minutes . ' min' . ($minutes > 1 ? 's' : '') . ' ago';
+            return $minutes . ' min' . ($minutes > 1 ? 's' : '');
         } else {
             return 'Just now';
         }
     }
-    
-    
 }
