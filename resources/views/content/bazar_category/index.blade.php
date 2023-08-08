@@ -134,11 +134,11 @@
                         $subcategory = DB::table('sub_category_bazars')->where('category_id' , $bazar->id)->first();
                         @endphp
                         @can('bazar.read')
-                        <span><button class="btn" data-bs-toggle="modal" data-bs-target="#checkfullsubcategory{{ $bazar->id }}"> {{ $subcategory->name ?? ''  }}</button> </span>
+                        <span><button class="btn text-primary" data-bs-toggle="modal" data-bs-target="#checkfullsubcategory{{ $bazar->id }}"> {{ $subcategory->name ?? ''  }}</button> </span>
                         @endcan
                         <!--  Create Sub Category Model -->
                         <div class="modal fade" id="checkfullsubcategory{{ $bazar->id }}" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel3">Sub Category</h5>
@@ -156,41 +156,68 @@
                                                     <tr>
                                                         <td>{{ $b->name ?? '' }}</td>
                                                         <td>
-                                                            <span data-bs-toggle="modal" data-bs-target="#editbazarsubcategoryModal{{ $bazar->id }}{{ $b->id }}" data-bs-dismiss="modal">
-                                                                <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button>
-                                                            </span>
-                                                                <!-- Category Model -->
-                                                                <div class="modal fade" id="editbazarsubcategoryModal{{ $bazar->id }}{{ $b->id }}" tabindex="-1" aria-hidden="true">
-                                                                    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title" id="exampleModalLabel3">Category</h5>
-                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                            </div>
-                                                                            <form method="POST" action="{{ route('bazar-category.update',$bazar->id) }}">
-                                                                                @csrf
-                                                                                @method('put')
-                                                                                <div class="modal-body">
-                                                                                    <div class="row">
-                                                                                        <div class="col mb-3">
-                                                                                            <label for="nameLarge" class="form-label">Name</label>
-                                                                                            <input type="text" id="nameLarge" class="form-control" placeholder="Enter Name" name="bazar_category" value="{{ $b->name ?? '' }}">
-                                                                                            @error('bazar_category')
-                                                                                            <span class="text-danger">{{ $message }}</span>
-                                                                                            @enderror
-                                                                                        </div>
+                                                            @can('bazar.write')
+                                                                <span data-bs-toggle="modal" data-bs-target="#editbazarsubcategoryModal{{ $bazar->id }}{{ $b->id }}" data-bs-dismiss="modal">
+                                                                    <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i></button>
+                                                                </span>
+                                                                @section ('modals')
+                                                                    @parent
+                                                                    <!-- Category Model -->
+                                                                    <div class="modal fade" id="editbazarsubcategoryModal{{ $bazar->id }}{{ $b->id }}" tabindex="-1" aria-hidden="true">
+                                                                            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="exampleModalLabel3">Subcategory</h5>
+                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                                     </div>
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
-                                                                                    <button type="submit" class="btn btn-primary">update</button>
-                                                                                </div>
-                                                                            </form>
+                                                                                    <form method="POST" action="{{ route('bazar-subcategory.update', $b->id) }}">
+                                                                                        @csrf
+                                                                                        @method('put')
+                                                                                        <div class="modal-body">
+                                                                                            <div class="row">
+                                                                                                <div class="col-12 mb-3">
+                                                                                                    <label for="nameLarge" class="form-label">Category</label>
+                                                                                                    <select class="form-select" name="category_id">
+                                                                                                        <option>Select Category</option>
+                                                                                                        @foreach($bazar_category as $bazar)
+                                                                                                        <option value="{{ $bazar->id }}" {{ $bazar->id == $b->category_id? 'selected': '' }}>{{ $bazar->name ?? '' }}</option>
+                                                                                                        @endforeach
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                                <div class="col mb-3">
+                                                                                                    <label for="nameLarge" class="form-label">Name</label>
+                                                                                                    <input type="text" id="nameLarge" class="form-control" placeholder="Enter Name" name="name" value="{{ $b->name }}">
+                                                                                                </div>
+                                                                                                <div class="col-12 mb-3">
+                                                                                                    <label for="city" class="form-label">City</label>
+                                                                                                    <input type="text" class="form-control" name="city" placeholder="City" value="{{ $b->city }}" />
+                                                                                                </div>
+                                                                                                <div class="col-12 mb-3">
+                                                                                                    <label for="state" class="form-label">State</label>
+                                                                                                    <input type="text" class="form-control" name="state" placeholder="State" value="{{ $b->state }}" />
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                            <button type="submit" class="btn btn-primary">update</button>
+                                                                                        </div>
+                                                                                    </form>
 
 
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                </div>
+                                                                @endsection
+                                                            @endcan
+
+                                                            <form action="{{ route('bazar-subcategory.destroy', $b->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                                @can('bazar.delete')
+                                                                <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash"></i></button>
+                                                                @endcan
+                                                            </form>
                                                         </td>
                                                     </tr>
                                                     @endforeach
@@ -292,6 +319,9 @@
         </div>
     </div>
 </div>
+
+@yield('modals')
+
 <script>
     function delete_service(el) {
         let link = $(el).data('id');
