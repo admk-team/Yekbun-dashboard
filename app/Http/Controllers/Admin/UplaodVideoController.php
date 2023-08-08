@@ -203,9 +203,11 @@ class UplaodVideoController extends Controller
         
         $video = UplaodVideo::findorFail($id);
          if($video->video){
-            $image_path = public_path('storage/'.$video->video);
-            if(file_exists($image_path)){
-                unlink($image_path);
+            foreach ($video->video as $video_file) {
+                $image_path = public_path('storage/'.$video_file);
+                if(file_exists($image_path)){
+                    unlink($image_path);
+                }
             }
          }
 

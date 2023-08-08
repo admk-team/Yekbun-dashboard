@@ -9,7 +9,7 @@
     }
 </style>
 
-<form id="editForm{{ $artists->id }}" method="POST" action="{{ route('artist.update', $artists->id) }}" enctype="multipart/form-data">
+<form id="editForm{{ $artists->id }}" class="edit-form" method="POST" action="{{ route('artist.update', $artists->id) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="hidden-inputs">
@@ -44,6 +44,21 @@
                     <input type="text" id="fullname" class="form-control" placeholder="lorem" name="last_name"
                         value="{{ $artists->last_name ?? '' }}">
                 </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="fullname">Province</label>
+                    <select name="province" class="form-control province_id" id="province_id" data-url={{ url('get/city') }} value="{{ old('province_id') }}" data-selected="{{ $artists->city_id }}">
+                        <option value="">Select province</option>
+                        @foreach($provinces as $province)
+                        <option value="{{ $province->id }}" {{ $province->id == $artists->province_id? 'selected': '' }}>{{ $province->name ?? '' }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-8">
+                    <label class="form-label" for="fullname">City</label>
+                    <select name="city" class="form-control city_id" id="city_id">
+                        <option value="">Select province</option>
+                    </select>
+                </div>
                 {{-- <div class="col-md-12">
                     <label class="form-label" for="fullname">City</label>
                     <input type="text" id="fullname" class="form-control" placeholder="lorem" name="city" value="{{ $artists->city ?? '' }}">
@@ -65,6 +80,16 @@
                     </div>
                 </div>
 
+                <div class="col-md-12">
+                    <label class="form-label" for="status">Status</label>
+                    <select class="form-select" name="status">
+                        <option selected value="">Select</option>
+                        <option  value="1" {{ $artists->status == 1? 'selected': '' }}>Publish</option>
+                        <option  value="0" {{ $artists->status == 0? 'selected': '' }}>UnPublish</option>
+  
+                    </select>
+
+                </div>
             </div>
         </div>
     </div>

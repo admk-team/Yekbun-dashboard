@@ -81,6 +81,7 @@ use App\Http\Controllers\Admin\FanPageTypeController;
 use App\Http\Controllers\Admin\BankTransferController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Api\FeedController;
+use App\Models\Story;
 
 /*
 |--------------------------------------------------------------------------
@@ -264,12 +265,15 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
         Route::get('/videos/categories', [CategoryController::class, 'index'])->name('videos.categories.index');
         Route::get('/videos', [UplaodVideoController::class, 'index'])->name('videos.index');
         Route::get('/stories', [StoryController::class, 'index'])->name('stories.index');
+        Route::delete('/stories/{id}/delete-thumbnail', [StoryController::class, 'deleteStoryThumbnail'])->name('stories.delete-thumbnail');
+        Route::delete('/stories/{id}/delete-media', [StoryController::class, 'deleteStoryMedia'])->name('stories.delete-media');
     });
 
 
     // News
     Route::resource('/news', NewsController::class);
     Route::get('/news/{id}/{status}', [NewsController::class, 'status'])->name('news-status');
+    Route::delete('/news/{id}/asset', [NewsController::class, 'deleteassets'])->name('news.delete-asset');
 
     Route::resource('/news-category', NewsCategoryController::class);
     Route::get('/news_category/{id}/{status}', [NewsCategoryController::class, 'status'])->name('newscat-status');
@@ -574,8 +578,12 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
 
     // Backgrond Feed Cotnroller 
     Route::resource('/backgrond-feed', BackgroundFeedController::class);
+    Route::delete('/backgrond/{id}/image', [BackgroundFeedController::class, 'deleteImage'])->name('background.delete-image');
+
+
     // Animated Emoji
     Route::resource('/animated-emoji', AnimationEmojiController::class);
+    Route::delete('/animation/{id}/emoji', [AnimationEmojiController::class, 'deleteImage'])->name('animation.delete-image');
 
     // Ticket Service 
 

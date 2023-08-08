@@ -94,6 +94,7 @@ class AlbumController extends Controller
         $album->title = $request->title;
         $album->album = $request->album??[];
         $album->image = $request->image??'';
+        $album->status = $request->status;
 
         // if($request->hasFile('image')){
         //     if(isset($album->image)){
@@ -144,7 +145,21 @@ class AlbumController extends Controller
     public function destroy($id)
     {
         $album = Album::findorFail($id);
+        if(isset($album->image)){
+            $image_path = public_path('storage/'.$album->image);
+            if(file_exists($image_path)){
+                unlink($image_path);
+            }
+        }
 
+        if(isset($album->album)){
+            foreach($album->album as $album_file){
+                $image_path = public_path('storage/'.$album_file);
+                if(file_exists($image_path)){
+                    unlink($image_path);
+                }
+            }
+        }
          if($album->delete($album->id)){
             return redirect()->route('album.index')->with('success', 'Album Has been Deleted');
 

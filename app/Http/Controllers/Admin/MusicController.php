@@ -117,10 +117,12 @@ class MusicController extends Controller
     {
         $music = Music::findorFail($id);
         if($music->audio){
-           $image_path = public_path('storage/'.implode(' ,' ,$music->audio));
-           if(file_exists($image_path)){
-               unlink($image_path);
-           }
+            foreach($music->audio as $audio_file){
+                $image_path = public_path('storage/'.$audio_file);
+                if(file_exists($image_path)){
+                    unlink($image_path);
+                }
+            }
         }
 
         if($music->delete($music->id)){

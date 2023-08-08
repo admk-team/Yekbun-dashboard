@@ -119,4 +119,22 @@ class MusicCategoryController extends Controller
 
         }
     }
+    public function deleteMusic($id)
+    {
+        $music = MusicCategory::find($id);
+        if ($music && isset($music->icon)) {
+            $path = public_path('storage/' . $music->icon);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+    
+            // Remove the image filename from the model attribute
+            $music->icon = null;
+            $music->save();
+        }
+        
+        return [
+            'status' => true
+        ];
+    }
 }

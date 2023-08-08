@@ -5,15 +5,16 @@
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/bs-stepper/bs-stepper.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/quill/typography.css')}}" />
+<!-- <link rel="stylesheet" href="{{asset('assets/vendor/libs/quill/typography.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/quill/katex.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/quill/editor.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/quill/editor.css')}}" /> -->
 @endsection
 
 @section('vendor-script')
-<script src="{{asset('assets/vendor/libs/quill/katex.js')}}"></script>
-<script src="{{asset('assets/vendor/libs/quill/quill.js')}}"></script>
+<!-- <script src="{{asset('assets/vendor/libs/quill/katex.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/quill/quill.js')}}"></script> -->
 <script src="{{asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
 @endsection
 
 @section('vendor-style')
@@ -107,7 +108,7 @@
             <th>Id</th>
             <th>Title</th>
             <th>Category </th>
-            <th>Desc </th>
+            <th>Image / Video</th>
             <th>Status </th>
             <th>Option</th>
           </tr>
@@ -120,33 +121,36 @@
           <td>
               {{ $new->news_category->name  ??  '' }} </option>
           </td>
-          {{-- @php
+          @php
           $extension = '';
-          if(isset($new->image) && is_string($new->image)){
-            $img = json_decode($new->image, true);
+          if(isset($new->image)){
+            if (is_string($new->image))
+              $img = json_decode($new->image, true);
+            else
+              $img = $new->image;
         
-            if(json_last_error() === JSON_ERROR_NONE && is_array($img) && count($img) > 0){
+            if(is_array($img) && count($img) > 0){
               // Assuming the JSON is successfully decoded, it's an array, and it has at least one element
               $extension = pathinfo($img[0], PATHINFO_EXTENSION) ?? '';
             }
           }
-        @endphp --}}
-          {{-- <td>
+        @endphp
+          <td>
             @if( strtoLower($extension) == 'png'  || strtoLower($extension) == 'jpg' || strtoLower($extension) == 'jpeg'  || strtoLower($extension) == 'gif')
-            <img class="rounded" src="{{ $img[0] ?? ''  }}" width="200" alt="" height="150" style="object-fit: cover">
+            <img class="rounded" src="{{ asset('storage/'.($img[0]?? ''))  }}" width="200" alt="" height="150" style="object-fit: cover">
             @else
             <video autoplay loop  class="rounded" controls style="width:200px; height:150px;">
-              <source src="{{ $img[0] ?? '' }}" >
+              <source src="{{ asset('storage/'.($img[0]?? '')) }}" >
             </video>
             @endif
-          </td> --}}
-          @php
+          </td>
+           {{--@php
             $maxTextLength = 50; // Set the maximum length of the text you want to display
             $text = $new->description ?? '';
             $shortenedText = strlen($text) > $maxTextLength ? substr($text, 0, $maxTextLength) . '...' : $text;
         @endphp
 
-          <td>{{ $shortenedText ?? '' }}</td>
+          <td>{{ $shortenedText ?? '' }}</td>--}}
           <td>
             @if ($new->status)
               <span class="badge bg-label-success me-1">Published</span>

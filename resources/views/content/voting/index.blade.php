@@ -8,9 +8,10 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/bootstrap-select/bootstrap-select.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/formvalidation/dist/css/formValidation.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/quill/typography.css')}}" />
+<!-- <link rel="stylesheet" href="{{asset('assets/vendor/libs/quill/typography.css')}}" />
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/quill/katex.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/quill/editor.css')}}" />
+<link rel="stylesheet" href="{{asset('assets/vendor/libs/quill/editor.css')}}" /> -->
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
 @endsection
 
 @section('page-style')
@@ -187,72 +188,78 @@ size="md">
 </x-modal>
 
 
-<script src="{{asset('assets/vendor/libs/quill/katex.js')}}"></script>
-<script src="{{asset('assets/vendor/libs/quill/quill.js')}}"></script>
+<!-- <script src="{{asset('assets/vendor/libs/quill/katex.js')}}"></script>
+<script src="{{asset('assets/vendor/libs/quill/quill.js')}}"></script> -->
 <script>
     (function() {
         // Full Toolbar
         // --------------------------------------------------------------------
-        const fullToolbar = [
-            [{
-                    font: []
-                }
-                , {
-                    size: []
-                }
-            ]
-            , ['bold', 'italic', 'underline', 'strike']
-            , [{
-                    color: []
-                }
-                , {
-                    background: []
-                }
-            ]
-            , [{
-                    script: 'super'
-                }
-                , {
-                    script: 'sub'
-                }
-            ]
-            , [{
-                    header: '1'
-                }
-                , {
-                    header: '2'
-                }
-                , 'blockquote'
-                , 'code-block'
-            ]
-            , [{
-                    list: 'ordered'
-                }
-                , {
-                    list: 'bullet'
-                }
-                , {
-                    indent: '-1'
-                }
-                , {
-                    indent: '+1'
-                }
-            ]
-            , [{
-                direction: 'rtl'
-            }]
-            , ['link', 'image', 'video', 'formula']
-            , ['clean']
-        ];
-        const fullEditor = new Quill('#inputDescription', {
-            bounds: '#full-editor'
-            , placeholder: 'Type Something...'
-            , modules: {
-                formula: true
-                , toolbar: fullToolbar
-            }
-            , theme: 'snow'
-        });
+        // const fullToolbar = [
+        //     [{
+        //             font: []
+        //         }
+        //         , {
+        //             size: []
+        //         }
+        //     ]
+        //     , ['bold', 'italic', 'underline', 'strike']
+        //     , [{
+        //             color: []
+        //         }
+        //         , {
+        //             background: []
+        //         }
+        //     ]
+        //     , [{
+        //             script: 'super'
+        //         }
+        //         , {
+        //             script: 'sub'
+        //         }
+        //     ]
+        //     , [{
+        //             header: '1'
+        //         }
+        //         , {
+        //             header: '2'
+        //         }
+        //         , 'blockquote'
+        //         , 'code-block'
+        //     ]
+        //     , [{
+        //             list: 'ordered'
+        //         }
+        //         , {
+        //             list: 'bullet'
+        //         }
+        //         , {
+        //             indent: '-1'
+        //         }
+        //         , {
+        //             indent: '+1'
+        //         }
+        //     ]
+        //     , [{
+        //         direction: 'rtl'
+        //     }]
+        //     , ['link', 'image', 'video', 'formula']
+        //     , ['clean']
+        // ];
+        // const fullEditor = new Quill('#inputDescription', {
+        //     bounds: '#full-editor'
+        //     , placeholder: 'Type Something...'
+        //     , modules: {
+        //         formula: true
+        //         , toolbar: fullToolbar
+        //     }
+        //     , theme: 'snow'
+        // });
+
+        ClassicEditor
+        .create( document.querySelector( '#inputDescription' ) )
+        .catch( error => {
+            console.error( error );
+        } );
 
     }());
 

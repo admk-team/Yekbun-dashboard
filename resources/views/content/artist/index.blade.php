@@ -48,7 +48,8 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Artist Image</th>
+                    <th>Artist</th>
+                    <th>Gender</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -64,12 +65,13 @@
                             </div>
                             <div class="d-flex flex-column">
                                 <a href="javascript:void(0)" class="text-body text-truncate">
-                                    <span class="fw-semibold">{{ $artists->first_name ?? '' }}</span>
+                                    <span class="fw-semibold">{{ $artists->first_name ?? '' }} {{ $artists->last_name ?? '' }}</span>
                                 </a>
-                                <small class="text-muted">{{ $artists->last_name ?? '' }}</small>
+                                <!-- <small class="text-muted">{{ $artists->last_name ?? '' }}</small> -->
                             </div>
                         </div>
                     </td>
+                    <td>{{ $artists->gender }}</td>
                     <td>
                         <div class="d-flex justify-content-start align-items-center">
                             <span data-bs-toggle="modal" data-bs-target="#editartistModal{{ $artists->id }}">
@@ -137,24 +139,64 @@
 </script>
 
 <script>
-    $('.province_id').change(function() {
+     $('.province_id').change(function() {
         let url = $(this).data('url');
         let id = $(this).val();
-        console.log(url);
-        console.log(id);
+        const self = this;
+        
         $.ajax({
             type: 'get'
             , url: url + '/' + id
             , success: function(response) {
-                $('#city_id').html('')
+                const cityIdEl = $(self).closest('form').find('.city_id');
+                cityIdEl.html('');
                 $.each(response, function(index, value) {
                     console.log(index, value);
-                    $('#city_id').append('<option value="' + value.id + '">' + value.name + '</option>')
+                    cityIdEl.append('<option value="' + value.id + '">' + value.name + '</option>')
                 })
             }
         })
 
     });
+
+    $(document).ready(function () {
+        $('.edit-form .province_id').each(function(index, provinceEl) {
+            let url = $(provinceEl).data('url');
+            let id = $(provinceEl).val();
+            let selected = $(provinceEl).data('selected');
+            
+            $.ajax({
+                type: 'get'
+                , url: url + '/' + id
+                , success: function(response) {
+                    const cityIdEl = $(provinceEl).closest('form').find('.city_id');
+                    cityIdEl.html('');
+                    $.each(response, function(index, value) {
+                        cityIdEl.append('<option value="' + value.id + '" '+(value.id==selected?'selected':'')+'>' + value.name + '</option>')
+                    })
+                }
+            })
+
+        });
+    });
+    // $('.province_id').change(function() {
+    //     let url = $(this).data('url');
+    //     let id = $(this).val();
+    //     console.log(url);
+    //     console.log(id);
+    //     $.ajax({
+    //         type: 'get'
+    //         , url: url + '/' + id
+    //         , success: function(response) {
+    //             $('#city_id').html('')
+    //             $.each(response, function(index, value) {
+    //                 console.log(index, value);
+    //                 $('#city_id').append('<option value="' + value.id + '">' + value.name + '</option>')
+    //             })
+    //         }
+    //     })
+
+    // });
 
 </script>
 <script>

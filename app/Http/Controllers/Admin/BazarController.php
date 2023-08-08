@@ -149,12 +149,15 @@ class BazarController extends Controller
     public function destroy($id)
     {
         $bazar = Bazar::findorFail($id);
-        // if($bazar->image){
-        //    $image_path = public_path('storage/'.$bazar->image);
-        //    if(file_exists($image_path)){
-        //        unlink($image_path);
-        //    }
-        // }
+        if($bazar->image){
+            foreach($bazar->image as $image_file){
+
+                $image_path = public_path('storage/'.$image_file);
+                if(file_exists($image_path)){
+                    unlink($image_path);
+                }
+            }
+        }
         if($bazar->delete($bazar->id)){
             return redirect()->route('bazar.index')->with('success', 'Bazar Has been Deleted');
         }else{

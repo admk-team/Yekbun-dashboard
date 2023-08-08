@@ -102,13 +102,16 @@ class ArtistController extends Controller
      */
     public function update(Request $request , $id)
     {
+    return $id;
         $artist = Artist::findorFail($id);
         $artist->first_name = $request->first_name;
         $artist->last_name = $request->last_name;
-        $artist->city = $request->city;
         $artist->dob= $request->dob;
         $artist->gender = $request->gender;
         $artist->image = $request->image??'';
+        $artist->status = $request->status;
+        $artist->city_id = $request->city;
+        $artist->province_id= $request->province;
         
         // if($request->hasFile('image')){
         //    if(isset($artist->image)){
@@ -169,5 +172,24 @@ class ArtistController extends Controller
     public function get_city($id){
         $province = Region::findorFail($id);
         return $city = City::where('region_id',$province->id)->get();
+    }
+
+    public function deleteArtistImage($id)
+    {
+        $music = Artist::find($id);
+        if ($music && isset($music->image)) {
+            $path = public_path('storage/' .$music->image);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+    
+            // Remove the image filename from the model attribute
+            $music->image = null;
+            $music->save();
+        }
+        
+        return [
+            'status' => true
+        ];
     }
 }

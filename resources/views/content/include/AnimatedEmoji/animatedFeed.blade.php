@@ -16,7 +16,7 @@
           <tr>
               <td>{{ $animated->id }}</td>
               <td>
-                <img src="{{$animated->emoji }}" width="100" height="100" class="rounded" style="object-fit: cover">
+                <img src="{{ asset('storage/'.$animated->emoji)  }}" width="100" height="100" class="rounded" style="object-fit: cover">
               </td>
               <td>
                   <div class="dropdown d-inline-block">

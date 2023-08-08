@@ -47,7 +47,7 @@ class StoryController extends Controller
     {
         $validated = $request->validated();
 
-        $mediaPath = $validated["thumbnail_path"]?? null; // Get thumbnail path if exists in request
+        $thumbnailPath = $validated["thumbnail_path"]?? null; // Get thumbnail path if exists in request
         if ($request->hasFile('thumbnail')) { // Store actual thumbnail if thumbnail file exists
             $thumbnailPath = $request->thumbnail->store("/stories", "public");
             $validated["thumbnail_path"] = $thumbnailPath;
@@ -97,7 +97,7 @@ class StoryController extends Controller
     {
         $validated = $request->validated();
 
-        $mediaPath = $validated["thumbnail_path"]?? null; // Get thumbnail path if exists in request
+        $thumbnailPath = $validated["thumbnail_path"]?? null; // Get thumbnail path if exists in request
         if ($request->hasFile('thumbnail')) { // Store actual thumbnail if thumbnail file exists
             $thumbnailPath = $request->thumbnail->store("/stories", "public");
             $validated["thumbnail_path"] = $thumbnailPath;
@@ -138,4 +138,43 @@ class StoryController extends Controller
 
         return back()->with("success", "Story successfully deleted.");
     }
+
+    public function deleteStoryThumbnail($id)
+    {
+        $story = Story::find($id);
+        if ($story && isset($story->thumbnail_path)) {
+            $path = public_path('storage/' . $story->thumbnail_path);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+    
+            // Remove the image filename from the model attribute
+            $story->thumbnail_path = null;
+            $story->save();
+        }
+        
+        return [
+            'status' => true
+        ];
+    }
+
+    public function deleteStoryMedia($id)
+    {
+        $story = Story::find($id);
+        if ($story && isset($story->media_path)) {
+            $path = public_path('storage/' . $story->media_path);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+    
+            // Remove the image filename from the model attribute
+            $story->media_path = null;
+            $story->save();
+        }
+        
+        return [
+            'status' => true
+        ];
+    }
+
 }

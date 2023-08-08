@@ -42,10 +42,9 @@ class BackgroundFeedController extends Controller
         $request->validate([
             'image' => 'required|max_image_dimensions:375,314',
         ]);
-       
 
         $background = new BackgroundFeed();
-        $background->image = url('/') . '/storage/'. $request->image??null;
+        $background->image =  $request->image??null;
 
         if ($background->save()) {
             return redirect()->back()->with('success', 'Background feed successfully added.');
@@ -85,21 +84,13 @@ class BackgroundFeedController extends Controller
      */
     public function update(Request $request, $id)
     {
+     
         $request->validate([
-            'image.'.$id => 'required|image|mimes:jpeg,png,jpg,gif|max_image_dimensions:375,314',
+            'image.'.$id => 'nullable|max_image_dimensions:375,314',
         ]);
+
         $background = BackgroundFeed::find($id);
-        // $background->title = $request->title;
-        if ($request->hasFile('image')) {
-            if (isset($background->image)) {
-                $image_path = public_path('storage/' . $background->image);
-                if (file_exists($image_path)) {
-                    unlink($image_path);
-                }
-                $path = UploadMedia::index($request->file('image')) ?? '';
-                $background->image = $path;
-            }
-        }
+        $background->image = $request->image??null;
 
         if ($background->update()) {
             return redirect()->back()->with('success', 'Background Feed updated successfully.');
@@ -128,5 +119,24 @@ class BackgroundFeedController extends Controller
         } else {
             return redirect()->back()->with('error', 'Background Feed has not  been removed .');
         }
+    }
+    
+    public function deleteImage($id)
+    {
+        $music = BackgroundFeed::find($id);
+        if ($music && isset($music->image)) {
+            $path = public_path('storage/' . $music->image);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+    
+            // Remove the image filename from the model attribute
+            $music->image = null;
+            $music->save();
+        }
+        
+        return [
+            'status' => true
+        ];
     }
 }
