@@ -42,8 +42,8 @@
                           @if (! $bazar->category_id)
                             <option selected value="">Select</option>
                           @else
-                            @foreach ($bazar_category->first(fn ($value, $key) => $value->id == $bazar->category_id)
-                                    ->sub_categories as $subCat)
+                            @foreach (($bazar_category->first(fn ($value, $key) => $value->id == $bazar->category_id)
+                                    ?->sub_categories?? []) as $subCat)
                                     <option value="{{ $subCat->id }}" {{ $subCat->id == $bazar->subcategory_id? 'selected': '' }}>{{ $subCat->name }}</option>
                             @endforeach
                           @endif
