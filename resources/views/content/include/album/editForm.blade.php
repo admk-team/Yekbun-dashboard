@@ -82,6 +82,18 @@
                     </div>
                 </div>
 
+                <div class="col-md-12">
+                    <label class="form-label" for="fullname">Status</label>
+                    <select class="form-select" aria-label="Default select example" name="status">
+                        <option selected>Select</option>
+                        <option value="1" {{ $albums->status == 1? 'selected': '' }}>Publish</option>
+                        <option value="0" {{ $albums->status == 0? 'selected': '' }}>UnPublish</option>
+                    </select>
+                    @error('status')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
             </div>
         </div>
     </div>

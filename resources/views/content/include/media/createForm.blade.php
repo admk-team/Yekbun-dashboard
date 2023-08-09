@@ -27,6 +27,7 @@
                     </div>
                 </div> 
                 <div class="col-md-12">
+                    <label class="form-label" for="fullname">Select Category</label>
                     <select class="form-select" aria-label="Default select example" name="category_id">
                         <option selected value="">Select</option>
                         @foreach ($media_category as $media)

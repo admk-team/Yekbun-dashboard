@@ -102,14 +102,15 @@ class ArtistController extends Controller
      */
     public function update(Request $request , $id)
     {
-    return $id;
         $artist = Artist::findorFail($id);
         $artist->first_name = $request->first_name;
         $artist->last_name = $request->last_name;
-        $artist->city = $request->city;
         $artist->dob= $request->dob;
         $artist->gender = $request->gender;
         $artist->image = $request->image??'';
+        $artist->status = $request->status;
+        $artist->city_id = $request->city;
+        $artist->province_id= $request->province;
         
         // if($request->hasFile('image')){
         //    if(isset($artist->image)){

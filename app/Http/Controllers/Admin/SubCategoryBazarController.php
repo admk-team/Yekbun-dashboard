@@ -81,9 +81,21 @@ class SubCategoryBazarController extends Controller
      * @param  \App\Models\SubCategoryBazar  $subCategoryBazar
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SubCategoryBazar $subCategoryBazar)
+    public function update(Request $request,  $id)
     {
-        //
+        $request->validate([
+            'category_id' => 'required',
+            'name'=> 'required'
+        ]);
+
+        $subCategoryBazar = SubCategoryBazar::find($id);
+        $subCategoryBazar->category_id = $request->category_id;
+        $subCategoryBazar->name = $request->name;
+        $subCategoryBazar->city = $request->city;
+        $subCategoryBazar->state = $request->state;
+        if($subCategoryBazar->save()){
+            return redirect()->route('bazar-category.index')->with('success', 'Subcategory successfully updated');
+        }
     }
 
     /**
@@ -92,8 +104,10 @@ class SubCategoryBazarController extends Controller
      * @param  \App\Models\SubCategoryBazar  $subCategoryBazar
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SubCategoryBazar $subCategoryBazar)
+    public function destroy($id)
     {
-        //
+        $subCategoryBazar = SubCategoryBazar::find($id);
+        $subCategoryBazar->delete();
+        return redirect()->route('bazar-category.index')->with('success', 'Subcategory successfully deleted');
     }
 }

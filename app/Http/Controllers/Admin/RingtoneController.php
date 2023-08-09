@@ -43,10 +43,11 @@ class RingtoneController extends Controller
 
         $ringtone  = new Ringtone();
         $ringtone->title = $request->title;
-        if($request->has('ringtone')){
-            $path = $request->file('ringtone')->store('/images/ringtone/','public');
-            $ringtone->ringtone_path = $path;
-        }
+        $ringtone->ringtone_path = $request->ringtone;
+        // if($request->has('ringtone')){
+        //     $path = $request->file('ringtone')->store('/images/ringtone/','public');
+        //     $ringtone->ringtone_path = $path;
+        // }
         if($ringtone->save()){
             return redirect()->route('ringtone.index')->with('success' , 'Ringtone was successfully created');
         }else{
@@ -88,17 +89,18 @@ class RingtoneController extends Controller
     {
         $ringtone  =Ringtone::find($id);
         $ringtone->title = $request->title;
-        if($request->has('ringtone')){
-            if(isset($ringtone->ringtone_path)){
-                $img_path = public_path('storage/'.$ringtone->ringtone_path);
-                if(file_exists($img_path)){
-                    unlink($img_path);
-                }
-                $path = $request->file('ringtone')->store('/images/ringtone/','public');
-                $ringtone->ringtone_path = $path;
-            }
+        $ringtone->ringtone_path = $request->ringtone;
+        // if($request->has('ringtone')){
+        //     if(isset($ringtone->ringtone_path)){
+        //         $img_path = public_path('storage/'.$ringtone->ringtone_path);
+        //         if(file_exists($img_path)){
+        //             unlink($img_path);
+        //         }
+        //         $path = $request->file('ringtone')->store('/images/ringtone/','public');
+        //         $ringtone->ringtone_path = $path;
+        //     }
             
-        }
+        // }
         if($ringtone->update()){
             return redirect()->route('ringtone.index')->with('success' , 'Ringtone was successfully Updated');
         }else{
@@ -129,5 +131,24 @@ class RingtoneController extends Controller
          return redirect()->route('ringtone.index')->with('success' , 'Ringtone was not  Deleted ');
  
         }
+    }
+
+    public function deleteRingtone($id)
+    {
+        $ringtone = Ringtone::find($id);
+        if ($ringtone && isset($ringtone->ringtone_path)) {
+            $path = public_path('storage/' . $ringtone->ringtone_path);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+    
+            // Remove the image filename from the model attribute
+            $ringtone->ringtone_path = null;
+            $ringtone->save();
+        }
+        
+        return [
+            'status' => true
+        ];
     }
 }

@@ -76,6 +76,13 @@
                     </div>
                 </div>
                 <div class="col-md-12">
+                    <label for="form-lable" for="price">Price</label>
+                    <input type="number" class="form-control" name="price" placeholder="Price" value="{{ $bazar->price }}">
+                    @error('price')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="col-md-12">
                     <label class="form-label" for="">Warranty</label>
                     <select name="warranty" class="form-select">
                         <option value="0"{{ $bazar->warranty ==0 ? 'selected' : '' }}>No</option>
@@ -88,8 +95,8 @@
                     <label class="form-lable" for="status">Status</label>
                     {{-- <option>Select Status</option> --}}
                     <select name="status" class="form-select">
-                    <option value="0" {{ $bazar->status == 0 ? 'selected' : '' }}>UnPublish</option>
-                    <option value="1" {{ $bazar->status == 1 ? 'selected' : '' }}>Publish</option>
+                        <option value="1" {{ $bazar->status == 1 ? 'selected' : '' }}>Publish</option>
+                        <option value="0" {{ $bazar->status == 0 ? 'selected' : '' }}>UnPublish</option>
                 </select>
                 </div> 
             </div>
@@ -117,9 +124,9 @@
                                                             <div class="progress">
                                                                 <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress></div>
                                                             </div>
-                                                            <div class="dz-filename" data-dz-name></div>
-                                                            <div class="dz-size" data-dz-size></div>
                                                         </div>
+                                                        <div class="dz-filename" data-dz-name></div>
+                                                        <div class="dz-size" data-dz-size></div>
                                                     </div>
                                                 </div>
                                             </div>

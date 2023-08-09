@@ -27,6 +27,8 @@ class UpdateStoryRequest extends FormRequest
             'user_id' => 'nullable',
             'title' => 'nullable',
             'description' => 'nullable',
+            'thumbnail_path' => 'nullable',
+            'thumbnail' => 'nullable',
             'media_path' => 'nullable',
             'media' => 'nullable',
             'duration' => 'nullable',

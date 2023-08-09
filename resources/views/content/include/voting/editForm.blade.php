@@ -2,6 +2,17 @@
     .ql-toolbar.ql-snow {
         overflow: hidden !important;
     }
+
+    .ck-editor__editable[role="textbox"] {
+        /* editing area */
+        min-height: 200px;
+    }
+    .ck-content .image {
+        /* block images */
+        max-width: 80%;
+        margin: 20px auto;
+    }
+
 </style>
 <div class="nav-align-top mb-4">
     <ul class="nav nav-tabs" role="tablist">
@@ -23,7 +34,7 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade active show" id="navs-en{{ $vote->id }}" role="tabpanel">
-            <form id="editForm" method="POST" action="{{ route('vote.update',$vote->id) }}" enctype="multipart/form-data">
+            <form id="editForm{{ $vote->id }}" method="POST" action="{{ route('vote.update',$vote->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="hidden-inputs">
@@ -53,7 +64,7 @@
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label" for="inputDescription{{ $vote->id }}">Description</label>
-                                <textarea class="form-control" name="description" style="height:150px;" id="inputDescription{{ $vote->id }}"></textarea>
+                                <textarea class="form-control" name="description" style="height:150px;" id="inputDescription{{ $vote->id }}" rows="5">{{ $vote->description?? '' }}</textarea>
                             </div>
                             <div class="col-md-12 mt-5">
                                 <!-- Form Repeater -->
@@ -220,66 +231,72 @@
     (function() {
         // Full Toolbar
         // --------------------------------------------------------------------
-        const fullToolbar{{ $vote->id }} = [
-            [{
-                    font: []
-                }
-                , {
-                    size: []
-                }
-            ]
-            , ['bold', 'italic', 'underline', 'strike']
-            , [{
-                    color: []
-                }
-                , {
-                    background: []
-                }
-            ]
-            , [{
-                    script: 'super'
-                }
-                , {
-                    script: 'sub'
-                }
-            ]
-            , [{
-                    header: '1'
-                }
-                , {
-                    header: '2'
-                }
-                , 'blockquote'
-                , 'code-block'
-            ]
-            , [{
-                    list: 'ordered'
-                }
-                , {
-                    list: 'bullet'
-                }
-                , {
-                    indent: '-1'
-                }
-                , {
-                    indent: '+1'
-                }
-            ]
-            , [{
-                direction: 'rtl'
-            }]
-            , ['link', 'image', 'video', 'formula']
-            , ['clean']
-        ];
-        const fullEditor{{ $vote->id }} = new Quill('#inputDescription{{$vote->id }}', {
-            bounds: '#full-editor'
-            , placeholder: 'Type Something...'
-            , modules: {
-                formula: true
-                , toolbar: fullToolbar{{ $vote->id }}
-            }
-            , theme: 'snow'
-        });
+        // const fullToolbar{{ $vote->id }} = [
+        //     [{
+        //             font: []
+        //         }
+        //         , {
+        //             size: []
+        //         }
+        //     ]
+        //     , ['bold', 'italic', 'underline', 'strike']
+        //     , [{
+        //             color: []
+        //         }
+        //         , {
+        //             background: []
+        //         }
+        //     ]
+        //     , [{
+        //             script: 'super'
+        //         }
+        //         , {
+        //             script: 'sub'
+        //         }
+        //     ]
+        //     , [{
+        //             header: '1'
+        //         }
+        //         , {
+        //             header: '2'
+        //         }
+        //         , 'blockquote'
+        //         , 'code-block'
+        //     ]
+        //     , [{
+        //             list: 'ordered'
+        //         }
+        //         , {
+        //             list: 'bullet'
+        //         }
+        //         , {
+        //             indent: '-1'
+        //         }
+        //         , {
+        //             indent: '+1'
+        //         }
+        //     ]
+        //     , [{
+        //         direction: 'rtl'
+        //     }]
+        //     , ['link', 'image', 'video', 'formula']
+        //     , ['clean']
+        // ];
+        // const fullEditor{{ $vote->id }} = new Quill('#inputDescription{{$vote->id }}', {
+        //     bounds: '#full-editor'
+        //     , placeholder: 'Type Something...'
+        //     , modules: {
+        //         formula: true
+        //         , toolbar: fullToolbar{{ $vote->id }}
+        //     }
+        //     , theme: 'snow'
+        // });
+
+        ClassicEditor
+        .create( document.querySelector( '#inputDescription{{$vote->id }}' ) )
+        .catch( error => {
+            console.error( error );
+        } );
 
     }());
    })

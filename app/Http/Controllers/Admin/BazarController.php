@@ -111,6 +111,7 @@ class BazarController extends Controller
         $bazar->title = $request->title;
         $bazar->warranty =  $request->warranty;
         $bazar->status = $request->status;
+        $bazar->price = $request->price;
         $bazar->subcategory_id = $request->subcategory_id;
         $bazar->image = $request->image??[];
         // $images = collect([]);

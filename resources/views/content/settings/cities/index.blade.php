@@ -145,7 +145,13 @@
 
 
 <div class="card">
-  <h5 class="card-header">Multilingual</h5>
+  <div class="card-header d-flex align-items-center justify-content-between">
+    <h5 class="m-0">City List</h5>
+    @can('location.create')
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal"><i
+        class="bx bx-plus me-0 me-sm-1"></i> Add City</button>
+    @endcan
+  </div>
   <div class="card-datatable table-responsive">
     <div id="DataTables_Table_3_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
       <table class="dt-multilingual table border-top dataTable no-footer dtr-column" id="DataTables_Table_3"

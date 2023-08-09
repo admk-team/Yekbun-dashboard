@@ -45,13 +45,7 @@
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="col-12">
-                        <label class="form-label" for="inputDescription">News Description</label>
-                        <textarea class="form-control" id="inputDescription" name="description" rows="6" placeholder="Type..."></textarea>
-                        @error('description')
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
+    
                     {{-- <div class="col-md-12">
                         <label class="form-label" for="fullname">Upload News Image/Video</label>
                         <input type="file" name="image[]" class="form-control" id="image" multiple accept="image/*,video/*" />
@@ -59,6 +53,7 @@
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div> --}}
+
 
                     <div class="col-12">
                         <div class="card">
@@ -75,6 +70,14 @@
                             </div>
                         </div>
                     </div> 
+
+                    <div class="col-12">
+                        <label class="form-label" for="inputDescription">News Description</label>
+                        <textarea class="form-control" id="inputDescription" name="description" rows="6" placeholder="Type..."></textarea>
+                        @error('description')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
 
                     <div class="col-md-12">
                         <label class="form-label">Select Category</label>
@@ -224,68 +227,74 @@
 
         // Editor
         (function() {
-            // Full Toolbar
-            // --------------------------------------------------------------------
-            const fullToolbar = [
-                [{
-                        font: []
-                    }
-                    , {
-                        size: []
-                    }
-                ]
-                , ['bold', 'italic', 'underline', 'strike']
-                , [{
-                        color: []
-                    }
-                    , {
-                        background: []
-                    }
-                ]
-                , [{
-                        script: 'super'
-                    }
-                    , {
-                        script: 'sub'
-                    }
-                ]
-                , [{
-                        header: '1'
-                    }
-                    , {
-                        header: '2'
-                    }
-                    , 'blockquote'
-                    , 'code-block'
-                ]
-                , [{
-                        list: 'ordered'
-                    }
-                    , {
-                        list: 'bullet'
-                    }
-                    , {
-                        indent: '-1'
-                    }
-                    , {
-                        indent: '+1'
-                    }
-                ]
-                , [{
-                    direction: 'rtl'
-                }]
-                , ['link', 'image', 'video', 'formula']
-                , ['clean']
-            ];
-            const fullEditor = new Quill('#inputDescription', {
-                bounds: '#full-editor'
-                , placeholder: 'Type Something...'
-                , modules: {
-                    formula: true
-                    , toolbar: fullToolbar
-                }
-                , theme: 'snow'
-            });
+        //     // Full Toolbar
+        //     // --------------------------------------------------------------------
+        //     const fullToolbar = [
+        //         [{
+        //                 font: []
+        //             }
+        //             , {
+        //                 size: []
+        //             }
+        //         ]
+        //         , ['bold', 'italic', 'underline', 'strike']
+        //         , [{
+        //                 color: []
+        //             }
+        //             , {
+        //                 background: []
+        //             }
+        //         ]
+        //         , [{
+        //                 script: 'super'
+        //             }
+        //             , {
+        //                 script: 'sub'
+        //             }
+        //         ]
+        //         , [{
+        //                 header: '1'
+        //             }
+        //             , {
+        //                 header: '2'
+        //             }
+        //             , 'blockquote'
+        //             , 'code-block'
+        //         ]
+        //         , [{
+        //                 list: 'ordered'
+        //             }
+        //             , {
+        //                 list: 'bullet'
+        //             }
+        //             , {
+        //                 indent: '-1'
+        //             }
+        //             , {
+        //                 indent: '+1'
+        //             }
+        //         ]
+        //         , [{
+        //             direction: 'rtl'
+        //         }]
+        //         , ['link', 'image', 'video', 'formula']
+        //         , ['clean']
+        //     ];
+        //     const fullEditor = new Quill('#inputDescription', {
+        //         bounds: '#full-editor'
+        //         , placeholder: 'Type Something...'
+        //         , modules: {
+        //             formula: true
+        //             , toolbar: fullToolbar
+        //         }
+        //         , theme: 'snow'
+        //     });
+
+        ClassicEditor
+        .create( document.querySelector( '#inputDescription' ) )
+        .catch( error => {
+            console.error( error );
+        } );
 
         }());
     })

@@ -94,7 +94,7 @@
                                         @method('put')
                                         <div class="col mb-3">
                                             <label for="nameLarge" class="form-label">Category Name</label>
-                                            <input type="text" id="nameLarge" class="form-control" placeholder="Category Name" name="vote_category" value={{ $vote->name ?? '' }}>
+                                            <input type="text" id="nameLarge" class="form-control" placeholder="Category Name" name="vote_category" value="{{ $vote->name ?? '' }}">
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>

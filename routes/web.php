@@ -81,6 +81,7 @@ use App\Http\Controllers\Admin\FanPageTypeController;
 use App\Http\Controllers\Admin\BankTransferController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Api\FeedController;
+use App\Models\Story;
 
 /*
 |--------------------------------------------------------------------------
@@ -224,6 +225,7 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
     // Organizations
     Route::prefix("donations")->name("donations.")->group(function () {
         Route::resource('/organizations', OrganizationController::class);
+        Route::delete('organizations/{id}/delete-logo', [OrganizationController::class, 'deleteOrganizationLogo'])->name('organizations.delete-logo');
         Route::get('/categories', [CategoryController::class, 'index'])->name('organizations.categories.index');
     });
 
@@ -264,6 +266,8 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
         Route::get('/videos/categories', [CategoryController::class, 'index'])->name('videos.categories.index');
         Route::get('/videos', [UplaodVideoController::class, 'index'])->name('videos.index');
         Route::get('/stories', [StoryController::class, 'index'])->name('stories.index');
+        Route::delete('/stories/{id}/delete-thumbnail', [StoryController::class, 'deleteStoryThumbnail'])->name('stories.delete-thumbnail');
+        Route::delete('/stories/{id}/delete-media', [StoryController::class, 'deleteStoryMedia'])->name('stories.delete-media');
     });
 
 
@@ -397,6 +401,7 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
 
         // Payment Offices
         Route::resource('/payment-offices', PaymentOfficeController::class);
+        Route::delete('/payment-offices/{id}/delete-image', [PaymentOfficeController::class, 'deleteOfficeImage'])->name('payment-offices.delete-image');
         // Payment Methods
         Route::get('/payment-methods', [PaymentMethodController::class, 'index'])->name('payment-methods');
         Route::post('/payment-methods', [PaymentMethodController::class, 'save'])->name('payment-methods');
@@ -557,9 +562,11 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
     Route::get('/maps/leaflet', $controller_path . '\maps\Leaflet@index')->name('maps-leaflet');
 
 
-    // Smiley 
+    // Smiley
     Route::resource('/smiley', SmileyController::class);
+    Route::delete('smiley/{id}/delete-smiley', [SmileyController::class, 'deleteSmiley'])->name('smiley.delete-image');
     Route::resource('/ringtone', RingtoneController::class);
+    Route::delete('ringtone/{id}/delete-ringtone', [RingtoneController::class, 'deleteRingtone'])->name('ringtone.delete-ringtone');
     Route::resource('/chat-settings', ChatSettingController::class);
     Route::post('/chat-setting', [ChatSettingController::class, 'save'])->name('chat-setting');
 
@@ -585,6 +592,7 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
     // Ticket Service 
 
     Route::resource('/ticket-service', TicketServiceController::class);
+    Route::delete('ticket-service/{id}/delete-image', [TicketServiceController::class, 'deleteServiceImage'])->name('ticket-service.delete-image');
 
     // FanPage Type 
     Route::resource('/fan-page-type', FanPageTypeController::class);

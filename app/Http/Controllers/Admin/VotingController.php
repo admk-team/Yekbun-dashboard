@@ -101,7 +101,6 @@ class VotingController extends Controller
      */
     public function update(Request $request, $id)
     {
-    
         $vote = Voting::find($id);
         $vote->name = $request->name;
         $vote->category_id = $request->category_id;

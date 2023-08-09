@@ -29,6 +29,7 @@ class UpdateTeamMemberRequest extends FormRequest
             "image" => "nullable",
             "status" => "nullable|integer",
             "roles" => "required",
+            "password" => "nullable|confirmed",
         ];
     }
 }

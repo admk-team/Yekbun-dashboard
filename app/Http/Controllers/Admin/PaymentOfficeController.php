@@ -118,11 +118,30 @@ class PaymentOfficeController extends Controller
         $paymentOffice = PaymentOffice::find($id);
 
         // Delete Image
-        if ($paymentOffice->image)
-            Storage::delete($paymentOffice->image);
+        if ($paymentOffice->image_path)
+            Storage::delete($paymentOffice->image_path);
 
         $paymentOffice->delete();
 
         return back()->with("success", "Payment office successfully deleted.");
+    }
+
+    public function deleteOfficeImage($id)
+    {
+        $paymentOffice = PaymentOffice::find($id);
+        if ($paymentOffice && isset($paymentOffice->image_path)) {
+            $path = public_path('storage/' . $paymentOffice->image_path);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+    
+            // Remove the image filename from the model attribute
+            $paymentOffice->image_path = null;
+            $paymentOffice->save();
+        }
+        
+        return [
+            'status' => true
+        ];
     }
 }

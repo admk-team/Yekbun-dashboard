@@ -28,6 +28,8 @@ class StoreStoryRequest extends FormRequest
             'title' => 'nullable',
             'description' => 'nullable',
             'media_path' => 'nullable',
+            'thumbnail_path' => 'nullable',
+            'thumbnail' => 'nullable',
             'media' => 'nullable',
             'duration' => 'nullable',
             'app' => 'nullable',
