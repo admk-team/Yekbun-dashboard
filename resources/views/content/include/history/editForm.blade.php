@@ -7,6 +7,9 @@
     .edit-form .dropzone .dz-message {
         width: 100%;
     }
+    .ck{
+        height: 150px;
+    }
 </style>
 <form id="editForm{{ $historys->id }}" class="edit-form" method="POST" action="{{ route('history.update', $historys->id) }}" enctype="multipart/form-data">
     @method('PUT')
@@ -42,10 +45,7 @@
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="col-md-12">
-                    <label class="form-label" for="inputDescription{{ $historys->id }}">Description</label>
-                    <textarea class="form-control" name="description" style="height:150px;" id="inputDescription{{ $historys->id }}" placeholder="Type...">{{ $historys->description }}</textarea>
-                </div>
+             
                 <!-- <div class="col-md-12">
                     <label class="form-label" for="inputDescription">Images Upload</label>
                     <input type="file" class="form-control" name="image[]" accept="image/*" multiple>
@@ -54,7 +54,7 @@
                     <label class="form-label" for="inputDescription">Video Upload</label>
                     <input type="file" class="form-control" name="video[]" accept="video/*" multiple>
                 </div> -->
-                <div class="col-12">
+                <div class="col-md-12">
                     <div class="card">
                         <h5 class="card-header">Images Upload</h5>
                         <div class="card-body">
@@ -69,7 +69,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12">
+                <div class="col-md-12">
                     <div class="card">
                         <h5 class="card-header">Video Upload</h5>
                         <div class="card-body">
@@ -84,11 +84,28 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <label class="form-label" for="inputDescription{{ $historys->id }}">Description</label>
+                    <textarea class="form-control" name="description" rows="6" id="inputDescription{{ $historys->id }}" placeholder="Type...">{{ $historys->description }}</textarea>
+                </div>
             </div>
         </div>
     </div>
 
 </form>
+
+<script>
+    (function() {
+        ClassicEditor
+        .create( document.querySelector( '#inputDescription{{ $historys->id }}' ))
+        .catch( error => {
+            console.error( error );
+        } );
+
+    }());
+
+</script>
+
 <script>
     // $(document).on('ready', function () {
     //   $('.dz-dropzone').each(function () {

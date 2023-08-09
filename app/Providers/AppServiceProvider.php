@@ -31,7 +31,8 @@ public function boot()
         $maxWidth = $parameters[0] ?? null;
         $maxHeight = $parameters[1] ?? null;
 
-  
+
+      //  dd($value);
         if (!$maxWidth || !$maxHeight) {
             throw new \Exception('Missing required parameters for max_image_dimensions validation rule.');
         }
