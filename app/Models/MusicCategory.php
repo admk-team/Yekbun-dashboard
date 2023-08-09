@@ -18,4 +18,8 @@ class MusicCategory extends Model
     {
         return LogOptions::defaults();
     }
+
+    public function musics(){
+        return $this->hasMany(Music::class , 'category_id' , 'id');
+    }
 }

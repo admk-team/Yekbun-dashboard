@@ -46,7 +46,7 @@ class EventCategoryController extends Controller
         return back()->with("success", "Category successfully created.");
     }
 
-    /**
+/**
      * Display the specified resource.
      *
      * @param  int  $id

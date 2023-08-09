@@ -102,7 +102,6 @@ Route::prefix("/users")->name("users.")->group(function () {
 Route::resource('news', NewsController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
 Route::resource('news-category', NewsCategoryController::class)->only(['index', 'store', 'update', 'show', 'destroy']);
 Route::resource('music-category', MusicCategoryController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
-Route::resource('music', MusicController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
 Route::resource('artist', ArtistController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
 Route::resource('video-clip', UploadVideoClipController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
 Route::resource('fan-page', FanPageController::class)->only(['index', 'store', 'show', 'destroy', 'update']);
@@ -238,3 +237,6 @@ Route::post('/store-reaction' , [ReactionController::class, 'store_reaction'])->
 // comments 
 Route::get('/get-comment/{type}/{id}' , [CommentController::class, 'get_comment'])->name('get-comment');
 Route::post('/store-comment' , [CommentController::class, 'store_comment'])->name('store-comment');
+
+// Music 
+Route::get('/music' , [MusicController::class , 'index'])->name('music');
