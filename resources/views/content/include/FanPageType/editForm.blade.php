@@ -89,11 +89,9 @@
                                                             <div class="dz-success-mark"></div>
                                                             <div class="dz-error-mark"></div>
                                                             <div class="dz-error-message"><span data-dz-errormessage></span></div>
-                                                          
                                                         </div>
                                                         <div class="dz-filename" data-dz-name></div>
                                                             <div class="dz-size" data-dz-size></div>
-                                                    
                                                     </div>
                                                 </div>
                                             </div>

@@ -721,6 +721,7 @@
 
 <script>
     'use strict';
+
     
     dropZoneInitFunctions.push(function () {
             // previewTemplate: Updated Dropzone default previewTemplate
@@ -745,6 +746,7 @@
                                                 </div>
                                             </div>
                                         </div>`;
+                let i = 1;
 
             // Multiple Dropzone
             const dropzoneMulti = new Dropzone('#dropzone-img{{ $new->id }}', {
@@ -794,6 +796,8 @@
                 $("document").ready(()=>{
                     var path = "{{ asset('storage/'.$audio) }}";
                     let name = "{{ basename($audio) }}";
+                    let extension = getFileExtension(name);
+                    console.log(extension);
                     const parts = name.split("___");
                     imageUrlToFile(path,parts).then((file) => {
                         file['status'] = "success";
@@ -819,13 +823,16 @@
                     // Update the preview template to include the music title
 
                         dropzoneMulti.emit("addedfile", file , path);
-                       dropzoneMulti.emit("thumbnail", file , path);
-
-                        
+                        if(extension === 'jpg' || extension === 'png' || extension === 'jpeg'){
+                            dropzoneMulti.emit("thumbnail", file , path);
+                        }                        
                         dropzoneMulti.files.push(file);
                     });
                 });
             @endforeach
+            function getFileExtension(filename) {
+                return filename.split('.').pop().toLowerCase();
+        }
    
         })
     </script>
