@@ -109,8 +109,8 @@
           @forelse($fanpage as $page)
           <tr>
             <td>{{ $page->id }}</td>
-            <th></th>
-            <td>{{ $page->user_name ?? '' }}</td>
+            <td>{{ $page->category?->name }}</td>
+            <td>{{ $page->user?->name }}</td>
             <td>{{ $page->fanpage_name ?? '' }}</td>
             <td>
               @if ((int) $page->status === 0)
