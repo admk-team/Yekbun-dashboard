@@ -21,7 +21,8 @@ class CommentController extends Controller
         "vote_id",
         "music_id",
         "emoji_id",
-        "audio_path"
+        "audio_path",
+        "duration"
     ];
 
     public function store_comment(Request $request)
