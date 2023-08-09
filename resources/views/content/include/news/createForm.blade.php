@@ -91,8 +91,8 @@
                     <div class="col-md-12">
                         <label class="form-label">Status</label>
                         <select class="form-select" aria-label="Default select example" name="status">
-                            <option value="1">Publised</option>
-                            <option value="0">UnPublised</option>
+                            <option value="1">Published</option>
+                            <option value="0">UnPublished</option>
                         </select>
                         @error('status')
                         <span class="text-danger">{{ $message }}</span>

@@ -38,6 +38,7 @@ class BackgroundFeedController extends Controller
      */
     public function store(Request $request)
     {
+   
 
         $request->validate([
             'image' => 'required|max_image_dimensions:375,314',
@@ -84,13 +85,17 @@ class BackgroundFeedController extends Controller
      */
     public function update(Request $request, $id)
     {
-     
+    
+
+      $inputfiled = "image_$id";
+    //   return $request->input($inputfiled);
+
         $request->validate([
-            'image.'.$id => 'nullable|max_image_dimensions:375,314',
+            'image_'.$id => 'nullable|max_image_dimensions:375,314',
         ]);
 
         $background = BackgroundFeed::find($id);
-        $background->image = $request->image??null;
+        $background->image = $request->input($inputfiled)??null;
 
         if ($background->update()) {
             return redirect()->back()->with('success', 'Background Feed updated successfully.');

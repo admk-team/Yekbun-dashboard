@@ -84,8 +84,12 @@ class AnimationEmojiController extends Controller
     public function update(Request $request,$id)
     {
    
+        $inputfiled = "emoji_$id";
+        $request->validate([
+            'emoji_'.$id => 'nullable|max_emoji_dimensions:60,60',
+        ]);
         $animated = AnimationEmoji::find($id);
-        $animated->emoji = $request->emoji??null; 
+        $animated->emoji = $request->input($inputfiled)??null;
         if($animated->update()){
             return redirect()->back()->with('success' , 'Animated Emoji updated successfully.');
         }else{

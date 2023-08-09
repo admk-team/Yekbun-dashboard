@@ -111,8 +111,8 @@
                     <div class="col-md-12">
                         <label class="form-label">Status</label>
                         <select class="form-select" aria-label="Default select example" name="status">
-                            <option value="1" {{ (int) $new->status === 1 ? 'selected' : '' }}>Publised</option>
-                            <option value="0" {{ (int) $new->status === 0 ? 'selected' : '' }}>UnPublised</option>
+                            <option value="1" {{ (int) $new->status === 1 ? 'selected' : '' }}>Published</option>
+                            <option value="0" {{ (int) $new->status === 0 ? 'selected' : '' }}>UnPublished</option>
                         </select>
                         @error('status')
                         <span class="text-danger">{{ $message }}</span>
