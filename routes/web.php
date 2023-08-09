@@ -81,6 +81,7 @@ use App\Http\Controllers\Admin\FanPageTypeController;
 use App\Http\Controllers\Admin\BankTransferController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Api\FeedController;
+use App\Models\FanPageType;
 use App\Models\Story;
 
 /*
@@ -596,6 +597,7 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
 
     // FanPage Type 
     Route::resource('/fan-page-type', FanPageTypeController::class);
+    Route::delete('fanpage-delete/{id}/icon' , [FanPageTypeController::class , 'deleteImage'])->name('fanpage.delete-icon');
 
     // invoice eidt
     Route::post('/invoice-address', [InvoiceController::class, 'update_address'])->name('invoice-address');

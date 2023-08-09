@@ -110,7 +110,7 @@
           "submenu": [
             {
               "url": "/new-reques",
-              "name": "New Requ",
+              "name": "New Request",
               "slug": "new-reques"
             },
             {
@@ -157,7 +157,7 @@
         },
         {
           "url": "/new-request",
-          "name": "New Reques",
+          "name": "New Request",
           "slug": "new-request",
           "hasNoPermissions": true
         },

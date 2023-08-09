@@ -49,10 +49,7 @@ class FanPageTypeController extends Controller
          }
          $fanpage = new FanPageType(); 
          $fanpage->name = $request->title;
-            if($request->hasFile("icon")){
-                $path = UploadMedia::index($request->file('icon'));
-                $fanpage->icon  = $path;  
-            }
+         $fanpage->icon = $request->icon??null;
         $fanpage->types = json_encode($new_service);
         if($fanpage->save()){
             return redirect()->back()->with('success' , 'FanPage Sevice has been created successfully.');
@@ -94,16 +91,18 @@ class FanPageTypeController extends Controller
     {
         $service = FanPageType::find($id);
         $service->name = $request->title;
-        if($request->hasFile('icon')){
-            if(isset($service->icon)){
-                $icon_path = public_path('storage/'.$service->icon);
-                if(file_exists($icon_path)){
-                    unlink($icon_path);
-                }
-                $path = UploadMedia::index($request->file('icon'));
-                $service->icon  = $path;
-            }
-        }
+        // if($request->hasFile('icon')){
+        //     if(isset($service->icon)){
+        //         $icon_path = public_path('storage/'.$service->icon);
+        //         if(file_exists($icon_path)){
+        //             unlink($icon_path);
+        //         }
+        //         $path = UploadMedia::index($request->file('icon'));
+        //         $service->icon  = $path;
+        //     }
+        // }
+
+        $service->icon = $request->icon??null;
 
         $service->types = json_encode($request->option);
         if($service->update()){
@@ -134,5 +133,24 @@ class FanPageTypeController extends Controller
         }else{
             return redirect()->back()->with('error', 'Your page has not been deleted.');
         }
+    }
+    
+    public function deleteImage($id)
+    {
+        $music = FanPageType::find($id);
+        if ($music && isset($music->icon)) {
+            $path = public_path('storage/' .$music->icon);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+    
+            // Remove the>icon filename from the model attribute
+            $music->icon = null;
+            $music->save();
+        }
+        
+        return [
+            'status' => true
+        ];
     }
 }
