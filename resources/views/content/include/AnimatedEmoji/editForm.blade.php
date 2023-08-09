@@ -2,7 +2,7 @@
     @csrf
     @method('put')
     <div class="hidden-inputs">
-        <input type="hidden" name="emoji" value="{{ $animated->emoji }}" data-path="{{ $animated->emoji }}">
+        <input type="hidden" name="emoji_{{ $animated->id }}" value="{{ $animated->emoji }}" data-path="{{ $animated->emoji }}">
     </div>
     <div class="row">
         <div class="col-lg-12 mx-auto">
@@ -19,9 +19,9 @@
                                         Drop files here or click to upload
                                     </div>
                                     <div class="fallback">
-                                        <input type="file" name="emoji.{{ $animated->id }}" />
+                                        <input type="file" name="emoji_{{ $animated->id }}" />
                                     </div>
-                                    @error('emoji')
+                                    @error('emoji_'.$animated->id)
                                     <span class="text-danger">Emoji must be in 60 * 60 dimensions.</span>
                                     @enderror
                                 </div>
@@ -88,7 +88,7 @@
                 const hiddenInputsContainer = file.previewElement.closest('form').querySelector(
                     '.hidden-inputs');
                 hiddenInputsContainer.innerHTML +=
-                    `<input type="hidden" name="emoji" value="${response.path}" data-path="${response.path}">`;
+                    `<input type="hidden" name="emoji_{{ $animated->id }}" value="${response.path}" data-path="${response.path}">`;
 
             },
             removedfile: function(file) {

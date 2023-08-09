@@ -2,10 +2,10 @@
     @csrf
     @method('put')
     <div class="hidden-inputs">
-        <input type="hidden" name="image" value="{{ $background->image }}" data-path="{{ $background->image }}">
+        <input type="hidden" name="image_{{ $background->id }}" value="{{ $background->image }}" data-path="{{ $background->image }}">
+
     </div>
     <div class="row">
-       
         <div class="col-lg-12 mx-auto">
             <div class="row g-3">
                 <div class="col-md-12">
@@ -19,25 +19,27 @@
                                         Drop files here or click to upload
                                     </div>
                                     <div class="fallback">
-                                        <input type="file" name="image.{{ $background->id }}" />
+                                        <input type="file" name="image_{{ $background->id }}" />
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" id="image_id" name="image_id" value="image_id"/>
+                       
                         </div>
+                        @error('image_'.$background->id)
+                        <span class="text-danger">Image must be 375 * 314 dimensions.</span>
+                        @enderror
                     </div>
-                    <input type="hidden" id="image_id" name="image_id" value="image_id"/>
-                    @error('image')
-                    <span class="text-danger">Image must be 375 * 314 dimensions.</span>
-                    @enderror
+                    
                 </div>
             </div>
         </div>
     </div>
 </form>
+
+
 <script>
     'use strict';
-
-
     //  <div class="progress">
         // <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-dz-uploadprogress></div>
         //                                                     </div>
@@ -87,7 +89,7 @@
                 const hiddenInputsContainer = file.previewElement.closest('form').querySelector(
                     '.hidden-inputs');
                 hiddenInputsContainer.innerHTML +=
-                    `<input type="hidden" name="image" value="${response.path}" data-path="${response.path}">`;
+                    `<input type="hidden" name="image_{{ $background->id }}" value="${response.path}" data-path="${response.path}">`;
 
             },
             removedfile: function(file) {

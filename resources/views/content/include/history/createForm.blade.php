@@ -1,3 +1,9 @@
+<style>
+    .ck{
+        height: 150px;
+    }
+</style>
+
 <form id="createForm" method="POST" action="{{ route('history.store') }}" enctype="multipart/form-data">
     @csrf
     <div class="hidden-inputs"></div>
@@ -23,19 +29,11 @@
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="col-md-12">
+                  <div class="col-12">
                     <label class="form-label" for="inputDescription">Description</label>
-                    <textarea class="form-control" name="description" style="height:150px;" id="inputDescription" placeholder="Type..."></textarea>
-                </div>
-                <!-- <div class="col-md-12">
-                    <label class="form-label" for="inputDescription">Images Upload</label>
-                    <input type="file" class="form-control" name="image[]" accept="image/*" multiple>
+                    <textarea class="form-control" name="description" rows="6" id="inputDescription"></textarea>
                 </div>
                 <div class="col-md-12">
-                    <label class="form-label" for="inputDescription">Video Upload</label>
-                    <input type="file" class="form-control" name="video[]" accept="video/*" multiple>
-                </div> -->
-                <div class="col-12">
                     <div class="card">
                         <h5 class="card-header">Images Upload</h5>
                         <div class="card-body">
@@ -50,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12">
+                <div class="col-md-12">
                     <div class="card">
                         <h5 class="card-header">Video Upload</h5>
                         <div class="card-body">
@@ -70,14 +68,7 @@
     </div>
 
 </form>
-<script>
-    // $(document).on('ready', function () {
-    //   $('.dz-dropzone').each(function () {
-    //     // initialization of dropzone file attach module
-    //     var dropzone = $.HSCore.components.HSDropzone.init('#' + $(this).attr('id'));
-    //   });
-    // });
-  </script>
+
 
 <script>
     'use strict';

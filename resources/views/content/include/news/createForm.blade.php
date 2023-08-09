@@ -94,8 +94,8 @@
                     <div class="col-md-12">
                         <label class="form-label">Status</label>
                         <select class="form-select" aria-label="Default select example" name="status">
-                            <option value="1">Publised</option>
-                            <option value="0">UnPublised</option>
+                            <option value="1">Published</option>
+                            <option value="0">UnPublished</option>
                         </select>
                         @error('status')
                         <span class="text-danger">{{ $message }}</span>
@@ -225,78 +225,7 @@
             }
         }
 
-        // Editor
-        (function() {
-        //     // Full Toolbar
-        //     // --------------------------------------------------------------------
-        //     const fullToolbar = [
-        //         [{
-        //                 font: []
-        //             }
-        //             , {
-        //                 size: []
-        //             }
-        //         ]
-        //         , ['bold', 'italic', 'underline', 'strike']
-        //         , [{
-        //                 color: []
-        //             }
-        //             , {
-        //                 background: []
-        //             }
-        //         ]
-        //         , [{
-        //                 script: 'super'
-        //             }
-        //             , {
-        //                 script: 'sub'
-        //             }
-        //         ]
-        //         , [{
-        //                 header: '1'
-        //             }
-        //             , {
-        //                 header: '2'
-        //             }
-        //             , 'blockquote'
-        //             , 'code-block'
-        //         ]
-        //         , [{
-        //                 list: 'ordered'
-        //             }
-        //             , {
-        //                 list: 'bullet'
-        //             }
-        //             , {
-        //                 indent: '-1'
-        //             }
-        //             , {
-        //                 indent: '+1'
-        //             }
-        //         ]
-        //         , [{
-        //             direction: 'rtl'
-        //         }]
-        //         , ['link', 'image', 'video', 'formula']
-        //         , ['clean']
-        //     ];
-        //     const fullEditor = new Quill('#inputDescription', {
-        //         bounds: '#full-editor'
-        //         , placeholder: 'Type Something...'
-        //         , modules: {
-        //             formula: true
-        //             , toolbar: fullToolbar
-        //         }
-        //         , theme: 'snow'
-        //     });
 
-        ClassicEditor
-        .create( document.querySelector( '#inputDescription' ) )
-        .catch( error => {
-            console.error( error );
-        } );
-
-        }());
     })
 </script>
 

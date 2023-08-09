@@ -702,19 +702,20 @@
     document.querySelector('.add_new').click();
   })
 @enderror
+
 @php
 $field_id =null;
 foreach($errors->keys() as $errorKey){
 
-    if (str_starts_with($errorKey, 'image.') && $errorKey !== 'image.'){
-        $field_id = explode('.', $errorKey)[1];
+    if (str_starts_with($errorKey, 'image_') && $errorKey !== 'image_'){
+        $field_id = explode('_', $errorKey)[1];
     }
 }
 @endphp
-@error('image.*')
+@error('image_*')
 
   window.addEventListener('load' , function(){
-    // const bg_image = document.querySelector('.openEditModal{{ explode('.' , $errors->first('image.*'))[1] }}');
+
     document.querySelector('#openEditModal{{ $field_id }}').click();
   })
 @enderror
@@ -723,6 +724,20 @@ foreach($errors->keys() as $errorKey){
 window.addEventListener('load' , function(){
     document.querySelector('.emoji_new').click();
 })
+@enderror
+@php
+$field_id =null;
+foreach($errors->keys() as $errorKey){
+
+    if (str_starts_with($errorKey, 'emoji_') && $errorKey !== 'emoji_'){
+        $field_id = explode('_', $errorKey)[1];
+    }
+}
+@endphp
+@error('emoji_*')
+  window.addEventListener('load' , function(){
+    document.querySelector('#openEditModal{{ $field_id }}').click();
+  })
 @enderror
   </script>
   <script>
