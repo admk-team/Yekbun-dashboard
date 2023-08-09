@@ -105,6 +105,11 @@ class User extends Authenticatable  implements MustVerifyEmail
         return $this->hasMany(Feed::class);
     }
 
+    public function user()
+    {
+        return $this->hasMany(FanPage::class, 'user_id', 'id');
+    }
+
     /**
      * Write code on Method
      *

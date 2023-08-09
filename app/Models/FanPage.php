@@ -12,12 +12,24 @@ class FanPage extends Model
     use HasFactory, LogsActivity;
     
     protected $fillable=[
-        'user_name',
-        'fanpage_name'
+        'user_id',
+        'fanpage_name',
+        'category_id',
+        'status',
     ];
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults();
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(FanPageType::class, 'category_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }
