@@ -16,7 +16,8 @@ class ArtistController extends Controller
      */
     public function index()
     {
-        $artist  = Artist::get();
+        
+        $artist  = Artist::with('musics')->get();
         $provinces = Region::get();
         return view('content.artist.index' , compact('artist' , 'provinces'));
     }

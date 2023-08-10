@@ -31,9 +31,22 @@
                 <div class="col-md-12">
                     <label class="form-label" for="fullname">Category Name</label>
                     <select class="form-select" aria-label="Default select example" name="category_id">
-                        <option selected>Select</option>
+                        <option selected value=""></option>
                         @foreach($music_category as $audio)
                         <option value="{{ $audio->id }}" {{ $musics->category_id == $audio->id ? 'selected' : '' }}>{{ $audio->name ?? '' }}</option>
+                        @endforeach
+                    </select>
+                    @error('category_id')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                
+                <div class="col-md-12">
+                    <label class="form-label" for="fullname">Artist</label>
+                    <select class="form-select" aria-label="Default select example" name="artist_id">
+                        <option selected value=""></option>
+                        @foreach($artists as $artist)
+                        <option value="{{ $artist->id }}" {{ $artist->id == $musics->artist_id ? 'selected' : '' }}>{{ $artist->first_name .''.$artist->last_name ?? '' }}</option>
                         @endforeach
                     </select>
                     @error('category_id')

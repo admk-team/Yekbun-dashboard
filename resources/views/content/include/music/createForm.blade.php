@@ -16,9 +16,22 @@
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+           
+                <div class="col-md-12">
+                    <label class="form-label" for="fullname">Select Artist</label>
+                    <select class="form-select" aria-label="Default select example" name="artist_id">
+                        <option selected value="">Select</option>
+                        @foreach($artists as $artists)
+                        <option value="{{ $artists->id }}">{{ $artists->first_name .''.$artists->last_name ?? '' }}</option>
+                        @endforeach
+                    </select>
+                    @error('artist_id')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
 
-            <div class="col-12">
-                <div class="card">
+               <div class="col-12">
+                  <div class="card">
                     <h5 class="card-header">Audio Upload</h5>
                     <div class="card-body">
                         <div class="dropzone needsclick" action="/" id="dropzone-audio">

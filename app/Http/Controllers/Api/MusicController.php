@@ -35,7 +35,35 @@ class MusicController extends Controller
         }
     }
 
+    // Popular song 
+    if($request->has('popular')){
+        $popular = Music::where('popular' , '>' , 0)->get();
+        if($popular->isEmpty()){
+            return response()->json(['success' => false , 'popular' => []]);
+        }else{
+            return response()->json(['succcess' => true , 'popular' => $popular]);
+        }
+    }
+
     // If none of the conditions are met, return an error response
     return response()->json(['success' => false, 'message' => 'Invalid request']);
 }
+
+// when user click on music then this api will run and count the view
+    public function popular_song($id){
+
+        $music = Music::find($id);
+        if(!$music){
+            return response()->json(['success' => false , 'message' => 'Music not found..']);
+        }
+        $music->popular += 1;
+        if($music->save()){
+            return response()->json(['success' => true ]);
+        }else{
+            return response()->json(['succcess' => false]);
+        }
+    }
+
+    
+
 }

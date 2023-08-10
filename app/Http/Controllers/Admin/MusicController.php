@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Http\Controllers\Controller;
 use App\Models\Music;
-use App\Models\MusicCategory;
+use App\Models\Artist;
 use Illuminate\Http\Request;
+use App\Models\MusicCategory;
+use App\Http\Controllers\Controller;
 
 class MusicController extends Controller
 {
@@ -15,10 +16,10 @@ class MusicController extends Controller
      */
     public function index()
    {
-         $music  = Music::with('music_category')->get();
-
+        $music  = Music::with('music_category')->get();
         $music_category  = MusicCategory::get();
-        return view('content.music.index' , compact('music' , 'music_category'));
+        $artists = Artist::get();
+        return view('content.music.index' , compact('music' , 'music_category' , 'artists'));
     }
 
     /**
@@ -48,6 +49,7 @@ class MusicController extends Controller
     //   $music_implode = implode('' , $request->audio_paths);
       $music = new Music();
       $music->category_id = $request->category_id;
+      $music->artist_id = $request->artist_id;
       $music->audio = $request->audio_paths??[];
       $music->status = $request->status;
     //   $music->name = $request->title;
@@ -96,6 +98,7 @@ class MusicController extends Controller
         $music = Music::findorFail($id);
         $music->name = $request->title;
         $music->category_id = $request->category_id;
+        $music->artist_id = $request->artist_id;
         $music->audio = $request->audio_paths ?? [];
         
         if($music->update()){

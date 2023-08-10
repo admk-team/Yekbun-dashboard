@@ -15,6 +15,8 @@ class Music extends Model
       'name',
       'category_id',
       'audio',
+      'popular',
+      'artist_id'
       
     ];
     protected $casts = [
