@@ -13,7 +13,7 @@ class MusicController extends Controller
 {
     // Music with latest uploads
     if ($request->has('latest_uploads')) {
-        $latest = Music::latest()->paginate(10);
+        $latest = Music::latest()->get();
 
         if ($latest->isEmpty()) {
             return response()->json(['success' => false, 'data' => []]);
