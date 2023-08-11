@@ -13,7 +13,7 @@ class MusicController extends Controller
 {
     // Music with latest uploads
     if ($request->has('latest_uploads')) {
-        $latest = Music::with('artist:first_name')->latest()->get();
+        $latest = Music::with('artist:id,first_name')->latest()->get();
 
         if ($latest->isEmpty()) {
             return response()->json(['success' => false, 'data' => []]);
@@ -37,7 +37,7 @@ class MusicController extends Controller
 
     // Popular song 
     if($request->has('popular')){
-        $popular = Music::where('popular' , '>' , 0)->with('artist:first_name')->get();
+        $popular = Music::where('popular' , '>' , 0)->with('artist:id,first_name')->get();
         if($popular->isEmpty()){
             return response()->json(['success' => false , 'popular' => []]);
         }else{
