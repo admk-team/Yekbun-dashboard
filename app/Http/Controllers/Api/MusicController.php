@@ -27,7 +27,9 @@ class MusicController extends Controller
         $category = $request->input('category');
         
         $category = MusicCategory::where('name' , $category)->with('musics')->first();
-        $data = $category->musics;
+        $data = $category->musics::with('artist:id,first_name,last_name,image');
+        return $data;
+
         if ($data->isEmpty()) {
             return response()->json(['success' => false, 'data' => []]);
         } else {
