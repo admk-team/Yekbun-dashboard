@@ -37,7 +37,7 @@ class MusicController extends Controller
 
     // Popular song 
     if($request->has('popular')){
-        $popular = Music::where('popular' , '>' , 0)->with('artist:first_name')->latest()->get();
+        $popular = Music::where('popular' , '>' , 0)->with('artist:first_name')->get();
         if($popular->isEmpty()){
             return response()->json(['success' => false , 'popular' => []]);
         }else{
