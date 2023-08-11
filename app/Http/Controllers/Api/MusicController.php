@@ -24,7 +24,7 @@ class MusicController extends Controller
     
     // Music with category
     if ($request->has('category')) {
-        $category = $request->input('category'); // Retrieve the category from the request
+        $category = $request->input('category');
         
         $category = MusicCategory::where('name' , $category)->with('musics')->first();
         $data = $category->musics;
@@ -45,14 +45,12 @@ class MusicController extends Controller
         }
     }
 
-    // If none of the conditions are met, return an error response
     return response()->json(['success' => false, 'message' => 'Invalid request']);
 }
 
-// when user click on music then this api will run and count the view
     public function popular_song($id){
-
         $music = Music::find($id);
+        
         if(!$music){
             return response()->json(['success' => false , 'message' => 'Music not found..']);
         }
