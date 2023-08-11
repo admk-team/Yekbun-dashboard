@@ -28,6 +28,11 @@ class Ad extends Model
         'end_date',
         'budget',
         'status',
+        'country',
+        'city',
+        'address',
+        'code',
+        'phone_no'
     ];
 
     public function getActivitylogOptions(): LogOptions
