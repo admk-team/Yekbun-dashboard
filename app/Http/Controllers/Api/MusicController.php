@@ -13,8 +13,15 @@ class MusicController extends Controller
 {
     // Music with latest uploads
     if ($request->has('latest_uploads')) {
-        $latest = Music::with('artist:id,first_name')->latest()->get();
+        $query = Music::with(['artist' => function ($query){
+            $query->select('first_name');
+        }])->latest();
 
+        if($request->has('limit')){
+            $latest = $query->limit(10)->get();
+        }else{
+            $latest = $query->get();
+        }
         if ($latest->isEmpty()) {
             return response()->json(['success' => false, 'data' => []]);
         } else {
@@ -26,8 +33,12 @@ class MusicController extends Controller
     if ($request->has('category')) {
         $category = $request->input('category');
         
-        $category = MusicCategory::where('name' , $category)->with('musics')->first();
+        $category = MusicCategory::where('name', $category)->with(['musics.artist' => function ($query) {
+            $query->select('first_name');
+        }])->first();
         $data = $category->musics;
+        return $data;
+
         if ($data->isEmpty()) {
             return response()->json(['success' => false, 'data' => []]);
         } else {
@@ -37,7 +48,16 @@ class MusicController extends Controller
 
     // Popular song 
     if($request->has('popular')){
-        $popular = Music::where('popular' , '>' , 0)->with('artist:id,first_name')->get();
+
+        $query = Music::where('popular' , '>' , 0)->with(['artist' => function ($query){
+            $query->select('first_name');
+        }]);
+
+        if($request->has('limit')){
+            $popular = $query->limit(5)->get(); 
+        }else{
+            $popular = $query->get();
+        }
         if($popular->isEmpty()){
             return response()->json(['success' => false , 'popular' => []]);
         }else{
