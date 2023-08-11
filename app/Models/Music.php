@@ -36,6 +36,6 @@ class Music extends Model
     }
 
     public function artist(){
-        return $this->belongsTo(Artist::class);
+        return $this->belongsTo(Artist::class , 'artist_id');
     }
 }
