@@ -250,3 +250,4 @@ Route::get('/single-aritst-music/{id}' , [ArtistController::class , 'get_single_
 // Market Service
 Route::post('/service-ad' ,[MarketServiceContorller::class , 'service_ad'])->name('service-ad');
 Route::post('/market-categories' ,[MarketServiceContorller::class , 'market_categories'])->name('market-categories');
+Route::post('/market-gallery' ,[MarketServiceContorller::class , 'market_gallery'])->name('market-gallery');

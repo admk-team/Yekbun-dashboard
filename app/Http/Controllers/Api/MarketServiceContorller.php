@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ad;
 use App\Models\MarketCategory;
+use App\Models\MarketGallery;
 use App\Models\MarketService;
 use App\Models\MarketSubCategory;
 
@@ -57,5 +58,23 @@ class MarketServiceContorller extends Controller
         ]);
        return response()->json(['success' => true , 'message' => 'Categories saved successfully']);
         
+    }
+
+    // Market Gallery
+    public function market_gallery(Request $request){
+        $request->validate([
+            'gallery' => 'required'
+        ]);
+        $market_gallery = new MarketGallery();
+        $img = $request->input('gallery');
+        $image = collect([]);
+
+        foreach($img  as $gallery){
+            $image->push($gallery);     
+        }
+        $market_gallery->gallery = json_encode($image);
+        $market_gallery->save();
+
+        return response()->json(['success' => true , 'message' => 'Gallery saved successfully.']);
     }
 }
