@@ -36,4 +36,8 @@ class Region extends Model
     {
         return $this->hasMany(User::class);
     }
+    public function artists()
+    {
+        return $this->hasMany(Artist::class);
+    }
 }
