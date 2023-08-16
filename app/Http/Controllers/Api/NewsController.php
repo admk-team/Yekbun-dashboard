@@ -157,10 +157,6 @@ class NewsController extends Controller
     {
         $news = News::limit(3)->get();
 
-        foreach ($news as $new) {
-            $new->image = json_decode($new->image);
-        }
-
         return response()->json(['success' => true, 'data' => $news]);
     }
 
