@@ -8,7 +8,7 @@ use App\Models\Album;
 
 class AlbumController extends Controller
 {
-    public function cover_albums()
+    public function new_albums()
     {
         $albums = Album::orderBy('created_at', 'desc')
             ->take(2)

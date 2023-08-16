@@ -249,8 +249,8 @@ Route::get('/single-aritst-music/{id}' , [ArtistController::class , 'get_single_
 Route::get('/get-latest-artist' , [ArtistController::class , 'get_two_latest_artist'])->name('get-latest-artist');
 
 // Album
-Route::get('/cover-albums' , [AlbumController::class , 'cover_albums']);
 Route::get('/albums' , [AlbumController::class , 'albums']);
+Route::get('/albums/new' , [AlbumController::class , 'new_albums']);
 Route::get('/album-details/{id}' , [AlbumController::class , 'albums_details']);
 
 // Market Service
