@@ -23,7 +23,7 @@ class ArtistController extends Controller
 
     public function get_single_artist_music($id)
     {
-        $artist = Artist::select('id', 'image', 'first_name', 'last_name')->where('id', $id)->with('province.country')->first();
+        $artist = Artist::select('id', 'image', 'first_name', 'last_name')->where('id', $id)->with('musics', 'province.country')->get();
         if (is_null($artist)) {
             return response()->json(['success' => false, 'data' => []]);
         } else {
