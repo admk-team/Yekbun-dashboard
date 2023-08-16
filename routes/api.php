@@ -56,6 +56,7 @@ use App\Http\Controllers\Api\AnimationEmojiController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\MarketServiceContorller;
 use App\Http\Controllers\Api\ReactionController;
+use App\Http\Controllers\Api\AlbumController;
 
 /*
 |--------------------------------------------------------------------------
@@ -246,6 +247,11 @@ Route::get('/popular-song/{id}' , [MusicController::class , 'popular_song'])->na
 Route::get('/artist-music' , [ArtistController::class , 'get_all_artist_music'])->name('artist-music');
 Route::get('/single-aritst-music/{id}' , [ArtistController::class , 'get_single_artist_music'])->name('single-aritst-music');
 Route::get('/get-latest-artist' , [ArtistController::class , 'get_two_latest_artist'])->name('get-latest-artist');
+
+// Album
+Route::get('/cover-albums' , [AlbumController::class , 'cover_albums']);
+Route::get('/albums' , [AlbumController::class , 'albums']);
+Route::get('/album-details/{id}' , [AlbumController::class , 'albums_details']);
 
 // Market Service
 Route::post('/service-ad' ,[MarketServiceContorller::class , 'service_ad'])->name('service-ad');
