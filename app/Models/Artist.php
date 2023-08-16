@@ -28,7 +28,6 @@ class Artist extends Model
     public function musics(){
         return $this->hasMany(Music::class , 'artist_id' , 'id');
     }
-
  
     public function province()
     {

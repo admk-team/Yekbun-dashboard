@@ -157,10 +157,6 @@ class NewsController extends Controller
     {
         $news = News::limit(3)->get();
 
-        foreach ($news as $new) {
-            $new->image = json_decode($new->image);
-        }
-
         return response()->json(['success' => true, 'data' => $news]);
     }
 
@@ -174,9 +170,6 @@ class NewsController extends Controller
     public function detail($id)
     {
         $news = News::with(['news_category'])->find($id);
-
-        if ($news != "")
-            $news->image = json_decode($news->image);
 
         return response()->json(['success' => true, 'data' => $news]);
     }
