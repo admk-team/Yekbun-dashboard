@@ -9,6 +9,7 @@ use App\Models\MarketCategory;
 use App\Models\MarketGallery;
 use App\Models\MarketService;
 use App\Models\MarketSubCategory;
+use App\Models\MarketView;
 
 class MarketServiceContorller extends Controller
 {
@@ -76,5 +77,20 @@ class MarketServiceContorller extends Controller
         $market_gallery->save();
 
         return response()->json(['success' => true , 'message' => 'Gallery saved successfully.']);
+    }
+
+    public function market_view_option(Request $request){
+        
+        $market_view = new MarketView();
+        $market_view->mail_contact = $request->mail_contact;
+        $market_view->message = $request->message;
+        $market_view->phone = $request->phone;
+        $market_view->address = $request->address;
+
+        if($market_view->save()){
+            return response()->json(['success' => true  ,'message' => 'View option saved successfully.']);
+        }else{
+            return response()->json(['success' => false , 'message' => 'Failed to add data.']);
+        }
     }
 }

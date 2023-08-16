@@ -251,3 +251,4 @@ Route::get('/get-latest-artist' , [ArtistController::class , 'get_two_latest_art
 Route::post('/service-ad' ,[MarketServiceContorller::class , 'service_ad'])->name('service-ad');
 Route::post('/market-categories' ,[MarketServiceContorller::class , 'market_categories'])->name('market-categories');
 Route::post('/market-gallery' ,[MarketServiceContorller::class , 'market_gallery'])->name('market-gallery');
+Route::post('/market-view-options' , [MarketServiceContorller::class , 'market_view_option'])->name('market-view-options');
