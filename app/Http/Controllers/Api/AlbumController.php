@@ -41,7 +41,7 @@ class AlbumController extends Controller
 
     public function albums_details($id)
     {
-        $album = Album::find($id);
+        $album = Album::with('artist')->find($id);
 
         $album->music_count = sizeof($album->album);
 
