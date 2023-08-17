@@ -13,7 +13,7 @@ class AlbumController extends Controller
         $albums = Album::orderBy('created_at', 'desc')
             ->take(2)
             ->with('artist')
-            ->select('title', 'artist_id', 'album', 'image')
+            ->select('id', 'title', 'artist_id', 'album', 'image')
             ->get();
 
         $updated_albums = $albums->map(function ($item) {
@@ -28,7 +28,7 @@ class AlbumController extends Controller
     {
         $albums = Album::orderBy('created_at', 'desc')
             ->take(2)
-            ->select('title', 'album', 'image')
+            ->select('id', 'title', 'album', 'image')
             ->get();
 
         $updated_albums = $albums->map(function ($item) {
