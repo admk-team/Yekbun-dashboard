@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Stripe\Stripe;
-use Stripe\Checkout\Session;
+use App\Models\User;
 use App\Models\Payment;
+use Illuminate\Http\Request;
+use Stripe\Checkout\Session;
+use App\Http\Controllers\Controller;
 
 class StripeController extends Controller
 {
@@ -47,6 +48,8 @@ class StripeController extends Controller
         $payment->type = 'stripe';
         $payment->transaction_id = $transaction_id;
         $payment->status = 0;
+        $payment->user_id = $request->user_id;
+        $payment->level = $request->level;
         $payment->save();
 
         return response()->json(['success' => true, 'data' => $checkoutSession->url]);
@@ -55,7 +58,11 @@ class StripeController extends Controller
     public function update(Request $request)
     {
         $payment = Payment::where('transaction_id', $request->transaction_id)->first();
-
+        if(isset($payment->user_id)){
+            $user = User::find($payment->user_id);
+            $user->level = $payment->level;
+            $user->save();
+        }
         $payment->payment_status = 'approved';
         $payment->status = 1;
         $payment->save();
