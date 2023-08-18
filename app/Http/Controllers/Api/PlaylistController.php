@@ -21,6 +21,7 @@ class PlaylistController extends Controller
     ];
 
     public function playlist(Request $request){
+        return $request;
         $request->validate([
             'user_id' => 'required',
             'playlist_name' => 'required',
