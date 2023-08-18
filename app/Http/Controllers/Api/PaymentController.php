@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\User;
 use Omnipay\Omnipay;
 use App\Models\Payment;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PaymentController extends Controller
 {
@@ -36,11 +37,8 @@ class PaymentController extends Controller
     public function charge(Request $request)
     {
         
-        // if($request->input('submit'))
-        // {
         try {
             $amountInDollars = $request->amount;
-
             $amountInCents = $amountInDollars;
 
             $response = $this->gateway->purchase(array(
@@ -70,7 +68,6 @@ class PaymentController extends Controller
         } catch (Exception $e) {
             return $e->getMessage();
         }
-        // }
     }
 
 
@@ -101,8 +98,15 @@ class PaymentController extends Controller
                 $payment->type = 'paypal';
                 $payment->transaction_id = 'YK' . mt_rand(100000000, 999999999);
                 $payment->status = 1;
+                $payment->user_id = $request->user_id;
+                $payment->level = $request->level;
                 $payment->save();
-
+                // to get the user and upgrade the  level of user
+                $pment = Payment::where('payment_id',$request->paymentId)->first();
+                $user = User::find($pment->user_id);
+                $user->level = $pment->level;
+                $user->save();
+                
                 return view('content.paypal.success');
             } else {
                 return response()->json(['success' => false, 'data' => $response->getMessage()]);

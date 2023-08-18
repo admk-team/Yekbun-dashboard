@@ -257,4 +257,4 @@ Route::post('/market-services' ,[MarketServiceContorller::class , 'market_servic
 
 // Playlist 
 Route::post('/playlists' , [PlaylistController::class , 'playlist'])->name('playlists');
-Route::get('/get-playlist/{id}' , [PlaylistController::class , 'get_playlist'])->name('get-playlist');
+Route::post('/get-playlist' , [PlaylistController::class , 'get_playlist'])->name('get-playlist');
