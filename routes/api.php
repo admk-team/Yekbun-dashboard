@@ -55,6 +55,7 @@ use App\Http\Controllers\Api\StripeController;
 use App\Http\Controllers\Api\AnimationEmojiController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\MarketServiceContorller;
+use App\Http\Controllers\Api\PlaylistController;
 use App\Http\Controllers\Api\ReactionController;
 
 /*
@@ -248,7 +249,12 @@ Route::get('/single-aritst-music/{id}' , [ArtistController::class , 'get_single_
 Route::get('/get-latest-artist' , [ArtistController::class , 'get_two_latest_artist'])->name('get-latest-artist');
 
 // Market Service
-Route::post('/service-ad' ,[MarketServiceContorller::class , 'service_ad'])->name('service-ad');
-Route::post('/market-categories' ,[MarketServiceContorller::class , 'market_categories'])->name('market-categories');
-Route::post('/market-gallery' ,[MarketServiceContorller::class , 'market_gallery'])->name('market-gallery');
-Route::post('/market-view-options' , [MarketServiceContorller::class , 'market_view_option'])->name('market-view-options');
+Route::post('/market-services' ,[MarketServiceContorller::class , 'market_services'])->name('market-services');
+// Route::post('/market-categories' ,[MarketServiceContorller::class , 'market_categories'])->name('market-categories');
+// Route::post('/market-gallery' ,[MarketServiceContorller::class , 'market_gallery'])->name('market-gallery');
+// Route::post('/market-view-options' , [MarketServiceContorller::class , 'market_view_option'])->name('market-view-options');
+
+
+// Playlist 
+Route::post('/playlists' , [PlaylistController::class , 'playlist'])->name('playlists');
+Route::get('/get-playlist/{id}' , [PlaylistController::class , 'get_playlist'])->name('get-playlist');
