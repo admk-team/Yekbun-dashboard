@@ -18,11 +18,11 @@ return new class extends Migration
             $table->integer('user_id');
             $table->string('playlist_name');
             $table->integer('visibility');
-            $table->integer('music_id')->nullable();
-            $table->integer('feed_id')->nullable();
-            $table->integer('news_id')->nullable();
-            $table->integer('history_id')->nullable();
-            $table->integer('vote_id')->nullable();
+            $table->integer('is_music')->nullable();
+            $table->integer('is_feed')->nullable();
+            $table->integer('is_news')->nullable();
+            $table->integer('is_history')->nullable();
+            $table->integer('is_vote')->nullable();
             $table->timestamps();
         });
     }
