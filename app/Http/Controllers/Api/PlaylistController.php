@@ -43,7 +43,7 @@ class PlaylistController extends Controller
 
     public function get_playlist(Request $request){
 
-        $playlist = Playlist::where('user_id',$request->user_id)->where($request->type, $request->type_id)->get();
+        $playlist = Playlist::where('user_id', $request->user_id)->whereNotNull($request->type)->get();
         if(isset($playlist)){
             return response()->json(['success' => true , 'data' => $playlist]);
         }else{
