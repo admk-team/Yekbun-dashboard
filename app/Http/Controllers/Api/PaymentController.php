@@ -56,6 +56,8 @@ class PaymentController extends Controller
                 'cancelUrl' => url('/api/error'),
             ))->send();
 
+            return $response;
+
             if ($response->isRedirect()) {
                 $data = [
                     'redirect_url' => $response->getRedirectUrl()
@@ -102,7 +104,6 @@ class PaymentController extends Controller
                 $payment->level = $request->level;
                 $payment->save();
 
-                // to get the user and upgrade the  level of user
                 $user = User::find(intval($payment->user_id));
                 $user->level = intval($payment->level);
                 $user->save();
