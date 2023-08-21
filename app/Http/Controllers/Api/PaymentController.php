@@ -52,7 +52,7 @@ class PaymentController extends Controller
                     )
                 ),
                 'currency' => env('PAYPAL_CURRENCY'),
-                'returnUrl' => url('/api/success'),
+                'returnUrl' => url('/api/success?level=' . $request->level . '&user_id=' . $request->user_id),
                 'cancelUrl' => url('/api/error'),
             ))->send();
 
@@ -78,6 +78,9 @@ class PaymentController extends Controller
      */
     public function success(Request $request)
     {
+        if ($request->has('payment_id'))
+            return view('content.paypal.success');
+
         if ($request->input('paymentId') && $request->input('PayerID')) {
             $transaction = $this->gateway->completePurchase(array(
                 'payer_id'             => $request->input('PayerID'),
@@ -101,13 +104,12 @@ class PaymentController extends Controller
                 $payment->user_id = $request->user_id;
                 $payment->level = $request->level;
                 $payment->save();
-                // to get the user and upgrade the  level of user
-                $pment = Payment::where('payment_id',$request->paymentId)->first();
-                $user = User::find($pment->user_id);
-                $user->level = $pment->level;
+
+                $user = User::find(intval($payment->user_id));
+                $user->level = intval($payment->level);
                 $user->save();
                 
-                return view('content.paypal.success');
+                return redirect('/api/success?payment_id=' . $payment->payment_id);
             } else {
                 return response()->json(['success' => false, 'data' => $response->getMessage()]);
             }
