@@ -145,7 +145,6 @@ class PlaylistController extends Controller
                     $existingArtist->push($artist);
                     $addedArtists[] =  $artist;
                 }else{
-
                 $existingArtist = $existingArtist->filter(fn($i)=>($i !== $artist));
                     $removedArtists[] = $artist;
                 }
