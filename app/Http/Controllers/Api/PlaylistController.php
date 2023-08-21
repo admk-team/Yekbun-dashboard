@@ -46,7 +46,6 @@ class PlaylistController extends Controller
 
     public function get_playlist(Request $request)
     {
-
         $playlist = Playlist::where('user_id', $request->user_id)->where($request->type, 1)->with('PlaylistMusics')->get();
         if (isset($playlist)) {
             return response()->json(['success' => true, 'data' => $playlist]);
@@ -58,7 +57,7 @@ class PlaylistController extends Controller
     public function set_music_to_playlist(Request $request) {
         $request->validate([
             'playlist_id' => 'required',
-            'musics' => 'array' // Assuming 'musics' is an array of music data
+            'musics' => 'array'
         ]);
     
         $playlist = PlaylistMusic::where('playlist_id', $request->playlist_id)->first();
@@ -90,9 +89,9 @@ class PlaylistController extends Controller
     
         $playlist->musics = $existingMusics;
         if ($playlist->save()) {
-            return response()->json(['success' => true, 'data' => 'Music added to playlist.']);
+            return response()->json(['success' => true, 'message' => 'Music added to playlist.']);
         } else {
-            return response()->json(['success' => false, 'data' => 'Failed to add music.']);
+            return response()->json(['success' => false, 'message' => 'Failed to add music.']);
         }
     }
     
