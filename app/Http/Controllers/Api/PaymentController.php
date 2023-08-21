@@ -109,7 +109,7 @@ class PaymentController extends Controller
                 $user->level = intval($payment->level);
                 $user->save();
                 
-                return redirect('/success?is_verified=' . true . 'payment_id=' . $payment->payment_id);
+                return redirect('/api/success?is_verified=' . true . 'payment_id=' . $payment->payment_id);
             } else {
                 return response()->json(['success' => false, 'data' => $response->getMessage()]);
             }
