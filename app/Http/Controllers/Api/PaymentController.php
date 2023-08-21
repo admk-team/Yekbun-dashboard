@@ -78,6 +78,7 @@ class PaymentController extends Controller
      */
     public function success(Request $request)
     {
+        return $request->level;
         if ($request->input('paymentId') && $request->input('PayerID')) {
             $transaction = $this->gateway->completePurchase(array(
                 'payer_id'             => $request->input('PayerID'),
