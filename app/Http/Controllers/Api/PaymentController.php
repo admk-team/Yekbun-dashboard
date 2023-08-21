@@ -52,7 +52,7 @@ class PaymentController extends Controller
                     )
                 ),
                 'currency' => env('PAYPAL_CURRENCY'),
-                'returnUrl' => url('/api/success?level=' . $request->level),
+                'returnUrl' => url('/api/success?level=' . $request->level . '&user_id=' . $request->user_id),
                 'cancelUrl' => url('/api/error'),
             ))->send();
 
