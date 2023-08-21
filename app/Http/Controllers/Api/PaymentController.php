@@ -78,6 +78,9 @@ class PaymentController extends Controller
      */
     public function success(Request $request)
     {
+        if ($request->has('is_verified'))
+            return view('content.paypal.success');
+
         if ($request->input('paymentId') && $request->input('PayerID')) {
             $transaction = $this->gateway->completePurchase(array(
                 'payer_id'             => $request->input('PayerID'),
@@ -106,7 +109,7 @@ class PaymentController extends Controller
                 $user->level = intval($payment->level);
                 $user->save();
                 
-                return view('content.paypal.success');
+                return redirect('/success?is_verified=' . true . 'payment_id=' . $payment->payment_id);
             } else {
                 return response()->json(['success' => false, 'data' => $response->getMessage()]);
             }
