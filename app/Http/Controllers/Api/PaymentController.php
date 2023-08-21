@@ -104,7 +104,7 @@ class PaymentController extends Controller
 
                 // to get the user and upgrade the  level of user
                 $user = User::find($payment->user_id);
-                return $user;
+                return $payment;
                 $user->level = $payment->level;
                 $user->save();
                 
