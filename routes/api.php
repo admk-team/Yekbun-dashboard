@@ -264,3 +264,5 @@ Route::post('/market-services' ,[MarketServiceContorller::class , 'market_servic
 // Playlist 
 Route::post('/playlists' , [PlaylistController::class , 'playlist'])->name('playlists');
 Route::post('/get-playlist' , [PlaylistController::class , 'get_playlist'])->name('get-playlist');
+// Set music to playlist
+Route::post('/set-music-playlist' , [PlaylistController::class , 'set_music_to_playlist'])->name('set-music-to-playlist');

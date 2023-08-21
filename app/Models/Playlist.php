@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Playlist extends Model
 {
     use HasFactory;
-
-    
             protected $fillable = [
                 "user_id",
                 "playlist_name",
@@ -21,4 +19,7 @@ class Playlist extends Model
                 "history_id"
             ];
 
+    public function PlaylistMusics(){
+        return $this->hasMany(PlaylistMusic::class);
+    }
 }

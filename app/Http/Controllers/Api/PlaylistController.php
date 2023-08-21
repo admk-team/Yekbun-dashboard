@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Playlist;
+use App\Models\PlaylistMusic;
 use Illuminate\Http\Request;
 
 class PlaylistController extends Controller
 {
+
+
 
     protected $fileds = [
         "user_id",
@@ -44,11 +47,55 @@ class PlaylistController extends Controller
     public function get_playlist(Request $request)
     {
 
-        $playlist = Playlist::where('user_id', $request->user_id)->where($request->type, 1)->get();
+        $playlist = Playlist::where('user_id', $request->user_id)->where($request->type, 1)->with('PlaylistMusics')->get();
         if (isset($playlist)) {
             return response()->json(['success' => true, 'data' => $playlist]);
         } else {
             return response()->json(['success' => false, 'data' => $playlist]);
         }
     }
+
+    public function set_music_to_playlist(Request $request) {
+        $request->validate([
+            'playlist_id' => 'required',
+            'musics' => 'array' // Assuming 'musics' is an array of music data
+        ]);
+    
+        $playlist = PlaylistMusic::where('playlist_id', $request->playlist_id)->first();
+
+        if (!$playlist) {
+            $playlist = new PlaylistMusic();
+            $playlist->playlist_id = $request->playlist_id;
+            $playlist->musics = [];
+        }
+    
+        $existingMusics = collect($playlist->musics);
+        $message = null;
+        if(isset($request->musics)){
+
+            foreach ($request->musics as $music) {
+                if (!$existingMusics->contains($music)) {
+                    $existingMusics->push($music);
+                }else{
+                    $message = 'Music Already Exists.';
+                }
+            }
+        }
+        $playlist->musics = $existingMusics->toArray();
+        $playlist->save();
+        if($message){
+            
+            return response()->json(['success'=> false , 'message' => 'Music Already exists.']);
+        }
+    
+        $playlist->musics = $existingMusics;
+        if ($playlist->save()) {
+            return response()->json(['success' => true, 'data' => 'Music added to playlist.']);
+        } else {
+            return response()->json(['success' => false, 'data' => 'Failed to add music.']);
+        }
+    }
+    
+
+
 }
