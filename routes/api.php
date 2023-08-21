@@ -264,5 +264,9 @@ Route::post('/market-services' ,[MarketServiceContorller::class , 'market_servic
 // Playlist 
 Route::post('/playlists' , [PlaylistController::class , 'playlist'])->name('playlists');
 Route::post('/get-playlist' , [PlaylistController::class , 'get_playlist'])->name('get-playlist');
+Route::get('/get-single-playlist/{playlist_id}' , [PlaylistController::class , 'get_single_playlist'])->name('get-single-playlist');
 // Set music to playlist
-Route::post('/set-music-playlist' , [PlaylistController::class , 'set_music_to_playlist'])->name('set-music-to-playlist');
+Route::post('/set-music-playlist' , [PlaylistController::class , 'set_music_to_playlist'])->name('set-music-playlist');
+// fovourite artist 
+Route::post('/favourite-aritst' , [PlaylistController::class , 'favourite_artist'])->name('favourite-aritst');
+// Route::get('/get-music-playlist' , [PlaylistController::class , 'get_music_playlist'])->name('get-music-playlist');

@@ -12,14 +12,14 @@ class Playlist extends Model
                 "user_id",
                 "playlist_name",
                 "visibility",
-                "music_id",
-                "feed_id",
-                "vote_id",
-                "news_id",
-                "history_id"
+                "is_music",
+                "is_feed",
+                "is_vote",
+                "is_news",
+                "is_history"
             ];
 
     public function PlaylistMusics(){
-        return $this->hasMany(PlaylistMusic::class);
+        return $this->hasOne(PlaylistMusic::class);
     }
 }
