@@ -56,8 +56,6 @@ class PaymentController extends Controller
                 'cancelUrl' => url('/api/error'),
             ))->send();
 
-            return $response;
-
             if ($response->isRedirect()) {
                 $data = [
                     'redirect_url' => $response->getRedirectUrl()
