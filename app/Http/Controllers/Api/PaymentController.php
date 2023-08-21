@@ -78,7 +78,6 @@ class PaymentController extends Controller
      */
     public function success(Request $request)
     {
-        return $_GET['level'];
         if ($request->input('paymentId') && $request->input('PayerID')) {
             $transaction = $this->gateway->completePurchase(array(
                 'payer_id'             => $request->input('PayerID'),
@@ -102,6 +101,8 @@ class PaymentController extends Controller
                 $payment->user_id = $request->user_id;
                 $payment->level = $request->level;
                 $payment->save();
+
+                return $payment;
                 // to get the user and upgrade the  level of user
                 $user = User::find($payment->user_id);
                 $user->level = $payment->level;
