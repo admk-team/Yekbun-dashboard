@@ -103,9 +103,8 @@ class PaymentController extends Controller
                 $payment->save();
 
                 // to get the user and upgrade the  level of user
-                $user = User::find($payment->user_id);
-                return $payment;
-                $user->level = $payment->level;
+                $user = User::find(intval($payment->user_id));
+                $user->level = intval($payment->level);
                 $user->save();
                 
                 return view('content.paypal.success');
