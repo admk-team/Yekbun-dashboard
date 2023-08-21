@@ -78,7 +78,7 @@ class PaymentController extends Controller
      */
     public function success(Request $request)
     {
-        if ($request->has('is_verified'))
+        if ($request->has('payment_id'))
             return view('content.paypal.success');
 
         if ($request->input('paymentId') && $request->input('PayerID')) {
@@ -109,7 +109,7 @@ class PaymentController extends Controller
                 $user->level = intval($payment->level);
                 $user->save();
                 
-                return redirect('/api/success?is_verified=' . true . 'payment_id=' . $payment->payment_id);
+                return redirect('/api/success?payment_id=' . $payment->payment_id);
             } else {
                 return response()->json(['success' => false, 'data' => $response->getMessage()]);
             }
