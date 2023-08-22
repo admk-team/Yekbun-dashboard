@@ -94,4 +94,40 @@ class AlbumController extends Controller
 
         }
     }
+
+
+    public function get_favourite_album($user_id){
+        $userFavouriteAlbum = AlbumFavourite::where('user_id' , $user_id)->first();
+        
+        if(!$userFavouriteAlbum){
+            return response()->json(['success' => true , 'message'=> 'No user found.']);
+        }
+        $albums  =[];
+        foreach($userFavouriteAlbum->album_id as $favouriteAlbum){
+            $favouriteAlbum = Album::find($favouriteAlbum);
+            if($favouriteAlbum){
+            $favouriteAlbum->load('artist');
+                $albums[] = $favouriteAlbum;
+            }
+        }
+        if(isset($albums)){
+            $updated_album = [];
+            foreach($albums as $album){
+                $countAlbum = count($album->album);
+                $updated_album[] = [
+                    'id' => $album->id,
+                    'image' => $album->image ,
+                    'total_music' => $countAlbum,
+                    'title' => $album->title,
+                    'artist' => [
+                        'first_name' => $album->artist->first_name,
+                        'last_name' => $album->artist->last_name,
+                        'iamge' => $album->artist->image
+                    ],
+                ];
+            }
+        }
+
+        return response()->json(['success' => true , 'data' => $updated_album]);
+    }
 }

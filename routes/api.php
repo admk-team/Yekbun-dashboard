@@ -273,4 +273,4 @@ Route::get('/get-favourite-artist/{user_id}' , [PlaylistController::class  , 'ge
 // Route::get('/get-music-playlist' , [PlaylistController::class , 'get_music_playlist'])->name('get-music-playlist');
 // Ablbum controller 
 Route::post('/favourite-album' , [AlbumController::class , 'favourite_album'])->name('favourite-album');
-Route::post('/get-favourite-album' , [AlbumController::class , 'favourite_album'])->name('favourite-album');
+Route::get('/get-favourite-album/{user_id}' , [AlbumController::class , 'get_favourite_album'])->name('get-favourite-album');
