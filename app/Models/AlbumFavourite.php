@@ -14,5 +14,5 @@ class AlbumFavourite extends Model
     ];
 
     protected $casts = ['album_id' => 'array'];
-    protected $attributes = ['album_id' => '[]' ];
+    // protected $attributes = ['album_id' => '[]' ];
 }

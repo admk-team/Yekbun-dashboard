@@ -13,5 +13,5 @@ class FavouriteArtist extends Model
         'artist_id'
     ];
     protected $casts = ['artist_id' => 'array'];
-    protected $attributes = ['artist_id' => '[]' ];
+    // protected $attributes = ['artist_id' => '[]' ];
 }
