@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Models\FavouriteArtist;
+use App\Models\Artist;
 use App\Models\Playlist;
-use App\Models\PlaylistMusic;
 use Illuminate\Http\Request;
+use App\Models\PlaylistMusic;
+use App\Models\FavouriteArtist;
+use App\Http\Controllers\Controller;
+
 
 class PlaylistController extends Controller
 {
@@ -150,6 +152,7 @@ class PlaylistController extends Controller
                 }
             }
         }
+        
         $fav_artist->artist_id = $existingArtist->toArray();
         if ($fav_artist->save()) {
             $message = 'Artist ';
@@ -165,6 +168,37 @@ class PlaylistController extends Controller
         } else {
             return response()->json(['success' => false, 'message' => 'Failed to update artist favorites.']);
         }
+    }
+
+    public function get_favourite_artist($user_id){
+        $userFavouriteArtists = FavouriteArtist::where('user_id', $user_id)->first();
+        
+        if(!$userFavouriteArtists){
+            return response()->json(['success' => 'false' , 'message' => 'No user found .']);
+        }
+        $artists = [];
+            foreach ($userFavouriteArtists->artist_id as  $favouriteArtist) {
+                $favouriteArtist = Artist::find($favouriteArtist);
+                if($favouriteArtist){
+                    $favouriteArtist->loadCount('musics');
+                    $artists[] = $favouriteArtist;
+                }
+            }
+
+            if ($artists) {
+                $updated_artists = array_map(function ($artist) {
+                    return [
+                        'id' => $artist->id,
+                        'first_name' => $artist->first_name,
+                        'last_name' => $artist->last_name,
+                        'image' => $artist->image,
+                        'musics_count' => $artist->musics_count
+                    ];
+                }, $artists);
+            }
+
+            return response()->json(['success' => 'true' , 'data' => $updated_artists]);
+            
     }
 
 }

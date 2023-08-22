@@ -33,4 +33,6 @@ class Artist extends Model
     {
         return $this->belongsTo(Region::class, 'province_id');
     }
+
+
 }

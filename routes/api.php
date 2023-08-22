@@ -269,4 +269,8 @@ Route::get('/get-single-playlist/{playlist_id}' , [PlaylistController::class , '
 Route::post('/set-music-playlist' , [PlaylistController::class , 'set_music_to_playlist'])->name('set-music-playlist');
 // fovourite artist 
 Route::post('/favourite-aritst' , [PlaylistController::class , 'favourite_artist'])->name('favourite-aritst');
+Route::get('/get-favourite-artist/{user_id}' , [PlaylistController::class  , 'get_favourite_artist'])->name('get-favourite-artist');
 // Route::get('/get-music-playlist' , [PlaylistController::class , 'get_music_playlist'])->name('get-music-playlist');
+// Ablbum controller 
+Route::post('/favourite-album' , [AlbumController::class , 'favourite_album'])->name('favourite-album');
+Route::post('/get-favourite-album' , [AlbumController::class , 'favourite_album'])->name('favourite-album');
