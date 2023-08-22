@@ -198,7 +198,19 @@ class PlaylistController extends Controller
             }
 
             return response()->json(['success' => 'true' , 'data' => $updated_artists]);
+    }
+
+
+    public function get_favourite_artist_ids($user_id){
+        
+        $userFavouriteArtists = FavouriteArtist::where('user_id', $user_id)->first();
+        if(!$userFavouriteArtists){
+            return response()->json(['success' => 'false' , 'message' => 'No user found .']);
             
+        }
+
+        return response()->json(['success' => 'true' , 'data' => $userFavouriteArtists]);
+        
     }
 
 }

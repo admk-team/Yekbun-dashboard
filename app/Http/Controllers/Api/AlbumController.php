@@ -100,7 +100,7 @@ class AlbumController extends Controller
         $userFavouriteAlbum = AlbumFavourite::where('user_id' , $user_id)->first();
         
         if(!$userFavouriteAlbum){
-            return response()->json(['success' => true , 'message'=> 'No user found.']);
+            return response()->json(['success' => false , 'message'=> 'No user found.']);
         }
         $albums  =[];
         foreach($userFavouriteAlbum->album_id as $favouriteAlbum){
@@ -129,5 +129,16 @@ class AlbumController extends Controller
         }
 
         return response()->json(['success' => true , 'data' => $updated_album]);
+    }
+
+
+    public function get_favourite_album_ids($user_id){
+        $userFavouriteAlbum = AlbumFavourite::where('user_id' , $user_id)->first();
+        
+        if(!$userFavouriteAlbum){
+            return response()->json(['success' => false , 'message'=> 'No user found.']);
+        }
+        return response()->json(['success' => true , 'data'=> $userFavouriteAlbum]);
+
     }
 }
