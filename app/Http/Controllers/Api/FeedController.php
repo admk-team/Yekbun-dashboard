@@ -78,10 +78,9 @@ class FeedController extends Controller
         $limit = $request->limit;
 
         $feedsQuery = Feed::with(['background', 'user']);
-
         $feedsQuery->offset($offset)->limit($limit);
-
         $feeds = $feedsQuery->get();
+
 
         if ($feeds->isNotEmpty()) {
             $feeds->each(function ($feed) use ($id) {
@@ -100,8 +99,19 @@ class FeedController extends Controller
         $data = $feeds->filter(function ($item) {
             return $item->user !== null;
         });
+        
+        $response = ['success' => true, 'data' => $data];
 
-        return response()->json(['success' => true, 'data' => $data]);
+        if(!$data->isEmpty()){
+            $existFeed = Feed::find(++$data[sizeof($data) - 1]->id);
+            if($existFeed == "")
+            {
+                $response['completed'] = true;
+            }
+        }
+        
+
+        return response()->json($response);
     }
 
 
