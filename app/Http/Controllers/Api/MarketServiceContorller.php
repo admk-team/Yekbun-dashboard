@@ -20,9 +20,11 @@ class MarketServiceContorller extends Controller
 
             $request->validate([
                 'title' => 'required',
-                'description' => 'required'
+                'description' => 'required',
+                'gallery' => 'required'
             ]);
     
+            // for about service
             $ads = new Ad();
             $ads->title = $request->title;
             $ads->user_id = $request->user_id;
@@ -34,6 +36,7 @@ class MarketServiceContorller extends Controller
             $ads->phone_no = $request->phone_no;
             $ads->save();
 
+            // for categories
             $categoryData = $request->input('category');
             $subcategoryData =  $request->input('sub_category');
             $servicesData = $request->input('services');
@@ -50,49 +53,31 @@ class MarketServiceContorller extends Controller
                  'mail_contact' => $servicesData['mail_contact'] ?? null,
                  'message' => $servicesData['message'] ?? null
              ]);
+
+             // for our Gallery
+             $market_gallery = new MarketGallery();
+             $img = $request->input('gallery');
+             $image = collect([]);
+     
+             foreach($img  as $gallery){
+                 $image->push($gallery);     
+             }
+             $market_gallery->gallery = json_encode($image);
+             $market_gallery->save();
+
+
+
+             // for view option
+             $market_view = new MarketView();
+             $market_view->mail_contact = $request->mail_contact;
+             $market_view->message = $request->message;
+             $market_view->phone = $request->phone;
+             $market_view->address = $request->address;
+
+
             return response()->json(['success' => true , 'message' => 'Categories saved successfully']);
 
         }
     }
 
-    // Categories Market 
-    public function market_categories(Request $request){
-
-      
-     
-        
-    }
-
-    // Market Gallery
-    public function market_gallery(Request $request){
-        $request->validate([
-            'gallery' => 'required'
-        ]);
-        $market_gallery = new MarketGallery();
-        $img = $request->input('gallery');
-        $image = collect([]);
-
-        foreach($img  as $gallery){
-            $image->push($gallery);     
-        }
-        $market_gallery->gallery = json_encode($image);
-        $market_gallery->save();
-
-        return response()->json(['success' => true , 'message' => 'Gallery saved successfully.']);
-    }
-
-    public function market_view_option(Request $request){
-        
-        $market_view = new MarketView();
-        $market_view->mail_contact = $request->mail_contact;
-        $market_view->message = $request->message;
-        $market_view->phone = $request->phone;
-        $market_view->address = $request->address;
-
-        if($market_view->save()){
-            return response()->json(['success' => true  ,'message' => 'View option saved successfully.']);
-        }else{
-            return response()->json(['success' => false , 'message' => 'Failed to add data.']);
-        }
-    }
 }

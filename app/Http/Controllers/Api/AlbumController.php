@@ -73,7 +73,7 @@ class AlbumController extends Controller
                     $existingAlbum->push($album1);
                     $addedAlbum[] = $album1;
                 }else{
-                    $existingAlbum = $existingAlbum->filter(fn($i)=>($i !== $album1));
+                    $existingAlbum = $existingAlbum->filter(fn($i) => $i !== $album1)->values();
                     $removedAlbum[] = $album1;
                 }
             }
@@ -130,8 +130,7 @@ class AlbumController extends Controller
 
         return response()->json(['success' => true , 'data' => $updated_album]);
     }
-
-
+    
     public function get_favourite_album_ids($user_id){
         $userFavouriteAlbum = AlbumFavourite::where('user_id' , $user_id)->first();
         

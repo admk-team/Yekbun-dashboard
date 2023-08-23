@@ -127,7 +127,7 @@ class PlaylistController extends Controller
     public function favourite_artist(Request $request){
         $request->validate([
             'user_id' => 'required',
-            'artist_id' => 'required'
+            'artist_id' => 'required|array'
         ]);
 
         $fav_artist = FavouriteArtist::where('user_id' , $request->user_id)->first();
@@ -147,14 +147,14 @@ class PlaylistController extends Controller
                     $existingArtist->push($artist);
                     $addedArtists[] =  $artist;
                 }else{
-                $existingArtist = $existingArtist->filter(fn($i)=>($i !== $artist));
+                    $existingArtist = $existingArtist->filter(fn($i) => $i !== $artist)->values();
                     $removedArtists[] = $artist;
                 }
             }
         }
         
         $fav_artist->artist_id = $existingArtist->toArray();
-        if ($fav_artist->save()) {
+        if ($fav_artist->save()) { 
             $message = 'Artist ';
             if (!empty($addedArtists)) {
                 $message .= 'added to';
