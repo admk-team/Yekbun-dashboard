@@ -72,7 +72,8 @@ class FeedController extends Controller
 
     public function fetch_feed($id = "")
     {
-        $feeds = Feed::inRandomOrder()->take(8)->with(['background', 'user'])->get();
+        // $feeds = Feed::inRandomOrder()->take(8)->with(['background', 'user'])->get();
+        $feeds = Feed::all();
         
         if ($feeds != '[]')
             foreach ($feeds as $feed) {
