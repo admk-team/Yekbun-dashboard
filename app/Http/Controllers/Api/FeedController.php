@@ -70,29 +70,41 @@ class FeedController extends Controller
         return response()->json(['success' => true, 'data' => $feeds]);
     }
 
-    public function fetch_feed($id = "")
+
+    public function fetch_feed(Request $request , $id = "")
     {
-        $feeds = Feed::inRandomOrder()->take(8)->with(['background', 'user'])->get();
-        
-        if ($feeds != '[]')
-            foreach ($feeds as $feed) {
+
+        $offset = $request->offset;
+        $limit = $request->limit;
+
+        $feedsQuery = Feed::with(['background', 'user']);
+
+        $feedsQuery->offset($offset)->limit($limit);
+
+        $feeds = $feedsQuery->get();
+
+        if ($feeds->isNotEmpty()) {
+            $feeds->each(function ($feed) use ($id) {
                 $feed->media = json_decode($feed->media);
 
-                if ($id != "") {
+                if ($id !== "") {
                     $reaction_exist = Reaction::where('user_id', $id)->where('feed_id', $feed->id)->first();
 
-                    if ($reaction_exist != "")
+                    if ($reaction_exist !== null) {
                         $feed->reaction = $reaction_exist;
+                    }
                 }
-            }
+            });
+        }
 
         $data = $feeds->filter(function ($item) {
             return $item->user !== null;
         });
 
-
         return response()->json(['success' => true, 'data' => $data]);
     }
+
+
 
     public function get_feed_bg($id)
     {
