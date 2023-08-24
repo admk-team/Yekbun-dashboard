@@ -73,6 +73,7 @@ class FeedController extends Controller
 
     public function fetch_feed(Request $request , $id = "")
     {
+        return response(['success' => true, 'data' => Feed::all()]);
 
         $offset = $request->offset;
         $limit = $request->limit;
