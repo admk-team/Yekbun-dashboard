@@ -40,8 +40,6 @@ class MusicController extends Controller
      */
     public function store(Request $request)
     {
-  
-      
         $request->validate([
             'category_id'=>'required',
           ]); 
@@ -52,12 +50,11 @@ class MusicController extends Controller
       $music->artist_id = $request->artist_id;
       $music->audio = $request->audio_paths??[];
       $music->status = $request->status;
-    //   $music->name = $request->title;
 
         if($music->save()){
-            return redirect()->route('music.index')->with('success', 'Music Has been inserted');
+                return redirect()->route('music.index')->with('success', 'Music Has been inserted');
         }else{
-            return redirect()->route('music.index')->with('error', 'Failed to add music');
+                return redirect()->route('music.index')->with('error', 'Failed to add music');
         }
     }
 
@@ -100,12 +97,12 @@ class MusicController extends Controller
         $music->category_id = $request->category_id;
         $music->artist_id = $request->artist_id;
         $music->audio = $request->audio_paths ?? [];
-        
+        $music->status = $request->status;        
         if($music->update()){
-            return redirect()->route('music.index')->with('success', 'Music Has been Updated');
+            return redirect()->back()->with('success', 'Music Has been Updated');
 
         }else{
-            return redirect()->route('music.index')->with('success', 'Music not updated');
+            return redirect()->back()->with('success', 'Music not updated');
 
         }
     }

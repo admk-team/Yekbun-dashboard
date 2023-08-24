@@ -81,7 +81,7 @@
               <div class="col-md-12">
                 <label class="form-label" for="Status">Status</label>
                 <select class="form-select" name="status">
-                  <option value="" selected>Select Status</option>
+                  <option value="1" selected>Select Status</option>
                   <option value="1">Publish</option>
                   <option value="0">Unpublish</option>
                 </select>
