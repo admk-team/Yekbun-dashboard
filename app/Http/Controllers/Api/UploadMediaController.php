@@ -12,6 +12,10 @@ class UploadMediaController extends Controller
 
     public function index(Request $request)
     {
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif'
+        ]);
+
         $path = UploadMedia::index($request->file('file'));
 
         if ($path == "")
