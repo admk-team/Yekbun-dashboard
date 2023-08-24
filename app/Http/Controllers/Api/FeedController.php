@@ -99,10 +99,10 @@ class FeedController extends Controller
         $data = $feeds->filter(function ($item) {
             return $item->user !== null;
         });
-        
-        $response = ['success' => true, 'data' => $data];
 
+        $response = ['success' => true, 'data' => $data];
         if(!$data->isEmpty()){
+
             $existFeed = Feed::find(++$data[sizeof($data) - 1]->id);
             if($existFeed == "")
             {
@@ -113,7 +113,6 @@ class FeedController extends Controller
 
         return response()->json($response);
     }
-
 
 
     public function get_feed_bg($id)
@@ -130,7 +129,7 @@ class FeedController extends Controller
                 $mediaArray = json_decode($data->media, true);
                 foreach ($mediaArray as $media) {
                     if ($media['type'] == 0) {
-                        $convertedDataArray[] = $media['path'];
+                      $convertedDataArray[] = $media['path'];
                     }
                 }
             }
