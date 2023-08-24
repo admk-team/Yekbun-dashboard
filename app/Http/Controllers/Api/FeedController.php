@@ -73,14 +73,14 @@ class FeedController extends Controller
 
     public function fetch_feed(Request $request , $id = "")
     {
-        return response(['success' => true, 'data' => Feed::with(['background', 'user'])->get()]);
-
         $offset = $request->offset;
         $limit = $request->limit;
 
-        $feedsQuery = Feed::with(['background', 'user']);
-        $feedsQuery->offset($offset)->limit($limit);
-        $feeds = $feedsQuery->get();
+        // $feedsQuery = Feed::with(['background', 'user']);
+        // $feedsQuery->offset($offset)->limit($limit);
+        // $feeds = $feedsQuery->get();
+
+        $feeds = Feed::with(['background', 'user'])->get();
 
 
         if ($feeds->isNotEmpty()) {
