@@ -81,6 +81,7 @@ use App\Http\Controllers\Admin\FanPageTypeController;
 use App\Http\Controllers\Admin\BankTransferController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Api\FeedController;
+use App\Http\Controllers\VideoClipController;
 use App\Models\FanPageType;
 use App\Models\Story;
 
@@ -457,6 +458,15 @@ Route::middleware(['admin.auth', '2fa'])->group(function () use ($controller_pat
     Route::resource('/music', MusicController::class);
     Route::get('/musics/{id}/{status}', [MusicController::class, 'status'])->name('musics-status');
     Route::delete('/music/{id}/music', [MusicController::class, 'deleteMusic'])->name('music.delete-audio');
+
+    // Song
+    Route::resource('/songs', MusicController::class);
+    Route::get('/songs/{id}/{status}', [MusicController::class, 'status'])->name('songs-status');
+
+    // Video Clips
+    Route::resource('/video-clips', VideoClipController::class);
+    Route::get('/video-clips/{id}/{status}', [VideoClipController::class, 'status'])->name('video-clips-status');
+    Route::delete('/video-clips/{id}/clip', [VideoClipController::class, 'deleteVideo'])->name('video-clips.delete-audio');
 
 
     Route::resource('/music-category', MusicCategoryController::class);

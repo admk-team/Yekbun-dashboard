@@ -34,7 +34,7 @@
       <div class="card-body">
         <div class="d-flex align-items-start justify-content-between">
           <div class="content-left">
-            <span>{{ $type == 'music' ? 'Total Music' : 'Total Songs' }}</span>
+            <span>Total Video Clips</span>
             <div class="d-flex align-items-end mt-2">
               <h4 class="mb-0 me-2">21,459</h4>
               <small class="text-success">(+29%)</small>
@@ -112,45 +112,45 @@
 <div class="d-flex justify-content-between">
   <div>
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">{{ $type == 'music' ? 'Music' : 'Song' }}/</span>{{ $type == 'music' ? 'All Music' : 'All Song' }}
+    <span class="text-muted fw-light">Video Clips/</span>All Video Clips
 </h4>
 </div>
 <div class="">
   @can('music.create')
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createmusicModal">{{ $type == 'music' ? 'Add Music' : 'Add Song' }}</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createmusicModal">Add Video Clip</button>
   @endcan
 </div>
 </div>
 
    <!-- Basic Bootstrap Table -->
   <div class="card">
-    <h5 class="card-header">{{ $type == 'music' ? 'Music List' : 'Song List' }}</h5>
+    <h5 class="card-header">Video Clip List</h5>
     <div class="table-responsive text-nowrap">
       <table class="table">
         <thead>
           <tr>
             <th>#</th>
             <th>Category</th>
-            <th>Track</th>
+            <th>Clip</th>
             <th>Status </th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
-          @if(count($music))
-            @foreach($music as $musics)
+          @if(count($video))
+            @foreach($video as $videos)
           <tr>
             <td>{{ $loop->iteration }}</td>
             <td>
-                {{ $musics->music_category->name ?? '' }} 
+                {{ $videos->music_category->name ?? '' }} 
             </td>
             <td>
-              <audio controls>
-              <source src="{{ isset($musics->audio[0]) ? asset('storage/'.$musics->audio[0]) : '' }}">
-              </audio>
+              <video autoplay loop  class="rounded" controls style="width:200px; height:150px;">
+                <source src="{{ isset($videos->video[0]) ? asset('storage/'.$videos->video[0]) : '' }}" >
+              </video>
             </td>
             <td>
-               @if($musics->status == '0')
+               @if($videos->status == '0')
                <span class="badge bg-label-secondary">UnPublish</span>
                @else
              <span class="badge bg-label-success">Publish</span>
@@ -158,27 +158,27 @@
               </td>
             <td>
               <div class="d-flex justify-content-start align-items-center">
-                <span data-bs-toggle="modal" data-bs-target="#editmusicModal{{ $musics->id }}">
+                <span data-bs-toggle="modal" data-bs-target="#editmusicModal{{ $videos->id }}">
                   @can('music.write')
                   <button class="btn" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Edit"><i class="bx bx-edit"></i>
                   @endcan
                   </button>
                 </span>
-                <form action="{{ route('music.destroy', $musics->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
+                <form action="{{ route('video-clips.destroy', $videos->id) }}" onsubmit="confirmAction(event, () => event.target.submit())" method="post" class="d-inline">
                   @method('DELETE')
                   @csrf
                   @can('music.delete')
                   <button type="submit" class="btn btn-sm btn-icon" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="Remove"><i class="bx bx-trash me-1"></i></button>
                   @endcan
                 </form>
-                <x-modal id="editmusicModal{{ $musics->id }}" 
-                title="{{ $type  == 'music' ? 'Edit Music' : 'Edit Songs' }}"
+                <x-modal id="editmusicModal{{ $videos->id }}" 
+                title="Edit Video Clip"
                  saveBtnText="Update" 
                  saveBtnType="submit"
-                  saveBtnForm="editForm{{ $musics->id }}" 
+                  saveBtnForm="editForm{{ $videos->id }}" 
                   size="md">
 
-                  @include('content.include.music.editForm')
+                  @include('content.include.video_clips.editForm')
                 </x-modal>
               </div>
               </td>
@@ -187,7 +187,7 @@
           @endforeach
           @else
           <tr>
-            <td class="text-center" colspan="8"><b>No {{ $type === 'songs'? 'songs': 'music' }} found.<b></td>
+            <td class="text-center" colspan="8"><b>No video clips found.<b></td>
           </tr>
           @endif
         </tbody>
@@ -208,13 +208,13 @@
 {{-- Create Music model --}}
 <x-modal 
 id="createmusicModal" 
-title="{{ $type == 'music' ? 'Create Music' : 'Create Songs' }}"
+title="Create Video Clips"
  saveBtnText="Create" 
  saveBtnType="submit"
   saveBtnForm="createForm" 
   size="md">
     
- @include('content.include.music.createForm')
+ @include('content.include.video_clips.createForm')
 </x-modal>
 
 @section('page-script')

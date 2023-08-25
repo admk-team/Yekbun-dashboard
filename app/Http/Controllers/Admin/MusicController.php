@@ -16,7 +16,7 @@ class MusicController extends Controller
      */
     public function index(Request $request)
    {
-        $type  = $request->type;
+        $type  = $request->segments()[0];
         $music  = Music::where('type',$type)->with('music_category')->get();
         $music_category  = MusicCategory::get();
         $artists = Artist::get();
@@ -41,7 +41,7 @@ class MusicController extends Controller
      */
     public function store(Request $request)
     {
-        $type  = $request->type;
+        $type  = $request->segments()[0];
         $request->validate([
             'category_id'=>'required',
           ]); 
