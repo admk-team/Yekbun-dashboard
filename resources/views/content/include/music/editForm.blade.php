@@ -19,7 +19,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12 mx-auto">
-            <h5 class="mb-4">Music</h5>
+            <h5 class="mb-4">{{ $type == 'music' ? 'Music' : 'Songs' }}</h5>
             <div class="row g-3">
                 {{-- <div class="col-md-12">
                     <label class="form-label" for="fullname">Title</label>
@@ -41,6 +41,7 @@
                     @enderror
                 </div>
                 
+                @if($musics->type != 'music')
                 <div class="col-md-12">
                     <label class="form-label" for="fullname">Artist</label>
                     <select class="form-select" aria-label="Default select example" name="artist_id">
@@ -53,6 +54,7 @@
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+                @endif
                 {{-- <div class="col-md-12">
                     <label class="form-label" for="fullname">Audio</label>
                     <input type="file" name="audio[]" class="form-control" id="audioFile{{ $musics->id }}" accept="audio/*" multiple />
@@ -66,7 +68,7 @@
 
                 <div class="col-12">
                     <div class="card">
-                        <h5 class="card-header">Music Upload</h5>
+                        <h5 class="card-header">Audio Upload</h5>
                         <div class="card-body">
                             <div class="dropzone needsclick" action="/" id="dropzone-audio{{ $musics->id }}">
                                 <div class="dz-message needsclick">
@@ -79,6 +81,21 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-md-12">
+                    <label class="form-label" for="fullname">Status</label>
+                    <select class="form-select" aria-label="Default select example" name="status">
+                        <option value="0" {{ $musics->status == 0 ? 'selected' : '' }}>UnPublish</option>
+                        <option value="1" {{ $musics->status == 1 ? 'selected' : '' }}>Publish</option>
+    
+                    </select>
+                    @error('status')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <input type ="hidden" value="{{ $type ?? '' }}" name="type" />
+
             </div>
         </div>
     </div>

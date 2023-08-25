@@ -94,6 +94,7 @@
                     <div class="col-md-12">
                         <label class="form-label">Status</label>
                         <select class="form-select" aria-label="Default select example" name="status">
+                            <option value="1" selected>Select status</option>
                             <option value="1">Published</option>
                             <option value="0">UnPublished</option>
                         </select>

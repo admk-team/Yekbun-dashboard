@@ -109,6 +109,7 @@ class NewsController extends Controller
         $news->description = $request->description;
         $news->category_id = $request->category_id;
         $news->image = $request->image??[];
+        $news->status = $request->status;
 
         // $asset = collect([]);
         // foreach($request->file('image') as $file){
