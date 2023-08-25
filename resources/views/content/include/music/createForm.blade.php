@@ -17,6 +17,7 @@
                     @enderror
                 </div>
            
+                @if($type != 'music')
                 <div class="col-md-12">
                     <label class="form-label" for="fullname">Select Artist</label>
                     <select class="form-select" aria-label="Default select example" name="artist_id">
@@ -29,7 +30,7 @@
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-      
+                @endif
                <div class="col-12">
                   <div class="card">
                     <h5 class="card-header">Audio Upload</h5>
@@ -57,6 +58,7 @@
                 <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
+            <input type ="hidden" value="{{ $type ?? 'music' }}" name="type" />
         </div>
     </div>
     </div>

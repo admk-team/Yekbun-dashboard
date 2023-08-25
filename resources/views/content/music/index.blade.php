@@ -34,7 +34,7 @@
       <div class="card-body">
         <div class="d-flex align-items-start justify-content-between">
           <div class="content-left">
-            <span>Total Music</span>
+            <span>{{ $type == 'music' ? 'Total Music' : 'Total Songs' }}</span>
             <div class="d-flex align-items-end mt-2">
               <h4 class="mb-0 me-2">21,459</h4>
               <small class="text-success">(+29%)</small>
@@ -112,19 +112,19 @@
 <div class="d-flex justify-content-between">
   <div>
 <h4 class="fw-bold py-3 mb-4">
-    <span class="text-muted fw-light">Music/</span>All Music
+    <span class="text-muted fw-light">{{ $type == 'music' ? 'Music' : 'Song' }}/</span>{{ $type == 'music' ? 'All Music' : 'All Song' }}
 </h4>
 </div>
 <div class="">
   @can('music.create')
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createmusicModal">Add Music</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createmusicModal">{{ $type == 'music' ? 'Add Music' : 'Add Song' }}</button>
   @endcan
 </div>
 </div>
 
    <!-- Basic Bootstrap Table -->
   <div class="card">
-    <h5 class="card-header">Music List</h5>
+    <h5 class="card-header">{{ $type == 'music' ? 'Music List' : 'Song List' }}</h5>
     <div class="table-responsive text-nowrap">
       <table class="table">
         <thead>
@@ -172,7 +172,7 @@
                   @endcan
                 </form>
                 <x-modal id="editmusicModal{{ $musics->id }}" 
-                title="Edit Music"
+                title="{{ $type  == 'music' ? 'Edit Music' : 'Edit Songs' }}"
                  saveBtnText="Update" 
                  saveBtnType="submit"
                   saveBtnForm="editForm{{ $musics->id }}" 
@@ -208,7 +208,7 @@
 {{-- Create Music model --}}
 <x-modal 
 id="createmusicModal" 
-title="Create Music"
+title="{{ $type == 'music' ? 'Create Music' : 'Create Songs' }}"
  saveBtnText="Create" 
  saveBtnType="submit"
   saveBtnForm="createForm" 

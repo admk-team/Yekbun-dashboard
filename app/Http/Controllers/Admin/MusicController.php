@@ -14,12 +14,13 @@ class MusicController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
    {
-        $music  = Music::with('music_category')->get();
+        $type  = $request->type;
+        $music  = Music::where('type',$type)->with('music_category')->get();
         $music_category  = MusicCategory::get();
         $artists = Artist::get();
-        return view('content.music.index' , compact('music' , 'music_category' , 'artists'));
+        return view('content.music.index' , compact('music' , 'music_category' , 'artists' , 'type'));
     }
 
     /**
@@ -40,6 +41,7 @@ class MusicController extends Controller
      */
     public function store(Request $request)
     {
+        $type  = $request->type;
         $request->validate([
             'category_id'=>'required',
           ]); 
@@ -50,11 +52,21 @@ class MusicController extends Controller
       $music->artist_id = $request->artist_id;
       $music->audio = $request->audio_paths??[];
       $music->status = $request->status;
+     $music->type = $request->type;
 
         if($music->save()){
-                return redirect()->route('music.index')->with('success', 'Music Has been inserted');
+            if($type == 'music'){
+                return redirect()->back()->with('success', 'Music Has been inserted');
+            }else{
+                return redirect()->back()->with('success', 'Songs Has been inserted');
+            }
         }else{
-                return redirect()->route('music.index')->with('error', 'Failed to add music');
+            if($type == 'music'){
+                return redirect()->back()->with('error', 'Failed to add music');
+            }else{
+                return redirect()->back()->with('error', 'Failed to add sogns');
+            }
+
         }
     }
 
