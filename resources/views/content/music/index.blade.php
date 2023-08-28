@@ -145,9 +145,13 @@
                 {{ $musics->music_category->name ?? '' }} 
             </td>
             <td>
-              <audio controls>
-              <source src="{{ isset($musics->audio[0]) ? asset('storage/'.$musics->audio[0]) : '' }}">
-              </audio>
+              @if(isset($musics->audio))
+              @foreach($musics->audio as $audio)
+                <audio controls>
+                <source src="{{ isset($audio) ? asset('storage/'.$audio) : '' }}">
+                </audio><br>
+              @endforeach
+              @endif
             </td>
             <td>
                @if($musics->status == '0')
