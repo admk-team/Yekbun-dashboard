@@ -194,7 +194,7 @@
                     <div class="card-header flex-grow-0">
                         <div class="d-flex">
                             <div class="avatar flex-shrink-0 me-3">
-                                <img src="{{ asset('storage/' . ($post->users && $post->users->image? $post->users->image: '../assets/img/avatars/20.png'))  }}" alt="User" class="rounded-circle">
+                                <img src="{{ asset('storage/' . ($post->users && $post->users->image? $post->users->image: '../assets/img/avatars/20.png'))  }}" alt="User" class="rounded-circle" onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'">
                             </div>
                             <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-1">
                                 <div class="me-2">
@@ -206,7 +206,7 @@
                                     <i class='bx bxs-flag-alt text-danger me-4'></i>
                                     @endif
                                     @if ($reportedComments->count() > 0)
-                                    <button @click="showReportedComments = !showReportedComments" class="btn me-3 btn-danger btn-xs">Reported Comments ({{ $reportedComments->count() }})</button>
+                                    <button @click="showReportedComments = !showReportedComments" class="btn me-3 btn-dang er btn-xs">Reported Comments ({{ $reportedComments->count() }})</button>
                                     @endif
                                     <div class="dropup d-none d-sm-block">
                                         <button class="btn p-0" type="button" id="sharedList" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
