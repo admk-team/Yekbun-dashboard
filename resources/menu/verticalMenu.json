@@ -44,7 +44,7 @@
       "permissions": "music.read,music.create,music.write,music.delete",
       "submenu": [
         {
-          "url": "/music?type=music",
+          "url": "/music",
           "name": "Add Music",
           "slug": "music.index",
           "hasNoPermissions": true
@@ -73,12 +73,17 @@
               "hasNoPermissions": true
             },
             {
-              "url": "/music?type=songs",
+              "url": "/songs",
               "name": "Add Songs",
-              "slug": "music.index",
+              "slug": "songs.index",
+              "hasNoPermissions": true
+            },
+            {
+              "url": "/video-clips",
+              "name": "Add Video Clips",
+              "slug": "video-clips.index",
               "hasNoPermissions": true
             }
-           
           ]
         }
       ]
