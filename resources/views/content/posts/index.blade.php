@@ -33,6 +33,8 @@
         color: #696cff !important;
     }
 
+    [x-cloak] { display: none !important; }
+
 </style>
 @endsection
 
@@ -190,7 +192,7 @@
         <!-- Start: Post -->
         <div x-data="{ showComments:false, showReportedComments: false }">
             <div class="card h-100 mb-4">
-                <div x-show="!showComments && !showReportedComments">
+                <div x-show="!showComments && !showReportedComments" >
                     <div class="card-header flex-grow-0">
                         <div class="d-flex">
                             <div class="avatar flex-shrink-0 me-3">
@@ -272,7 +274,7 @@
                             @endif
                         </div>
                         @endif
-                        <div class="post-actions card-actions d-flex align-items-center position-absolute gap-2" style="right:16px; bottom: -21px;">
+                        {{-- <div class="post-actions card-actions d-flex align-items-center position-absolute gap-2" style="right:16px; bottom: -21px;">
                             <button @click="showComments = ! showComments" type="button" class="btn rounded-pill btn-icon btn-label-primary btn-lg shadow">
                                 <span class="tf-icons bx bx-message"></span>
                             </button>
@@ -282,7 +284,7 @@
                             <button type="button" class="btn rounded-pill btn-icon btn-label-danger btn-lg shadow">
                                 <span class="tf-icons bx bx-heart"></span>
                             </button>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="card-body">
                         <div class="d-flex align-item-center justify-content-end">
@@ -308,7 +310,7 @@
                         </div>
                     </div>
                 </div>
-                <div x-show="showComments">
+                <div x-show="showComments" x-cloak>
                     <div class="card-header flex-grow-0 border-bottom">
                         <div class="d-flex">
                             <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-1">
@@ -492,7 +494,7 @@
                         </div>
                     </div>
                 </div>
-                <div x-show="showReportedComments">
+                <div x-show="showReportedComments" x-cloak>
                     <div class="card-header flex-grow-0 border-bottom">
                         <div class="d-flex">
                             <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-1">

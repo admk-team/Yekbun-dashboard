@@ -18,6 +18,7 @@ class MusicController extends Controller
    {
         // phpinfo();
         // exit();
+        
         $type  = $request->segments()[0];
         $music  = Music::where('type',$type)->with('music_category')->get();
         $music_category  = MusicCategory::get();
