@@ -12,10 +12,11 @@
     @csrf
     @method('put')
     <div class="hidden-inputs">
-        
+        @if(isset($musics->audio))
         @foreach($musics->audio as $path)
             <input type="hidden" name="audio_paths[]" value="{{ $path }}" data-path="{{ $path }}">
         @endforeach
+        @endif
     </div>
     <div class="row">
         <div class="col-lg-12 mx-auto">
@@ -179,6 +180,7 @@
                 }
             });
     
+            @if(isset($musics->audio))
             @foreach ($musics->audio as $audio)
                 $("document").ready(()=>{
                     var path = "{{ asset('storage/'.$audio) }}";
@@ -216,6 +218,7 @@
                     });
                 });
             @endforeach
+            @endif
 
         })
     </script>
