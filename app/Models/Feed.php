@@ -32,5 +32,16 @@ class Feed extends Model
 
         return $this->hasMany(Reaction::class , 'feed_id');
     }
-    
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function reports()
+    {
+        return $this->hasMany(Report::class, 'reported_post_id', 'id');
+    }
 }

@@ -24,7 +24,9 @@ class Post extends Model
         'status',
         'likes',
         'shares',
-        'status'
+        'status',
+        'media',
+        'type'
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -32,10 +34,10 @@ class Post extends Model
         return LogOptions::defaults();
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class, 'user_id');
+    // }
 
     public function comments()
     {
@@ -46,4 +48,28 @@ class Post extends Model
     {
         return $this->hasMany(Report::class, 'reported_post_id', 'id');
     }
+
+   
+
+    public function background(){
+        return $this->hasMany(BackgroundFeed::class  , 'id' , 'background_id');
+    }
+ 
+    public function user(){
+        return $this->hasMany(User::class , 'id' , 'user_id');
+    }
+    public function collections()
+    {
+        return $this->belongsToMany(Collection::class, 'collection_feeds', 'feed_id', 'collection_id');
+    }
+    public function reactions(){
+
+        return $this->hasMany(Reaction::class , 'feed_id');
+    }
+ 
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+ 
 }
