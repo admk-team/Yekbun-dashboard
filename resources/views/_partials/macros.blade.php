@@ -1,5 +1,5 @@
 
-<img src="{{ asset('assets/img/ff.png') }}" width="{{ $width }}">
+<img src="{{ asset('assets/img/ff.png') }}" width="{{ $width }}" style="margin-left:-40px">
 
 {{-- <svg width="{{ $width }}" viewBox="0 0 25 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
