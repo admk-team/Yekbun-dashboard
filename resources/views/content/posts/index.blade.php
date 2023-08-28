@@ -194,11 +194,11 @@
                     <div class="card-header flex-grow-0">
                         <div class="d-flex">
                             <div class="avatar flex-shrink-0 me-3">
-                                <img src="{{ asset('storage/' . ($post->user && $post->user->image? $post->user->image: '../assets/img/avatars/20.png'))  }}" alt="User" class="rounded-circle">
+                                <img src="{{ asset('storage/' . ($post->users && $post->users->image? $post->users->image: '../assets/img/avatars/20.png'))  }}" alt="User" class="rounded-circle">
                             </div>
                             <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-1">
                                 <div class="me-2">
-                                    <h5 class="mb-0">{{ $post->user? $post->user->name: 'Admin' }}</h5>
+                                    <h5 class="mb-0">{{ $post->users? $post->users->name: 'Admin' }}</h5>
                                     <small class="text-muted">{{ $post->created_at->format('d M Y') }} at {{ $post->created_at->format('h:i A') }}</small>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center">
@@ -222,26 +222,26 @@
                                                 </button>
                                             </form>
                                             
-                                            <form action="{{ $post->user? route('posts.destroyAndFlagUser', ['id' => $post->id, 'user_id' => $post->user->id]): '' }}" method="post" {!! $post->user? 'onsubmit="confirmActionFlag(event, () => event.target.submit())"': '' !!}>
+                                            <form action="{{ $post->users? route('posts.destroyAndFlagUser', ['id' => $post->id, 'user_id' => $post->users->id]): '' }}" method="post" {!! $post->users? 'onsubmit="confirmActionFlag(event, () => event.target.submit())"': '' !!}>
                                                 @method('DELETE')
                                                 @csrf
-                                                <button type="{{ $post->user? 'submit': 'button' }}" {!! $post->user? '': 'onclick="confirmActionFlag(event, () => event.target.click())"' !!} class="dropdown-item" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true">
+                                                <button type="{{ $post->users? 'submit': 'button' }}" {!! $post->users? '': 'onclick="confirmActionFlag(event, () => event.target.click())"' !!} class="dropdown-item" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true">
                                                     Remove - Flag User<br>
                                                     <small class="text-muted">Remove Feed - Flag User</small>
                                                 </button>
                                             </form>
-                                            <form action="{{ $post->user? route('posts.destroyAndBlockUser', ['id' => $post->id, 'user_id' => $post->user->id]): '' }}" method="post" {!! $post->user? 'onsubmit="confirmActionBlock(event, () => event.target.submit())"': '' !!}>
+                                            <form action="{{ $post->users? route('posts.destroyAndBlockUser', ['id' => $post->id, 'user_id' => $post->users->id]): '' }}" method="post" {!! $post->users? 'onsubmit="confirmActionBlock(event, () => event.target.submit())"': '' !!}>
                                                 @method('DELETE')
                                                 @csrf
-                                                <button type="{{ $post->user? 'submit': 'button' }}"  {!! $post->user? '': 'onclick="confirmActionBlock(event, () => event.target.click())"' !!} class="dropdown-item" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true">
+                                                <button type="{{ $post->users? 'submit': 'button' }}"  {!! $post->users? '': 'onclick="confirmActionBlock(event, () => event.target.click())"' !!} class="dropdown-item" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true">
                                                     Remove Block<br>
                                                     <small class="text-muted">Remove Feed - Block User</small>
                                                 </button>
                                             </form>
-                                            <form action="{{ $post->user? route('posts.destroyAndRemoveUser', $post->user->id): '' }}" method="post" {!! $post->user? 'onsubmit="confirmActionAccount(event,() => event.target.submit())"':'' !!}>
+                                            <form action="{{ $post->users? route('posts.destroyAndRemoveUser', $post->users->id): '' }}" method="post" {!! $post->users? 'onsubmit="confirmActionAccount(event,() => event.target.submit())"':'' !!}>
                                                 @method('DELETE')
                                                 @csrf
-                                                <button type="{{ $post->user? 'submit': 'button' }}"{!! $post->user? '' : 'onclick="confirmActionAccount(event,() => event.target.click())"' !!} class="dropdown-item" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true">
+                                                <button type="{{ $post->users? 'submit': 'button' }}"{!! $post->users? '' : 'onclick="confirmActionAccount(event,() => event.target.click())"' !!} class="dropdown-item" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true">
                                                     Remove User<br>
                                                     <small class="text-muted">Remove Account - IMEI</small>
                                                 </button>
@@ -252,13 +252,16 @@
                             </div>
                         </div>
                     </div>
-                    @if ($post->content)
-                    <div class="post-text px-4 mb-2">{{ $post->content }}</div>
+                    @if ($post->description)
+                    <div class="post-text px-4 mb-2">{{ $post->description }}</div>
                     @endif
                     <div class="post-media position-relative">
-                        @if ($post->image)
+                        @if ($post->media)
                         <div class="image-wrap overflow-hidden d-flex align-items-center" style="height: 360px;">
-                            <img class="w-100" src="{{ asset('storage/'.$post->image) }}" alt="Card image cap">
+                            @php
+                                $convertedJson = json_decode($post->media);
+                            @endphp
+                            <img class="w-100" src="{{$convertedJson[0]->path}}" alt="Card image cap">
                         </div>
                         @endif
                         <div class="post-actions card-actions d-flex align-items-center position-absolute gap-2" style="right:16px; bottom: -21px;">
@@ -274,8 +277,8 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="d-flex align-item-center justify-content-between">
-                            <ul class="list-unstyled m-0 d-flex align-items-center avatar-group">
+                        <div class="d-flex align-item-center justify-content-end">
+                            {{-- <ul class="list-unstyled m-0 d-flex align-items-center avatar-group">
                                 <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar pull-up" aria-label="Vinnie Mostowy" data-bs-original-title="Vinnie Mostowy">
                                     <img class="rounded-circle" src="http://127.0.0.1:8080/assets/img/avatars/5.png" alt="Avatar">
                                 </li>
@@ -288,7 +291,7 @@
                                 <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar pull-up" aria-label="Darcey Nooner" data-bs-original-title="Darcey Nooner">
                                     <img class="rounded-circle" src="http://127.0.0.1:8080/assets/img/avatars/10.png" alt="Avatar">
                                 </li>
-                            </ul>
+                            </ul> --}}
                             <div class="card-actions d-flex align-items-center">
                                 <a href="javascript:;" class="text-muted me-3"><i class="bx bx-heart me-1"></i> 236</a>
                                 <a @click="showComments = ! showComments" href="javascript:;" class="text-muted me-3"><i class="bx bx-message me-1"></i> 12</a>
