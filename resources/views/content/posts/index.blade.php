@@ -261,7 +261,15 @@
                             @php
                                 $convertedJson = json_decode($post->media);
                             @endphp
-                            <img class="w-100" src="{{$convertedJson[0]->path}}" alt="Card image cap">
+                            @if(isset($convertedJson))
+                            @if($convertedJson[0]->type == 0)
+                                <img class="w-100" src="{{$convertedJson[0]->path}}" alt="Card image cap">
+                            @else
+                                <video  controls class="w-100">
+                                    <source src="{{$convertedJson[0]->path}}">
+                                </video>
+                                @endif
+                            @endif
                         </div>
                         @endif
                         <div class="post-actions card-actions d-flex align-items-center position-absolute gap-2" style="right:16px; bottom: -21px;">
