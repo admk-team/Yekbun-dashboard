@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 class AnimationEmojiController extends Controller
 {
-    public function get_all_emoji($userId=0,$type=''){
+    public function get_all_emoji($userId = 0,$type = '', $value = ''){
 
         $emoji = AnimationEmoji::get();
         if($emoji->isEmpty()){
@@ -17,7 +17,7 @@ class AnimationEmojiController extends Controller
         }else{
             if($userId != '' & $type != '' ){
                 
-                $reaction_exists = Reaction::where('user_id',$userId)->whereNotNull($type.'_id')->select('emoji_id')->first();
+                $reaction_exists = Reaction::where('user_id',$userId)->where($type.'_id', $value)->select('emoji_id')->first();
             }
             $emojiArray = $emoji->toArray(); 
             $collectionLength = count($emojiArray);
