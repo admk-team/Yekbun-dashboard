@@ -30,7 +30,7 @@ class PostController extends Controller
         switch ($show) {
             case "all":
                 $posts = Post::orderBy("updated_at", "desc")->get();
-            
+                // return  json_decode($posts->media);
                 $animated_emoji =[];
                 break;
             case "fanpage":

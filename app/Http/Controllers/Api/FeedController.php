@@ -7,6 +7,7 @@ use App\Models\Feed;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\PostGallery;
 use App\Models\Reaction;
 
 class FeedController extends Controller
@@ -29,7 +30,7 @@ class FeedController extends Controller
         $post = new Post();
         $post->title = $request->title ?? '';
         $post->description = $request->description;
-        $post->type = $request->type;
+        // $post->type = $request->type;
         $post->status = $request->status;
 
         if ($request->has('backgroundId'))
@@ -44,6 +45,27 @@ class FeedController extends Controller
         $post->media = $request->has('media') ? json_encode($request->media) : '{}';
 
         if ($post->save()) {
+            $id = $post->id;
+            foreach($request->media  as $media){
+                $mediaType = $media['type'];
+                $mediaGallery = $media['url'];
+                $post_gallery = new PostGallery();
+                $post_gallery->post_id = $id;
+                $post_gallery->media_url = $mediaGallery;
+                $post_gallery->media_type =$mediaType;
+                $post_gallery->user_id = $request->userId;
+                if($request->has('news_id')){
+                    $post_gallery->news_id = $request->news_id;
+                }
+                if($request->has('vote_id')){
+                    $post_gallery->post_id = $request->post_id;
+                }
+                if($request->has('history_id')){
+                    $post_gallery->history_id = $request->history_id;
+                }
+                $post_gallery->save();
+            }
+
             return response()->json(['success' => true, 'message' => 'post successfully added.']);
         } else {
             return response()->json(['success' => false, 'data' => 'Failed to add post.']);
@@ -52,7 +74,7 @@ class FeedController extends Controller
 
     public function get_first_feed($user_id)
     {
-        $post = Post::where('user_id', $user_id)->with(['background', 'user'])->first();
+        $post = Post::where('user_id', $user_id)->with(['background', 'user' , 'gallery'])->first();
         if (isset($post)) {
             $post->media = json_decode($post->media);
             return response()->json(['success' => true, 'data' => $post]);
@@ -61,7 +83,7 @@ class FeedController extends Controller
 
     public function get_feed($user_id)
     {
-        $posts = Post::with(['background', 'user'])->where('user_id', $user_id)->get();
+        $posts = Post::with(['background', 'user' , 'gallery'])->where('user_id', $user_id)->get();
 
         if ($posts != '[]')
             foreach ($posts as $post) {
@@ -77,7 +99,7 @@ class FeedController extends Controller
         $offset = $request->offset;
         $limit = $request->limit;
 
-        $postsQuery = Post::with(['background', 'user']);
+        $postsQuery = Post::with(['background', 'user' , 'gallery']);
         $postsQuery->offset($offset)->limit($limit);
         $posts = $postsQuery->get();
 
@@ -115,11 +137,14 @@ class FeedController extends Controller
     }
 
 
+    // Feed image get
 
     public function get_feed_bg($id)
     {
 
-        $post_bg = Post::select('media')->where('user_id', $id)->get();
+        // $post_bg = Post::select('media')->where('user_id', $id)->get();
+        $post_bg = PostGallery::select('media_url' , 'media_type')->where('user_id', $id)->get();
+
         if (isset($post_bg)) {
 
             // Create an empty array to store the converted data
@@ -127,12 +152,9 @@ class FeedController extends Controller
 
             // Loop through the array and convert the "media" values
             foreach ($post_bg as $data) {
-                $mediaArray = json_decode($data->media, true);
-                foreach ($mediaArray as $media) {
-                    if ($media['type'] == 0) {
-                        $convertedDataArray[] = $media['path'];
+                    if ($data->media_type == 0) {
+                        $convertedDataArray[] = $data->media_url;
                     }
-                }
             }
 
             $images = array_slice($convertedDataArray, 0, 4);
@@ -142,9 +164,11 @@ class FeedController extends Controller
         return ['success' => false, 'message' => 'No image found..'];
     }
 
+    // Feed get all imge
     public function get_all($id)
     {
-        $post_bg = Post::select('media')->where('user_id', $id)->get();
+        // $post_bg = Post::select('media')->where('user_id', $id)->get();
+        $post_bg = PostGallery::select('media_url','media_type')->where('user_id', $id)->get();
 
         if (isset($post_bg)) {
 
@@ -153,16 +177,12 @@ class FeedController extends Controller
 
             // Loop through the array and convert the "media" values
             foreach ($post_bg as $data) {
-                $mediaArray = json_decode($data->media, true);
-
-                foreach ($mediaArray as $media) {
-                    if ($media['type'] == 0) {
-                        $convertedDataArray[] = $media['path'];
+                    if ($data->media_type == 0) {
+                        $convertedDataArray[] = $data->media_url;
                     }
-                }
             }
 
-            return ['success', true, 'data' => $convertedDataArray];
+            return ['success'=> true, 'data' => $convertedDataArray];
         }
 
         return ['success' => false, 'message' => 'No image found..'];
@@ -170,23 +190,20 @@ class FeedController extends Controller
 
     public function get_feed_background_video($id)
     {
-        $post_video = Post::select('media')->where('user_id', $id)->get();
+        // $post_video = Post::select('media')->where('user_id', $id)->get();
+        $post_video = PostGallery::select('media_url' , 'media_type')->where('user_id', $id)->get();
 
         if (isset($post_video)) {
             // create empty array
             $converteedDataArray = [];
 
             foreach ($post_video as $data) {
-                $mediaArray = json_decode($data->media, true);
-
-                foreach ($mediaArray as $media) {
-                    if ($media['type'] == 1) {
-                        $convertedDataArray[] = $media['path'];
+                    if ($data->media_type == 1) {
+                        $converteedDataArray[] = $data->media_url;
                     }
-                }
             }
 
-            $videos = array_slice($convertedDataArray, 0, 4);
+            $videos = array_slice($converteedDataArray, 0, 4);
             return response()->json(['success' => true, 'data' => $videos]);
         }
         return ['error' => false, 'message' => 'No video found .'];
@@ -194,17 +211,15 @@ class FeedController extends Controller
 
     public function get_all_feed_videos($id)
     {
-        $post_videos = Post::select('media')->where('user_id', $id)->get();
+        // $post_videos = Post::select('media')->where('user_id', $id)->get();
+        $post_videos = PostGallery::select('media_url' , 'media_type')->where('user_id', $id)->get();
 
         if (isset($post_videos)) {
             $convertedDataArray = [];
             foreach ($post_videos as $data) {
-                $mediaArray = json_decode($data->media, true);
-                foreach ($mediaArray as $media) {
-                    if ($media['type'] == 1) {
-                        $convertedDataArray[] = $media['path'];
+                    if ($data->media_type == 1) {
+                        $convertedDataArray[] = $data->media_url;
                     }
-                }
             }
             return ['success' => true, 'data' => $convertedDataArray];
         }
@@ -214,7 +229,8 @@ class FeedController extends Controller
     public function get_feed_media($id)
     {
         $post = Post::find($id);
-
+        $new_post = $post->load('gallery');
+        return  $new_post;
         if ($post == '')
             return response()->json(['success' => false, 'message' => 'No post found by the id.']);
 
@@ -227,31 +243,17 @@ class FeedController extends Controller
     // checking thisssssssssssss.................................................
     public function feed_media_delete(Request $request)
     {
-        return $request;
-        $feeds = Post::where('user_id', $request->user_id)->get();
+    
+        $feeds = Post::with('gallery')->where('user_id', $request->user_id)->get();
+
         foreach ($feeds as $feed) {
-            $media = json_decode($feed->media);
-
-            foreach ($media as $item) {
-                if ($item->path == $request->path) {
-                    $media_feed = Post::find($feed->id);
-
-                    $feed_media = collect(json_decode($media_feed->media));
-
-                    $updated_media = $feed_media->filter(function ($single_media) use ($request) {
-                        return $single_media->path !== $request->path;
-                    });
-
-                    $new_media = array_values($updated_media->toArray());
-
-                    $media_feed->media = $new_media;
-                    $media_feed->save();
-
-                    return response()->json(['success' => true, 'message' => 'Successfully deleted.']);
-                }
+            $feed->delete(); 
+            foreach ($feed->gallery as $gallery) {
+                $gallery->delete();
             }
         }
-
-        return response()->json(['success' => false, 'message' => 'Not found.']);
+        
+        return response()->json(['success' => true, 'message' => 'Posts deleted successfully.']);
+            
     }
 }

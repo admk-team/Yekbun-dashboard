@@ -13,6 +13,8 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/dropzone/dropzone.css')}}" />
 
 @endsection
+
+
 @section('page-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-icons.css')}}" />
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -259,19 +261,22 @@
                     @endif
                     <div class="post-media position-relative">
                         @if ($post->media)
+                        @php
+                            $convertedJson  = json_decode($post->media);
+                        @endphp
                         <div class="image-wrap overflow-hidden d-flex align-items-center" style="height: 360px;">
-                            @php
-                                $convertedJson = json_decode($post->media);
-                            @endphp
-                            @if(isset($convertedJson))
-                            @if($convertedJson[0]->type == 0)
-                                <img class="w-100" src="{{$convertedJson[0]->path}}" alt="Card image cap">
-                            @else
-                                <video  controls class="w-100">
-                                    <source src="{{$convertedJson[0]->path}}">
-                                </video>
+                      
+                         @foreach($convertedJson as $gallery)
+                                @if($gallery->type == 0)
+                                        <img class="w-100" src="{{$gallery->url}}" alt="Card image cap">
+                                        
+                                @elseif($gallery->type == 1 )
+                                        <video  controls class="w-100">
+                                            <source src="{{$gallery->url}}">
+                                        </video>
                                 @endif
-                            @endif
+
+                        @endforeach
                         </div>
                         @endif
                         {{-- <div class="post-actions card-actions d-flex align-items-center position-absolute gap-2" style="right:16px; bottom: -21px;">

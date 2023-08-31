@@ -22,7 +22,8 @@ class CommentController extends Controller
         "music_id",
         "emoji_id",
         "audio_path",
-        "duration"
+        "duration",
+        "post_gallery_id"
     ];
 
     public function store_comment(Request $request)
@@ -34,7 +35,7 @@ class CommentController extends Controller
         ]);
 
         $comment = new Comment;
-
+        
         foreach ($this->fields as $item) {
             if ($request->has($item))
                 $comment[$item] = $request[$item];
@@ -50,13 +51,14 @@ class CommentController extends Controller
 
     public function get_comment($type, $id)
     {
+       
         $comments = Comment::where($type, $id)
             ->with(['user' => function ($query) {
                 $query->select('id', 'name', 'image');
-            }])
+            }])->with('gallery')
             ->orderBy('id', 'desc')
             ->get();
-
+    
         $formattedComments = $comments->map(function ($comment) {
             $comment->time = $this->formatCreatedAt($comment->created_at);
             return $comment;

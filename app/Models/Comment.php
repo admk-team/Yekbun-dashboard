@@ -30,7 +30,8 @@ class Comment extends Model
         "music_id",
         "emoji_id",
         "audio_path",
-        "duration"
+        "duration",
+        "post_gallery_id"
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -51,5 +52,10 @@ class Comment extends Model
     public function reports()
     {
         return $this->hasMany(Report::class, 'reported_comment_id', 'id');
+    }
+
+    public function gallery()
+    {
+        return $this->belongsTo(PostGallery::class, 'post_gallery_id');
     }
 }

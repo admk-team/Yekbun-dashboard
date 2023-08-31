@@ -183,7 +183,7 @@ Route::get('/get-feed/{id}', [FeedController::class, 'get_feed'])->name('get-fee
 Route::get('/get-first-feed/{id}', [FeedController::class, 'get_first_feed'])->name('get-feed-first');
 Route::get('/get-feed-bg/{id}', [FeedController::class, 'get_feed_bg'])->name('get-feed-bg');
 Route::get('/get-feed-background/{id}', [FeedController::class, 'get_all'])->name('get-feed-background');
-Route::get('feed-background-video/{id}', [FeedController::class, 'get_feed_background_video'])->name('feed-background-video');
+Route::get('/feed-background-video/{id}', [FeedController::class, 'get_feed_background_video'])->name('feed-background-video');
 Route::get('/get-all-videos/{id}', [FeedController::class, 'get_all_feed_videos'])->name('get-all-videos');
 Route::get('/feed/media/{id}', [FeedController::class, 'get_feed_media'])->name('feed.media');
 Route::get('/feed/media-delete', [FeedController::class, 'feed_media_delete'])->name('feed.media.delete');
@@ -233,7 +233,7 @@ Route::get('/voting-details/{id}/{user_id?}', [VotingController::class, 'get_det
 Route::post('/voting/store-reaction', [VotingController::class, 'store_reaction']);
 
 //Animation Emojji
-Route::get('/get-all-emoji' , [AnimationEmojiController::class  , 'get_all_emoji'])->name('get-all-emoji');
+Route::get('/get-all-emoji/{userId?}/{type?}' , [AnimationEmojiController::class  , 'get_all_emoji'])->name('get-all-emoji');
 
 // Reaction 
 Route::post('/store-reaction' , [ReactionController::class, 'store_reaction'])->name('store-reaction');
