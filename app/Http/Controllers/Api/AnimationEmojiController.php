@@ -22,7 +22,7 @@ class AnimationEmojiController extends Controller
             $emojiArray = $emoji->toArray(); 
             $collectionLength = count($emojiArray);
             $splitData = array_chunk($emojiArray, 4);
-            return response()->json(['success' =>true, 'data' => $splitData , 'exist' => $reaction_exists]);
+            return response()->json(['success' =>true, 'data' => $splitData , 'exist' => $reaction_exists ?? '']);
         }
     }
 }
