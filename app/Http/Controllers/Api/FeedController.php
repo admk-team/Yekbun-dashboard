@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\PostGallery;
 use App\Models\Reaction;
+use FFMpeg\FFMpeg;
 
 class FeedController extends Controller
 {
@@ -27,6 +28,7 @@ class FeedController extends Controller
 
     public function add_feed(Request $request)
     {
+
         $post = new Post();
         $post->title = $request->title ?? '';
         $post->description = $request->description;
@@ -121,6 +123,8 @@ class FeedController extends Controller
         $data = $posts->filter(function ($item) {
             return $item->user !== null;
         });
+
+
         
         $response = ['success' => true, 'data' => $data];
 

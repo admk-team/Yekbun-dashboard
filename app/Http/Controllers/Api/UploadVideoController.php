@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\UplaodVideo;
 use Illuminate\Http\Request;
 
+
 class UploadVideoController extends Controller
 {
     /**
@@ -13,6 +14,9 @@ class UploadVideoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+  
+     
     public function index()
     {
         return response()->json(['Upload Video' =>UplaodVideo::get()] , 200);
