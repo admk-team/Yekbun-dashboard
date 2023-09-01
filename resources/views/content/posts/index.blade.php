@@ -260,22 +260,18 @@
                     <div class="post-text px-4 mb-2">{{ $post->description }}</div>
                     @endif
                     <div class="post-media position-relative">
-                        @if ($post->media)
-                        @php
-                            $convertedJson  = json_decode($post->media);
-                        @endphp
+                        @if ($post->gallery)
                         <div class="image-wrap overflow-hidden d-flex align-items-center" style="height: 360px;">
                       
-                         @foreach($convertedJson as $gallery)
-                                @if($gallery->type == 0)
-                                        <img class="w-100" src="{{$gallery->url}}" alt="Card image cap">
-                                        
-                                @elseif($gallery->type == 1 )
+                         @foreach($post->gallery as $gallery)
+                                @if($gallery->media_type == 0)
+                                        <img class="w-100" src="{{$gallery->media_url}}" alt="Card image cap">   
+                                @elseif($gallery->media_type == 1 )
                                         <video  controls class="w-100">
-                                            <source src="{{$gallery->url}}">
+                                            <source src="{{$gallery->media_url}}">
                                         </video>
                                 @endif
-
+                                
                         @endforeach
                         </div>
                         @endif

@@ -48,7 +48,7 @@ class FeedController extends Controller
             $id = $post->id;
             foreach($request->media  as $media){
                 $mediaType = $media['type'];
-                $mediaGallery = $media['url'];
+                $mediaGallery = $media['path'];
                 $post_gallery = new PostGallery();
                 $post_gallery->post_id = $id;
                 $post_gallery->media_url = $mediaGallery;

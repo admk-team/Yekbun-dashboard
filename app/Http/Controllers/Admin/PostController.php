@@ -29,12 +29,11 @@ class PostController extends Controller
         
         switch ($show) {
             case "all":
-                $posts = Post::orderBy("updated_at", "desc")->get();
-                // return  json_decode($posts->media);
+                $posts = Post::with('gallery')->orderBy("updated_at", "desc")->get();
                 $animated_emoji =[];
                 break;
             case "fanpage":
-                $posts = Post::orderBy("updated_at", "desc")->get();
+                $posts = Post::with('gallery')->orderBy("updated_at", "desc")->get();
                 $animated_emoji=[];
                 break;
             case "reported":
@@ -136,7 +135,7 @@ class PostController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $id               
      * @return \Illuminate\Http\Response
      */
     public function update(UpdatePostRequest $request, $id)
