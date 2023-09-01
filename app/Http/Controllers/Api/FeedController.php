@@ -30,7 +30,7 @@ class FeedController extends Controller
         $post = new Post();
         $post->title = $request->title ?? '';
         $post->description = $request->description;
-        // $post->type = $request->type;
+        $post->type = $request->type;
         $post->status = $request->status;
 
         if ($request->has('backgroundId'))
