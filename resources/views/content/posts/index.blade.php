@@ -261,9 +261,9 @@
                     @endif
                     <div class="post-media position-relative">
                         @if ($post->gallery)
-                        <div class="image-wrap overflow-hidden d-flex align-items-center" style="height: 360px;">
-                      
-                         @foreach($post->gallery as $gallery)
+                        <div class="row">
+                            @foreach($post->gallery as $gallery)
+                            <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
                                 @if($gallery->media_type == 0)
                                         <img class="w-100" src="{{$gallery->media_url}}" alt="Card image cap">   
                                 @elseif($gallery->media_type == 1 )
@@ -272,8 +272,8 @@
                                         </video>
                                 @endif
                                 
+                            </div>
                         @endforeach
-                        </div>
                         @endif
                         {{-- <div class="post-actions card-actions d-flex align-items-center position-absolute gap-2" style="right:16px; bottom: -21px;">
                             <button @click="showComments = ! showComments" type="button" class="btn rounded-pill btn-icon btn-label-primary btn-lg shadow">

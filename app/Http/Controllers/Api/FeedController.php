@@ -42,7 +42,7 @@ class FeedController extends Controller
         if ($request->has('fanpageId'))
             $post->fanpage_id = $request->fanpageId;
 
-        $post->media = $request->has('media') ? json_encode($request->media) : '{}';
+        // $post->media = $request->has('media') ? json_encode($request->media) : '{}';
 
         if ($post->save()) {
             $id = $post->id;
@@ -99,7 +99,7 @@ class FeedController extends Controller
         $offset = $request->offset;
         $limit = $request->limit;
 
-        $postsQuery = Post::with(['background', 'user' , 'gallery']);
+        $postsQuery = Post::with(['background:id,title,image,created_at', 'user:id,name,image' , 'gallery:id,post_id,media_type,media_url,created_at']);
         $postsQuery->offset($offset)->limit($limit);
         $posts = $postsQuery->get();
 
@@ -130,9 +130,7 @@ class FeedController extends Controller
             {
                 $response['completed'] = true;
             }
-        }
-        
-
+        }        
         return response()->json($response);
     }
 
