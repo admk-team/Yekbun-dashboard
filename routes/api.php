@@ -233,7 +233,7 @@ Route::get('/voting-details/{id}/{user_id?}', [VotingController::class, 'get_det
 Route::post('/voting/store-reaction', [VotingController::class, 'store_reaction']);
 
 //Animation Emojji
-Route::get('/get-all-emoji/{userId?}/{type?}' , [AnimationEmojiController::class  , 'get_all_emoji'])->name('get-all-emoji');
+Route::get('/get-all-emoji/{userId?}/{type?}/{value?}' , [AnimationEmojiController::class  , 'get_all_emoji'])->name('get-all-emoji');
 
 // Reaction 
 Route::post('/store-reaction' , [ReactionController::class, 'store_reaction'])->name('store-reaction');
