@@ -43,8 +43,8 @@ class CommentController extends Controller
 
         $comment->save();
 
-        $comment->time = $this->formatCreatedAt($comment->created_at);
-        $comment->user = $comment->user;
+        // $comment->time = $this->formatCreatedAt($comment->created_at);
+        // $comment->user = $comment->user;
 
         return response()->json(['success' => true, 'data' => $comment, 'message' => 'Comment saved.']);
     }
