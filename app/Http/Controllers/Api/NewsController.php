@@ -141,21 +141,16 @@ class NewsController extends Controller
 
     public function category_news($id)
     {
-        $news = News::where('category_id', $id)
-            ->inRandomOrder()
-            ->limit(8)
-            ->get();
-
-        foreach ($news as $new) {
-            $new->image = $new->image;
+        $news = News::select('id','title','description','category_id')->with('gallery')->where('category_id', $id)->inRandomOrder()->limit(8)->get();
+        if($news->isNotEmpty()){
+            return response()->json(['success' => true, 'data' => $news]);
         }
-
-        return response()->json(['success' => true, 'data' => $news]);
+        return response()->json(['success' => false , 'message' => 'No news found.']);
     }
 
     public function cover_news()
     {
-        $news = News::limit(3)->get();
+        $news = News::select('id','title','description','category_id')->with('gallery')->limit(3)->get();
 
         return response()->json(['success' => true, 'data' => $news]);
     }
@@ -169,19 +164,16 @@ class NewsController extends Controller
 
     public function detail($id)
     {
-        $news = News::with(['news_category'])->find($id);
-
+        $news = News::select('id','title','description','category_id')->with(['news_category','gallery'])->find($id);
         return response()->json(['success' => true, 'data' => $news]);
     }
 
     public function search(Request $request)
     {
-        $news = News::where('title', 'like', '%' . $request->search . '%')->get();
-
-        foreach ($news as $new) {
-            $new->image = json_decode($new->image);
+        $news = News::select('id','title','description','category_id')->with('gallery')->where('title', 'like', '%' . $request->search . '%')->get();
+        if($news->isNotEmpty()){
+            return response()->json(['success' => true, 'data' => $news]);
         }
-
-        return response()->json(['success' => true, 'data' => $news]);
+        return response()->json(['success' => false , 'message' => 'No news found.']);
     }
 }

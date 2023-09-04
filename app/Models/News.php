@@ -12,8 +12,8 @@ class News extends Model
 {
     use HasFactory, LogsActivity;
     
-    public $image_urls = [];
-    protected $appends = ['image_urls'];
+    // public $image_urls = [];
+    // protected $appends = ['image_urls'];
     protected $fillable=[
         'title',
         'description',
@@ -37,11 +37,11 @@ class News extends Model
         return $this->belongsTo(NewsCategory::class , 'category_id' );
     }
 
-    public function getImageUrlsAttribute(){
-        return  array_map(function($path){
-          return URL::to(asset('storage/'.$path));
-        },$this->image);
-    }
+    // public function getImageUrlsAttribute(){
+    //     return  array_map(function($path){
+    //       return URL::to(asset('storage/'.$path));
+    //     },$this->image);
+    // }
 
     public function getCreatedAtAttribute($value)
     {
@@ -53,5 +53,7 @@ class News extends Model
         // Format the updated_at attribute as desired
         return $this->attributes['updated_at'] = $this->asDateTime($value)->format('Y-m-d H:i:s');
     }
-    
+    public function gallery(){
+        return $this->hasMany(PostGallery::class);
+    }
 }

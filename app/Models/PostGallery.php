@@ -20,5 +20,9 @@ class PostGallery extends Model
     public function post(){
         return $this->belongsTo(Post::class);
     }
+
+    public function news(){
+        return $this->belongsTo(News::class);
+    }
    
 }
