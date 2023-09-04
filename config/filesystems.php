@@ -52,7 +52,13 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
-
+        
+        // 'ffmpeg' => [
+        //     'ffmpeg.binaries' => 'C:/ffmpeg-2023-08-30-git-7aa71ab5c0-full_build/ffmpeg-2023-08-30-git-7aa71ab5c0-full_build/bin/ffmpeg', // Path to your FFmpeg binary
+        //     'ffprobe.binaries' => 'C:/ffmpeg-2023-08-30-git-7aa71ab5c0-full_build/ffmpeg-2023-08-30-git-7aa71ab5c0-full_build/bin/ffprobe', // Path to your FFprobe binary
+        //     'timeout' => 3600, // Timeout for processing in seconds
+        //     'ffmpeg.threads' => 12, // The number of threads to use for FFmpeg processing
+        // ],
     ],
 
     /*

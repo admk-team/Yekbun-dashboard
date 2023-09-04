@@ -2,6 +2,9 @@
 
 namespace App\Traits;
 
+use FFMpeg\FFMpeg;
+use FFMpeg\Coordinate\TimeCode;
+
 trait UploadMedia
 {
     public static function index($file)

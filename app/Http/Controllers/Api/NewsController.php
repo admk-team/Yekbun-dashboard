@@ -151,21 +151,28 @@ class NewsController extends Controller
     public function cover_news()
     {
         $news = News::select('id','title','description','category_id')->with('gallery')->limit(3)->get();
-
-        return response()->json(['success' => true, 'data' => $news]);
+        if($news->isNotEmpty()){
+            return response()->json(['success' => true, 'data' => $news]);
+        }
+        return response()->json(['success' => false , 'message' => 'No cover news found.']);
     }
 
     public function categories()
     {
         $categories = NewsCategory::all();
-
-        return response()->json(['success' => true, 'data' => $categories]);
+        if($categories->isNotEmpty()){
+            return response()->json(['success' => true, 'data' => $categories]);
+        }
+        return response()->json(['success' => false , 'message' => 'No news category found.']);
     }
 
     public function detail($id)
     {
         $news = News::select('id','title','description','category_id')->with(['news_category','gallery'])->find($id);
-        return response()->json(['success' => true, 'data' => $news]);
+        if($news != []){
+            return response()->json(['success' => true, 'data' => $news]);
+        }
+        return response()->json(['success' => false ,'message' => 'No news found.']);
     }
 
     public function search(Request $request)

@@ -373,12 +373,7 @@
                                                 </div>
                                             @endif
                                             @if ($gallery->media_type == 1)
-                                            <div style="height: 164px; overflow: hidden;{{ $i > 3? 'display:none;': '' }}"
-                                                class="{{ $i <= 3? 'show': '' }} {{ $i === 3? 'last': '' }} col-6 m-0 p-0"
-                                                data-lg-size="1280-720"
-                                                data-video='{"source": [{"src":"{{ $gallery->media_url }}", "type":"video/mp4"}], "attributes": {"preload": false, "controls": true}}'
-                                               
-                                            >
+                                            <div style="height: 164px; overflow: hidden;{{ $i > 3? 'display:none;': '' }}"class="{{ $i <= 3? 'show': '' }} {{ $i === 3? 'last': '' }} col-6 m-0 p-0"data-lg-size="1280-720"data-video='{"source": [{"src":"{{ $gallery->media_url }}", "type":"video/mp4"}], "attributes": {"preload": false, "controls": true}}'>
                                                  <img style="height: 100%; width:100%"
                                                     class="img-responsive"
                                                     src="https://www.intermedia-solutions.net/wp-content/uploads/2021/06/video-thumbnail-01.jpg"
