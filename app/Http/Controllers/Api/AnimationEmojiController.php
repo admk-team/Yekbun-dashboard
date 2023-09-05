@@ -17,7 +17,7 @@ class AnimationEmojiController extends Controller
         }else{
             if($userId != '' & $type != '' ){
                 
-                $reaction_exists = Reaction::where('user_id',$userId)->where($type.'_id', $value)->select('emoji_id')->first();
+                $reaction_exists = Reaction::where('user_id',$userId)->where($type, $value)->select('emoji_id')->first();
             }
             $emojiArray = $emoji->toArray(); 
             $collectionLength = count($emojiArray);
