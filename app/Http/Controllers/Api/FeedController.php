@@ -157,6 +157,10 @@ class FeedController extends Controller
             }
         ])->offset($offset)->limit($limit)->get();
         
+        $posts->each(function ($post) {
+            $post->gallery = $post->gallery->where('media_type', '!=', 1);
+        });
+        
 
 
         if ($posts->isNotEmpty()) {
