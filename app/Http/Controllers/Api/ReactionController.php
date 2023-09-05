@@ -16,7 +16,7 @@ class ReactionController extends Controller
             'user_id' => 'required',
         ]);
 
-        $optional_fields = ['feed_id', 'news_id', 'history_id', 'vote_id', 'music_id'];
+        $optional_fields = ['feed_id', 'news_id', 'history_id', 'vote_id', 'music_id', 'post_gallery_id'];
 
         $post_field = '';
 
@@ -78,6 +78,15 @@ class ReactionController extends Controller
                 $reaction = $previous_reaction;
             
             $reaction->music_id = $request->music_id;
+        }
+        
+        if($request->has('post_gallery_id')){
+            $previous_reaction = Reaction::where('user_id', $request->user_id)->where('post_gallery_id', $request->post_gallery_id)->first();
+
+            if ($previous_reaction != "")
+                $reaction = $previous_reaction;
+            
+            $reaction->post_gallery_id = $request->post_gallery_id;
         }
 
         $reaction->user_id = $request->user_id;

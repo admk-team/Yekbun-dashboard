@@ -149,9 +149,18 @@ class FeedController extends Controller
         $offset = $request->offset;
         $limit = $request->limit;
 
-        $postsQuery = Post::with(['background:id,title,image,created_at', 'user:id,name,image' , 'gallery:id,post_id,media_type,media_url,created_at']);
-        $postsQuery->offset($offset)->limit($limit);
-        $posts = $postsQuery->get();
+        $posts = Post::with([
+            'background:id,title,image,created_at',
+            'user:id,name,image',
+            'gallery' => function ($query) {
+                $query->where('media_type', '!=', 1);
+            }
+        ])->offset($offset)->limit($limit)->get();
+        
+        $posts->each(function ($post) {
+            $post->gallery = $post->gallery->where('media_type', '!=', 1);
+        });
+        
 
 
         if ($posts->isNotEmpty()) {
