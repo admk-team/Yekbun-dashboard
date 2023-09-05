@@ -142,7 +142,7 @@ class VotingController extends Controller
     {
         $voting = Voting::select('id','name','category_id','description','status')->with('gallery')->orderBy('created_at', 'desc')->take(1)->get();
 
-        if ($voting != "") {
+        if (sizeof($voting) > 0) {
             // $voting[0]->banner = url('/') . '/storage/' . $voting[0]->banner;
 
             $voting_reaction = VotingReaction::where('user_id', $id)->where('vote_id', $voting[0]->id)->first();
