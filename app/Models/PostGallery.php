@@ -28,5 +28,8 @@ class PostGallery extends Model
     public function history(){
         return $this->belongsTo(History::class);
     }
+    public function vote(){
+        return $this->belongsTo(Voting::class);
+    }
    
 }

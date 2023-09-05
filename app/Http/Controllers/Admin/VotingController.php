@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\PostGallery;
 use App\Models\Voting;
 use App\Models\VotingCategory;
 use Illuminate\Http\Request;
@@ -60,6 +61,24 @@ class VotingController extends Controller
           $vote->options = $options;
           $vote->banner = $request->image??null;
           if($vote->save()){
+
+            $id  = $vote->id;
+            $post_gallery  = new PostGallery();
+            $post_gallery->vote_id=$id;
+            $post_gallery->media_type = 0;
+            $post_gallery->media_url = url('/') .'/storage/'. $request->image;
+            $post_gallery->user_id = $request->userId;
+            if($request->has('post_id')){
+                $post_gallery->post_id = $request->post_id;
+            }
+            if($request->has('news_id')){
+                $post_gallery->news_id = $request->news_id;
+            }
+            if($request->has('history_id')){
+                $post_gallery->history_id = $request->history_id;
+            }
+            $post_gallery->save();
+            
             return redirect()->route('vote.index')->with('success', 'Vote Has been inserted');
         }else{
             return redirect()->route('vote.index')->with('error', 'Failed to add vote');
@@ -105,7 +124,6 @@ class VotingController extends Controller
         $vote->name = $request->name;
         $vote->category_id = $request->category_id;
         $vote->description = $request->description;
-
         $options = $vote->options;
         if ($request->{'group-a'}) {
             $options = array_map(function ($option) {

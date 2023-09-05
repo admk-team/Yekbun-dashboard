@@ -71,10 +71,10 @@ class NewsController extends Controller
             }
             $post_gallery->user_id = $request->userId;
             if($request->has('post_id')){
-                $post_gallery->news_id = $request->news_id;
+                $post_gallery->post_id = $request->post_id;
             }
             if($request->has('vote_id')){
-                $post_gallery->post_id = $request->post_id;
+                $post_gallery->vote_id = $request->vote_id;
             }
             if($request->has('history_id')){
                 $post_gallery->history_id = $request->history_id;
