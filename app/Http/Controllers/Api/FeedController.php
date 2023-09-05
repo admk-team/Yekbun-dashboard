@@ -149,6 +149,7 @@ class FeedController extends Controller
         $offset = $request->offset;
         $limit = $request->limit;
 
+<<<<<<< HEAD
         $posts = Post::with([
             'background:id,title,image,created_at',
             'user:id,name,image',
@@ -157,6 +158,11 @@ class FeedController extends Controller
             }
         ])->offset($offset)->limit($limit)->get();
         
+=======
+        $postsQuery = Post::with(['background:id,title,image,created_at', 'user:id,name,image' , 'gallery:id,post_id,media_type,media_url,created_at']);
+        $postsQuery->offset($offset)->limit($limit);
+        $posts = $postsQuery->get();
+>>>>>>> 6285a63bb409ea3046443e19f41e3efc58b667f1
 
 
         if ($posts->isNotEmpty()) {
@@ -176,17 +182,42 @@ class FeedController extends Controller
         $data = $posts->filter(function ($item) {
             return $item->user !== null;
         });
+<<<<<<< HEAD
 
         $response = ['success' => true, 'data' => $data];
+=======
+        
+        // $thumbnails=[];
+        // foreach ($data as $record) {
+          
+        //     foreach ($record->gallery as $gallery) {
+        //         if ($gallery->media_type == 1) {
+        //          $thumbnail = $this->generateThumbnail($gallery->media_url);
+        //         //  $thumbnails[] = mb_convert_encoding($thumbnail, 'ISO-8859-1', 'UTF-8');
+        //          $thumbnails[] = $thumbnail;
+        //          return $thumbnails;
+                 
+        //         } 
+        //     }
+        // }
+        
+        
+        $response = ['success' => true, 'data' => $data ];
+
+>>>>>>> 6285a63bb409ea3046443e19f41e3efc58b667f1
 
         if (!$data->isEmpty()) {
             $existPost = Post::find(++$data[sizeof($data) - 1]->id);
             if ($existPost == "") {
                 $response['completed'] = true;
             }
+<<<<<<< HEAD
         }
 
 
+=======
+        }        
+>>>>>>> 6285a63bb409ea3046443e19f41e3efc58b667f1
         return response()->json($response);
     }
 
