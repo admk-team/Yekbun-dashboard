@@ -173,8 +173,8 @@ class FeedController extends Controller
         });
 
         $data->map(function ($item) {
-            $item->media = collect($item->media)->filter(function ($item_media) {
-                return $item_media->type != 1;
+            $item->media = $item->gallery->filter(function ($item_media) {
+                return $item_media->media_type != 1;
             });
         });
 
