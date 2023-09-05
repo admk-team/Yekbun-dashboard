@@ -58,6 +58,7 @@ use App\Http\Controllers\Api\MarketServiceContorller;
 use App\Http\Controllers\Api\PlaylistController;
 use App\Http\Controllers\Api\ReactionController;
 use App\Http\Controllers\Api\AlbumController;
+use App\Http\Controllers\Api\PostGalleryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -231,6 +232,8 @@ Route::get('/fetch-voting/{id?}', [VotingController::class, 'fetch']);
 Route::get('/fetch-voting/all/{id?}', [VotingController::class, 'fetch_all']);
 Route::get('/voting-details/{id}/{user_id?}', [VotingController::class, 'get_details']);
 Route::post('/voting/store-reaction', [VotingController::class, 'store_reaction']);
+Route::get('/get-statistics/{voteId}', [VotingController::class , 'get_statistics']);
+
 
 //Animation Emojji
 Route::get('/get-all-emoji/{userId?}/{type?}/{value?}' , [AnimationEmojiController::class  , 'get_all_emoji'])->name('get-all-emoji');
@@ -278,5 +281,6 @@ Route::post('/favourite-album' , [AlbumController::class , 'favourite_album'])->
 Route::get('/get-favourite-album/{user_id}' , [AlbumController::class , 'get_favourite_album'])->name('get-favourite-album');
 Route::get('/get-favourite-album-id/{user_id}' , [AlbumController::class , 'get_favourite_album_ids'])->name('get-favourite-album-id');
 
-
+// Post gallery
+Route::post('/get-gallery' , [PostGalleryController::class , 'get_gallery']);
 

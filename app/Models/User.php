@@ -136,4 +136,5 @@ class User extends Authenticatable  implements MustVerifyEmail
             info("Error: " . $e->getMessage());
         }
     }
+
 }

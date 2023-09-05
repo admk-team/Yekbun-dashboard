@@ -35,4 +35,8 @@ class Voting extends Model
         return $this->belongsTo(VotingCategory::class , 'category_id');
     }
 
+    public function gallery(){
+        return $this->hasMany(PostGallery::class,'vote_id','id');
+    }
+
 }

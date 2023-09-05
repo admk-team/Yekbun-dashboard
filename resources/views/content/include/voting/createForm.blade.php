@@ -28,6 +28,15 @@
                                 <label class="form-label" for="fullname">Title</label>
                                 <input type="text" id="fullname" class="form-control" placeholder="title" name="name">
                             </div>
+                            <div class="col-md-12">
+                                <label class="form-label" for="category">Select Category</label>
+                                <select class="form-select" name="category_id">
+                                    <option selected>Select Category</option>
+                                    @foreach ($vote_category as $category )
+                                        <option value="{{ $category->id }}">{{ $category->name ?? '' }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="col-12">
                                 <div class="card">
                                     <h5 class="card-header">Banner Upload</h5>

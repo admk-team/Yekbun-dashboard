@@ -65,13 +65,13 @@ class HistoryController extends Controller
                 $post_gallery->media_type = 0;
                 $post_gallery->user_id = $request->userId;
                 if($request->has('post_id')){
-                    $post_gallery->news_id = $request->news_id;
-                }
-                if($request->has('vote_id')){
                     $post_gallery->post_id = $request->post_id;
                 }
+                if($request->has('vote_id')){
+                    $post_gallery->vote_id = $request->vote_id;
+                }
                 if($request->has('news_id')){
-                    $post_gallery->history_id = $request->history_id;
+                    $post_gallery->news_id = $request->news_id;
                 }
                 $post_gallery->save();
             }
@@ -83,13 +83,13 @@ class HistoryController extends Controller
                 $post_gallery->media_type = 1;
                 $post_gallery->user_id = $request->userId;
                 if($request->has('post_id')){
-                    $post_gallery->news_id = $request->news_id;
-                }
-                if($request->has('vote_id')){
                     $post_gallery->post_id = $request->post_id;
                 }
+                if($request->has('vote_id')){
+                    $post_gallery->vote_id = $request->vote_id;
+                }
                 if($request->has('news_id')){
-                    $post_gallery->history_id = $request->history_id;
+                    $post_gallery->news_id = $request->news_id;
                 }
                 $post_gallery->save();
             }
