@@ -123,7 +123,7 @@ class FeedController extends Controller
         });
 
         $data->map(function ($item) {
-            $item->media = $item->media->map(function ($item_media) {
+            $item->media = collect($item->media)->map(function ($item_media) {
                 return $item_media->type != 1;
             });
         });
