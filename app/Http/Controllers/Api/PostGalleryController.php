@@ -14,10 +14,8 @@ class PostGalleryController extends Controller
 
         $post_gallery = PostGallery::where($request->type, $request->id)->get();
 
-        $post_gallery['user'] = User::find($post_gallery[0]->user_id);
-
         if ($post_gallery->isNotEmpty()) {
-            return response()->json(['success' => true, 'data' => $post_gallery]);
+            return response()->json(['success' => true, 'data' => $post_gallery, 'user' => User::find($post_gallery[0]->user_id)]);
         }
 
         return response()->json(['success' => false, 'message' => 'No record found.']);
