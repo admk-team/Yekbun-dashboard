@@ -16,7 +16,7 @@ class ReactionController extends Controller
             'user_id' => 'required',
         ]);
 
-        $optional_fields = ['feed_id', 'news_id', 'history_id', 'vote_id', 'music_id'];
+        $optional_fields = ['feed_id', 'news_id', 'history_id', 'vote_id', 'music_id', 'post_gallery_id'];
 
         $post_field = '';
 
