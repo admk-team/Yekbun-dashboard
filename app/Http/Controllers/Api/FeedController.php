@@ -144,7 +144,6 @@ class FeedController extends Controller
 
     public function fetch_feed(Request $request, $id = "")
     {
-        return 'sadads';
         // phpinfo();
         // exit();
         $offset = $request->offset;
