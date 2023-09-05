@@ -79,6 +79,15 @@ class ReactionController extends Controller
             
             $reaction->music_id = $request->music_id;
         }
+        
+        if($request->has('post_gallery_id')){
+            $previous_reaction = Reaction::where('user_id', $request->user_id)->where('post_gallery_id', $request->post_gallery_id)->first();
+
+            if ($previous_reaction != "")
+                $reaction = $previous_reaction;
+            
+            $reaction->post_gallery_id = $request->post_gallery_id;
+        }
 
         $reaction->user_id = $request->user_id;
         $reaction->emoji_id = $request->emoji_id;
