@@ -17,7 +17,7 @@ use App\Http\Controllers\Controller;
 class FeedController extends Controller
 {
 
-    
+
     public function shareWidget()
     {
         $shareComponent = Share::page('https://www.codesolutionstuff.com/generate-rss-feed-in-laravel/', 'dummy text')
@@ -37,32 +37,32 @@ class FeedController extends Controller
     //             'ffmpeg.binaries' => config('filesystems.disks.ffmpeg.ffmpeg.binaries'),
     //             'ffprobe.binaries' => config('filesystems.disks.ffmpeg.ffprobe.binaries'),
     //         ]);
-    
+
     //         // Download the remote video to a temporary file (or use an existing storage mechanism)
     //         $tempVideoPath = storage_path('app/temp_video.mp4');
     //         file_put_contents($tempVideoPath, file_get_contents($videoUrl));
-    
+
     //         // Open the temporary video file
     //         $videoFile = $ffmpeg->open($tempVideoPath);
-    
+
     //         // Generate a thumbnail at the 10-second mark (adjust as needed)
     //         $frame = $videoFile->frame(TimeCode::fromSeconds(10));
-    
+
     //         // Save the frame as an image (JPEG) to a temporary file
     //         $tempImagePath = storage_path('app/temp_thumbnail.jpg');
     //         $frame->save($tempImagePath);
-    
+
     //         // Clean up the temporary files
     //         unlink($tempVideoPath);
-    
+
     //         // Create an HTTP response with the image data
     //         $imageData = file_get_contents($tempImagePath);
     //         unlink($tempImagePath); // Remove the temporary image file
-    
+
     //         $response = new Response();
     //         $response->header('Content-Type', 'image/jpeg');
     //         $response->setContent($imageData);
-    
+
     //         return $response;
     //     } catch (\Exception $e) {
     //         // Log the error message
@@ -149,9 +149,17 @@ class FeedController extends Controller
         $offset = $request->offset;
         $limit = $request->limit;
 
-        $postsQuery = Post::with(['background:id,title,image,created_at', 'user:id,name,image' , 'gallery:id,post_id,media_type,media_url,created_at']);
+        $postsQuery = Post::with([
+            'background:id,title,image,created_at',
+            'user:id,name,image',
+            'gallery:id,post_id,media_type,media_url,created_at'
+        ])->whereHas('gallery', function ($query) {
+            $query->where('media_type', '!=', 1);
+        });
+
         $postsQuery->offset($offset)->limit($limit);
         $posts = $postsQuery->get();
+
 
 
         if ($posts->isNotEmpty()) {
@@ -170,12 +178,6 @@ class FeedController extends Controller
 
         $data = $posts->filter(function ($item) {
             return $item->user !== null;
-        });
-
-        $data->map(function ($item) {
-            $item->gallery = collect($item->gallery)->filter(function ($item_media) {
-                return $item_media->media_type != 1;
-            });
         });
 
         $response = ['success' => true, 'data' => $data];
