@@ -3,15 +3,21 @@
 namespace App\Http\Controllers\Api;
 
 use Share;
+use FFMpeg\FFMpeg;
 use App\Models\Feed;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Post;
-use App\Models\PostGallery;
 use App\Models\Reaction;
+use App\Models\PostGallery;
+use App\Traits\UploadMedia;
+use Illuminate\Http\Request;
+use FFMpeg\Coordinate\TimeCode;
+use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
 
 class FeedController extends Controller
 {
+
+    
     public function shareWidget()
     {
         $shareComponent = Share::page('https://www.codesolutionstuff.com/generate-rss-feed-in-laravel/', 'dummy text')
@@ -24,9 +30,51 @@ class FeedController extends Controller
 
         return view('content.dummy', compact('shareComponent'));
     }
+    // public function generateThumbnail($videoUrl)
+    // {
+    //     try {
+    //         $ffmpeg = FFMpeg::create([
+    //             'ffmpeg.binaries' => config('filesystems.disks.ffmpeg.ffmpeg.binaries'),
+    //             'ffprobe.binaries' => config('filesystems.disks.ffmpeg.ffprobe.binaries'),
+    //         ]);
+    
+    //         // Download the remote video to a temporary file (or use an existing storage mechanism)
+    //         $tempVideoPath = storage_path('app/temp_video.mp4');
+    //         file_put_contents($tempVideoPath, file_get_contents($videoUrl));
+    
+    //         // Open the temporary video file
+    //         $videoFile = $ffmpeg->open($tempVideoPath);
+    
+    //         // Generate a thumbnail at the 10-second mark (adjust as needed)
+    //         $frame = $videoFile->frame(TimeCode::fromSeconds(10));
+    
+    //         // Save the frame as an image (JPEG) to a temporary file
+    //         $tempImagePath = storage_path('app/temp_thumbnail.jpg');
+    //         $frame->save($tempImagePath);
+    
+    //         // Clean up the temporary files
+    //         unlink($tempVideoPath);
+    
+    //         // Create an HTTP response with the image data
+    //         $imageData = file_get_contents($tempImagePath);
+    //         unlink($tempImagePath); // Remove the temporary image file
+    
+    //         $response = new Response();
+    //         $response->header('Content-Type', 'image/jpeg');
+    //         $response->setContent($imageData);
+    
+    //         return $response;
+    //     } catch (\Exception $e) {
+    //         // Log the error message
+    //         \Log::error('Thumbnail generation error: ' . $e->getMessage());
+    //         return response()->json(['error' => 'Thumbnail generation failed'], 500);
+    //     }
+    // }
+
 
     public function add_feed(Request $request)
     {
+
         $post = new Post();
         $post->title = $request->title ?? '';
         $post->description = $request->description;
@@ -42,7 +90,7 @@ class FeedController extends Controller
         if ($request->has('fanpageId'))
             $post->fanpage_id = $request->fanpageId;
 
-        $post->media = $request->has('media') ? json_encode($request->media) : '{}';
+        // $post->media = $request->has('media') ? json_encode($request->media) : '{}';
 
         if ($post->save()) {
             $id = $post->id;
@@ -96,10 +144,12 @@ class FeedController extends Controller
 
     public function fetch_feed(Request $request, $id = "")
     {
+        // phpinfo();
+        // exit();
         $offset = $request->offset;
         $limit = $request->limit;
 
-        $postsQuery = Post::with(['background', 'user', 'gallery']);
+        $postsQuery = Post::with(['background:id,title,image,created_at', 'user:id,name,image' , 'gallery:id,post_id,media_type,media_url,created_at']);
         $postsQuery->offset($offset)->limit($limit);
         $posts = $postsQuery->get();
 

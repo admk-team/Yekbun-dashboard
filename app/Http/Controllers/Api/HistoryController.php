@@ -115,39 +115,48 @@ class HistoryController extends Controller
 
     public function categorgy_history($id)
     {
-        $history = History::where('category_id', $id)
-            ->inRandomOrder()
-            ->limit(8)
-            ->get();
+        $history = History::select('id','description','title','category_id')->with('gallery')->where('category_id', $id)->inRandomOrder() ->limit(8)->get();
+        if($history->isNotEmpty()){
+            return response()->json(['success' => true, 'data' => $history]);
+        }
 
-        return response()->json(['success' => true, 'data' => $history]);
+        return response()->json(['success' => false ,'message' => 'No history found.']);
     }
 
     public function cover_history()
     {
-        $history = History::limit(3)->get();
+        $history = History::select('id','title','description','category_id')->with('gallery')->limit(3)->get();
+        if($history->isNotEmpty()){
+            return response()->json(['success' => true, 'data' => $history]);
+        }
 
-        return response()->json(['success' => true, 'data' => $history]);
+        return response()->json(['success' => false ,  'message' => 'No history found.']);
     }
 
     public function categories()
     {
         $categories = HistoryCategory::all();
-
-        return response()->json(['success' => true, 'data' => $categories]);
+        if($categories->isNotEmpty()){
+            return response()->json(['success' => true, 'data' => $categories]);
+        }
+        return response()->json(['success' => false ,  'message' => 'No history category  found.']);
     }
 
     public function detail($id)
     {
-        $history = History::with(['history_category'])->find($id);
-
-        return response()->json(['success' => true, 'data' => $history]);
+        $history = History::select('id','title','description','category_id')->with(['history_category','gallery'])->find($id);
+        if($history != []){
+            return response()->json(['success' => true, 'data' => $history]);
+        }
+        return response()->json(['success' => false , 'message' => 'No history found.']);
     }
 
     public function search(Request $request)
     {
-        $history = History::where('title', 'like', '%' . $request->search . '%')->get();
-
-        return response()->json(['success' => true, 'data' => $history]);
+        $history = History::select('id','description','title','category_id')->with('gallery')->where('title', 'like', '%' . $request->search . '%')->get();
+        if($history->isNotEmpty()){
+            return response()->json(['success' => true, 'data' => $history]);
+        }
+        return response()->json(['success' => false , 'message' => 'No history found.']);
     }
 }

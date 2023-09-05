@@ -42,4 +42,8 @@ class History extends Model
         // Format the updated_at attribute as desired
         return $this->attributes['updated_at'] = $this->asDateTime($value)->format('Y-m-d H:i:s');
     }
+
+    public function gallery(){
+        return $this->hasMany(PostGallery::class);
+    }
 }

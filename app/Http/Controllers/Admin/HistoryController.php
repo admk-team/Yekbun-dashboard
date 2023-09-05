@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\History;
-use App\Models\HistoryCategory;
+use App\Models\PostGallery;
 use Illuminate\Http\Request;
+use App\Models\HistoryCategory;
+use App\Http\Controllers\Controller;
 
 class HistoryController extends Controller
 {
@@ -55,6 +56,43 @@ class HistoryController extends Controller
           $history->video = $request->video_paths?? [];
           
           if($history->save()){
+            $id = $history->id;
+            // for image
+            foreach($request->image_paths  as $image){
+                $post_gallery = new PostGallery();
+                $post_gallery->history_id = $id;
+                $post_gallery->media_url = url('/') . '/storage/' . $image;
+                $post_gallery->media_type = 0;
+                $post_gallery->user_id = $request->userId;
+                if($request->has('post_id')){
+                    $post_gallery->news_id = $request->news_id;
+                }
+                if($request->has('vote_id')){
+                    $post_gallery->post_id = $request->post_id;
+                }
+                if($request->has('news_id')){
+                    $post_gallery->history_id = $request->history_id;
+                }
+                $post_gallery->save();
+            }
+            // for video
+            foreach($request->video_paths  as $video){
+                $post_gallery = new PostGallery();
+                $post_gallery->history_id = $id;
+                $post_gallery->media_url = url('/') . '/storage/' . $video;
+                $post_gallery->media_type = 1;
+                $post_gallery->user_id = $request->userId;
+                if($request->has('post_id')){
+                    $post_gallery->news_id = $request->news_id;
+                }
+                if($request->has('vote_id')){
+                    $post_gallery->post_id = $request->post_id;
+                }
+                if($request->has('news_id')){
+                    $post_gallery->history_id = $request->history_id;
+                }
+                $post_gallery->save();
+            }
             return redirect()->route('history.index')->with('success', 'History Has been inserted');
         }else{
             return redirect()->route('history.index')->with('error', 'Failed to add history');
