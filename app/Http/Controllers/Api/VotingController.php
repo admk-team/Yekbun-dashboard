@@ -300,7 +300,7 @@ class VotingController extends Controller
         $result = [];
 
         foreach ($ageGroupCounts as $group => $count) {
-            $ageGroupPercentage = ($count / count($ages)) * 100 ?? 0;
+            $ageGroupPercentage = count($ages) > 0 ? ($count / count($ages)) * 100 : 0;
 
             $result['age_group_percentages'][$group] = [
                 'total_percentage' => number_format($ageGroupPercentage, 2) . '%',
