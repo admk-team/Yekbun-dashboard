@@ -236,28 +236,28 @@ class VotingController extends Controller
         $users = VotingReaction::where('vote_id', $id)
             ->with('user')
             ->get();
-    
+
         $ages = [];
         $genders = [];
-    
+
         foreach ($users as $votingReaction) {
             $user = $votingReaction->user;
-    
+
             $dob = $user->dob;
-    
+
             $age = now()->diffInYears($dob);
-    
+
             $ages[] = $age;
             $genders[] = $user->gender; // Assuming 'gender' is the name of the gender field in your User model
         }
-    
+
         $ageGroupCounts = [
             '18-24' => 0,
             '25-32' => 0,
             '33-39' => 0,
             '40+'   => 0,
         ];
-    
+
         $genderCounts = [
             '18-24' => [
                 'male'   => 0,
@@ -276,69 +276,67 @@ class VotingController extends Controller
                 'female' => 0,
             ],
         ];
-    
+
         $ageGroups = [
             '18-24' => [18, 24],
             '25-32' => [25, 32],
             '33-39' => [33, 39],
             '40+'   => [40, PHP_INT_MAX], // Adjust the upper bound as needed
         ];
-    
+
         // Calculate the age group and gender for each user
         foreach ($ages as $key => $age) {
             foreach ($ageGroups as $group => $range) {
                 if ($age >= $range[0] && $age <= $range[1]) {
                     $ageGroupCounts[$group]++;
-    
+
                     // Check the gender of the user for this age group
                     $gender = $genders[$key];
                     $genderCounts[$group][$gender]++;
-    
+
                     break;
                 }
             }
         }
-    
+
         $result = [];
-    
+
         foreach ($ageGroupCounts as $group => $count) {
             $ageGroupPercentage = ($count / count($ages)) * 100;
-    
+
             $result['age_group_percentages'][$group] = [
                 'total_percentage' => number_format($ageGroupPercentage, 2) . '%',
                 'male'            => $count > 0 ? number_format(($genderCounts[$group]['male'] / $count) * 100, 2) . '%' : '0%',
                 'female'          => $count > 0 ? number_format(($genderCounts[$group]['female'] / $count) * 100, 2) . '%' : '0%',
             ];
         }
-    
+
         $types = VotingReaction::where('vote_id', $id)
-        ->pluck('type');
+            ->pluck('type');
 
-    $typeCounts = [
-        '0' => 0,
-        '1' => 0,
-        '2' => 0,
-    ];
+        $typeCounts = [
+            '0' => 0,
+            '1' => 0,
+            '2' => 0,
+        ];
 
-    foreach ($types as $type) {
-        if (array_key_exists($type, $typeCounts)) {
-            $typeCounts[$type]++;
+        foreach ($types as $type) {
+            if (array_key_exists($type, $typeCounts)) {
+                $typeCounts[$type]++;
+            }
         }
+
+        $totalVotes = count($types);
+
+        $typePercentages = [];
+
+        foreach ($typeCounts as $value => $count) {
+            $percentage = ($count / $totalVotes) * 100;
+            $typePercentages[$value] = number_format($percentage, 2) . '%';
+        }
+
+        return VotingReaction::where('vote_id', $id)->count();
     }
-
-    $totalVotes = count($types);
-
-    $typePercentages = [];
-
-    foreach ($typeCounts as $value => $count) {
-        $percentage = ($count / $totalVotes) * 100;
-        $typePercentages[$value] = number_format($percentage, 2) . '%';
-    }
-
-    return $typePercentages;
-    //sadsd
-    }
-    
 }
 
 // 18 - 24
