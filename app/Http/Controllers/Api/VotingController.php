@@ -274,11 +274,11 @@ class VotingController extends Controller
             foreach ($ageGroups as $group => $range) {
                 if ($age >= $range[0] && $age <= $range[1]) {
                     $ageGroupCounts[$group]++;
-                    
+    
                     // Check the gender of the user for this age group
                     $gender = $genders[$key];
                     $genderCounts[$gender]++;
-                    
+    
                     break;
                 }
             }
@@ -286,28 +286,23 @@ class VotingController extends Controller
     
         $totalUsers = count($ages);
     
-        $ageGroupPercentages = [];
-        $genderPercentages = [];
+        $result = [];
     
         foreach ($ageGroupCounts as $group => $count) {
-            $percentage = ($count / $totalUsers) * 100;
-            $ageGroupPercentages[$group] = $percentage;
+            $ageGroupPercentage = ($count / $totalUsers) * 100;
+    
+            $result['age_group_percentages'][$group] = [
+                'total_percentage' => number_format($ageGroupPercentage, 2) . '%',
+                'male'            => number_format(($genderCounts['male'] / $count) * 100, 2) . '%',
+                'female'          => number_format(($genderCounts['female'] / $count) * 100, 2) . '%',
+            ];
         }
     
-        foreach ($genderCounts as $gender => $count) {
-            $percentage = ($count / $totalUsers) * 100;
-            $genderPercentages[$gender] = $percentage;
-        }
-    
-        // Return both age group percentages and gender percentages
-        return [
-            'age_group_percentages' => $ageGroupPercentages,
-            'gender_percentages'    => $genderPercentages,
-        ];
+        return $result;
     }
     
+    
 }
-
 
 // 18 - 24
 // 25 - 32
