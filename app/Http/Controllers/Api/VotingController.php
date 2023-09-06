@@ -281,6 +281,7 @@ class VotingController extends Controller
             '18-24' => [18, 24],
             '25-32' => [25, 32],
             '33-39' => [33, 39],
+            '40+'   => [40, PHP_INT_MAX], // Adjust the upper bound as needed
         ];
     
         // Calculate the age group and gender for each user
