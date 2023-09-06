@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\PostGallery;
 use App\Models\User;
+use App\Models\News;
+use App\Models\History;
+use App\Models\Post;
+use App\Models\Vote;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
