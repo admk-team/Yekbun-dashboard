@@ -236,51 +236,76 @@ class VotingController extends Controller
         $users = VotingReaction::where('vote_id', $id)
             ->with('user')
             ->get();
-
+    
         $ages = [];
-
+        $genders = [];
+    
         foreach ($users as $votingReaction) {
             $user = $votingReaction->user;
-
+    
             $dob = $user->dob;
-
+    
             $age = now()->diffInYears($dob);
-
+    
             $ages[] = $age;
+            $genders[] = $user->gender; // Assuming 'gender' is the name of the gender field in your User model
         }
-
+    
         $ageGroupCounts = [
             '18-24' => 0,
             '25-32' => 0,
             '33-39' => 0,
             '40+'   => 0,
         ];
-        
+    
+        $genderCounts = [
+            'male'   => 0,
+            'female' => 0,
+        ];
+    
         $ageGroups = [
             '18-24' => [18, 24],
             '25-32' => [25, 32],
             '33-39' => [33, 39],
         ];
-        
-        foreach ($ages as $age) {
+    
+        // Calculate the age group and gender for each user
+        foreach ($ages as $key => $age) {
             foreach ($ageGroups as $group => $range) {
                 if ($age >= $range[0] && $age <= $range[1]) {
                     $ageGroupCounts[$group]++;
+                    
+                    // Check the gender of the user for this age group
+                    $gender = $genders[$key];
+                    $genderCounts[$gender]++;
+                    
                     break;
                 }
             }
         }
-        
+    
         $totalUsers = count($ages);
-        
+    
         $ageGroupPercentages = [];
+        $genderPercentages = [];
+    
         foreach ($ageGroupCounts as $group => $count) {
             $percentage = ($count / $totalUsers) * 100;
             $ageGroupPercentages[$group] = $percentage;
         }
-        
-        return $ageGroupPercentages;
+    
+        foreach ($genderCounts as $gender => $count) {
+            $percentage = ($count / $totalUsers) * 100;
+            $genderPercentages[$gender] = $percentage;
+        }
+    
+        // Return both age group percentages and gender percentages
+        return [
+            'age_group_percentages' => $ageGroupPercentages,
+            'gender_percentages'    => $genderPercentages,
+        ];
     }
+    
 }
 
 
