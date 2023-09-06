@@ -293,13 +293,14 @@ class VotingController extends Controller
     
             $result['age_group_percentages'][$group] = [
                 'total_percentage' => number_format($ageGroupPercentage, 2) . '%',
-                'male'            => number_format(($genderCounts['male'] / $count) * 100, 2) . '%',
-                'female'          => number_format(($genderCounts['female'] / $count) * 100, 2) . '%',
+                'male'            => $count > 0 ? number_format(($genderCounts['male'] / $count) * 100, 2) . '%' : '0%',
+                'female'          => $count > 0 ? number_format(($genderCounts['female'] / $count) * 100, 2) . '%' : '0%',
             ];
         }
     
         return $result;
     }
+    
     
     
 }
