@@ -17,7 +17,7 @@ class PostGalleryController extends Controller
         $post_gallery = PostGallery::where($request->type, $request->id)->get();
 
         if ($post_gallery->isNotEmpty()) {
-            return response()->json(['success' => true, 'data' => $post_gallery, 'user' => User::find($post_gallery[0]->user_id), 'time' => Carbon::parse(DB::table(ucfirst(explode('_', $request->type)[0]))::where('id', '=', $request->id)->first()->created_at)->format('M d Y')]);
+            return response()->json(['success' => true, 'data' => $post_gallery, 'user' => User::find($post_gallery[0]->user_id), 'time' => Carbon::parse(DB::table(ucfirst(explode('_', $request->type)[0]))->find($request->id)->created_at)->format('M d Y')]);
         }
 
         return response()->json(['success' => false, 'message' => 'No record found.']);
