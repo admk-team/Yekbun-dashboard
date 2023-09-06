@@ -249,7 +249,41 @@ class VotingController extends Controller
             $ages[] = $age;
         }
 
-        return $ages;
+        $ageGroupCounts = [
+            '18-24' => 0,
+            '25-32' => 0,
+            '33-39' => 0,
+            '40+'   => 0,
+        ];
+        
+        // Define age group boundaries
+        $ageGroups = [
+            '18-24' => [18, 24],
+            '25-32' => [25, 32],
+            '33-39' => [33, 39],
+        ];
+        
+        // Calculate the age group for each user
+        foreach ($ages as $age) {
+            foreach ($ageGroups as $group => $range) {
+                if ($age >= $range[0] && $age <= $range[1]) {
+                    $ageGroupCounts[$group]++;
+                    break; // Break the inner loop once we find the age group
+                }
+            }
+        }
+        
+        // Calculate the total number of users
+        $totalUsers = count($ages);
+        
+        // Calculate the percentages
+        $ageGroupPercentages = [];
+        foreach ($ageGroupCounts as $group => $count) {
+            $percentage = ($count / $totalUsers) * 100;
+            $ageGroupPercentages[$group] = $percentage;
+        }
+        
+        return $ageGroupPercentages;
     }
 }
 
