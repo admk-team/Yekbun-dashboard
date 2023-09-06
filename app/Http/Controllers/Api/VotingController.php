@@ -329,7 +329,7 @@ class VotingController extends Controller
         $typePercentages = [];
 
         foreach ($typeCounts as $value => $count) {
-            $percentage = ($count / $totalVotes) * 100 ?? 0;
+            $percentage = $totalVotes > 1 ? ($count / $totalVotes) * 100 : 0;
             $typePercentages[$value] = number_format($percentage, 2);
         }
 
