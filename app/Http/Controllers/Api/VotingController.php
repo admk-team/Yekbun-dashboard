@@ -248,7 +248,7 @@ class VotingController extends Controller
             $age = now()->diffInYears($dob);
 
             $ages[] = $age;
-            $genders[] = $user->gender; // Assuming 'gender' is the name of the gender field in your User model
+            $genders[] = $user->gender;
         }
 
         $ageGroupCounts = [
@@ -281,16 +281,14 @@ class VotingController extends Controller
             '18-24' => [18, 24],
             '25-32' => [25, 32],
             '33-39' => [33, 39],
-            '40+'   => [40, PHP_INT_MAX], // Adjust the upper bound as needed
+            '40+'   => [40, PHP_INT_MAX],
         ];
 
-        // Calculate the age group and gender for each user
         foreach ($ages as $key => $age) {
             foreach ($ageGroups as $group => $range) {
                 if ($age >= $range[0] && $age <= $range[1]) {
                     $ageGroupCounts[$group]++;
 
-                    // Check the gender of the user for this age group
                     $gender = $genders[$key];
                     $genderCounts[$group][$gender]++;
 
@@ -335,7 +333,9 @@ class VotingController extends Controller
             $typePercentages[$value] = number_format($percentage, 2) . '%';
         }
 
-        return VotingReaction::where('vote_id', $id)->count();
+        $total_reactiions = VotingReaction::where('vote_id', $id)->count();
+
+        return response()->json(['success' => true, 'data' => ['age_stats' => $result, 'type_stats' => $typePercentages, 'total' => $total_reactiions]]);
     }
 }
 
