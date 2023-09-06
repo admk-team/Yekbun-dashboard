@@ -233,6 +233,7 @@ Route::get('/fetch-voting/all/{id?}', [VotingController::class, 'fetch_all']);
 Route::get('/voting-details/{id}/{user_id?}', [VotingController::class, 'get_details']);
 Route::post('/voting/store-reaction', [VotingController::class, 'store_reaction']);
 Route::get('/get-statistics/{voteId}', [VotingController::class , 'get_statistics']);
+Route::get('/voting-stats/{id}', [VotingController::class , 'stats']);
 
 
 //Animation Emojji
@@ -283,4 +284,3 @@ Route::get('/get-favourite-album-id/{user_id}' , [AlbumController::class , 'get_
 
 // Post gallery
 Route::post('/get-gallery' , [PostGalleryController::class , 'get_gallery']);
-

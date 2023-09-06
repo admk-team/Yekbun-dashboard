@@ -140,7 +140,7 @@ class VotingController extends Controller
 
     public function get_cover($id = null)
     {
-        $voting = Voting::select('id','name','category_id','description','status')->with('gallery')->orderBy('created_at', 'desc')->take(1)->get();
+        $voting = Voting::select('id', 'name', 'category_id', 'description', 'status')->with('gallery')->orderBy('created_at', 'desc')->take(1)->get();
 
         if (sizeof($voting) > 0) {
             // $voting[0]->banner = url('/') . '/storage/' . $voting[0]->banner;
@@ -155,7 +155,7 @@ class VotingController extends Controller
 
     public function fetch($id = null)
     {
-        $voting = Voting::select('id','name','category_id','description','status')->orderBy('created_at', 'desc')->take(5)->with(['voting_category','gallery'])->get();
+        $voting = Voting::select('id', 'name', 'category_id', 'description', 'status')->orderBy('created_at', 'desc')->take(5)->with(['voting_category', 'gallery'])->get();
         foreach ($voting as $item) {
             // $item->banner = url('/') . '/storage/' . $item->banner;
 
@@ -169,7 +169,7 @@ class VotingController extends Controller
 
     public function fetch_all($id = null)
     {
-        $voting = Voting::select('id','description','name','category_id','status')->orderBy('created_at', 'desc')->with(['voting_category','gallery'])->get();
+        $voting = Voting::select('id', 'description', 'name', 'category_id', 'status')->orderBy('created_at', 'desc')->with(['voting_category', 'gallery'])->get();
         foreach ($voting as $item) {
             // $item->banner = url('/') . '/storage/' . $item->banner;
 
@@ -183,7 +183,7 @@ class VotingController extends Controller
 
     public function get_details($id, $user_id = null)
     {
-        $voting = Voting::with(['voting_category','gallery'])->find($id);
+        $voting = Voting::with(['voting_category', 'gallery'])->find($id);
 
         if ($voting != "") {
             // $voting->banner = url('/') . '/storage/' . $voting->banner;
@@ -224,9 +224,37 @@ class VotingController extends Controller
         return response()->json(['success' => true, 'message' => 'Vote saved.']);
     }
 
-    public function get_statistics($voteId){
+    public function get_statistics($voteId)
+    {
 
-        $voting_reaction = VotingReaction::with('user')->where('vote_id',$voteId)->get();
+        $voting_reaction = VotingReaction::with('user')->where('vote_id', $voteId)->get();
         return $voting_reaction;
     }
+
+    public function stats($id)
+    {
+        $users = VotingReaction::where('vote_id', $id)
+            ->with('user')
+            ->get();
+
+        $ages = [];
+
+        foreach ($users as $votingReaction) {
+            $user = $votingReaction->user;
+
+            $dob = $user->dob;
+
+            $age = now()->diffInYears($dob);
+
+            $ages[] = $age;
+        }
+
+        return $ages;
+    }
 }
+
+
+// 18 - 24
+// 25 - 32
+// 33 - 39
+// 40+
