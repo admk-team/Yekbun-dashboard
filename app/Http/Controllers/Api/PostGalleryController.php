@@ -21,8 +21,18 @@ class PostGalleryController extends Controller
         if ($parent_table[strlen($parent_table) - 1] != 's')
             $parent_table .= 's';
 
+        if ($parent_table == "historys")
+            $parent_table = "histories";
+
+        $time = Carbon::parse(DB::table($parent_table)->find($request->id)->created_at)->format('M d Y');
+
+        $user = User::find($post_gallery[0]->user_id);
+
+        if ($parent_table == "news" || $parent_table == "histories")
+            $user = User::where('is_superadmin', 1)->first();
+
         if ($post_gallery->isNotEmpty()) {
-            return response()->json(['success' => true, 'data' => $post_gallery, 'user' => User::find($post_gallery[0]->user_id), 'time' => Carbon::parse(DB::table($parent_table)->find($request->id)->created_at)->format('M d Y')]);
+            return response()->json(['success' => true, 'data' => $post_gallery, 'user' => $user, 'time' => $time]);
         }
 
         return response()->json(['success' => false, 'message' => 'No record found.']);
