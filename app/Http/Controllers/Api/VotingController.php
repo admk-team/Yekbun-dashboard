@@ -336,6 +336,7 @@ class VotingController extends Controller
     }
 
     return $typePercentages;
+    //sadsd
     }
     
 }
