@@ -259,8 +259,22 @@ class VotingController extends Controller
         ];
     
         $genderCounts = [
-            'male'   => 0,
-            'female' => 0,
+            '18-24' => [
+                'male'   => 0,
+                'female' => 0,
+            ],
+            '25-32' => [
+                'male'   => 0,
+                'female' => 0,
+            ],
+            '33-39' => [
+                'male'   => 0,
+                'female' => 0,
+            ],
+            '40+'   => [
+                'male'   => 0,
+                'female' => 0,
+            ],
         ];
     
         $ageGroups = [
@@ -278,7 +292,7 @@ class VotingController extends Controller
                     // Check the gender of the user for this age group
                     $gender = $genders[$key];
                     $genderCounts[$group][$gender]++;
-                    
+    
                     break;
                 }
             }
@@ -298,11 +312,6 @@ class VotingController extends Controller
     
         return $result;
     }
-    
-    
-    
-    
-    
     
 }
 
