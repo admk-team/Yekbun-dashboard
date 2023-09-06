@@ -277,8 +277,8 @@ class VotingController extends Controller
     
                     // Check the gender of the user for this age group
                     $gender = $genders[$key];
-                    $genderCounts[$gender]++;
-    
+                    $genderCounts[$group][$gender]++;
+                    
                     break;
                 }
             }
@@ -291,13 +291,14 @@ class VotingController extends Controller
     
             $result['age_group_percentages'][$group] = [
                 'total_percentage' => number_format($ageGroupPercentage, 2) . '%',
-                'male'            => $count > 0 ? number_format(($genderCounts['male'] / $count) * 100, 2) . '%' : '0%',
-                'female'          => $count > 0 ? number_format(($genderCounts['female'] / $count) * 100, 2) . '%' : '0%',
+                'male'            => $count > 0 ? number_format(($genderCounts[$group]['male'] / $count) * 100, 2) . '%' : '0%',
+                'female'          => $count > 0 ? number_format(($genderCounts[$group]['female'] / $count) * 100, 2) . '%' : '0%',
             ];
         }
     
         return $result;
     }
+    
     
     
     
