@@ -284,12 +284,10 @@ class VotingController extends Controller
             }
         }
     
-        $totalUsers = count($ages);
-    
         $result = [];
     
         foreach ($ageGroupCounts as $group => $count) {
-            $ageGroupPercentage = ($count / $totalUsers) * 100;
+            $ageGroupPercentage = ($count / count($ages)) * 100;
     
             $result['age_group_percentages'][$group] = [
                 'total_percentage' => number_format($ageGroupPercentage, 2) . '%',
@@ -300,6 +298,7 @@ class VotingController extends Controller
     
         return $result;
     }
+    
     
     
     
