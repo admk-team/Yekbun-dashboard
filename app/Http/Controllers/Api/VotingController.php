@@ -330,7 +330,7 @@ class VotingController extends Controller
 
         foreach ($typeCounts as $value => $count) {
             $percentage = ($count / $totalVotes) * 100;
-            $typePercentages[$value] = number_format($percentage, 2) . '%';
+            $typePercentages[$value] = number_format($percentage, 2);
         }
 
         $total_reactiions = VotingReaction::where('vote_id', $id)->count();
