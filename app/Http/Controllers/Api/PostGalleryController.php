@@ -22,7 +22,7 @@ class PostGalleryController extends Controller
             $parent_table .= 's';
 
         if ($post_gallery->isNotEmpty()) {
-            return response()->json(['success' => true, 'data' => $post_gallery, 'user' => User::find($post_gallery[0]->user_id), 'time' => Carbon::parse(DB::table()->find($request->id)->created_at)->format('M d Y')]);
+            return response()->json(['success' => true, 'data' => $post_gallery, 'user' => User::find($post_gallery[0]->user_id), 'time' => Carbon::parse(DB::table($parent_table)->find($request->id)->created_at)->format('M d Y')]);
         }
 
         return response()->json(['success' => false, 'message' => 'No record found.']);
