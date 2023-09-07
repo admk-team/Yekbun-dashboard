@@ -45,9 +45,9 @@ class News extends Model
 
     public function getCreatedAtAttribute($value)
     {
-        // Format the created_at attribute as desired
         return $this->attributes['created_at'] = $this->asDateTime($value)->format('Y-m-d H:i:s');
     }
+    
     public function getUpdatedAtAttribute($value)
     {
         // Format the updated_at attribute as desired
