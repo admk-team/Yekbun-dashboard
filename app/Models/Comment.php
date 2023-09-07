@@ -58,4 +58,9 @@ class Comment extends Model
     {
         return $this->belongsTo(PostGallery::class, 'post_gallery_id');
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return $this->attributes['created_at'] = $this->asDateTime($value)->format('Y-m-d H:i:s');
+    }
 }

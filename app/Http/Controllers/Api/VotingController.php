@@ -335,7 +335,21 @@ class VotingController extends Controller
 
         $total_reactiions = VotingReaction::where('vote_id', $id)->count();
 
-        return response()->json(['success' => true, 'data' => ['age_stats' => $result, 'type_stats' => $typePercentages, 'total' => $total_reactiions]]);
+        $negative_reactions = VotingReaction::where('vote_id', $id)->where('type', 0)->count();
+        $normal_reactions = VotingReaction::where('vote_id', $id)->where('type', 1)->count();
+        $positive_reactions = VotingReaction::where('vote_id', $id)->where('type', 2)->count();
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'age_stats' => $result,
+                'type_stats' => $typePercentages,
+                'total' => $total_reactiions,
+                'negative' => $negative_reactions,
+                'normal' => $normal_reactions,
+                'positive' => $positive_reactions
+            ]
+        ]);
     }
 }
 
