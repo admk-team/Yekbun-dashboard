@@ -115,8 +115,13 @@ class HistoryController extends Controller
 
     public function categorgy_history($id)
     {
-        $history = History::select('id','description','title','category_id')->with('gallery')->where('category_id', $id)->inRandomOrder() ->limit(8)->get();
+        $history = History::select('id','description','title','category_id' ,'created_at')->with('gallery')->where('category_id', $id)->inRandomOrder() ->limit(8)->get();
         if($history->isNotEmpty()){
+            $history = $history->map(function($histories){
+                $formatDate = $histories->created_at->format('M d Y');
+                $histories->setAttribute('format_created_at',$formatDate);
+                return $histories;
+            });
             return response()->json(['success' => true, 'data' => $history]);
         }
 
@@ -125,8 +130,13 @@ class HistoryController extends Controller
 
     public function cover_history()
     {
-        $history = History::select('id','title','description','category_id')->with('gallery')->limit(3)->get();
+        $history = History::select('id','title','description','category_id' , 'created_at')->with('gallery')->limit(3)->get();
         if($history->isNotEmpty()){
+            $history = $history->map(function($histories){
+                $formatDate = $histories->created_at->format('M d Y');
+                $histories->setAttribute('format_created_at',$formatDate);
+                return $histories;
+            });
             return response()->json(['success' => true, 'data' => $history]);
         }
 
@@ -144,8 +154,11 @@ class HistoryController extends Controller
 
     public function detail($id)
     {
-        $history = History::select('id','title','description','category_id')->with(['history_category','gallery'])->find($id);
-        if($history != []){
+        $history = History::select('id','title','description','category_id' , 'created_at')->with(['history_category','gallery'])->find($id);
+        if($history != [])
+        {
+            $histories = $history->created_at->format('M d Y');
+            $history = $history->setAttribute('format_created_at',$histories);
             return response()->json(['success' => true, 'data' => $history]);
         }
         return response()->json(['success' => false , 'message' => 'No history found.']);

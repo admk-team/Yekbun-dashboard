@@ -12,6 +12,7 @@ class News extends Model
 {
     use HasFactory, LogsActivity;
     
+ 
     // public $image_urls = [];
     // protected $appends = ['image_urls'];
     protected $fillable=[
@@ -23,8 +24,9 @@ class News extends Model
     ];
 
     protected $casts = [
-        'image' => 'array'
-     ];
+        'created_at' => 'datetime:Y-m-d H:i:s', // Adjust the format to match your database
+        'image' => 'array',
+    ];
      protected $attributes = [
         'image' => '[]'
      ];
@@ -43,16 +45,6 @@ class News extends Model
     //     },$this->image);
     // }
 
-    public function getCreatedAtAttribute($value)
-    {
-        return $this->attributes['created_at'] = $this->asDateTime($value)->format('Y-m-d H:i:s');
-    }
-    
-    public function getUpdatedAtAttribute($value)
-    {
-        // Format the updated_at attribute as desired
-        return $this->attributes['updated_at'] = $this->asDateTime($value)->format('Y-m-d H:i:s');
-    }
     public function gallery(){
         return $this->hasMany(PostGallery::class);
     }

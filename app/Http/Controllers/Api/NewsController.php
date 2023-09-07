@@ -141,8 +141,16 @@ class NewsController extends Controller
 
     public function category_news($id)
     {
-        $news = News::select('id','title','description','category_id')->with('gallery')->where('category_id', $id)->inRandomOrder()->limit(8)->get();
+        $news = News::select('id','title','description','category_id','created_at')->with('gallery')->where('category_id', $id)->inRandomOrder()->limit(8)->get();
+
+   
         if($news->isNotEmpty()){
+            $news = $news->map(function($new){
+               $formatDate = $new->created_at->format('M d Y');
+                $new->setAttribute('format_created_at',$formatDate);
+                return $new;
+            });
+
             return response()->json(['success' => true, 'data' => $news]);
         }
         return response()->json(['success' => false , 'message' => 'No news found.']);
@@ -150,8 +158,13 @@ class NewsController extends Controller
 
     public function cover_news()
     {
-        $news = News::select('id','title','description','category_id')->with('gallery')->limit(3)->get();
+        $news = News::select('id','title','description','category_id','created_at')->with('gallery')->limit(3)->get();
         if($news->isNotEmpty()){
+            $news = $news->map(function($new){
+                $formatDate = $new->created_at->format('M d Y');
+                $new->setAttribute('format_created_at',$formatDate);
+                return $new;
+            });
             return response()->json(['success' => true, 'data' => $news]);
         }
         return response()->json(['success' => false , 'message' => 'No cover news found.']);
@@ -168,8 +181,10 @@ class NewsController extends Controller
 
     public function detail($id)
     {
-        $news = News::select('id','title','description','category_id')->with(['news_category','gallery'])->find($id);
+        $news = News::select('id','title','description','category_id' , 'created_at')->with(['news_category','gallery'])->find($id);
         if($news != []){
+            $new = $news->created_at->format('M d Y');
+            $news = $news->setAttribute('format_created_at',$new);
             return response()->json(['success' => true, 'data' => $news]);
         }
         return response()->json(['success' => false ,'message' => 'No news found.']);
