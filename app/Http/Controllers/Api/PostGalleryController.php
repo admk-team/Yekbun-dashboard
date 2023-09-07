@@ -13,7 +13,6 @@ class PostGalleryController extends Controller
 {
     public function get_gallery(Request $request)
     {
-
         $post_gallery = PostGallery::where($request->type, $request->id)->get();
 
         $parent_table = explode('_', $request->type)[0];
@@ -32,6 +31,11 @@ class PostGalleryController extends Controller
             $user = User::where('is_superadmin', 1)->first();
 
         if ($post_gallery->isNotEmpty()) {
+            $post_gallery = $post_gallery->map(function($gallery) {
+                $formattedDate = $gallery->created_at->format('M d Y');
+                $gallery->setAttribute('formatted_created_at', $formattedDate);
+                return $gallery;
+            });
             return response()->json(['success' => true, 'data' => $post_gallery, 'user' => $user, 'time' => $time]);
         }
 

@@ -31,7 +31,9 @@ class Comment extends Model
         "emoji_id",
         "audio_path",
         "duration",
-        "post_gallery_id"
+        "post_gallery_id",
+        "comment_id",
+        "is_rply"
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -57,5 +59,12 @@ class Comment extends Model
     public function gallery()
     {
         return $this->belongsTo(PostGallery::class, 'post_gallery_id');
+    }
+
+    public function replies(){
+        return $this->hasMany(Comment::class , 'comment_id' , 'id');
+    }
+    public function parent(){
+        return $this->belongsTo(Comment::class , 'comment_id');
     }
 }

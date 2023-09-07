@@ -224,18 +224,9 @@ class VotingController extends Controller
         return response()->json(['success' => true, 'message' => 'Vote saved.']);
     }
 
-    public function get_statistics($voteId)
-    {
-
-        $voting_reaction = VotingReaction::with('user')->where('vote_id', $voteId)->get();
-        return $voting_reaction;
-    }
-
     public function stats($id)
     {
-        $users = VotingReaction::where('vote_id', $id)
-            ->with('user')
-            ->get();
+        $users = VotingReaction::where('vote_id', $id) ->with('user')->get();
 
         $ages = [];
         $genders = [];

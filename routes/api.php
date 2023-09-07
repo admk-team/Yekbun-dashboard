@@ -242,7 +242,7 @@ Route::get('/get-all-emoji/{userId?}/{type?}/{value?}' , [AnimationEmojiControll
 // Reaction 
 Route::post('/store-reaction' , [ReactionController::class, 'store_reaction'])->name('store-reaction');
 // comments 
-Route::get('/get-comment/{type}/{id}' , [CommentController::class, 'get_comment'])->name('get-comment');
+Route::get('/get-comment/{type}/{id}/{parent_id?}' , [CommentController::class, 'get_comment'])->name('get-comment');
 Route::post('/store-comment' , [CommentController::class, 'store_comment'])->name('store-comment');
 
 // Music 

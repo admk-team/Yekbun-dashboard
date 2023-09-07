@@ -49,15 +49,17 @@ class CommentController extends Controller
         return response()->json(['success' => true, 'data' => $comment, 'message' => 'Comment saved.']);
     }
 
-    public function get_comment($type, $id)
+    public function get_comment($type, $id , $parent_id = null)
     {
        
-        $comments = Comment::where($type, $id)
-            ->with(['user' => function ($query) {
-                $query->select('id', 'name', 'image');
-            }])->with('gallery')
-            ->orderBy('id', 'desc')
-            ->get();
+        $query = Comment::where($type, $id);
+        if(is_null($parent_id)){
+            $comments = $query->with(['user:id,name,image' , 'gallery'])->orderBy('id', 'asc')->get();
+    
+        }else{
+            $comments = $query->where('comment_id',$parent_id)->where('is_rply',1)->get();
+
+        }
     
         $formattedComments = $comments->map(function ($comment) {
             $comment->time = $this->formatCreatedAt($comment->created_at);
