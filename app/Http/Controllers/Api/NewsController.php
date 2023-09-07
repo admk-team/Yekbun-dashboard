@@ -147,7 +147,7 @@ class NewsController extends Controller
         if($news->isNotEmpty()){
             $news = $news->map(function($new){
                $formatDate = $new->created_at->format('M d Y');
-                $new->setAttribute('format_created_at',$formatDate);
+                $new->setAttribute('formatted_created_at',$formatDate);
                 return $new;
             });
 
@@ -162,7 +162,7 @@ class NewsController extends Controller
         if($news->isNotEmpty()){
             $news = $news->map(function($new){
                 $formatDate = $new->created_at->format('M d Y');
-                $new->setAttribute('format_created_at',$formatDate);
+                $new->setAttribute('formatted_created_at',$formatDate);
                 return $new;
             });
             return response()->json(['success' => true, 'data' => $news]);
@@ -184,7 +184,7 @@ class NewsController extends Controller
         $news = News::select('id','title','description','category_id' , 'created_at')->with(['news_category','gallery'])->find($id);
         if($news != []){
             $new = $news->created_at->format('M d Y');
-            $news = $news->setAttribute('format_created_at',$new);
+            $news = $news->setAttribute('formatted_created_at',$new);
             return response()->json(['success' => true, 'data' => $news]);
         }
         return response()->json(['success' => false ,'message' => 'No news found.']);
