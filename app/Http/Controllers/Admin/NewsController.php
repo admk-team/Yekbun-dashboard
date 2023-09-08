@@ -43,7 +43,6 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-       return $request->
         $request->validate([
             'title' => 'required',
             'description' => 'required'
