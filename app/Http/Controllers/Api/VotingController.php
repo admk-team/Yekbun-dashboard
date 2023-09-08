@@ -303,26 +303,26 @@ class VotingController extends Controller
         $types = VotingReaction::where('vote_id', $id)
             ->pluck('type');
 
-        $typeCounts = [
-            '0' => 0,
-            '1' => 0,
-            '2' => 0,
-        ];
-
-        foreach ($types as $type) {
-            if (array_key_exists($type, $typeCounts)) {
-                $typeCounts[$type]++;
+            $typeCounts = [
+                '0' => 0,
+                '1' => 0,
+                '2' => 0,
+            ];
+        
+            foreach ($types as $type) {
+                if (array_key_exists($type, $typeCounts)) {
+                    $typeCounts[$type]++;
+                }
             }
-        }
-
-        $totalVotes = count($types);
-
-        $typePercentages = [];
-
-        foreach ($typeCounts as $value => $count) {
-            $percentage = $totalVotes > 1 ? ($count / $totalVotes) * 100 : 0;
-            $typePercentages[$value] = number_format($percentage, 2);
-        }
+        
+            $totalVotes = count($types);
+        
+            $typePercentages = [];
+        
+            foreach ($typeCounts as $value => $count) {
+                $percentage = $totalVotes > 1 ? ($count / $totalVotes) * 100 : 0;
+                $typePercentages[$value] = number_format($percentage, 2);
+            }
 
         $total_reactiions = VotingReaction::where('vote_id', $id)->count();
 
