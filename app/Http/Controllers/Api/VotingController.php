@@ -226,7 +226,7 @@ class VotingController extends Controller
 
     public function stats($id)
     {
-        $users = VotingReaction::where('vote_id', $id) ->with('user')->get();
+        $users = VotingReaction::where('vote_id', $id)->with('user')->get();
 
         $ages = [];
         $genders = [];
@@ -303,28 +303,30 @@ class VotingController extends Controller
         $types = VotingReaction::where('vote_id', $id)
             ->pluck('type');
 
-            $typeCounts = [
-                '0' => 0,
-                '1' => 0,
-                '2' => 0,
-            ];
-        
-            foreach ($types as $type) {
-                if (array_key_exists($type, $typeCounts)) {
-                    $typeCounts[$type]++;
-                }
+        $typeCounts = [
+            '0' => 0,
+            '1' => 0,
+            '2' => 0,
+        ];
+
+        foreach ($types as $type) {
+            if (array_key_exists($type, $typeCounts)) {
+                $typeCounts[$type]++;
             }
-        
-            $totalVotes = count($types);
-        
-            $typePercentages = [];
-        
-            if ($totalVotes > 0) {
-                foreach ($typeCounts as $value => $count) {
-                    $percentage = ($count / $totalVotes) * 100;
-                    $typePercentages[$value] = number_format($percentage, 2);
-                }
+        }
+
+        $totalVotes = count($types);
+
+        $typePercentages = [];
+
+        if ($totalVotes > 0) {
+            foreach ($typeCounts as $value => $count) {
+                $percentage = ($count / $totalVotes) * 100;
+                $typePercentages[$value] = number_format($percentage, 2);
             }
+        } else {
+            $typePercentages = [0, 0, 0];
+        }
 
         $total_reactiions = VotingReaction::where('vote_id', $id)->count();
 
