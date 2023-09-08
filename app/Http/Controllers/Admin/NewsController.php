@@ -43,7 +43,7 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-       
+       return $request->
         $request->validate([
             'title' => 'required',
             'description' => 'required'
@@ -59,7 +59,7 @@ class NewsController extends Controller
 
     if($news->save()){
         $id = $news->id;
-        if($request->iamge != null){
+        if($request->image != null){
             foreach($request->image  as $image){
                 $post_gallery = new PostGallery();
                 $post_gallery->news_id = $id;
