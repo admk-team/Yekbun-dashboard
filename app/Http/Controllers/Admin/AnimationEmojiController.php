@@ -39,7 +39,9 @@ class AnimationEmojiController extends Controller
     {
  
         $request->validate([
-            'emoji' => 'required|max_emoji_dimensions:60,60',
+            // 'emoji' => 'required|max_emoji_dimensions:60,60',
+            'emoji' => 'required',
+            
         ]);
 
         $animated = new AnimationEmoji();
@@ -86,7 +88,7 @@ class AnimationEmojiController extends Controller
    
         $inputfiled = "emoji_$id";
         $request->validate([
-            'emoji_'.$id => 'nullable|max_emoji_dimensions:60,60',
+            'emoji_'.$id => 'nullable',
         ]);
         $animated = AnimationEmoji::find($id);
         $animated->emoji = $request->input($inputfiled)??null;
