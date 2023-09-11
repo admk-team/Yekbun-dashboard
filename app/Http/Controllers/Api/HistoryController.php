@@ -119,7 +119,7 @@ class HistoryController extends Controller
         if($history->isNotEmpty()){
             $history = $history->map(function($histories){
                 $formatDate = $histories->created_at->format('M d Y');
-                $histories->setAttribute('format_created_at',$formatDate);
+                $histories->setAttribute('formatted_created_at',$formatDate);
                 return $histories;
             });
             return response()->json(['success' => true, 'data' => $history]);
@@ -134,7 +134,7 @@ class HistoryController extends Controller
         if($history->isNotEmpty()){
             $history = $history->map(function($histories){
                 $formatDate = $histories->created_at->format('M d Y');
-                $histories->setAttribute('format_created_at',$formatDate);
+                $histories->setAttribute('formatted_created_at',$formatDate);
                 return $histories;
             });
             return response()->json(['success' => true, 'data' => $history]);
@@ -158,7 +158,7 @@ class HistoryController extends Controller
         if($history != [])
         {
             $histories = $history->created_at->format('M d Y');
-            $history = $history->setAttribute('format_created_at',$histories);
+            $history = $history->setAttribute('formatted_created_at',$histories);
             return response()->json(['success' => true, 'data' => $history]);
         }
         return response()->json(['success' => false , 'message' => 'No history found.']);
