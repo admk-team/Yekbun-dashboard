@@ -6,7 +6,7 @@
             <div class="row g-3">
                 <div class="col-md-12">
                     <div>
-                        <span>***  Only upload 60 * 60  pixels ***</span>
+                        {{-- <span>***  Only upload 60 * 60  pixels ***</span> --}}
                     </div>
                     <div class="col-12">
                         <div class="card">
@@ -22,7 +22,7 @@
                                 </div>
                             </div>
                             @error('emoji')
-                            <span class="text-danger ">Emoji must be in 60 * 60 dimensions</span>
+                            {{-- <span class="text-danger ">Emoji must be in 60 * 60 dimensions</span> --}}
                             @enderror
                         </div>
                     </div> 

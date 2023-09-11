@@ -102,7 +102,7 @@
           </div>
           <span class="badge bg-label-warning rounded p-2">
             <i class="bx bx-user-voice bx-sm"></i>
-          </span>
+          </span> 
         </div>
       </div>
     </div>
