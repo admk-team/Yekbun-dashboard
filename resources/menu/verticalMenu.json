@@ -506,6 +506,7 @@
         }
       ]
     },
+    
     {
       "name": "Bazar",
       "icon": "menu-icon tf-icons fa fa-cart-plus",
@@ -800,6 +801,18 @@
               "url": "/settings/cities",
               "name": "Add / Manage City - Zipcode",
               "slug": "settings.cities.index",
+              "hasNoPermissions": true
+            }
+          ]
+        } ,
+         {
+          "name": "Language",
+          "permissions": "language.read,language.create,language.write,language.delete",
+          "submenu": [
+            {
+              "url": "/language",
+              "name": "Language",
+              "slug": "language",
               "hasNoPermissions": true
             }
           ]
