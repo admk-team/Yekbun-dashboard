@@ -31,7 +31,7 @@
                     <select class="form-select" aria-label="Default select example" id="inputCategory{{ $historys->id }}" name="category_id">
                         <option selected>Choose Category</option>
                         @foreach($history_category as $history)
-                        <option value="{{ $history->id }}" {{ (int)$history->id === (int)$historys->history_category->id? 'selected': '' }}>{{ $history->name ?? '' }}</option>
+                        <option value="{{ $history->id ?? '' }}" {{ (int)$history->id === (int)$historys->history_category->id? 'selected': '' }}>{{ $history->name ?? '' }}</option>
                         @endforeach
                     </select>
                     @error('category_id')

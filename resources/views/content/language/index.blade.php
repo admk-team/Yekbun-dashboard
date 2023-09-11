@@ -48,7 +48,7 @@
                     <th>#</th>
                     <th>Language</th>
                     <th>Icon</th>
-                    <th>Progress</th>
+                    {{-- <th>Progress</th> --}}
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -61,11 +61,11 @@
                     <td>
                         <img src="{{ asset('storage/'.$language->icon) }}" width="50" height="50">
                     </td>
-                    <td>
+                    {{-- <td>
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" style="width: {{ ( $language->translations_count *100)/$language->texts_count}}%" aria-valuenow="{{ $language->translations_count }}" aria-valuemin="0" aria-valuemax="{{ $language->texts_count }}">{{  floor(($language->translations_count *100)/$language->texts_count)}}%</div>
                         </div>
-                    </td>
+                    </td> --}}
                     <td>
                         <div class="">
                             <span data-bs-toggle="modal" data-bs-target="#languageModal{{ $language->id }}">
