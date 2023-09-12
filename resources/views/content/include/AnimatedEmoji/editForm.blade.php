@@ -21,9 +21,9 @@
                                     <div class="fallback">
                                         <input type="file" name="emoji_{{ $animated->id }}" />
                                     </div>
-                                    @error('emoji_'.$animated->id)
+                                    {{-- @error('emoji_'.$animated->id)
                                     <span class="text-danger">Emoji must be in 60 * 60 dimensions.</span>
-                                    @enderror
+                                    @enderror --}}
                                 </div>
                             </div>
                           

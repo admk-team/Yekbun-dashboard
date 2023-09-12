@@ -157,7 +157,8 @@ class StandardUserController extends Controller
 
     public function upgrade(Request $request, $id)
     {
-        if ($request->password !== '1234') {
+
+        if ($request->password !== '123456') {
             return back()->with("error", "Wrong password!");
         }
         $user = User::find($id);
