@@ -185,7 +185,7 @@ class FeedController extends Controller
         $data->map(function ($item){
             $item->like_count = Reaction::where('feed_id', $item->id)->count();
 
-            $item->comments_count = Comment::where('feed_id', $item->id)->count();
+            $item->comments_count = Comment::where('post_id', $item->id)->count();
         });
 
         $response = ['success' => true, 'data' => $data];
