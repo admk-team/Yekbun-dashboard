@@ -151,7 +151,7 @@ class FeedController extends Controller
 
         $posts = Post::with([
             'background:id,title,image,created_at',
-            'user:id,name,image,type',
+            'user:id,name,image,level',
             'gallery' => function ($query) {
                 $query->where('media_type', '!=', 1);
             }
