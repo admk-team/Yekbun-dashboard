@@ -181,15 +181,18 @@ class FeedController extends Controller
             return $item->user !== null;
         });
 
+        $data->map(function ($item){
+            $item->like_count = Reaction::where('feed_id', $item->id)->count();
+        });
+
         $response = ['success' => true, 'data' => $data];
 
-        // if (!$data->isEmpty()) {
+        // if (!$datai->sEmpty()) {
         //     $existPost = Post::find(++$data[sizeof($data) - 1]->id);
         //     if ($existPost == "") {
         //         $response['completed'] = true;
         //     }
         // }
-
 
         return response()->json($response);
     }
