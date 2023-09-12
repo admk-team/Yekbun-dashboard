@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use FFMpeg\Coordinate\TimeCode;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 
 class FeedController extends Controller
 {
@@ -183,6 +184,8 @@ class FeedController extends Controller
 
         $data->map(function ($item){
             $item->like_count = Reaction::where('feed_id', $item->id)->count();
+
+            $item->comments_count = Comment::where('feed_id', $item->id)->count();
         });
 
         $response = ['success' => true, 'data' => $data];
