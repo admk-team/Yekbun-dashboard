@@ -11,13 +11,13 @@ use Illuminate\Support\Facades\Lang;
 
 class TranslationController extends Controller
 {
-    public function fetch_languages ()
+    public function fetch_languages()
     {
         $languages = Language::all()->map(function ($item) {
             $data = [];
             $data['id'] = $item->id;
             $data['title'] = $item->title;
-            $data['icon'] = url('/assets/img/' . $item->icon . '.png');
+            $data['icon'] = url('/storage/' . $item->icon);
 
             return $data;
         });
@@ -33,13 +33,13 @@ class TranslationController extends Controller
             $query->where(function ($subQuery) use ($id, $default_id) {
                 $subQuery->where('language_id', $id)
                     ->orWhere('language_id', $default_id);
-            });   
+            });
         }])->whereHas('translations', function ($query) use ($id, $default_id) {
-                $query->where(function ($subQuery) use ($id, $default_id) {
-                    $subQuery->where('language_id', $id)
-                        ->orWhere('language_id', $default_id);
-                });
-            }) ->get();
+            $query->where(function ($subQuery) use ($id, $default_id) {
+                $subQuery->where('language_id', $id)
+                    ->orWhere('language_id', $default_id);
+            });
+        })->get();
         $data = [];
         foreach ($translations as $translation) {
             foreach ($translation->translations as $lang_translation) {
